@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "serve out -s -l tcp://0.0.0.0:${PORT:-3000}",
     "lint": "eslint . --max-warnings=0",
     "audit:prod": "npm audit --omit=dev",
     "audit:all": "npm audit",
@@ -21,6 +21,7 @@
     "react": "19.2.6",
     "react-dom": "19.2.6",
     "react-hook-form": "^7.77.0",
+    "serve": "^14.2.5",
     "tailwind-merge": "^3.6.0",
     "zod": "^4.4.3"
   },
