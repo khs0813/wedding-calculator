@@ -1,4 +1,4 @@
-import type { AuthorProfile, Guide } from "@/types/calculator";
+import type { AuthorProfile, Guide, GuideSource } from "@/types/calculator";
 
 const author: AuthorProfile = {
   name: "웨딩 예산 계산기 편집팀",
@@ -12,7 +12,7 @@ const reviewer: AuthorProfile = {
   bio: "계산기 입력 구조와 실제 준비 과정이 어긋나지 않도록 계약 항목, 월 고정비, 추가 비용 포인트를 검토합니다.",
 };
 
-const commonSources = [];
+const commonSources: GuideSource[] = [];
 
 const baseGuides: Guide[] = [
   {
