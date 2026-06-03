@@ -112,7 +112,7 @@ export function ExcelActions({
 
       <p className="text-xs leading-5 text-slate-500">
         {getExcelPastePolicyText()} 다운로드한 엑셀의 입력값 시트 E열을 수정한
-        뒤, 붙여넣기용 시트 또는 입력값 표를 복사해 붙여넣으세요.
+        뒤, 입력값 표를 복사해 붙여넣으세요.
       </p>
 
       {open ? (
@@ -127,7 +127,7 @@ export function ExcelActions({
             id={`${config.slug}-excel-paste`}
             value={pasteText}
             onChange={(event) => setPasteText(event.target.value)}
-            placeholder="예: 붙여넣기용 시트의 A:B 범위 또는 입력값 시트의 A:D 범위를 복사해서 붙여넣으세요."
+            placeholder="예: 입력값 시트의 A:D 범위를 복사해서 붙여넣으세요."
             className="min-h-40 w-full rounded-2xl border border-blush-100 bg-white p-4 text-sm leading-6 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blush-500 focus:ring-4 focus:ring-blush-100"
           />
           <div className="flex flex-wrap gap-2">

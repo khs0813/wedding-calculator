@@ -7,7 +7,6 @@ import type {
 import { formatCurrency, safeNumber } from "@/lib/calculator-utils";
 
 const inputSheetName = "입력값";
-const pasteSheetName = "붙여넣기용";
 const resultSheetName = "계산결과";
 const maxPasteCharacters = 80_000;
 const maxPasteRows = 500;
@@ -379,7 +378,7 @@ function createInputSheet(
       ["생성일", getNowText()],
       [
         "안내",
-        "D열 입력값만 수정한 뒤 붙여넣기용 시트 또는 이 표의 A:D 범위를 복사해 계산기 페이지의 엑셀 붙여넣기 상자에 붙여넣으세요.",
+        "D열 입력값만 수정한 뒤 이 표의 A:D 범위를 복사해 계산기 페이지의 엑셀 붙여넣기 상자에 붙여넣으세요.",
       ],
       [
         "항목명",
@@ -398,40 +397,6 @@ function createInputSheet(
         getOptionGuide(field),
         field.helpText || "",
         getInternalValue(field, values),
-      ]),
-    ],
-  };
-}
-
-function createPasteSheet(
-  config: CalculatorConfig,
-  values: Record<string, FieldValue>,
-): SheetDefinition {
-  return {
-    name: pasteSheetName,
-    columnWidths: [30, 18, 54],
-    titleRow: 1,
-    headerRows: [4],
-    frozenRows: 4,
-    rows: [
-      [`${config.shortTitle} 붙여넣기용`, "", ""],
-      [
-        "계산기 ID",
-        config.slug,
-        "",
-        "다른 계산기 페이지에서는 이 데이터가 차단될 수 있습니다.",
-      ],
-      [
-        "안내",
-        "아래 입력값을 수정한 뒤 A:B 범위를 복사하세요.",
-        "",
-        "사이트의 ‘엑셀 붙여넣기’ 상자에 붙여넣으면 현재 브라우저에서만 반영됩니다.",
-      ],
-      ["항목명", "입력값", "입력 안내"],
-      ...config.fields.map((field) => [
-        field.label,
-        getDisplayValue(field, values),
-        [getOptionGuide(field), field.helpText].filter(Boolean).join(" · "),
       ]),
     ],
   };
@@ -617,7 +582,6 @@ function createWorkbookFiles(
 ): ZipFile[] {
   const sheets = [
     createInputSheet(config, values),
-    createPasteSheet(config, values),
     createResultSheet(result),
   ];
 

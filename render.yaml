@@ -1,17 +1,55 @@
 services:
   - type: web
-    name: wedding-budget-calculator
-    env: node
-    plan: free
+    runtime: static
+    name: wedding-calculator
     buildCommand: npm ci && npm run build
-    startCommand: npm run start
+    staticPublishPath: out
+    headers:
+      - path: /*
+        name: Content-Security-Policy
+        value: "default-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'; script-src-attr 'none'; script-src 'self' 'unsafe-inline' https://pagead2.googlesyndication.com https://*.googlesyndication.com https://*.googleadservices.com https://www.googletagmanager.com https://www.google-analytics.com https://*.doubleclick.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data:; media-src 'self'; connect-src 'self' https://*.googlesyndication.com https://*.googleadservices.com https://*.google-analytics.com https://*.doubleclick.net https://www.google.com https://google.com; frame-src https://*.googlesyndication.com https://*.doubleclick.net https://www.google.com; worker-src 'self' blob:; manifest-src 'self'; upgrade-insecure-requests"
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: X-Frame-Options
+        value: DENY
+      - path: /*
+        name: X-DNS-Prefetch-Control
+        value: "on"
+      - path: /*
+        name: Strict-Transport-Security
+        value: max-age=63072000; includeSubDomains; preload
+      - path: /*
+        name: Permissions-Policy
+        value: camera=(), microphone=(), geolocation=(), payment=(), usb=(), bluetooth=(), clipboard-write=(self)
+      - path: /*
+        name: Cross-Origin-Opener-Policy
+        value: same-origin
+      - path: /*
+        name: Cross-Origin-Resource-Policy
+        value: same-origin
+      - path: /*
+        name: Origin-Agent-Cluster
+        value: "?1"
+      - path: /*
+        name: X-Permitted-Cross-Domain-Policies
+        value: none
+      - path: /*
+        name: X-XSS-Protection
+        value: "0"
     envVars:
       - key: NODE_VERSION
         value: 22
       - key: NEXT_PUBLIC_SITE_URL
-        value: https://your-domain.com
+        value: https://wedding-calculator.onrender.com
       - key: NEXT_PUBLIC_ADSENSE_CLIENT_ID
         value: ""
+      - key: NEXT_PUBLIC_ADSENSE_APPROVED
+        value: "false"
       - key: NEXT_PUBLIC_AD_SLOT_TOP
         value: ""
       - key: NEXT_PUBLIC_AD_SLOT_CONTENT

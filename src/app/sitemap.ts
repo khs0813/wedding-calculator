@@ -5,8 +5,12 @@ import { legalPages } from "@/data/legalPages";
 import { sitePages } from "@/data/sitePages";
 import { absoluteUrl } from "@/lib/seo";
 
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
+  const policyPages = legalPages.filter((page) => page.slug !== "contact");
+
   return [
     {
       url: absoluteUrl("/"),
@@ -38,7 +42,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "yearly" as const,
       priority: 0.6,
     })),
-    ...legalPages.map((page) => ({
+    ...policyPages.map((page) => ({
       url: absoluteUrl(page.path),
       lastModified: now,
       changeFrequency: "yearly" as const,

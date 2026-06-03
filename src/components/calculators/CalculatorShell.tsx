@@ -25,6 +25,7 @@ export function CalculatorShell({ config }: { config: CalculatorConfig }) {
             "@type": "WebApplication",
             name: config.title,
             applicationCategory: "FinanceApplication",
+            browserRequirements: "Requires JavaScript",
             operatingSystem: "Web",
             url: absoluteUrl(config.path),
             description: config.description,
@@ -32,6 +33,8 @@ export function CalculatorShell({ config }: { config: CalculatorConfig }) {
             offers: { "@type": "Offer", price: "0", priceCurrency: "KRW" },
             author: { "@type": "Organization", name: content.author.name },
             dateModified: content.updatedAt,
+            isAccessibleForFree: true,
+            featureList: config.fields.map((field) => field.label),
           },
           {
             "@context": "https://schema.org",
@@ -60,11 +63,9 @@ export function CalculatorShell({ config }: { config: CalculatorConfig }) {
           <h1 className="mt-2.5 text-[clamp(1.5rem,3.8vw,2.8rem)] font-black tracking-tight text-slate-950">{config.title}</h1>
           <p className="mt-4 text-lg leading-8 text-slate-600">{config.hero}</p>
           <p className="mt-4 text-base leading-8 text-slate-600">{content.intro}</p>
-          <div className="mt-4 flex flex-wrap gap-2">
-            {config.keywords.map((keyword) => (
-              <span key={keyword} className="rounded-full bg-blush-50 px-3 py-1 text-xs font-bold text-blush-800">#{keyword}</span>
-            ))}
-          </div>
+          <p className="mt-4 text-sm leading-7 text-slate-600">
+            관련 주제: {config.keywords.join(", ")}
+          </p>
           <div className="mt-5 flex flex-wrap items-center gap-3 text-xs font-bold text-slate-500">
             <span>작성: {content.author.name}</span>
             <span>최종 업데이트: {content.updatedAt}</span>

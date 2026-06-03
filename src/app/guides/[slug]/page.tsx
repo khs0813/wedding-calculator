@@ -48,12 +48,20 @@ export default async function GuidePage({ params }: PageProps) {
             headline: guide.title,
             description: guide.description,
             url: absoluteUrl(guide.path),
+            mainEntityOfPage: absoluteUrl(guide.path),
             inLanguage: "ko-KR",
             image: absoluteUrl("/og-default.png"),
             datePublished: guide.publishedAt,
             dateModified: guide.updatedAt,
             author: { "@type": "Person", name: guide.author.name },
-            publisher: { "@type": "Organization", name: "웨딩 예산 계산기" },
+            publisher: {
+              "@type": "Organization",
+              name: "웨딩 예산 계산기",
+              logo: {
+                "@type": "ImageObject",
+                url: absoluteUrl("/apple-touch-icon.png"),
+              },
+            },
           },
           {
             "@context": "https://schema.org",
@@ -70,11 +78,9 @@ export default async function GuidePage({ params }: PageProps) {
         <p className="text-sm font-black uppercase tracking-[0.25em] text-blush-700">Guide</p>
         <h1 className="mt-3 text-3xl font-black tracking-tight text-slate-950 md:text-5xl">{guide.title}</h1>
         <p className="mt-5 text-lg leading-8 text-slate-600">{guide.description}</p>
-        <div className="mt-5 flex flex-wrap gap-2">
-          {guide.keywords.map((keyword) => (
-            <span key={keyword} className="rounded-full bg-blush-50 px-3 py-1 text-xs font-bold text-blush-800">#{keyword}</span>
-          ))}
-        </div>
+        <p className="mt-5 text-sm leading-7 text-slate-600">
+          관련 주제: {guide.keywords.join(", ")}
+        </p>
         <div className="mt-6 grid gap-3 rounded-3xl border border-blush-100 bg-blush-50/60 p-4 text-sm text-slate-600 md:grid-cols-2">
           <p><span className="font-black text-slate-900">작성</span> {guide.author.name} · {guide.author.role}</p>
           <p><span className="font-black text-slate-900">발행</span> {guide.publishedAt}</p>

@@ -41,7 +41,7 @@ export function sanitizeHttpUrl(value: string | undefined): string {
   return "#";
 }
 
-export function getSafeSiteUrl(value: string | undefined, fallback = "https://wedding-budget-calculator.onrender.com"): string {
+export function getSafeSiteUrl(value: string | undefined, fallback = "https://wedding-calculator.onrender.com"): string {
   try {
     const parsed = new URL(value || fallback);
     if (parsed.protocol === "https:" || isLocalHttpUrl(parsed)) {

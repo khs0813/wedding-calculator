@@ -52,3 +52,21 @@ export async function copyText(text: string): Promise<boolean> {
     return false;
   }
 }
+
+export function createShareHash(values: Record<string, FieldValue>): string {
+  return `#data=${encodeShareData(values)}`;
+}
+
+export function getSharedDataFromLocation(location: Location): string | null {
+  const searchParams = new URLSearchParams(location.search);
+  const queryData = searchParams.get("data");
+  if (queryData) {
+    return queryData;
+  }
+
+  const hash = location.hash.startsWith("#")
+    ? location.hash.slice(1)
+    : location.hash;
+  const hashParams = new URLSearchParams(hash);
+  return hashParams.get("data");
+}

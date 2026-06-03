@@ -21,7 +21,14 @@ export type GuideSlug =
   | "wedding-budget-timeline-guide"
   | "small-wedding-budget-guide"
   | "newlywed-loan-planning-guide"
-  | "wedding-contract-check-guide";
+  | "wedding-contract-check-guide"
+  | "wedding-guest-budget-table-guide"
+  | "wedding-hall-meal-cost-table-guide"
+  | "sdme-extra-cost-table-guide"
+  | "newlywed-home-initial-cost-guide"
+  | "appliance-budget-table-guide"
+  | "honeymoon-budget-ratio-guide"
+  | "congratulatory-money-table-guide";
 
 export type FieldType = "money" | "number" | "percent" | "select" | "checkbox";
 

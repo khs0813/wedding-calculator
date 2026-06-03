@@ -3,15 +3,14 @@
 import { useState } from "react";
 import { Link2 } from "lucide-react";
 import type { FieldValue } from "@/types/calculator";
-import { encodeShareData, copyText } from "@/lib/share-url";
+import { copyText, createShareHash } from "@/lib/share-url";
 import { Button } from "@/components/ui/button";
 
 export function ShareButton({ values }: { values: Record<string, FieldValue> }) {
   const [message, setMessage] = useState("");
 
   async function handleShare() {
-    const encoded = encodeShareData(values);
-    const url = `${window.location.origin}${window.location.pathname}?data=${encoded}`;
+    const url = `${window.location.origin}${window.location.pathname}${createShareHash(values)}`;
     const copied = await copyText(url);
     setMessage(copied ? "공유 URL이 복사되었습니다." : url);
   }

@@ -16,7 +16,7 @@ import {
   removeCalculatorState,
   saveCalculatorState,
 } from "@/lib/storage";
-import { decodeShareData } from "@/lib/share-url";
+import { decodeShareData, getSharedDataFromLocation } from "@/lib/share-url";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { MoneyInput } from "@/components/calculators/MoneyInput";
 import { NumberInput } from "@/components/calculators/NumberInput";
@@ -57,8 +57,7 @@ export function CalculatorClient({ config }: { config: CalculatorConfig }) {
   );
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const dataParam = params.get("data");
+    const dataParam = getSharedDataFromLocation(window.location);
     const sharedValues = dataParam ? decodeShareData(dataParam) : null;
     const storedValues = sharedValues
       ? null
@@ -68,6 +67,9 @@ export function CalculatorClient({ config }: { config: CalculatorConfig }) {
       sharedValues || storedValues || defaultValues,
     );
     reset(nextValues);
+    if (sharedValues || window.location.search || window.location.hash) {
+      replaceCleanUrl();
+    }
     setHydrated(true);
   }, [config, defaultValues, reset]);
 
