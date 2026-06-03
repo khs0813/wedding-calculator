@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: wedding-budget-calculator
+    env: node
+    plan: free
+    buildCommand: npm ci && npm run build
+    startCommand: npm run start
+    envVars:
+      - key: NODE_VERSION
+        value: 22
+      - key: NEXT_PUBLIC_SITE_URL
+        value: https://your-domain.com
+      - key: NEXT_PUBLIC_ADSENSE_CLIENT_ID
+        value: ""
+      - key: NEXT_PUBLIC_AD_SLOT_TOP
+        value: ""
+      - key: NEXT_PUBLIC_AD_SLOT_CONTENT
+        value: ""
+      - key: NEXT_PUBLIC_AD_SLOT_RESULT
+        value: ""
+      - key: AFFILIATE_WEDDING_HALL_URL
+        value: "#"
+      - key: AFFILIATE_STUDIO_DRESS_MAKEUP_URL
+        value: "#"
+      - key: AFFILIATE_HOME_APPLIANCE_URL
+        value: "#"
+      - key: AFFILIATE_HONEYMOON_URL
+        value: "#"
+      - key: AFFILIATE_CLEANING_URL
+        value: "#"
+      - key: AFFILIATE_INTERNET_URL
+        value: "#"

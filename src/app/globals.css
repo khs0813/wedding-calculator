@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(205, 223, 244, 0.72), transparent 30rem),
+    radial-gradient(circle at 88% 8%, rgba(220, 239, 238, 0.70), transparent 28rem),
+    linear-gradient(180deg, #fbfcff 0%, #f7f9fc 36rem, #ffffff 100%);
+  color: #202936;
+  font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Noto Sans KR", "Segoe UI", sans-serif;
+}
+
+input,
+select,
+button,
+textarea {
+  font: inherit;
+}
+
+input[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  margin: 0;
+  -webkit-appearance: none;
+}
+
+::selection {
+  background: #cddff4;
+  color: #163e69;
+}
+
+.prose-wedding h2 {
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: #163e69;
+}
+
+.prose-wedding h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #245a94;
+}
+
+.prose-wedding p {
+  margin: 0.85rem 0;
+  line-height: 1.9;
+  color: #475569;
+}
+
+.prose-wedding ul,
+.prose-wedding ol {
+  margin: 0.85rem 0 0.85rem 1.2rem;
+  color: #475569;
+  line-height: 1.9;
+}
+
+.prose-wedding li {
+  margin: 0.35rem 0;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: white !important;
+    color: black;
+  }
+
+  .print-area {
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  a[href]::after {
+    content: "";
+  }
+
+  @page {
+    margin: 14mm;
+  }
+}
