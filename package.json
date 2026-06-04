@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "serve out -s -l tcp://0.0.0.0:${PORT:-3000}",
+    "start": "node server.mjs",
     "lint": "eslint . --max-warnings=0",
     "audit:prod": "npm audit --omit=dev",
     "audit:all": "npm audit",
