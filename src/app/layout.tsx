@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { absoluteUrl, getSiteUrl } from "@/lib/seo";
+import { absolutePageUrl, absoluteUrl, getSiteUrl } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
 
 export const metadata: Metadata = {
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "웨딩 예산 계산기",
     description: "결혼 준비와 신혼집 예산을 계산하고 판단 기준까지 함께 읽으세요.",
-    url: getSiteUrl(),
+    url: absolutePageUrl("/"),
     siteName: "웨딩 예산 계산기",
     locale: "ko_KR",
     type: "website",
@@ -68,22 +68,32 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="ko">
       <body>
         <JsonLd
-          data={{
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            name: "웨딩 예산 계산기",
-            url: getSiteUrl(),
-            logo: absoluteUrl("/apple-touch-icon.png"),
-            contactPoint: [
-              {
-                "@type": "ContactPoint",
-                contactType: "customer support",
-                email: "moneyfinancecalculator@gmail.com",
-                availableLanguage: ["ko-KR"],
-              },
-            ],
-            sameAs: [],
-          }}
+          data={[
+            {
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "웨딩 예산 계산기",
+              url: absolutePageUrl("/"),
+              inLanguage: "ko-KR",
+              description: "결혼 준비와 신혼집 준비 비용을 계산하고 예산 판단 기준을 읽을 수 있는 무료 도구",
+            },
+            {
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "웨딩 예산 계산기",
+              url: getSiteUrl(),
+              logo: absoluteUrl("/apple-touch-icon.png"),
+              contactPoint: [
+                {
+                  "@type": "ContactPoint",
+                  contactType: "customer support",
+                  email: "moneyfinancecalculator@gmail.com",
+                  availableLanguage: ["ko-KR"],
+                },
+              ],
+              sameAs: [],
+            },
+          ]}
         />
         <Header />
         <main>{children}</main>

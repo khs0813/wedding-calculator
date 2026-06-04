@@ -5,7 +5,7 @@ import { CalculatorClient } from "@/components/calculators/CalculatorClient";
 import { FAQSection } from "@/components/seo/FAQSection";
 import { RelatedCalculators } from "@/components/seo/RelatedCalculators";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { absoluteUrl } from "@/lib/seo";
+import { absolutePageUrl, absoluteUrl, buildBreadcrumbSchema } from "@/lib/seo";
 import { calculatorContent } from "@/data/calculatorContent";
 import { guides } from "@/data/guides";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -27,7 +27,7 @@ export function CalculatorShell({ config }: { config: CalculatorConfig }) {
             applicationCategory: "FinanceApplication",
             browserRequirements: "Requires JavaScript",
             operatingSystem: "Web",
-            url: absoluteUrl(config.path),
+            url: absolutePageUrl(config.path),
             description: config.description,
             inLanguage: "ko-KR",
             offers: { "@type": "Offer", price: "0", priceCurrency: "KRW" },
@@ -38,22 +38,23 @@ export function CalculatorShell({ config }: { config: CalculatorConfig }) {
           },
           {
             "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            itemListElement: [
-              {
-                "@type": "ListItem",
-                position: 1,
-                name: "홈",
-                item: absoluteUrl("/"),
-              },
-              {
-                "@type": "ListItem",
-                position: 2,
-                name: config.shortTitle,
-                item: absoluteUrl(config.path),
-              },
-            ],
+            "@type": "WebPage",
+            name: config.title,
+            description: config.description,
+            url: absolutePageUrl(config.path),
+            inLanguage: "ko-KR",
+            dateModified: content.updatedAt,
+            about: config.keywords,
+            mainEntity: {
+              "@type": "WebApplication",
+              name: config.title,
+              url: absolutePageUrl(config.path),
+            },
           },
+          buildBreadcrumbSchema([
+            { name: "홈", path: "/" },
+            { name: config.shortTitle, path: config.path },
+          ]),
         ]}
       />
 
@@ -80,9 +81,19 @@ export function CalculatorShell({ config }: { config: CalculatorConfig }) {
         </div>
       </section>
 
-      <section className="mb-10 grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+      <section className="mb-10 grid gap-6 xl:grid-cols-[1.15fr_0.9fr_0.95fr]">
         <Card className="p-6">
           <SectionBlocks sections={content.sections.slice(0, 1)} />
+        </Card>
+        <Card className="p-6">
+          <p className="text-sm font-black uppercase tracking-[0.2em] text-blush-700">Summary</p>
+          <h2 className="mt-2 text-2xl font-black text-slate-950">이 페이지 요약</h2>
+          <p className="mt-4 text-sm leading-7 text-slate-600">{content.intro}</p>
+          <ul className="mt-5 space-y-3 text-sm leading-7 text-slate-700">
+            {content.sections.slice(0, 3).map((section) => (
+              <li key={section.heading}>{section.heading}</li>
+            ))}
+          </ul>
         </Card>
         <Card className="bg-gradient-to-br from-blush-50 via-cream-50 to-sage-50 p-6">
           <p className="text-sm font-black uppercase tracking-[0.2em] text-blush-700">Checklist</p>

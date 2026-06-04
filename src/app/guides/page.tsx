@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { guides } from "@/data/guides";
-import { absoluteUrl } from "@/lib/seo";
+import { absolutePageUrl, absoluteUrl, buildBreadcrumbSchema } from "@/lib/seo";
 import { Card } from "@/components/ui/card";
 import { JsonLd } from "@/components/seo/JsonLd";
 
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "웨딩 예산 가이드 모음",
     description: "결혼·신혼 준비 예산을 실제 의사결정으로 연결하는 가이드 허브입니다.",
-    url: absoluteUrl("/guides"),
+    url: absolutePageUrl("/guides"),
     siteName: "웨딩 예산 계산기",
     locale: "ko_KR",
     type: "website",
@@ -41,7 +41,7 @@ export default function GuidesIndexPage() {
             "@type": "CollectionPage",
             name: "웨딩 예산 가이드 모음",
             description: "결혼·신혼 준비 예산 판단 기준을 모은 가이드 허브",
-            url: absoluteUrl("/guides"),
+            url: absolutePageUrl("/guides"),
             inLanguage: "ko-KR",
           },
           {
@@ -52,9 +52,13 @@ export default function GuidesIndexPage() {
               "@type": "ListItem",
               position: index + 1,
               name: guide.title,
-              url: absoluteUrl(guide.path),
+              url: absolutePageUrl(guide.path),
             })),
           },
+          buildBreadcrumbSchema([
+            { name: "홈", path: "/" },
+            { name: "가이드", path: "/guides" },
+          ]),
         ]}
       />
 

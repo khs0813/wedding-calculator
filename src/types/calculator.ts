@@ -132,12 +132,14 @@ export type Guide = {
   description: string;
   keywords: string[];
   excerpt: string;
+  summary?: string;
   publishedAt: string;
   updatedAt: string;
   author: AuthorProfile;
   reviewedBy?: AuthorProfile;
   sections: RichSection[];
   sources: GuideSource[];
+  faqs?: FAQItem[];
 };
 
 export type CalculatorEditorialContent = {
@@ -154,7 +156,9 @@ export type SiteContentPage = {
   path: string;
   title: string;
   description: string;
+  summary: string;
   updatedAt: string;
   label: string;
   sections: RichSection[];
+  faqs: FAQItem[];
 };

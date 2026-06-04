@@ -1,13 +1,17 @@
+import type { FAQItem } from "@/types/calculator";
+
 export type LegalPage = {
   slug: string;
   path: string;
   title: string;
   description: string;
+  summary: string;
   updatedAt: string;
   sections: Array<{
     title: string;
     body: string[];
   }>;
+  faqs: FAQItem[];
 };
 
 export const legalPages: LegalPage[] = [
@@ -16,6 +20,7 @@ export const legalPages: LegalPage[] = [
     path: "/privacy",
     title: "개인정보 처리방침",
     description: "웨딩 예산 계산기의 개인정보 처리 기준, 브라우저 저장 방식, 공유 URL과 엑셀 다운로드 이용 시 유의사항을 안내합니다.",
+    summary: "개인정보를 서버 DB에 수집하지 않고, 계산기 입력값은 브라우저 저장소와 공유 URL 범위에서만 처리한다는 점을 중심으로 설명하는 정책 페이지입니다.",
     updatedAt: "2026년 6월 1일",
     sections: [
       {
@@ -50,12 +55,23 @@ export const legalPages: LegalPage[] = [
         ],
       },
     ],
+    faqs: [
+      {
+        question: "계산기에 입력한 값이 서버에 저장되나요?",
+        answer: "아니요. 계산기 입력값은 서버 DB가 아니라 현재 브라우저 저장소에만 저장됩니다.",
+      },
+      {
+        question: "공유 URL에는 어떤 정보가 들어갈 수 있나요?",
+        answer: "사용자가 공유 기능을 이용하면 입력값이 URL 안에 포함될 수 있으므로 민감한 정보 입력은 권장하지 않습니다.",
+      },
+    ],
   },
   {
     slug: "terms",
     path: "/terms",
     title: "이용약관",
     description: "웨딩 예산 계산기 이용 조건, 계산 결과의 참고 범위, 브라우저 저장값 관리와 사용자 책임에 대한 기본 안내입니다.",
+    summary: "서비스 목적, 참고용 계산 결과의 범위, 공유 URL과 파일 관리 책임, 기능 변경 가능성을 한 페이지에서 정리한 약관 문서입니다.",
     updatedAt: "2026년 6월 1일",
     sections: [
       {
@@ -87,12 +103,23 @@ export const legalPages: LegalPage[] = [
         ],
       },
     ],
+    faqs: [
+      {
+        question: "계산 결과를 실제 계약 금액으로 봐도 되나요?",
+        answer: "아니요. 계산 결과는 입력값과 계산식에 기반한 참고 자료이며 실제 계약 금액이나 최종 비용을 보장하지 않습니다.",
+      },
+      {
+        question: "브라우저 저장값이 사라질 수도 있나요?",
+        answer: "네. 브라우저 데이터 삭제, 시크릿 모드, 기기 변경, 브라우저 정책 변경 등에 따라 저장값이 사라질 수 있습니다.",
+      },
+    ],
   },
   {
     slug: "disclaimer",
     path: "/disclaimer",
     title: "면책고지",
     description: "웨딩 예산 계산기의 계산 결과와 예산 정보가 참고용 자료임을 안내하고 실제 계약과 지출 결정 시 유의할 사항을 설명합니다.",
+    summary: "계산 결과의 한계와 전문 조언이 아니라는 점, 외부 자료와 링크 사용 시 책임 범위를 명확히 안내하는 면책 페이지입니다.",
     updatedAt: "2026년 6월 1일",
     sections: [
       {
@@ -117,12 +144,23 @@ export const legalPages: LegalPage[] = [
         ],
       },
     ],
+    faqs: [
+      {
+        question: "이 사이트의 계산 결과만으로 지출 결정을 해도 되나요?",
+        answer: "아니요. 실제 계약과 지출 결정 전에는 업체 안내, 계약서, 전문가 의견을 직접 확인해야 합니다.",
+      },
+      {
+        question: "외부 링크 정보도 사이트가 보증하나요?",
+        answer: "아니요. 외부 사이트의 정보 정확성, 정책, 거래 조건은 해당 사이트의 책임 범위에 따릅니다.",
+      },
+    ],
   },
   {
     slug: "contact",
     path: "/contact",
     title: "문의사항",
     description: "웨딩 예산 계산기 이용 중 오류 제보, 개선 제안, 개인정보 및 정책 관련 문의를 보낼 수 있는 연락처 안내입니다.",
+    summary: "오류 제보, 개선 제안, 정책 문의를 보낼 수 있는 공식 연락 채널과 문의 시 함께 보내면 좋은 정보 범위를 안내합니다.",
     updatedAt: "2026년 6월 1일",
     sections: [
       {
@@ -138,6 +176,16 @@ export const legalPages: LegalPage[] = [
           "문의 내용은 운영 상황에 따라 순차적으로 확인합니다.",
           "계산 결과에 대한 개별 재무, 법률, 세무, 계약 판단은 제공하지 않으며, 실제 계약이나 지출 결정은 관련 전문가 또는 업체와 직접 확인해야 합니다.",
         ],
+      },
+    ],
+    faqs: [
+      {
+        question: "어떤 문의를 보낼 수 있나요?",
+        answer: "오류 제보, 개선 제안, 정책 관련 문의를 이메일로 보낼 수 있습니다.",
+      },
+      {
+        question: "문의할 때 함께 보내면 좋은 정보는 무엇인가요?",
+        answer: "문제가 발생한 페이지 주소, 사용한 브라우저, 재현 방법을 함께 보내면 확인에 도움이 됩니다.",
       },
     ],
   },

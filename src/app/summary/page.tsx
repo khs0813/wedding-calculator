@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { SummaryResultsTableCard } from "@/components/calculators/AllResultsDashboard";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { absoluteUrl } from "@/lib/seo";
+import { absolutePageUrl, absoluteUrl, buildBreadcrumbSchema } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "통합 예산 요약 - 웨딩·신혼 계산기 결과 비교",
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "통합 예산 요약 - 웨딩·신혼 계산기 결과 비교",
     description: "현재 브라우저에 저장된 각 계산기 결과를 비교하는 개인용 통합 화면입니다.",
-    url: absoluteUrl("/summary"),
+    url: absolutePageUrl("/summary"),
     siteName: "웨딩 예산 계산기",
     locale: "ko_KR",
     type: "website",
@@ -44,19 +44,15 @@ export default function SummaryPage() {
             name: "웨딩·신혼 예산 통합 요약",
             applicationCategory: "FinanceApplication",
             operatingSystem: "Web",
-            url: absoluteUrl("/summary"),
+            url: absolutePageUrl("/summary"),
             description: "입력값을 브라우저에만 저장하는 웨딩·신혼 계산기 결과를 한 화면에서 비교하는 무료 도구",
             inLanguage: "ko-KR",
             offers: { "@type": "Offer", price: "0", priceCurrency: "KRW" },
           },
-          {
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            itemListElement: [
-              { "@type": "ListItem", position: 1, name: "홈", item: absoluteUrl("/") },
-              { "@type": "ListItem", position: 2, name: "통합 예산 요약", item: absoluteUrl("/summary") },
-            ],
-          },
+          buildBreadcrumbSchema([
+            { name: "홈", path: "/" },
+            { name: "통합 예산 요약", path: "/summary" },
+          ]),
         ]}
       />
 

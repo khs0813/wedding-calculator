@@ -3,13 +3,14 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 import { guides, getGuideBySlug } from "@/data/guides";
-import { absoluteUrl, createGuideMetadata } from "@/lib/seo";
+import { absolutePageUrl, absoluteUrl, buildBreadcrumbSchema, createGuideFaqs, createGuideMetadata } from "@/lib/seo";
 import type { GuideSlug } from "@/types/calculator";
 import { calculators } from "@/data/calculators";
 import { Card } from "@/components/ui/card";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { SectionBlocks } from "@/components/content/SectionBlocks";
 import { AuthorBox } from "@/components/content/AuthorBox";
+import { FAQSection } from "@/components/seo/FAQSection";
 
 type PageProps = {
   params: Promise<{
@@ -38,6 +39,8 @@ export default async function GuidePage({ params }: PageProps) {
     notFound();
   }
 
+  const faqs = createGuideFaqs(guide);
+
   return (
     <article className="mx-auto max-w-[90rem] px-4 py-10">
       <JsonLd
@@ -47,8 +50,8 @@ export default async function GuidePage({ params }: PageProps) {
             "@type": "Article",
             headline: guide.title,
             description: guide.description,
-            url: absoluteUrl(guide.path),
-            mainEntityOfPage: absoluteUrl(guide.path),
+            url: absolutePageUrl(guide.path),
+            mainEntityOfPage: absolutePageUrl(guide.path),
             inLanguage: "ko-KR",
             image: absoluteUrl("/og-default.png"),
             datePublished: guide.publishedAt,
@@ -63,15 +66,11 @@ export default async function GuidePage({ params }: PageProps) {
               },
             },
           },
-          {
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            itemListElement: [
-              { "@type": "ListItem", position: 1, name: "홈", item: absoluteUrl("/") },
-              { "@type": "ListItem", position: 2, name: "가이드", item: absoluteUrl("/guides") },
-              { "@type": "ListItem", position: 3, name: guide.title, item: absoluteUrl(guide.path) },
-            ],
-          },
+          buildBreadcrumbSchema([
+            { name: "홈", path: "/" },
+            { name: "가이드", path: "/guides" },
+            { name: guide.title, path: guide.path },
+          ]),
         ]}
       />
       <div className="rounded-4xl border border-blush-100 bg-white/85 p-6 shadow-soft md:p-10">
@@ -93,12 +92,33 @@ export default async function GuidePage({ params }: PageProps) {
         </div>
       </div>
 
+      <section className="mt-10 grid gap-6 lg:grid-cols-[1fr_0.9fr]">
+        <div className="rounded-4xl border border-blush-100 bg-white p-6 shadow-soft md:p-8">
+          <p className="text-sm font-black uppercase tracking-[0.2em] text-blush-700">Summary</p>
+          <h2 className="mt-2 text-2xl font-black text-slate-950">이 가이드 요약</h2>
+          <p className="mt-4 text-sm leading-7 text-slate-600">{guide.summary || guide.excerpt}</p>
+        </div>
+        <div className="rounded-4xl border border-blush-100 bg-gradient-to-br from-blush-50 via-cream-50 to-sage-50 p-6 shadow-soft md:p-8">
+          <p className="text-sm font-black uppercase tracking-[0.2em] text-blush-700">Next Step</p>
+          <h2 className="mt-2 text-2xl font-black text-slate-950">바로 이어서 할 일</h2>
+          <ul className="mt-5 space-y-3 text-sm leading-7 text-slate-700">
+            {guide.sections.slice(0, 3).map((section) => (
+              <li key={section.heading}>{section.heading}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
       <div className="mt-10 rounded-4xl border border-blush-100 bg-white p-6 shadow-soft md:p-10">
         <SectionBlocks sections={guide.sections} />
       </div>
 
       <section className="mt-10">
         <AuthorBox author={guide.author} reviewer={guide.reviewedBy} updatedAt={guide.updatedAt} />
+      </section>
+
+      <section className="mt-10">
+        <FAQSection title={`${guide.title} FAQ`} items={faqs} />
       </section>
 
       <section className="mt-10 rounded-4xl border border-blush-100 bg-white p-6 shadow-soft md:p-10">

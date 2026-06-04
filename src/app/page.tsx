@@ -8,7 +8,7 @@ import { CalculatorCard } from "@/components/calculators/CalculatorCard";
 import { FAQSection } from "@/components/seo/FAQSection";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Card } from "@/components/ui/card";
-import { absoluteUrl } from "@/lib/seo";
+import { absolutePageUrl, absoluteUrl, buildBreadcrumbSchema } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "웨딩 예산 계산기 - 결혼·신혼 준비 비용 계산",
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "웨딩 예산 계산기 - 결혼·신혼 준비 비용 계산",
     description: "계산기와 예산 가이드를 함께 보며 결혼·신혼 준비 비용을 정리하세요.",
-    url: absoluteUrl("/"),
+    url: absolutePageUrl("/"),
     siteName: "웨딩 예산 계산기",
     locale: "ko_KR",
     type: "website",
@@ -77,7 +77,7 @@ export default function HomePage() {
             "@context": "https://schema.org",
             "@type": "WebSite",
             name: "웨딩 예산 계산기",
-            url: absoluteUrl("/"),
+            url: absolutePageUrl("/"),
             inLanguage: "ko-KR",
             description: "결혼 준비와 신혼집 준비 비용을 계산하고 예산 판단 기준을 읽을 수 있는 무료 도구",
           },
@@ -90,16 +90,17 @@ export default function HomePage() {
                 "@type": "ListItem",
                 position: index + 1,
                 name: calculator.title,
-                url: absoluteUrl(calculator.path),
+                url: absolutePageUrl(calculator.path),
               })),
               ...guides.slice(0, 6).map((guide, index) => ({
                 "@type": "ListItem",
                 position: calculators.length + index + 1,
                 name: guide.title,
-                url: absoluteUrl(guide.path),
+                url: absolutePageUrl(guide.path),
               })),
             ],
           },
+          buildBreadcrumbSchema([{ name: "홈", path: "/" }]),
         ]}
       />
 
