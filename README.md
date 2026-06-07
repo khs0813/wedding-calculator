@@ -88,9 +88,12 @@ Start Command: npm run start
 ```txt
 NEXT_PUBLIC_SITE_URL=https://your-domain.com
 NEXT_PUBLIC_ADSENSE_CLIENT_ID=
+NEXT_PUBLIC_ADSENSE_APPROVED=false
+NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=
 NEXT_PUBLIC_AD_SLOT_TOP=
 NEXT_PUBLIC_AD_SLOT_CONTENT=
 NEXT_PUBLIC_AD_SLOT_RESULT=
+ADSENSE_PUBLISHER_ID=
 
 AFFILIATE_WEDDING_HALL_URL=#
 AFFILIATE_STUDIO_DRESS_MAKEUP_URL=#
@@ -101,6 +104,8 @@ AFFILIATE_INTERNET_URL=#
 ```
 
 `NEXT_PUBLIC_SITE_URL`은 실제 배포 도메인으로 반드시 바꾸는 것이 좋습니다. 이 값은 canonical URL, sitemap, robots.txt, Open Graph URL 생성에 사용됩니다.
+
+AdSense 신청 전에는 `NEXT_PUBLIC_ADSENSE_CLIENT_ID`에 `ca-pub-...` 값을 넣어 사이트 검토 스크립트가 모든 페이지의 `<head>`에 포함되도록 합니다. `ADSENSE_PUBLISHER_ID`에는 `pub-...` 값을 넣으면 빌드 시 `/ads.txt`가 `google.com, pub-..., DIRECT, f08c47fec0942fa0` 형식으로 생성됩니다. 승인 전에는 `NEXT_PUBLIC_ADSENSE_APPROVED=false`를 유지하고, 승인 후 광고 슬롯을 운영할 때 `true`로 전환합니다.
 
 ## 계산 로직 요약
 

@@ -1,47 +1,63 @@
 import { readFileSync, existsSync } from "node:fs";
+import { join } from "node:path";
 
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://wedding-budget-calculator.onrender.com";
+const baseUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://wedding-calculator.onrender.com").replace(/\/$/, "");
+const adsenseClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID?.trim();
+const adsensePublisherId = process.env.ADSENSE_PUBLISHER_ID?.trim();
+const googleSiteVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION?.trim();
 const routes = [
-  { route: "/", file: ".next/server/app/index.html", inSitemap: true },
-  { route: "/guides", file: ".next/server/app/guides.html", inSitemap: true },
-  { route: "/summary", file: ".next/server/app/summary.html", inSitemap: false },
-  { route: "/about", file: ".next/server/app/about.html", inSitemap: true },
-  { route: "/editorial-policy", file: ".next/server/app/editorial-policy.html", inSitemap: true },
-  { route: "/methodology", file: ".next/server/app/methodology.html", inSitemap: true },
-  { route: "/calculators/wedding-cost", file: ".next/server/app/calculators/wedding-cost.html", inSitemap: true },
-  { route: "/calculators/newlywed-home-budget", file: ".next/server/app/calculators/newlywed-home-budget.html", inSitemap: true },
-  { route: "/calculators/wedding-hall-cost", file: ".next/server/app/calculators/wedding-hall-cost.html", inSitemap: true },
-  { route: "/calculators/studio-dress-makeup-cost", file: ".next/server/app/calculators/studio-dress-makeup-cost.html", inSitemap: true },
-  { route: "/calculators/honsu-budget", file: ".next/server/app/calculators/honsu-budget.html", inSitemap: true },
-  { route: "/calculators/wedding-gift-budget", file: ".next/server/app/calculators/wedding-gift-budget.html", inSitemap: true },
-  { route: "/calculators/honeymoon-budget", file: ".next/server/app/calculators/honeymoon-budget.html", inSitemap: true },
-  { route: "/calculators/congratulatory-money", file: ".next/server/app/calculators/congratulatory-money.html", inSitemap: true },
-  { route: "/guides/wedding-cost-guide", file: ".next/server/app/guides/wedding-cost-guide.html", inSitemap: true },
-  { route: "/guides/newlywed-budget-guide", file: ".next/server/app/guides/newlywed-budget-guide.html", inSitemap: true },
-  { route: "/guides/wedding-saving-tips", file: ".next/server/app/guides/wedding-saving-tips.html", inSitemap: true },
-  { route: "/guides/wedding-hall-checklist", file: ".next/server/app/guides/wedding-hall-checklist.html", inSitemap: true },
-  { route: "/guides/sdme-options-guide", file: ".next/server/app/guides/sdme-options-guide.html", inSitemap: true },
-  { route: "/guides/wedding-gift-negotiation-guide", file: ".next/server/app/guides/wedding-gift-negotiation-guide.html", inSitemap: true },
-  { route: "/guides/honsu-priority-guide", file: ".next/server/app/guides/honsu-priority-guide.html", inSitemap: true },
-  { route: "/guides/honeymoon-destination-budget-guide", file: ".next/server/app/guides/honeymoon-destination-budget-guide.html", inSitemap: true },
-  { route: "/guides/congratulatory-money-etiquette-guide", file: ".next/server/app/guides/congratulatory-money-etiquette-guide.html", inSitemap: true },
-  { route: "/guides/wedding-budget-timeline-guide", file: ".next/server/app/guides/wedding-budget-timeline-guide.html", inSitemap: true },
-  { route: "/guides/small-wedding-budget-guide", file: ".next/server/app/guides/small-wedding-budget-guide.html", inSitemap: true },
-  { route: "/guides/newlywed-loan-planning-guide", file: ".next/server/app/guides/newlywed-loan-planning-guide.html", inSitemap: true },
-  { route: "/guides/wedding-contract-check-guide", file: ".next/server/app/guides/wedding-contract-check-guide.html", inSitemap: true },
-  { route: "/privacy", file: ".next/server/app/privacy.html", inSitemap: true },
-  { route: "/terms", file: ".next/server/app/terms.html", inSitemap: true },
-  { route: "/disclaimer", file: ".next/server/app/disclaimer.html", inSitemap: true },
-  { route: "/contact", file: ".next/server/app/contact.html", inSitemap: true },
+  { route: "/", inSitemap: true },
+  { route: "/guides", inSitemap: true },
+  { route: "/summary", inSitemap: false },
+  { route: "/about", inSitemap: true },
+  { route: "/editorial-policy", inSitemap: true },
+  { route: "/methodology", inSitemap: true },
+  { route: "/calculators/wedding-cost", inSitemap: true },
+  { route: "/calculators/newlywed-home-budget", inSitemap: true },
+  { route: "/calculators/wedding-hall-cost", inSitemap: true },
+  { route: "/calculators/studio-dress-makeup-cost", inSitemap: true },
+  { route: "/calculators/honsu-budget", inSitemap: true },
+  { route: "/calculators/wedding-gift-budget", inSitemap: true },
+  { route: "/calculators/honeymoon-budget", inSitemap: true },
+  { route: "/calculators/congratulatory-money", inSitemap: true },
+  { route: "/guides/wedding-cost-guide", inSitemap: true },
+  { route: "/guides/newlywed-budget-guide", inSitemap: true },
+  { route: "/guides/wedding-saving-tips", inSitemap: true },
+  { route: "/guides/wedding-hall-checklist", inSitemap: true },
+  { route: "/guides/sdme-options-guide", inSitemap: true },
+  { route: "/guides/wedding-gift-negotiation-guide", inSitemap: true },
+  { route: "/guides/honsu-priority-guide", inSitemap: true },
+  { route: "/guides/honeymoon-destination-budget-guide", inSitemap: true },
+  { route: "/guides/congratulatory-money-etiquette-guide", inSitemap: true },
+  { route: "/guides/wedding-budget-timeline-guide", inSitemap: true },
+  { route: "/guides/small-wedding-budget-guide", inSitemap: true },
+  { route: "/guides/newlywed-loan-planning-guide", inSitemap: true },
+  { route: "/guides/wedding-contract-check-guide", inSitemap: true },
+  { route: "/guides/wedding-guest-budget-table-guide", inSitemap: true },
+  { route: "/guides/wedding-hall-meal-cost-table-guide", inSitemap: true },
+  { route: "/guides/sdme-extra-cost-table-guide", inSitemap: true },
+  { route: "/guides/newlywed-home-initial-cost-guide", inSitemap: true },
+  { route: "/guides/appliance-budget-table-guide", inSitemap: true },
+  { route: "/guides/honeymoon-budget-ratio-guide", inSitemap: true },
+  { route: "/guides/congratulatory-money-table-guide", inSitemap: true },
+  { route: "/privacy", inSitemap: true },
+  { route: "/terms", inSitemap: true },
+  { route: "/disclaimer", inSitemap: true },
+  { route: "/contact", inSitemap: true },
 ];
 
 const errors = [];
 
 function expectedUrl(route) {
-  return route === "/" ? baseUrl.replace(/\/$/, "") : `${baseUrl.replace(/\/$/, "")}${route}`;
+  return route === "/" ? `${baseUrl}/` : `${baseUrl}${route}/`;
 }
 
-for (const { route, file } of routes) {
+function exportFileForRoute(route) {
+  return route === "/" ? "out/index.html" : join("out", route, "index.html");
+}
+
+for (const { route } of routes) {
+  const file = exportFileForRoute(route);
   if (!existsSync(file)) {
     errors.push(`${route}: build output not found. Run npm run build first.`);
     continue;
@@ -64,8 +80,25 @@ for (const { route, file } of routes) {
   if (!/<h1[\s>]/.test(html)) errors.push(`${route}: h1 missing`);
 }
 
-const sitemapPath = ".next/server/app/sitemap.xml.body";
-const robotsPath = ".next/server/app/robots.txt.body";
+const homeHtml = existsSync("out/index.html") ? readFileSync("out/index.html", "utf8") : "";
+if (adsenseClientId && !homeHtml.includes(`pagead/js/adsbygoogle.js?client=${adsenseClientId}`)) {
+  errors.push("AdSense script missing from exported HTML");
+}
+if (googleSiteVerification && !homeHtml.includes(`name="google-site-verification" content="${googleSiteVerification}"`)) {
+  errors.push("google-site-verification meta tag missing");
+}
+
+const adsTxtPath = "out/ads.txt";
+if (!existsSync(adsTxtPath)) {
+  errors.push("ads.txt missing from export");
+} else if (adsensePublisherId) {
+  const adsTxt = readFileSync(adsTxtPath, "utf8");
+  const expectedAdsTxt = `google.com, ${adsensePublisherId}, DIRECT, f08c47fec0942fa0`;
+  if (!adsTxt.includes(expectedAdsTxt)) errors.push("ads.txt does not contain the configured AdSense publisher ID");
+}
+
+const sitemapPath = "out/sitemap.xml";
+const robotsPath = "out/robots.txt";
 const sitemapRoutes = routes.filter((item) => item.inSitemap);
 
 if (!existsSync(sitemapPath)) {
@@ -75,7 +108,7 @@ if (!existsSync(sitemapPath)) {
   const urls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1]);
   if (urls.length !== sitemapRoutes.length) errors.push(`sitemap URL count ${urls.length} !== ${sitemapRoutes.length}`);
   for (const { route } of sitemapRoutes) {
-    const expected = route === "/" ? `${baseUrl.replace(/\/$/, "")}/` : expectedUrl(route);
+    const expected = expectedUrl(route);
     if (!urls.includes(expected)) errors.push(`sitemap missing ${expected}`);
   }
 }
@@ -85,10 +118,10 @@ if (!existsSync(robotsPath)) {
 } else {
   const robots = readFileSync(robotsPath, "utf8");
   if (!robots.includes("User-Agent: *") || !robots.includes("Allow: /")) errors.push("robots allow rule missing");
-  if (!robots.includes(`Sitemap: ${baseUrl.replace(/\/$/, "")}/sitemap.xml`)) errors.push("robots sitemap missing");
+  if (!robots.includes(`Sitemap: ${baseUrl}/sitemap.xml`)) errors.push("robots sitemap missing");
 }
 
-const nextConfig = readFileSync("next.config.mjs", "utf8");
+const serverFile = readFileSync("server.mjs", "utf8");
 for (const requiredHeader of [
   "Content-Security-Policy",
   "Referrer-Policy",
@@ -100,7 +133,7 @@ for (const requiredHeader of [
   "Cross-Origin-Resource-Policy",
   "Origin-Agent-Cluster",
 ]) {
-  if (!nextConfig.includes(requiredHeader)) errors.push(`security header missing: ${requiredHeader}`);
+  if (!serverFile.includes(requiredHeader)) errors.push(`security header missing: ${requiredHeader}`);
 }
 
 if (errors.length) {

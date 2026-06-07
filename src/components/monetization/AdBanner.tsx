@@ -1,4 +1,5 @@
 import { canRenderAd, type AdPageKind, type AdPlacement } from "@/lib/ad-policy";
+import { AdUnit } from "@/components/monetization/AdUnit";
 
 export function AdBanner({
   slot = "top",
@@ -22,14 +23,7 @@ export function AdBanner({
 
   return (
     <aside className="no-print" aria-label={label}>
-      <ins
-        className="adsbygoogle"
-        style={{ display: "block" }}
-        data-ad-client={clientId}
-        data-ad-slot={slotId}
-        data-ad-format="auto"
-        data-full-width-responsive="true"
-      />
+      <AdUnit clientId={clientId} slotId={slotId} />
     </aside>
   );
 }

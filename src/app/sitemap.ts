@@ -9,7 +9,6 @@ export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
-  const policyPages = legalPages.filter((page) => page.slug !== "contact");
 
   return [
     {
@@ -42,7 +41,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "yearly" as const,
       priority: 0.6,
     })),
-    ...policyPages.map((page) => ({
+    ...legalPages.map((page) => ({
       url: absolutePageUrl(page.path),
       lastModified: now,
       changeFrequency: "yearly" as const,

@@ -5,6 +5,9 @@ import { Footer } from "@/components/layout/Footer";
 import { absolutePageUrl, absoluteUrl, getSiteUrl } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
 
+const adsenseClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID;
+const googleSiteVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
+
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
   applicationName: "웨딩 예산 계산기",
@@ -43,6 +46,11 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  verification: googleSiteVerification
+    ? {
+        google: googleSiteVerification,
+      }
+    : undefined,
   alternates: {
     canonical: "/",
   },
@@ -66,6 +74,15 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ko">
+      <head>
+        {adsenseClientId ? (
+          <script
+            async
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClientId}`}
+            crossOrigin="anonymous"
+          />
+        ) : null}
+      </head>
       <body>
         <JsonLd
           data={[

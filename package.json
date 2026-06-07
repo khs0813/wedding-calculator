@@ -5,6 +5,7 @@
   "description": "DB 없이 브라우저 저장과 공유 URL로 동작하는 웨딩·신혼 예산 계산기 사이트",
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/write-ads-txt.mjs",
     "build": "next build",
     "start": "node server.mjs",
     "lint": "eslint . --max-warnings=0",
