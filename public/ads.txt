@@ -1,0 +1,2 @@
+# Add ADSENSE_PUBLISHER_ID=pub-0000000000000000 before building for AdSense review.
+# Google recommends ads.txt, but the publisher ID must match your AdSense account.

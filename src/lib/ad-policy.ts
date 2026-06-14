@@ -14,6 +14,7 @@ const preApprovalAllowedPageKinds: AdPageKind[] = [
   "home",
   "guide-index",
   "guide-article",
+  "calculator",
 ];
 
 export function isAdSenseApproved() {
@@ -24,7 +25,7 @@ export function canRenderAd(pageKind: AdPageKind, placement: AdPlacement) {
   if (!isAdSenseApproved()) {
     return (
       preApprovalAllowedPageKinds.includes(pageKind) &&
-      placement !== "result"
+      placement === "content"
     );
   }
 
@@ -37,7 +38,7 @@ export function canRenderAd(pageKind: AdPageKind, placement: AdPlacement) {
     return false;
   }
 
-  if (pageKind === "calculator" && placement !== "top") {
+  if (pageKind === "calculator" && placement !== "content") {
     return false;
   }
 

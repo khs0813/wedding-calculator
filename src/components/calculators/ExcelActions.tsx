@@ -19,6 +19,7 @@ type ExcelActionsProps = {
   values: Record<string, FieldValue>;
   result: CalculatorResult;
   onPasteImport: (values: Record<string, FieldValue>) => void;
+  onAction?: () => void;
 };
 
 type Status = {
@@ -37,6 +38,7 @@ export function ExcelActions({
   values,
   result,
   onPasteImport,
+  onAction,
 }: ExcelActionsProps) {
   const [busy, setBusy] = useState(false);
   const [open, setOpen] = useState(false);
@@ -48,6 +50,7 @@ export function ExcelActions({
     setStatus(null);
 
     try {
+      onAction?.();
       await downloadCalculatorExcel(config, values, result);
       setStatus({
         tone: "success",
@@ -88,7 +91,7 @@ export function ExcelActions({
           className="gap-2"
         >
           <FileDown className="h-4 w-4" aria-hidden="true" />
-          엑셀 다운로드
+          엑셀 내보내기
         </Button>
         <Button
           type="button"
@@ -106,7 +109,7 @@ export function ExcelActions({
           ) : (
             <ClipboardPaste className="h-4 w-4" aria-hidden="true" />
           )}
-          {open ? "붙여넣기 닫기" : "엑셀 붙여넣기"}
+          {open ? "가져오기 닫기" : "엑셀 가져오기"}
         </Button>
       </div>
 

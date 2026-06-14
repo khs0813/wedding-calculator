@@ -123,6 +123,8 @@ export type RichSection = {
 export type GuideSource = {
   label: string;
   href: string;
+  organization?: string;
+  reason?: string;
 };
 
 export type Guide = {

@@ -6,6 +6,7 @@ import { absolutePageUrl, absoluteUrl, getSiteUrl } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
 
 const adsenseClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID;
+const adsenseApproved = process.env.NEXT_PUBLIC_ADSENSE_APPROVED === "true";
 const googleSiteVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
 
 export const metadata: Metadata = {
@@ -75,7 +76,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ko">
       <head>
-        {adsenseClientId ? (
+        {adsenseApproved && adsenseClientId ? (
           <script
             async
             src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClientId}`}

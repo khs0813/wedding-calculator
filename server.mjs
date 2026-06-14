@@ -4,6 +4,7 @@ import { createServer } from "node:http";
 
 const rootDir = join(process.cwd(), "out");
 const port = Number(process.env.PORT || 3000);
+const canonicalSiteUrl = process.env.NEXT_PUBLIC_SITE_URL ? new URL(process.env.NEXT_PUBLIC_SITE_URL) : null;
 
 const contentTypes = new Map([
   [".html", "text/html; charset=utf-8"],
@@ -80,6 +81,21 @@ function sendFile(res, filePath, statusCode) {
 }
 
 createServer((req, res) => {
+  const host = req.headers.host?.split(":")[0];
+  if (
+    canonicalSiteUrl &&
+    host &&
+    host.endsWith(".onrender.com") &&
+    host !== canonicalSiteUrl.hostname
+  ) {
+    res.writeHead(301, {
+      Location: `${canonicalSiteUrl.origin}${req.url || "/"}`,
+      ...securityHeaders,
+    });
+    res.end();
+    return;
+  }
+
   const pathname = safePathname(req.url);
   const matchedFile = resolveFile(pathname);
 

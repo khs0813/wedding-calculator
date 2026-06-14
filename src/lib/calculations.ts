@@ -71,7 +71,8 @@ function calculateWeddingCost(values: Values): CalculatorResult {
   const total = subtotal + contingency;
   const giftRecovery = n(values, "guests") * n(values, "averageGiftPerGuest");
   const netBurden = Math.max(0, total - giftRecovery);
-  const guestUnitCost = n(values, "guests") > 0 ? safeNumber(total / n(values, "guests")) : 0;
+  const guests = n(values, "guests");
+  const guestUnitCost = guests > 0 ? safeNumber(total / guests) : 0;
   const targetBudget = n(values, "targetBudget");
 
   const resultItems = [...items, item("contingency", "예비비", contingency, "예비비")];
@@ -81,7 +82,7 @@ function calculateWeddingCost(values: Values): CalculatorResult {
     total,
     items: resultItems,
     summary: [
-      { label: "하객 1인당 예상 비용", value: formatCurrency(guestUnitCost), description: "총액을 예상 하객 수로 나눈 값" },
+      { label: "하객 1인당 예상 비용", value: guests > 0 ? formatCurrency(guestUnitCost) : "하객 수 입력 시 표시", description: "총액을 예상 하객 수로 나눈 값" },
       { label: "축의금 예상 회수액", value: formatCurrency(giftRecovery), description: "하객 수 × 1인당 예상 축의금" },
       { label: "실제 부담 예상 금액", value: formatCurrency(netBurden), description: "총액에서 예상 축의금을 차감" },
       { label: "예산 비교", value: budgetComparison(total, targetBudget) }
@@ -141,7 +142,8 @@ function calculateWeddingHall(values: Values): CalculatorResult {
   const serviceFee = safeNumber((baseWithoutTax + vat) * n(values, "serviceRate") / 100);
   const total = baseWithoutTax + vat + serviceFee;
   const guaranteeMinimum = n(values, "guaranteeGuests") * n(values, "mealPrice") + n(values, "rentalFee") + n(values, "floralFee") + n(values, "soundLightingFee");
-  const giftRecovery = n(values, "expectedGuests") * n(values, "averageGiftPerGuest");
+  const expectedGuests = n(values, "expectedGuests");
+  const giftRecovery = expectedGuests * n(values, "averageGiftPerGuest");
   const net = Math.max(0, total - giftRecovery);
 
   return {
@@ -158,7 +160,7 @@ function calculateWeddingHall(values: Values): CalculatorResult {
       item("serviceFee", "봉사료", serviceFee, "세금/봉사료")
     ],
     summary: [
-      { label: "식대 총액", value: formatCurrency(mealTotal), description: `${formatNumber(chargedGuests, "명")} 기준` },
+      { label: "식대 총액", value: chargedGuests > 0 ? formatCurrency(mealTotal) : "인원 입력 시 표시", description: `${formatNumber(chargedGuests, "명")} 기준` },
       { label: "보증 인원 기준 최소 비용", value: formatCurrency(guaranteeMinimum) },
       { label: "부가세/봉사료 포함 총액", value: formatCurrency(total) },
       { label: "축의금 비교 순부담액", value: formatCurrency(net), description: `예상 회수액 ${formatCurrency(giftRecovery)}` }

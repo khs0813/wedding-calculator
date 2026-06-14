@@ -11,6 +11,126 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { SectionBlocks } from "@/components/content/SectionBlocks";
 import { AuthorBox } from "@/components/content/AuthorBox";
 import { FAQSection } from "@/components/seo/FAQSection";
+import { AdBanner } from "@/components/monetization/AdBanner";
+
+const guideEnhancements: Partial<Record<GuideSlug, {
+  scenarioTitle: string;
+  scenarioRows: Array<{ label: string; low: string; middle: string; high: string; note: string }>;
+  formulaTitle: string;
+  formula: string;
+  formulaNotes: string[];
+  updatedReason: string;
+}>> = {
+  "wedding-cost-guide": {
+    scenarioTitle: "하객 수별 결혼 예산 시나리오",
+    scenarioRows: [
+      { label: "웨딩홀 식대", low: "700만원", middle: "1,050만원", high: "1,400만원", note: "1인 7만원 가정" },
+      { label: "스드메", low: "250만원", middle: "330만원", high: "450만원", note: "원본·앨범 옵션 포함 여부에 따라 변동" },
+      { label: "본식 스냅/영상", low: "150만원", middle: "220만원", high: "300만원", note: "촬영 범위와 작가 구성에 따라 변동" },
+    ],
+    formulaTitle: "전체 결혼 비용 계산식",
+    formula: "총 예상 비용 = 웨딩홀 고정비 + 식대 x 예상 하객 수 + 스드메 + 예물 + 혼수 + 신혼여행 + 기타 + 예비비",
+    formulaNotes: ["축의금은 총비용에서 바로 빼기보다 예상 회수액으로 따로 표시합니다.", "예비비는 확정 전 항목이 많을수록 5~10% 범위에서 보수적으로 잡습니다."],
+    updatedReason: "하객 수별 예산 예시와 축의금 차감 전후 구분을 보강했습니다.",
+  },
+  "newlywed-budget-guide": {
+    scenarioTitle: "신혼집 초기 현금 시나리오",
+    scenarioRows: [
+      { label: "가전·가구", low: "600만원", middle: "1,000만원", high: "1,600만원", note: "필수 품목 우선 구매 기준" },
+      { label: "이사·청소·설치", low: "120만원", middle: "220만원", high: "350만원", note: "이사 거리와 입주 상태에 따라 변동" },
+      { label: "생활용품", low: "80만원", middle: "150만원", high: "250만원", note: "첫 3개월 추가 구매 포함" },
+    ],
+    formulaTitle: "신혼집 예산 계산식",
+    formula: "초기 현금 필요액 = 보증금 또는 매매가 - 대출금 + 인테리어 + 가전 + 가구 + 이사 + 청소 + 생활용품",
+    formulaNotes: ["월 고정비는 월세, 관리비, 대출 월상환액을 별도 합산합니다.", "초기 비용과 월 고정비를 한 표에 섞으면 실제 부담이 왜곡될 수 있습니다."],
+    updatedReason: "초기 현금과 월 고정비를 분리하는 예산표 예시를 추가했습니다.",
+  },
+  "wedding-hall-checklist": {
+    scenarioTitle: "보증 인원별 웨딩홀 비용 예시",
+    scenarioRows: [
+      { label: "식대 총액", low: "700만원", middle: "1,050만원", high: "1,400만원", note: "100명/150명/200명, 1인 7만원" },
+      { label: "대관료·연출", low: "200만원", middle: "300만원", high: "400만원", note: "홀 조건에 따라 포함 항목 확인" },
+      { label: "부가세·봉사료", low: "별도 확인", middle: "별도 확인", high: "별도 확인", note: "견적서 포함/별도 표기 확인" },
+    ],
+    formulaTitle: "웨딩홀 비용 계산식",
+    formula: "웨딩홀 비용 = 식대 x 보증 인원 또는 실제 하객 수 중 큰 값 + 대관료 + 꽃장식 + 봉사료 + 부가세",
+    formulaNotes: ["보증 인원보다 실제 하객이 적어도 보증 기준으로 청구될 수 있습니다.", "봉사료와 부가세는 포함 견적인지 별도 견적인지 계약서에서 확인합니다."],
+    updatedReason: "보증 인원과 예상 하객 수를 분리해 보는 계산 예시를 추가했습니다.",
+  },
+  "sdme-options-guide": {
+    scenarioTitle: "스드메 옵션 증가 시나리오",
+    scenarioRows: [
+      { label: "기본 패키지", low: "180만원", middle: "250만원", high: "350만원", note: "스튜디오·드레스·메이크업 기본 구성" },
+      { label: "원본·앨범·액자", low: "40만원", middle: "100만원", high: "180만원", note: "구매 여부와 페이지 수에 따라 변동" },
+      { label: "드레스·헬퍼·출장", low: "30만원", middle: "80만원", high: "150만원", note: "본식 조건에 따라 추가" },
+    ],
+    formulaTitle: "스드메 실제 결제액 계산식",
+    formula: "스드메 총액 = 기본 패키지 + 원본 구매비 + 앨범 추가비 + 액자 추가비 + 드레스 추가금 + 헬퍼비 + 출장비",
+    formulaNotes: ["상담 견적의 기본가와 실제 결제액 사이가 커지는 지점을 따로 기록합니다.", "옵션 비중이 30%를 넘으면 남길 옵션과 줄일 옵션을 다시 정합니다."],
+    updatedReason: "기본 패키지와 추가 옵션을 분리한 실제 결제액 예시를 보강했습니다.",
+  },
+  "wedding-saving-tips": {
+    scenarioTitle: "절약 우선순위별 예산 조정 예시",
+    scenarioRows: [
+      { label: "날짜·시간대 조정", low: "0원", middle: "100만원 절감", high: "300만원 절감", note: "비인기 시간대나 비수기 협의 가능성" },
+      { label: "스드메 옵션 조정", low: "30만원 절감", middle: "100만원 절감", high: "200만원 절감", note: "앨범·액자·원본 구성 재검토" },
+      { label: "혼수 분할 구매", low: "100만원 유예", middle: "300만원 유예", high: "600만원 유예", note: "입주 첫달 필수 품목만 선구매" },
+    ],
+    formulaTitle: "절약 효과 계산식",
+    formula: "실제 절약액 = 조정 전 총예산 - 조정 후 총예산 - 만족도에 큰 영향을 주는 대체 비용",
+    formulaNotes: ["무조건 삭제한 금액이 절약액은 아닙니다. 대체 구매나 추가 이동비가 생기면 함께 반영합니다.", "만족도가 높은 핵심 항목보다 옵션성 항목부터 줄이는 편이 실패 확률이 낮습니다."],
+    updatedReason: "항목별 절약 시나리오와 실제 절약액 계산 관점을 추가했습니다.",
+  },
+};
+
+function BudgetScenarioTable({ enhancement }: { enhancement: NonNullable<(typeof guideEnhancements)[GuideSlug]> }) {
+  return (
+    <section className="mt-10 rounded-4xl border border-blush-100 bg-white p-6 shadow-soft md:p-8">
+      <h2 className="text-2xl font-black text-slate-950">{enhancement.scenarioTitle}</h2>
+      <div className="mt-5 overflow-x-auto">
+        <table className="w-full min-w-[620px] border-collapse text-sm">
+          <thead>
+            <tr className="border-b border-blush-100 text-left text-slate-500">
+              <th className="py-3 pr-3">항목</th>
+              <th className="py-3 pr-3">100명/낮음</th>
+              <th className="py-3 pr-3">150명/보통</th>
+              <th className="py-3 pr-3">200명/높음</th>
+              <th className="py-3">참고</th>
+            </tr>
+          </thead>
+          <tbody>
+            {enhancement.scenarioRows.map((row) => (
+              <tr key={row.label} className="border-b border-blush-100/70 last:border-0">
+                <td className="py-3 pr-3 font-bold text-slate-800">{row.label}</td>
+                <td className="py-3 pr-3 text-slate-600">{row.low}</td>
+                <td className="py-3 pr-3 text-slate-600">{row.middle}</td>
+                <td className="py-3 pr-3 text-slate-600">{row.high}</td>
+                <td className="py-3 text-slate-500">{row.note}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  );
+}
+
+function CostBreakdownExample({ enhancement }: { enhancement: NonNullable<(typeof guideEnhancements)[GuideSlug]> }) {
+  return (
+    <section className="mt-10 rounded-4xl border border-blush-100 bg-blush-50/70 p-6 shadow-soft md:p-8">
+      <h2 className="text-2xl font-black text-slate-950">{enhancement.formulaTitle}</h2>
+      <p className="mt-4 rounded-2xl bg-white p-4 text-sm font-black leading-7 text-slate-800">{enhancement.formula}</p>
+      <ul className="mt-5 space-y-3 text-sm leading-7 text-slate-600">
+        {enhancement.formulaNotes.map((note) => (
+          <li key={note} className="flex gap-3">
+            <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-blush-500" aria-hidden="true" />
+            <span>{note}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
 
 type PageProps = {
   params: Promise<{
@@ -40,6 +160,7 @@ export default async function GuidePage({ params }: PageProps) {
   }
 
   const faqs = createGuideFaqs(guide);
+  const enhancement = guideEnhancements[guide.slug as GuideSlug];
 
   return (
     <article className="mx-auto max-w-[90rem] px-4 py-10">
@@ -113,8 +234,24 @@ export default async function GuidePage({ params }: PageProps) {
         <SectionBlocks sections={guide.sections} />
       </div>
 
+      {enhancement ? (
+        <>
+          <BudgetScenarioTable enhancement={enhancement} />
+          <AdBanner slot="content" pageKind="guide-article" label="가이드 본문 광고 위치" />
+          <CostBreakdownExample enhancement={enhancement} />
+        </>
+      ) : null}
+
       <section className="mt-10">
         <AuthorBox author={guide.author} reviewer={guide.reviewedBy} updatedAt={guide.updatedAt} />
+      </section>
+
+      <section className="mt-10 rounded-4xl border border-blush-100 bg-white p-6 shadow-soft md:p-8">
+        <h2 className="text-2xl font-black text-slate-950">수정 내역</h2>
+        <p className="mt-4 text-sm leading-7 text-slate-600">
+          최종 수정일: {guide.updatedAt}
+          {enhancement ? ` · ${enhancement.updatedReason}` : " · 최신 계산기 구조와 내부 링크를 점검했습니다."}
+        </p>
       </section>
 
       <section className="mt-10">
@@ -126,9 +263,13 @@ export default async function GuidePage({ params }: PageProps) {
         <ul className="mt-5 space-y-3 text-sm leading-7 text-slate-600">
           {guide.sources.map((source) => (
             <li key={source.href}>
-              <a href={source.href} target="_blank" rel="noopener noreferrer" className="underline decoration-blush-200 underline-offset-4 hover:text-blush-800">
+              <a href={source.href} target="_blank" rel="noopener noreferrer" className="font-black text-slate-800 underline decoration-blush-200 underline-offset-4 hover:text-blush-800">
                 {source.label}
               </a>
+              <span className="block text-xs text-slate-500">
+                {source.organization || "참고 기관"} · {source.href}
+              </span>
+              {source.reason ? <span className="block text-xs text-slate-500">참고 이유: {source.reason}</span> : null}
             </li>
           ))}
         </ul>

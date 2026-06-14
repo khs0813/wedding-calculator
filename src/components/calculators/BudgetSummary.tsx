@@ -3,13 +3,18 @@ import { formatCurrency } from "@/lib/calculator-utils";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { ProgressBar } from "@/components/calculators/ProgressBar";
 
-export function BudgetSummary({ result }: { result: CalculatorResult }) {
+export function BudgetSummary({ result, hasInput }: { result: CalculatorResult; hasInput: boolean }) {
   const visibleItems = result.items.filter((item) => item.amount > 0);
+  const keySummaries = result.summary.slice(0, 3);
+
+  if (!hasInput) {
+    return null;
+  }
 
   return (
     <div className="space-y-6">
       <div className="grid gap-4 md:grid-cols-2">
-        {result.summary.map((summary) => (
+        {keySummaries.map((summary) => (
           <Card key={summary.label} className="p-5 shadow-none">
             <p className="text-sm font-bold text-slate-500">{summary.label}</p>
             <p className="mt-2 text-xl font-black text-slate-950">{summary.value}</p>
@@ -17,6 +22,18 @@ export function BudgetSummary({ result }: { result: CalculatorResult }) {
           </Card>
         ))}
       </div>
+
+      {result.summary.length > keySummaries.length ? (
+        <div className="grid gap-4 md:grid-cols-2">
+          {result.summary.slice(keySummaries.length).map((summary) => (
+            <Card key={summary.label} className="p-5 shadow-none">
+              <p className="text-sm font-bold text-slate-500">{summary.label}</p>
+              <p className="mt-2 text-lg font-black text-slate-950">{summary.value}</p>
+              {summary.description ? <p className="mt-2 text-xs leading-5 text-slate-500">{summary.description}</p> : null}
+            </Card>
+          ))}
+        </div>
+      ) : null}
 
       <Card>
         <CardHeader>

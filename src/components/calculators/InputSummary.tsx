@@ -14,7 +14,7 @@ function formatInputValue(fieldId: string, config: CalculatorConfig, values: Rec
   return String(value ?? "");
 }
 
-export function InputSummary({ config, values }: { config: CalculatorConfig; values: Record<string, FieldValue> }) {
+export function InputSummary({ config, values, generatedAt }: { config: CalculatorConfig; values: Record<string, FieldValue>; generatedAt?: Date | null }) {
   return (
     <section className="rounded-3xl border border-blush-100 bg-white p-6">
       <h3 className="text-xl font-black text-slate-950">입력값 요약</h3>
@@ -31,7 +31,9 @@ export function InputSummary({ config, values }: { config: CalculatorConfig; val
           </tbody>
         </table>
       </div>
-      <p className="mt-5 text-xs text-slate-400">생성일자: {new Date().toLocaleDateString("ko-KR")} · 사이트명: 웨딩 예산 계산기</p>
+      <p className="mt-5 text-xs text-slate-400">
+        생성일자: {generatedAt ? generatedAt.toLocaleString("ko-KR") : "공유, PDF, 엑셀 저장 시점에 생성"} · 사이트명: 웨딩 예산 계산기
+      </p>
     </section>
   );
 }

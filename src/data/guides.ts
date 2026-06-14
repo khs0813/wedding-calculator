@@ -12,7 +12,20 @@ const reviewer: AuthorProfile = {
   bio: "계산기 입력 구조와 실제 준비 과정이 어긋나지 않도록 계약 항목, 월 고정비, 추가 비용 포인트를 검토합니다.",
 };
 
-const commonSources: GuideSource[] = [];
+const commonSources: GuideSource[] = [
+  {
+    label: "소비자 분쟁 해결 기준과 계약 유의사항",
+    organization: "한국소비자원",
+    href: "https://www.kca.go.kr",
+    reason: "계약 전 포함 항목, 환불 조건, 추가 비용 확인 필요성을 설명할 때 참고",
+  },
+  {
+    label: "주거 정책과 주택 관련 제도 안내",
+    organization: "국토교통부",
+    href: "https://www.molit.go.kr",
+    reason: "신혼집 예산에서 보증금, 대출, 주거비를 분리해 보는 기준을 보강",
+  },
+];
 
 const baseGuides: Guide[] = [
   {
@@ -27,8 +40,8 @@ const baseGuides: Guide[] = [
     author,
     reviewedBy: reviewer,
     sources: [
-      { label: "국토교통부 주거 관련 정보", href: "https://www.molit.go.kr" },
-      { label: "한국소비자원 소비자 정보", href: "https://www.kca.go.kr" },
+      { label: "국토교통부 주거 관련 정보", organization: "국토교통부", href: "https://www.molit.go.kr", reason: "신혼집과 주거비 항목을 결혼 전체 예산에서 분리하기 위해 참고" },
+      { label: "한국소비자원 소비자 정보", organization: "한국소비자원", href: "https://www.kca.go.kr", reason: "계약 항목, 추가 비용, 소비자 유의사항을 설명하기 위해 참고" },
       ...commonSources,
     ],
     sections: [
@@ -67,8 +80,8 @@ const baseGuides: Guide[] = [
     author,
     reviewedBy: reviewer,
     sources: [
-      { label: "국토교통부 주거 정책 정보", href: "https://www.molit.go.kr" },
-      { label: "주택도시기금 안내", href: "https://nhuf.molit.go.kr" },
+      { label: "국토교통부 주거 정책 정보", organization: "국토교통부", href: "https://www.molit.go.kr", reason: "주거비와 입주 비용을 초기 현금, 월 고정비로 나누는 기준을 보강" },
+      { label: "주택도시기금 안내", organization: "주택도시기금", href: "https://nhuf.molit.go.kr", reason: "대출 가능액보다 월 상환 가능액을 먼저 보라는 설명에 참고" },
       ...commonSources,
     ],
     sections: [
@@ -142,7 +155,7 @@ const baseGuides: Guide[] = [
     updatedAt: "2026-06-03",
     author,
     reviewedBy: reviewer,
-    sources: [{ label: "한국소비자원 소비 계약 정보", href: "https://www.kca.go.kr" }, ...commonSources],
+    sources: [{ label: "한국소비자원 소비 계약 정보", organization: "한국소비자원", href: "https://www.kca.go.kr", reason: "웨딩홀 상담 전 계약 조건과 추가 비용 확인 포인트를 보강" }, ...commonSources],
     sections: [
       {
         heading: "보증 인원과 예상 하객 수를 분리합니다",

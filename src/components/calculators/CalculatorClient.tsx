@@ -38,9 +38,11 @@ const formSchema = z.record(
 
 export function CalculatorClient({ config }: { config: CalculatorConfig }) {
   const [hydrated, setHydrated] = useState(false);
+  const [moneyUnit, setMoneyUnit] = useState<"won" | "manwon">("won");
+  const [generatedAt, setGeneratedAt] = useState<Date | null>(null);
   const defaultValues = useMemo(() => getDefaultValues(config), [config]);
 
-  const { control, reset } = useForm<FormValues>({
+  const { control, reset, formState } = useForm<FormValues>({
     defaultValues,
     resolver: zodResolver(formSchema) as Resolver<FormValues>,
     mode: "onChange",
@@ -90,6 +92,7 @@ export function CalculatorClient({ config }: { config: CalculatorConfig }) {
   function handleReset() {
     removeCalculatorState(config.storageKey);
     reset(defaultValues);
+    setGeneratedAt(null);
     replaceCleanUrl();
   }
 
@@ -111,8 +114,55 @@ export function CalculatorClient({ config }: { config: CalculatorConfig }) {
     return Array.from(map.entries());
   }, [config]);
 
+  const exampleValues = useMemo(() => {
+    const nextValues: FormValues = { ...defaultValues };
+    config.fields.forEach((field) => {
+      if (field.type === "money" && safeNumber(field.defaultValue) === 0) {
+        nextValues[field.id] = field.id.toLowerCase().includes("meal")
+          ? 70000
+          : field.id.toLowerCase().includes("target")
+            ? 30000000
+            : 1000000;
+      }
+      if (field.type === "number" && safeNumber(field.defaultValue) === 0) {
+        nextValues[field.id] = field.id.toLowerCase().includes("guest") ? 150 : 1;
+      }
+      if (field.type === "percent" && safeNumber(field.defaultValue) === 0) {
+        nextValues[field.id] = 5;
+      }
+    });
+    return sanitizeValues(config, nextValues);
+  }, [config, defaultValues]);
+
+  const hasMeaningfulInput = useMemo(() => {
+    if (formState.isDirty) return true;
+
+    return config.fields.some((field) => {
+      const current = values[field.id];
+      const defaultValue = field.defaultValue;
+
+      if (field.type === "money" || field.type === "number" || field.type === "percent") {
+        return safeNumber(current) !== safeNumber(defaultValue) && safeNumber(current) > 0;
+      }
+
+      if (field.type === "checkbox") {
+        return Boolean(current) !== Boolean(defaultValue);
+      }
+
+      return String(current ?? "") !== String(defaultValue ?? "");
+    });
+  }, [config.fields, formState.isDirty, values]);
+
+  function fillExampleValues() {
+    reset(exampleValues, { keepDirty: true });
+  }
+
+  function markGeneratedAt() {
+    setGeneratedAt(new Date());
+  }
+
   return (
-    <div className="grid gap-8 lg:grid-cols-[minmax(22rem,0.65fr)_minmax(0,1.35fr)]">
+    <div id="calculator" className="grid scroll-mt-24 gap-8 lg:grid-cols-[minmax(22rem,0.8fr)_minmax(0,1.2fr)]">
       <section className="no-print space-y-5" aria-label="계산기 입력 영역">
         <Card>
           <CardHeader>
@@ -123,6 +173,35 @@ export function CalculatorClient({ config }: { config: CalculatorConfig }) {
             <p className="text-sm leading-6 text-slate-500">
               입력값은 서버가 아니라 현재 브라우저에만 자동 저장됩니다.
             </p>
+            <div className="mt-4 flex flex-wrap items-center gap-3">
+              <div className="inline-flex rounded-full border border-blush-200 bg-white p-1" aria-label="금액 입력 단위">
+                {[
+                  { value: "won", label: "원 단위" },
+                  { value: "manwon", label: "만원 단위" },
+                ].map((item) => (
+                  <button
+                    key={item.value}
+                    type="button"
+                    onClick={() => setMoneyUnit(item.value as "won" | "manwon")}
+                    className={
+                      moneyUnit === item.value
+                        ? "rounded-full bg-blush-800 px-4 py-2 text-xs font-black text-white"
+                        : "rounded-full px-4 py-2 text-xs font-black text-slate-600 hover:bg-blush-50"
+                    }
+                    aria-pressed={moneyUnit === item.value}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+              <button
+                type="button"
+                onClick={fillExampleValues}
+                className="min-h-10 rounded-full border border-blush-200 bg-white px-4 py-2 text-xs font-black text-blush-800 transition hover:bg-blush-50"
+              >
+                예시값 채우기
+              </button>
+            </div>
           </CardHeader>
           <CardContent>
             <div className="space-y-6">
@@ -147,6 +226,7 @@ export function CalculatorClient({ config }: { config: CalculatorConfig }) {
                                 placeholder={fieldDef.placeholder}
                                 value={safeNumber(field.value)}
                                 onChange={field.onChange}
+                                unit={moneyUnit}
                               />
                             );
                           }
@@ -239,23 +319,33 @@ export function CalculatorClient({ config }: { config: CalculatorConfig }) {
 
         {/* <AdBanner slot="content" label="계산기 입력 영역 하단 광고" /> */}
 
-        <div className="flex flex-wrap gap-3">
-          <ShareButton values={values} />
-          <PrintButton />
-          <ExcelActions
-            config={config}
-            values={values}
-            result={result}
-            onPasteImport={handleExcelPasteImport}
-          />
-          <ResetButton onReset={handleReset} />
+        <div className="rounded-3xl border border-blush-100 bg-white/85 p-4">
+          <div className="flex flex-wrap items-start gap-3">
+            <ShareButton values={values} onAction={markGeneratedAt} />
+            <PrintButton onAction={markGeneratedAt} />
+          </div>
+          <details className="mt-4">
+            <summary className="cursor-pointer text-sm font-black text-slate-700">고급 액션: 엑셀 내보내기/가져오기</summary>
+            <div className="mt-3">
+              <ExcelActions
+                config={config}
+                values={values}
+                result={result}
+                onPasteImport={handleExcelPasteImport}
+                onAction={markGeneratedAt}
+              />
+            </div>
+          </details>
+          <div className="mt-4 flex justify-end border-t border-blush-100 pt-4">
+            <ResetButton onReset={handleReset} />
+          </div>
         </div>
       </section>
 
-      <section className="print-area space-y-6" aria-label="계산 결과 영역">
-        <ResultCard result={result} />
-        <InputSummary config={config} values={values} />
-        <BudgetSummary result={result} />
+      <section className="print-area space-y-6 lg:sticky lg:top-24 lg:self-start" aria-label="계산 결과 영역" aria-live="polite">
+        <ResultCard result={result} hasInput={hasMeaningfulInput} />
+        <BudgetSummary result={result} hasInput={hasMeaningfulInput} />
+        {hasMeaningfulInput ? <InputSummary config={config} values={values} generatedAt={generatedAt} /> : null}
       </section>
     </div>
   );

@@ -25,7 +25,7 @@ export function NumberInput({ id, label, value, onChange, suffix, helpText, min 
           min={min}
           max={max}
           value={value || ""}
-          placeholder="0"
+          placeholder="입력"
           onChange={(event) => {
             const parsed = Number(event.target.value);
             const bounded = Number.isFinite(parsed) ? Math.max(min, Math.round(parsed)) : 0;
