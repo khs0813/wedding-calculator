@@ -15,7 +15,7 @@ export function PrintButton({ onAction }: { onAction?: () => void }) {
       className="w-full gap-2 sm:w-auto"
     >
       <Printer className="h-4 w-4" aria-hidden="true" />
-      PDF 저장/인쇄
+      PDF 저장
     </Button>
   );
 }

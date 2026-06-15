@@ -14,7 +14,7 @@ export type NumberInputProps = {
 export function NumberInput({ id, label, value, onChange, suffix, helpText, min = 0, max }: NumberInputProps) {
   return (
     <div className="space-y-1.5">
-      <label htmlFor={id} className="text-sm font-bold text-slate-800">
+      <label htmlFor={id} className="block h-5 text-sm font-bold leading-5 text-slate-800">
         {label}
       </label>
       <div className="relative">
@@ -31,7 +31,7 @@ export function NumberInput({ id, label, value, onChange, suffix, helpText, min 
             const bounded = Number.isFinite(parsed) ? Math.max(min, Math.round(parsed)) : 0;
             onChange(typeof max === "number" ? Math.min(max, bounded) : bounded);
           }}
-          className="min-h-10 w-full rounded-xl border border-blush-100 bg-white/95 px-3 pr-8 text-right text-sm font-bold text-slate-900 outline-none transition placeholder:text-slate-300 focus:border-blush-500 focus:ring-4 focus:ring-blush-100"
+          className="h-10 w-full rounded-xl border border-blush-100 bg-white/95 px-3 pr-8 text-right text-sm font-bold text-slate-900 outline-none transition placeholder:text-slate-300 focus:border-blush-500 focus:ring-4 focus:ring-blush-100"
         />
         {suffix ? <span className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400">{suffix}</span> : null}
       </div>

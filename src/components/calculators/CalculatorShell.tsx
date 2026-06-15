@@ -108,7 +108,7 @@ export function CalculatorShell({ config }: { config: CalculatorConfig }) {
           <SectionBlocks sections={content.sections} />
         </Card>
 
-        <AdBanner slot="content" pageKind="calculator" label="계산기 본문 중간 광고 위치" />
+        <AdBanner slot="content" pageKind="calculator" label="광고" />
 
         <AuthorBox author={content.author} updatedAt={content.updatedAt} />
 

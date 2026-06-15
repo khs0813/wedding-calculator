@@ -259,7 +259,7 @@ export const calculators: CalculatorConfig[] = [
         { label: "700만원 이상", value: "very-high" }
       ] },
       { id: "receivedBefore", label: "과거 받은 축의금 있음", type: "checkbox", defaultValue: false, group: "상호성" },
-      { id: "receivedAmount", label: "과거 받은 축의금 금액", type: "money", defaultValue: 0, group: "상호성", helpText: "받은 적이 있다면 그 금액을 기준으로 추천 범위를 보정합니다." }
+      { id: "receivedAmount", label: "과거 받은 축의금 금액", type: "money", defaultValue: 0, group: "상호성" }
     ],
     faqs: [
       { question: "축의금 계산기는 정답을 알려주나요?", answer: "아니요. 관계와 참석 상황을 기준으로 참고용 범위를 제안합니다. 실제 금액은 개인 사정과 관계에 따라 달라질 수 있습니다." },

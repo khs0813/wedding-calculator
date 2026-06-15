@@ -3,7 +3,7 @@ import { AdUnit } from "@/components/monetization/AdUnit";
 
 export function AdBanner({
   slot = "top",
-  label = "광고 영역",
+  label = "광고",
   pageKind = "guide-article",
 }: {
   slot?: AdPlacement;
@@ -22,16 +22,11 @@ export function AdBanner({
     return null;
   }
 
-  if (!approved || !clientId || !slotId) {
-    return (
-      <aside className="no-print rounded-3xl border border-dashed border-slate-200 bg-white/70 p-5 text-center text-xs font-bold text-slate-400" aria-label={label}>
-        광고 위치
-      </aside>
-    );
-  }
+  if (!approved || !clientId || !slotId) return null;
 
   return (
     <aside className="no-print" aria-label={label}>
+      <p className="mb-2 text-xs font-bold text-slate-500">광고</p>
       <AdUnit clientId={clientId} slotId={slotId} />
     </aside>
   );

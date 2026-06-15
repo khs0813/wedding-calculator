@@ -2,7 +2,15 @@ import type { CalculatorResult } from "@/types/calculator";
 import { formatCurrency } from "@/lib/calculator-utils";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
-export function ResultCard({ result, hasInput }: { result: CalculatorResult; hasInput: boolean }) {
+export function ResultCard({
+  result,
+  hasInput,
+  emptyState,
+}: {
+  result: CalculatorResult;
+  hasInput: boolean;
+  emptyState: string;
+}) {
   if (!hasInput) {
     return (
       <Card className="overflow-hidden border-blush-200 bg-white">
@@ -12,7 +20,7 @@ export function ResultCard({ result, hasInput }: { result: CalculatorResult; has
         </CardHeader>
         <CardContent>
           <p className="rounded-2xl bg-blush-50 p-5 text-sm leading-7 text-slate-600">
-            금액과 인원을 입력하면 총 예상 비용, 예상 회수액, 실제 부담 예상액이 표시됩니다.
+            {emptyState}
           </p>
         </CardContent>
       </Card>

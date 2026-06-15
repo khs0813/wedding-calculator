@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BookOpenText, Calculator, ChevronDown, Heart, Info, Mail, Menu, NotebookPen, X } from "lucide-react";
 
 const primaryCalculatorLinks = [
@@ -18,6 +18,15 @@ const primaryCalculatorLinks = [
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [calculatorOpen, setCalculatorOpen] = useState(false);
+  const featuredMobileCalculatorLinks = primaryCalculatorLinks.slice(0, 2);
+  const secondaryMobileCalculatorLinks = primaryCalculatorLinks.slice(2);
+
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
 
   return (
     <header className="no-print sticky top-0 z-50 border-b border-blush-100 bg-white/80 backdrop-blur-xl">
@@ -67,9 +76,6 @@ export function Header() {
                   </Link>
                 ))}
               </div>
-              <Link href="/summary" onClick={() => setCalculatorOpen(false)} className="mt-2 block rounded-2xl px-4 py-3 text-sm font-bold text-slate-500 transition hover:bg-blush-50 hover:text-blush-800">
-                내 예산 요약
-              </Link>
             </div>
           </div>
           <Link
@@ -123,7 +129,7 @@ export function Header() {
             계산 시작
           </Link>
           <div className="grid gap-2">
-            {primaryCalculatorLinks.map((calculator) => (
+            {featuredMobileCalculatorLinks.map((calculator) => (
               <Link
                 key={calculator.href}
                 href={calculator.href}
@@ -134,6 +140,21 @@ export function Header() {
               </Link>
             ))}
           </div>
+          <details className="mt-2 rounded-2xl border border-blush-100 bg-white">
+            <summary className="cursor-pointer px-4 py-3 text-sm font-black text-slate-700">다른 계산기</summary>
+            <div className="grid gap-1 px-2 pb-2">
+              {secondaryMobileCalculatorLinks.map((calculator) => (
+                <Link
+                  key={calculator.href}
+                  href={calculator.href}
+                  onClick={() => setMobileOpen(false)}
+                  className="rounded-xl px-4 py-3 text-sm font-bold text-slate-600 transition hover:bg-blush-50 hover:text-blush-800"
+                >
+                  {calculator.label}
+                </Link>
+              ))}
+            </div>
+          </details>
           <div className="mt-3 grid grid-cols-2 gap-2 border-t border-blush-100 pt-3">
             {[
               { href: "/guides", label: "가이드", icon: BookOpenText },

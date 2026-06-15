@@ -34,9 +34,10 @@ export function FAQAccordion({ items }: { items: FAQItem[] }) {
               aria-controls={answerId}
             >
               <span>{item.question}</span>
-              <span className={open ? "rounded-full bg-blush-100 px-2 py-1 text-xs text-blush-800" : "rounded-full bg-blush-50 px-2 py-1 text-xs text-blush-700"}>
-                {open ? "닫기" : "열기"}
+              <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blush-50 text-lg font-black text-blush-800" aria-hidden="true">
+                {open ? "-" : "+"}
               </span>
+              <span className="sr-only">{open ? "답변 닫기" : "답변 열기"}</span>
             </button>
             {open ? (
               <p id={answerId} className="mt-3 text-sm leading-7 text-slate-600">

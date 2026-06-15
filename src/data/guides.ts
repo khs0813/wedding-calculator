@@ -12,20 +12,14 @@ const reviewer: AuthorProfile = {
   bio: "계산기 입력 구조와 실제 준비 과정이 어긋나지 않도록 계약 항목, 월 고정비, 추가 비용 포인트를 검토합니다.",
 };
 
-const commonSources: GuideSource[] = [
-  {
-    label: "소비자 분쟁 해결 기준과 계약 유의사항",
-    organization: "한국소비자원",
-    href: "https://www.kca.go.kr",
-    reason: "계약 전 포함 항목, 환불 조건, 추가 비용 확인 필요성을 설명할 때 참고",
-  },
-  {
-    label: "주거 정책과 주택 관련 제도 안내",
-    organization: "국토교통부",
-    href: "https://www.molit.go.kr",
-    reason: "신혼집 예산에서 보증금, 대출, 주거비를 분리해 보는 기준을 보강",
-  },
-];
+const commonSources: GuideSource[] = [];
+
+const housingLoanSource: GuideSource = {
+  label: "신혼부부전용 전세자금 안내",
+  organization: "주택도시기금",
+  href: "https://nhuf.molit.go.kr/FP/FP05/FP0502/FP05020601.jsp",
+  reason: "신혼집 예산에서 대출 가능액보다 월 상환 가능액과 초기 현금을 분리해 설명하기 위해 참고",
+};
 
 const baseGuides: Guide[] = [
   {
@@ -39,11 +33,7 @@ const baseGuides: Guide[] = [
     updatedAt: "2026-06-03",
     author,
     reviewedBy: reviewer,
-    sources: [
-      { label: "국토교통부 주거 관련 정보", organization: "국토교통부", href: "https://www.molit.go.kr", reason: "신혼집과 주거비 항목을 결혼 전체 예산에서 분리하기 위해 참고" },
-      { label: "한국소비자원 소비자 정보", organization: "한국소비자원", href: "https://www.kca.go.kr", reason: "계약 항목, 추가 비용, 소비자 유의사항을 설명하기 위해 참고" },
-      ...commonSources,
-    ],
+    sources: [],
     sections: [
       {
         heading: "결혼 비용은 항목을 나누는 순간 관리가 쉬워집니다",
@@ -80,9 +70,7 @@ const baseGuides: Guide[] = [
     author,
     reviewedBy: reviewer,
     sources: [
-      { label: "국토교통부 주거 정책 정보", organization: "국토교통부", href: "https://www.molit.go.kr", reason: "주거비와 입주 비용을 초기 현금, 월 고정비로 나누는 기준을 보강" },
-      { label: "주택도시기금 안내", organization: "주택도시기금", href: "https://nhuf.molit.go.kr", reason: "대출 가능액보다 월 상환 가능액을 먼저 보라는 설명에 참고" },
-      ...commonSources,
+      housingLoanSource,
     ],
     sections: [
       {
@@ -155,7 +143,7 @@ const baseGuides: Guide[] = [
     updatedAt: "2026-06-03",
     author,
     reviewedBy: reviewer,
-    sources: [{ label: "한국소비자원 소비 계약 정보", organization: "한국소비자원", href: "https://www.kca.go.kr", reason: "웨딩홀 상담 전 계약 조건과 추가 비용 확인 포인트를 보강" }, ...commonSources],
+    sources: [],
     sections: [
       {
         heading: "보증 인원과 예상 하객 수를 분리합니다",
@@ -421,10 +409,7 @@ const baseGuides: Guide[] = [
     updatedAt: "2026-06-03",
     author,
     reviewedBy: reviewer,
-    sources: [
-      { label: "주택도시기금 안내", href: "https://nhuf.molit.go.kr" },
-      ...commonSources,
-    ],
+    sources: [housingLoanSource],
     sections: [
       {
         heading: "월 상환액을 먼저 계산합니다",
@@ -457,7 +442,7 @@ const baseGuides: Guide[] = [
     updatedAt: "2026-06-03",
     author,
     reviewedBy: reviewer,
-    sources: [{ label: "한국소비자원 계약 관련 정보", href: "https://www.kca.go.kr" }, ...commonSources],
+    sources: [],
     sections: [
       {
         heading: "포함 항목과 제외 항목을 분리해 읽습니다",
@@ -490,7 +475,7 @@ const baseGuides: Guide[] = [
     updatedAt: "2026-06-03",
     author,
     reviewedBy: reviewer,
-    sources: [{ label: "한국소비자원 소비자 정보", href: "https://www.kca.go.kr" }, ...commonSources],
+    sources: [],
     sections: [
       {
         heading: "하객 수는 식대뿐 아니라 부대비용까지 흔듭니다",
@@ -526,7 +511,7 @@ const baseGuides: Guide[] = [
     updatedAt: "2026-06-03",
     author,
     reviewedBy: reviewer,
-    sources: [{ label: "공정거래위원회 계약 관련 정보", href: "https://www.ftc.go.kr" }, ...commonSources],
+    sources: [],
     sections: [
       {
         heading: "식대 1만 원 차이는 총액에서 크게 보입니다",
@@ -598,7 +583,7 @@ const baseGuides: Guide[] = [
     updatedAt: "2026-06-03",
     author,
     reviewedBy: reviewer,
-    sources: [{ label: "국토교통부 주거 관련 정보", href: "https://www.molit.go.kr" }, ...commonSources],
+    sources: [housingLoanSource],
     sections: [
       {
         heading: "보증금과 초기 현금 필요액은 다른 숫자입니다",

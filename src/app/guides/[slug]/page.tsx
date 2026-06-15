@@ -136,6 +136,7 @@ type GuideTable = {
   title: string;
   columns: string[];
   rows: string[][];
+  assumptions?: string[];
 };
 
 const guideTables: Partial<Record<GuideSlug, GuideTable[]>> = {
@@ -143,6 +144,7 @@ const guideTables: Partial<Record<GuideSlug, GuideTable[]>> = {
     {
       title: "하객 수별 기본 예산표",
       columns: ["하객 수", "식대 단가", "식대 총액", "답례품/부대비", "예상 축의금 회수액", "순부담액"],
+      assumptions: ["식대 단가: 70,000원", "축의금 회수액 가정: 1인 50,000원", "답례품/부대비는 예시값"],
       rows: [
         ["100명", "70,000원", "700만원", "150만원", "500만원", "350만원"],
         ["150명", "70,000원", "1,050만원", "220만원", "750만원", "520만원"],
@@ -152,6 +154,7 @@ const guideTables: Partial<Record<GuideSlug, GuideTable[]>> = {
     {
       title: "식대 5만/7만/9만 원 시나리오",
       columns: ["하객 수", "5만원 식대", "7만원 식대", "9만원 식대", "7만원 대비 차이"],
+      assumptions: ["식대 총액만 비교", "대관료, 부가세, 봉사료는 제외", "하객 수는 실제 청구 인원 기준"],
       rows: [
         ["100명", "500만원", "700만원", "900만원", "±200만원"],
         ["150명", "750만원", "1,050만원", "1,350만원", "±300만원"],
@@ -163,6 +166,7 @@ const guideTables: Partial<Record<GuideSlug, GuideTable[]>> = {
     {
       title: "식대 단가 x 하객 수 매트릭스",
       columns: ["식대 단가", "100명", "150명", "200명", "확인 포인트"],
+      assumptions: ["식대 총액만 비교", "대관료, 꽃장식, 봉사료는 별도 확인", "보증 인원과 실제 하객 중 큰 값을 청구 기준으로 가정"],
       rows: [
         ["50,000원", "500만원", "750만원", "1,000만원", "대관료 별도 여부 확인"],
         ["70,000원", "700만원", "1,050만원", "1,400만원", "가장 흔한 비교 기준"],
@@ -172,6 +176,7 @@ const guideTables: Partial<Record<GuideSlug, GuideTable[]>> = {
     {
       title: "보증 인원 미달/초과 시나리오",
       columns: ["조건", "보증 인원", "실제 하객", "청구 식대 기준", "예상 영향"],
+      assumptions: ["보증 인원 미달 시 보증 인원 기준 청구 가정", "초과 인원은 실제 참석 인원 기준 청구 가정"],
       rows: [
         ["미달", "150명", "120명", "150명", "오지 않은 30명분도 부담 가능"],
         ["기준 일치", "150명", "150명", "150명", "견적과 실제가 가장 가까움"],
@@ -181,6 +186,7 @@ const guideTables: Partial<Record<GuideSlug, GuideTable[]>> = {
     {
       title: "부가세/봉사료 포함 여부 비교",
       columns: ["표기 방식", "기본 견적", "부가세 10%", "봉사료 3%", "최종 비교액"],
+      assumptions: ["봉사료는 부가세 포함 후 금액 기준 예시", "실제 견적서의 산정 순서를 우선 확인"],
       rows: [
         ["모두 포함", "1,200만원", "포함", "포함", "1,200만원"],
         ["부가세 별도", "1,200만원", "120만원", "포함", "1,320만원"],
@@ -192,6 +198,7 @@ const guideTables: Partial<Record<GuideSlug, GuideTable[]>> = {
     {
       title: "스드메 추가금 항목별 예시",
       columns: ["항목", "낮은 예산", "보통 예산", "높은 예산", "확인할 내용"],
+      assumptions: ["지역, 업체, 촬영 일정에 따라 변동", "기본 패키지 포함 여부에 따라 실제 추가금은 달라질 수 있음"],
       rows: [
         ["드레스 추가금", "0~30만원", "50~100만원", "150만원 이상", "본식 드레스 등급"],
         ["원본 파일", "20만원", "40~70만원", "100만원 이상", "원본 포함 여부"],
@@ -204,6 +211,7 @@ const guideTables: Partial<Record<GuideSlug, GuideTable[]>> = {
     {
       title: "필수/선택/상황별 분류표",
       columns: ["분류", "대표 항목", "판단 기준", "줄이는 방법"],
+      assumptions: ["필수 여부는 커플의 촬영 목적과 계약 구성에 따라 달라질 수 있음"],
       rows: [
         ["필수", "기본 스튜디오·드레스·메이크업", "계약 패키지 핵심 구성", "구성 비교 후 패키지 조정"],
         ["선택", "앨범 추가, 액자, 보정 컷", "만족도와 보관 목적", "권수·크기·컷 수 축소"],
@@ -215,6 +223,7 @@ const guideTables: Partial<Record<GuideSlug, GuideTable[]>> = {
     {
       title: "보증금 외 초기비용 표",
       columns: ["항목", "낮은 예산", "보통 예산", "높은 예산", "메모"],
+      assumptions: ["수도권 소형~중형 주거지 입주 예시", "보증금, 매매가, 대출금은 별도", "실제 중개보수는 거래 금액과 지역 조례를 확인"],
       rows: [
         ["중개보수", "30만원", "80만원", "150만원 이상", "거래 금액과 유형에 따라 변동"],
         ["이사비", "60만원", "120만원", "250만원 이상", "거리·짐 양·손 없는 날 영향"],
@@ -227,6 +236,7 @@ const guideTables: Partial<Record<GuideSlug, GuideTable[]>> = {
     {
       title: "입주 전후 지출 타임라인",
       columns: ["시점", "주요 지출", "예산 예시", "확인 포인트"],
+      assumptions: ["입주일 기준 현금 지출 흐름 예시", "결혼식 잔금과 겹치는 달은 별도 여유자금 필요"],
       rows: [
         ["입주 2주 전", "중개보수, 이사 예약금", "100~250만원", "잔금일과 이사일 확정"],
         ["입주 1주 전", "입주청소, 커튼 실측", "50~200만원", "설치 가능 시간 확인"],
@@ -239,6 +249,7 @@ const guideTables: Partial<Record<GuideSlug, GuideTable[]>> = {
     {
       title: "가전 구매 우선순위 분류표",
       columns: ["분류", "품목", "구매 시점", "판단 기준"],
+      assumptions: ["입주 직후 생활 필요도 기준", "집 구조와 기존 보유 제품에 따라 우선순위 변경 가능"],
       rows: [
         ["필수가전", "냉장고, 세탁기, 에어컨", "입주 전 또는 입주 직후", "생활 시작에 바로 필요"],
         ["선택가전", "건조기, TV, 식기세척기", "예산 여유 확인 후", "생활 패턴과 집 구조에 따라 결정"],
@@ -248,6 +259,7 @@ const guideTables: Partial<Record<GuideSlug, GuideTable[]>> = {
     {
       title: "500만/1000만/1500만 원 예산 시나리오",
       columns: ["예산", "구성 예시", "포함 품목", "미루는 품목"],
+      assumptions: ["제품 브랜드와 용량은 예시", "배송·설치비는 별도 발생 가능", "패키지 할인은 실제 견적서 기준 확인"],
       rows: [
         ["500만원", "필수 생활형", "냉장고, 세탁기, 기본 청소기", "TV, 건조기, 식기세척기"],
         ["1,000만원", "균형형", "냉장고, 세탁기, 건조기, TV, 청소기", "프리미엄 소형가전"],
@@ -263,28 +275,47 @@ function GuideDataTables({ tables }: { tables: GuideTable[] }) {
       {tables.map((table) => (
         <section key={table.title} className="rounded-4xl border border-blush-100 bg-white p-6 shadow-soft md:p-8">
           <h2 className="text-2xl font-black text-slate-950">{table.title}</h2>
+          <p className="mt-3 text-sm leading-7 text-slate-600">
+            아래 숫자는 예시이며 실제 견적은 업체·지역·계약 조건에 따라 달라질 수 있습니다.
+          </p>
           <div className="mt-5 overflow-x-auto">
             <table className="w-full min-w-[680px] border-collapse text-sm">
+              <caption className="sr-only">{table.title}</caption>
               <thead>
                 <tr className="border-b border-blush-100 text-left text-slate-500">
                   {table.columns.map((column) => (
-                    <th key={column} className="py-3 pr-3">{column}</th>
+                    <th key={column} scope="col" className="py-3 pr-3">{column}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
                 {table.rows.map((row) => (
                   <tr key={row.join("|")} className="border-b border-blush-100/70 last:border-0">
-                    {row.map((cell, index) => (
-                      <td key={`${cell}-${index}`} className={index === 0 ? "py-3 pr-3 font-bold text-slate-800" : "py-3 pr-3 text-slate-600"}>
-                        {cell}
-                      </td>
-                    ))}
+                    {row.map((cell, index) =>
+                      index === 0 ? (
+                        <th key={`${cell}-${index}`} scope="row" className="py-3 pr-3 text-left font-bold text-slate-800">
+                          {cell}
+                        </th>
+                      ) : (
+                        <td key={`${cell}-${index}`} className="py-3 pr-3 text-slate-600">
+                          {cell}
+                        </td>
+                      ),
+                    )}
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
+          {table.assumptions?.length ? (
+            <ul className="mt-4 flex flex-wrap gap-2 text-xs text-slate-500">
+              {table.assumptions.map((assumption) => (
+                <li key={assumption} className="rounded-full bg-blush-50 px-3 py-1 font-bold">
+                  {assumption}
+                </li>
+              ))}
+            </ul>
+          ) : null}
         </section>
       ))}
     </div>
@@ -400,7 +431,7 @@ export default async function GuidePage({ params }: PageProps) {
       {enhancement ? (
         <>
           <BudgetScenarioTable enhancement={enhancement} />
-          <AdBanner slot="content" pageKind="guide-article" label="가이드 본문 광고 위치" />
+          <AdBanner slot="content" pageKind="guide-article" label="광고" />
           <CostBreakdownExample enhancement={enhancement} />
         </>
       ) : null}
