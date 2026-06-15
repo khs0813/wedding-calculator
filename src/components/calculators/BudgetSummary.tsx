@@ -42,20 +42,21 @@ export function BudgetSummary({ result, hasInput }: { result: CalculatorResult; 
         </CardHeader>
         <CardContent>
           {visibleItems.length > 0 ? (
-            <div className="overflow-x-auto">
+            <div className="table-scroll overflow-x-auto">
               <table className="w-full min-w-[520px] border-collapse text-sm">
+                <caption className="sr-only">항목별 입력 비용과 분류</caption>
                 <thead>
                   <tr className="border-b border-blush-100 text-left text-slate-500">
-                    <th className="py-3 pr-3">항목</th>
-                    <th className="py-3 pr-3">분류</th>
-                    <th className="py-3 pr-3 text-right">금액</th>
-                    <th className="py-3 text-right">구분</th>
+                    <th scope="col" className="py-3 pr-3">항목</th>
+                    <th scope="col" className="py-3 pr-3">분류</th>
+                    <th scope="col" className="py-3 pr-3 text-right">금액</th>
+                    <th scope="col" className="py-3 text-right">구분</th>
                   </tr>
                 </thead>
                 <tbody>
                   {visibleItems.map((entry) => (
                     <tr key={entry.id} className="border-b border-blush-100/70 last:border-0">
-                      <td className="py-3 pr-3 font-bold text-slate-800">{entry.label}</td>
+                      <th scope="row" className="py-3 pr-3 text-left font-bold text-slate-800">{entry.label}</th>
                       <td className="py-3 pr-3 text-slate-500">{entry.category}</td>
                       <td className="py-3 pr-3 text-right font-bold text-slate-900">{formatCurrency(entry.amount)}</td>
                       <td className="py-3 text-right text-slate-500">{entry.required ? "필수" : "선택"}</td>

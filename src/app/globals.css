@@ -12,16 +12,23 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
   margin: 0;
+  overflow-x: hidden;
   background:
     radial-gradient(circle at 12% 0%, rgba(205, 223, 244, 0.72), transparent 30rem),
     radial-gradient(circle at 88% 8%, rgba(220, 239, 238, 0.70), transparent 28rem),
     linear-gradient(180deg, #fbfcff 0%, #f7f9fc 36rem, #ffffff 100%);
   color: #202936;
   font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Noto Sans KR", "Segoe UI", sans-serif;
+}
+
+.table-scroll {
+  max-width: 100%;
+  -webkit-overflow-scrolling: touch;
 }
 
 input,

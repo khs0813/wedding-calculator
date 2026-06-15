@@ -20,9 +20,9 @@ export function FAQAccordion({ items }: { items: FAQItem[] }) {
 
   return (
     <div className="divide-y divide-blush-100/70">
-      {items.map((item) => {
+      {items.map((item, index) => {
         const open = openQuestions.has(item.question);
-        const answerId = `faq-${item.question.replace(/\s+/g, "-").replace(/[^\w가-힣-]/g, "")}`;
+        const answerId = `faq-answer-${index}-${item.question.replace(/\s+/g, "-").replace(/[^\w가-힣-]/g, "")}`;
 
         return (
           <div key={item.question} className="py-5">
@@ -33,7 +33,7 @@ export function FAQAccordion({ items }: { items: FAQItem[] }) {
               aria-expanded={open}
               aria-controls={answerId}
             >
-              <span>{item.question}</span>
+              <span className="faq-question min-w-0 flex-1">{item.question}</span>
               <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blush-50 text-lg font-black text-blush-800" aria-hidden="true">
                 {open ? "-" : "+"}
               </span>

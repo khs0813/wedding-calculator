@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { BookOpenText, Calculator, ChevronDown, Heart, Info, Mail, Menu, NotebookPen, X } from "lucide-react";
 
@@ -16,10 +17,14 @@ const primaryCalculatorLinks = [
 ];
 
 export function Header() {
+  const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [calculatorOpen, setCalculatorOpen] = useState(false);
-  const featuredMobileCalculatorLinks = primaryCalculatorLinks.slice(0, 2);
-  const secondaryMobileCalculatorLinks = primaryCalculatorLinks.slice(2);
+  const [mobileCalculatorOpen, setMobileCalculatorOpen] = useState(false);
+
+  function isCurrent(href: string) {
+    return pathname === href || pathname === `${href}/`;
+  }
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
@@ -52,7 +57,6 @@ export function Header() {
               aria-expanded={calculatorOpen}
               aria-controls="desktop-calculator-menu"
             >
-              <Calculator className="h-4 w-4" aria-hidden="true" />
               계산기
               <ChevronDown className="h-4 w-4" aria-hidden="true" />
             </button>
@@ -71,6 +75,7 @@ export function Header() {
                     href={calculator.href}
                     onClick={() => setCalculatorOpen(false)}
                     className="rounded-2xl px-4 py-3 text-sm font-black text-slate-700 transition hover:bg-blush-50 hover:text-blush-800"
+                    aria-current={isCurrent(calculator.href) ? "page" : undefined}
                   >
                     {calculator.label}
                   </Link>
@@ -81,22 +86,22 @@ export function Header() {
           <Link
             href="/guides"
             className="inline-flex items-center gap-2 rounded-full px-3 py-2 text-base font-black text-slate-600 transition hover:bg-blush-50 hover:text-blush-800"
+            aria-current={isCurrent("/guides") ? "page" : undefined}
           >
-            <BookOpenText className="h-4 w-4" aria-hidden="true" />
             가이드
           </Link>
           <Link
             href="/methodology"
             className="inline-flex items-center gap-2 rounded-full px-3 py-2 text-base font-black text-slate-600 transition hover:bg-blush-50 hover:text-blush-800"
+            aria-current={isCurrent("/methodology") ? "page" : undefined}
           >
-            <NotebookPen className="h-4 w-4" aria-hidden="true" />
             계산 기준
           </Link>
           <Link
             href="/contact"
             className="inline-flex items-center gap-2 rounded-full px-3 py-2 text-base font-black text-slate-600 transition hover:bg-blush-50 hover:text-blush-800"
+            aria-current={isCurrent("/contact") ? "page" : undefined}
           >
-            <Mail className="h-4 w-4" aria-hidden="true" />
             문의
           </Link>
         </nav>
@@ -123,38 +128,39 @@ export function Header() {
           <Link
             href="/calculators/wedding-cost"
             onClick={() => setMobileOpen(false)}
+            aria-current={isCurrent("/calculators/wedding-cost") ? "page" : undefined}
             className="mb-3 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-2xl bg-blush-800 px-4 py-3 text-sm font-black text-white transition hover:bg-blush-700"
           >
             <Calculator className="h-4 w-4" aria-hidden="true" />
             계산 시작
           </Link>
-          <div className="grid gap-2">
-            {featuredMobileCalculatorLinks.map((calculator) => (
-              <Link
-                key={calculator.href}
-                href={calculator.href}
-                onClick={() => setMobileOpen(false)}
-                className="rounded-2xl px-4 py-3 text-sm font-black text-slate-700 transition hover:bg-blush-50 hover:text-blush-800"
-              >
-                {calculator.label}
-              </Link>
-            ))}
-          </div>
-          <details className="mt-2 rounded-2xl border border-blush-100 bg-white">
-            <summary className="cursor-pointer px-4 py-3 text-sm font-black text-slate-700">다른 계산기</summary>
-            <div className="grid gap-1 px-2 pb-2">
-              {secondaryMobileCalculatorLinks.map((calculator) => (
+          <div className="rounded-2xl border border-blush-100 bg-white">
+            <button
+              type="button"
+              className="flex min-h-12 w-full items-center justify-between px-4 py-3 text-left text-sm font-black text-slate-800"
+              aria-expanded={mobileCalculatorOpen}
+              aria-controls="mobile-calculator-list"
+              onClick={() => setMobileCalculatorOpen((current) => !current)}
+            >
+              <span>계산기 목록</span>
+              <ChevronDown className={mobileCalculatorOpen ? "h-4 w-4 rotate-180 transition" : "h-4 w-4 transition"} aria-hidden="true" />
+            </button>
+            {mobileCalculatorOpen ? (
+              <div id="mobile-calculator-list" className="grid gap-1 border-t border-blush-100 px-2 py-2">
+                {primaryCalculatorLinks.map((calculator) => (
                 <Link
                   key={calculator.href}
                   href={calculator.href}
                   onClick={() => setMobileOpen(false)}
                   className="rounded-xl px-4 py-3 text-sm font-bold text-slate-600 transition hover:bg-blush-50 hover:text-blush-800"
+                  aria-current={isCurrent(calculator.href) ? "page" : undefined}
                 >
                   {calculator.label}
                 </Link>
               ))}
-            </div>
-          </details>
+              </div>
+            ) : null}
+          </div>
           <div className="mt-3 grid grid-cols-2 gap-2 border-t border-blush-100 pt-3">
             {[
               { href: "/guides", label: "가이드", icon: BookOpenText },
@@ -169,6 +175,7 @@ export function Header() {
                   href={item.href}
                   onClick={() => setMobileOpen(false)}
                   className="inline-flex min-h-11 items-center gap-2 rounded-2xl px-4 py-3 text-sm font-bold text-slate-600 transition hover:bg-blush-50 hover:text-blush-800"
+                  aria-current={isCurrent(item.href) ? "page" : undefined}
                 >
                   <Icon className="h-4 w-4" aria-hidden="true" />
                   {item.label}

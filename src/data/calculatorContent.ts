@@ -4,6 +4,10 @@ const editorialAuthor: AuthorProfile = {
   name: "웨딩 예산 계산기 편집팀",
   role: "예산 기획 및 콘텐츠 편집",
   bio: "결혼 준비와 신혼집 준비 과정에서 실제로 비교하게 되는 계약 항목, 현금 흐름, 추가 비용 포인트를 정리해 계산기와 해설 콘텐츠를 함께 운영합니다.",
+  scope: "계산기 입력 항목 설계, 결과 설명 문구, 예산 가이드 연결 구조",
+  reviewCriteria: ["계산식과 입력 항목의 일치 여부", "결과 문구의 오해 가능성", "공유·PDF·엑셀 기능의 사용자 흐름"],
+  updateCycle: "기능 변경 시 즉시 점검, 콘텐츠는 분기 1회 이상 재검토",
+  contact: "moneyfinancecalculator@gmail.com",
 };
 
 export const calculatorContent: Record<CalculatorSlug, CalculatorEditorialContent> = {

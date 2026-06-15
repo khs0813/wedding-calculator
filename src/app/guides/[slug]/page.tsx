@@ -87,21 +87,25 @@ function BudgetScenarioTable({ enhancement }: { enhancement: NonNullable<(typeof
   return (
     <section className="mt-10 rounded-4xl border border-blush-100 bg-white p-6 shadow-soft md:p-8">
       <h2 className="text-2xl font-black text-slate-950">{enhancement.scenarioTitle}</h2>
-      <div className="mt-5 overflow-x-auto">
+      <p className="mt-3 text-sm leading-7 text-slate-600">
+        아래 숫자는 예시이며 실제 견적은 업체·지역·계약 조건에 따라 달라질 수 있습니다.
+      </p>
+      <div className="table-scroll mt-5 overflow-x-auto">
         <table className="w-full min-w-[620px] border-collapse text-sm">
+          <caption className="sr-only">{enhancement.scenarioTitle}</caption>
           <thead>
             <tr className="border-b border-blush-100 text-left text-slate-500">
-              <th className="py-3 pr-3">항목</th>
-              <th className="py-3 pr-3">100명/낮음</th>
-              <th className="py-3 pr-3">150명/보통</th>
-              <th className="py-3 pr-3">200명/높음</th>
-              <th className="py-3">참고</th>
+              <th scope="col" className="py-3 pr-3">항목</th>
+              <th scope="col" className="py-3 pr-3">100명/낮음</th>
+              <th scope="col" className="py-3 pr-3">150명/보통</th>
+              <th scope="col" className="py-3 pr-3">200명/높음</th>
+              <th scope="col" className="py-3">참고</th>
             </tr>
           </thead>
           <tbody>
             {enhancement.scenarioRows.map((row) => (
               <tr key={row.label} className="border-b border-blush-100/70 last:border-0">
-                <td className="py-3 pr-3 font-bold text-slate-800">{row.label}</td>
+                <th scope="row" className="py-3 pr-3 text-left font-bold text-slate-800">{row.label}</th>
                 <td className="py-3 pr-3 text-slate-600">{row.low}</td>
                 <td className="py-3 pr-3 text-slate-600">{row.middle}</td>
                 <td className="py-3 pr-3 text-slate-600">{row.high}</td>
@@ -278,7 +282,7 @@ function GuideDataTables({ tables }: { tables: GuideTable[] }) {
           <p className="mt-3 text-sm leading-7 text-slate-600">
             아래 숫자는 예시이며 실제 견적은 업체·지역·계약 조건에 따라 달라질 수 있습니다.
           </p>
-          <div className="mt-5 overflow-x-auto">
+          <div className="table-scroll mt-5 overflow-x-auto">
             <table className="w-full min-w-[680px] border-collapse text-sm">
               <caption className="sr-only">{table.title}</caption>
               <thead>
@@ -368,8 +372,8 @@ export default async function GuidePage({ params }: PageProps) {
             image: absoluteUrl("/og-default.png"),
             datePublished: guide.publishedAt,
             dateModified: guide.updatedAt,
-            author: { "@type": "Person", name: guide.author.name },
-            reviewedBy: guide.reviewedBy ? { "@type": "Person", name: guide.reviewedBy.name } : undefined,
+            author: { "@type": "Organization", name: guide.author.name },
+            reviewedBy: guide.reviewedBy ? { "@type": "Organization", name: guide.reviewedBy.name } : undefined,
             publisher: {
               "@type": "Organization",
               name: "웨딩 예산 계산기",

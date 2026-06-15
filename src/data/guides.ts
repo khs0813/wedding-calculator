@@ -2,14 +2,21 @@ import type { AuthorProfile, Guide, GuideSource } from "@/types/calculator";
 
 const author: AuthorProfile = {
   name: "웨딩 예산 계산기 편집팀",
-  role: "콘텐츠 기획",
+  role: "예산 콘텐츠 기획",
   bio: "결혼 준비 예산과 신혼집 현금 흐름을 비교 가능한 형태로 정리해 계산기와 해설 콘텐츠를 함께 제공합니다.",
+  scope: "웨딩홀, 스드메, 혼수, 신혼집, 신혼여행, 축의금 예산 항목 구성",
+  updateCycle: "주요 계산기 구조 변경 시 수시 점검, 정기 콘텐츠 점검은 분기 1회",
+  contact: "moneyfinancecalculator@gmail.com",
 };
 
 const reviewer: AuthorProfile = {
-  name: "운영 검토 담당",
-  role: "콘텐츠 검수",
+  name: "웨딩 예산 계산기 운영 검토팀",
+  role: "계산식 및 정책 자료 검토",
   bio: "계산기 입력 구조와 실제 준비 과정이 어긋나지 않도록 계약 항목, 월 고정비, 추가 비용 포인트를 검토합니다.",
+  scope: "계산식 검토, 입력 항목 누락 검토, 정책·대출 관련 공식 자료 확인",
+  reviewCriteria: ["계산식과 표 예시의 산정 기준", "입력 항목 누락 여부", "정책·대출 설명의 공식 자료 연결성"],
+  updateCycle: "계산식 변경 또는 공식 자료 변경 확인 시 갱신",
+  contact: "moneyfinancecalculator@gmail.com",
 };
 
 const commonSources: GuideSource[] = [];

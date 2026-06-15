@@ -69,13 +69,19 @@ function resolveFile(pathname) {
   return null;
 }
 
-function sendFile(res, filePath, statusCode) {
+function sendFile(res, filePath, statusCode, pathname = "") {
   const extension = extname(filePath).toLowerCase();
   const contentType = contentTypes.get(extension) || "application/octet-stream";
+  const isCrawlerControlFile = pathname === "/robots.txt" || pathname === "/sitemap.xml";
+  const extraHeaders = pathname === "/summary" || pathname === "/summary/"
+    ? { "X-Robots-Tag": "noindex, follow" }
+    : {};
+
   res.writeHead(statusCode, {
     "Content-Type": contentType,
-    "Cache-Control": extension === ".html" ? "no-cache" : "public, max-age=31536000, immutable",
+    "Cache-Control": extension === ".html" || isCrawlerControlFile ? "no-cache" : "public, max-age=31536000, immutable",
     ...securityHeaders,
+    ...extraHeaders,
   });
   createReadStream(filePath).pipe(res);
 }
@@ -100,13 +106,13 @@ createServer((req, res) => {
   const matchedFile = resolveFile(pathname);
 
   if (matchedFile) {
-    sendFile(res, matchedFile, 200);
+    sendFile(res, matchedFile, 200, pathname);
     return;
   }
 
   const notFoundFile = join(rootDir, "404.html");
   if (existsSync(notFoundFile)) {
-    sendFile(res, notFoundFile, 404);
+    sendFile(res, notFoundFile, 404, pathname);
     return;
   }
 

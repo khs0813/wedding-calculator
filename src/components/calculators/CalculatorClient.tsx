@@ -8,6 +8,7 @@ import { z } from "zod";
 import type { CalculatorConfig, FieldValue } from "@/types/calculator";
 import { calculateResult } from "@/lib/calculations";
 import {
+  formatCurrency,
   getDefaultValues,
   sanitizeValues,
   safeNumber,
@@ -63,6 +64,17 @@ const congratulatoryPresets: Array<{ label: string; values: FormValues }> = [
     values: { relation: "friend-close", closeness: "high", attendMeal: true, withCompanion: false, region: "metro", income: "high", receivedBefore: false, receivedAmount: 0 },
   },
 ];
+
+const presetLabelsByCalculator: Record<CalculatorConfig["slug"], [string, string, string]> = {
+  "wedding-cost": ["소규모", "평균형", "넉넉한 예산"],
+  "newlywed-home-budget": ["월세 중심", "전세 중심", "입주비 넉넉형"],
+  "wedding-hall-cost": ["100명 기준", "150명 기준", "200명 기준"],
+  "studio-dress-makeup-cost": ["기본 패키지형", "균형형", "옵션 포함형"],
+  "honsu-budget": ["필수 가전형", "균형형", "풀옵션형"],
+  "wedding-gift-budget": ["간소화형", "보통형", "넉넉형"],
+  "honeymoon-budget": ["국내/근거리", "아시아권", "장거리/휴양형"],
+  "congratulatory-money": ["지인/가벼운 관계", "일반 친구/동료", "가까운 친구/가족"],
+};
 
 export function CalculatorClient({ config }: { config: CalculatorConfig }) {
   const [hydrated, setHydrated] = useState(false);
@@ -173,10 +185,12 @@ export function CalculatorClient({ config }: { config: CalculatorConfig }) {
       }));
     }
 
+    const labels = presetLabelsByCalculator[config.slug];
+
     return [
-      { label: "소규모", values: makePreset(0.7) },
-      { label: "평균형", values: exampleValues },
-      { label: "넉넉한 예산", values: makePreset(1.4) },
+      { label: labels[0], values: makePreset(0.7) },
+      { label: labels[1], values: exampleValues },
+      { label: labels[2], values: makePreset(1.4) },
     ];
   }, [config, defaultValues, exampleValues]);
 
@@ -207,8 +221,10 @@ export function CalculatorClient({ config }: { config: CalculatorConfig }) {
     setGeneratedAt(new Date());
   }
 
+  const mobileSecondarySummary = result.summary.find((summary) => /부담|초기|월 고정|추천|범위/.test(summary.label)) || result.summary[0];
+
   return (
-    <div id="calculator" className="grid scroll-mt-24 gap-8 lg:grid-cols-[minmax(22rem,0.8fr)_minmax(0,1.2fr)]">
+    <div id="calculator" className="grid scroll-mt-24 gap-8 lg:grid-cols-[minmax(22rem,0.82fr)_minmax(0,1.18fr)]">
       <section className="no-print space-y-5" aria-label="계산기 입력 영역">
         <Card>
           <CardHeader>
@@ -386,27 +402,6 @@ export function CalculatorClient({ config }: { config: CalculatorConfig }) {
         </Card>
 
         {/* <AdBanner slot="content" label="계산기 입력 영역 하단 광고" /> */}
-
-        <div className="rounded-3xl border border-blush-100 bg-white/85 p-4">
-          <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-start">
-            <ShareButton values={values} onAction={markGeneratedAt} />
-            <PrintButton onAction={markGeneratedAt} />
-          </div>
-          <details className="mt-4">
-            <summary className="cursor-pointer text-sm font-black text-slate-700">엑셀 도구</summary>
-            <div className="mt-3">
-              <ExcelActions
-                config={config}
-                values={values}
-                result={result}
-                onAction={markGeneratedAt}
-              />
-            </div>
-          </details>
-          <div className="mt-4 flex border-t border-blush-100 pt-4 sm:justify-end">
-            <ResetButton onReset={handleReset} />
-          </div>
-        </div>
       </section>
 
       <section className="print-area space-y-6 lg:sticky lg:top-24 lg:self-start" aria-label="계산 결과 영역" aria-live="polite">
@@ -419,11 +414,48 @@ export function CalculatorClient({ config }: { config: CalculatorConfig }) {
             내 예산 요약 보기
           </Link>
         ) : null}
+        {hasMeaningfulInput ? (
+          <div className="no-print rounded-3xl border border-blush-100 bg-white/85 p-4">
+            <h2 className="text-lg font-black text-slate-950">결과 활용</h2>
+            <div className="mt-4 flex flex-col items-stretch gap-3 sm:flex-row sm:items-start">
+              <ShareButton values={values} onAction={markGeneratedAt} />
+              <PrintButton onAction={markGeneratedAt} />
+            </div>
+            <details className="mt-4 rounded-2xl border border-blush-100 bg-white px-4 py-3">
+              <summary className="cursor-pointer text-sm font-black text-slate-700">엑셀 내보내기</summary>
+              <div className="mt-3">
+                <ExcelActions
+                  config={config}
+                  values={values}
+                  result={result}
+                  onAction={markGeneratedAt}
+                />
+              </div>
+            </details>
+          </div>
+        ) : null}
+        <div className="no-print rounded-3xl border border-red-100 bg-white/85 p-4">
+          <h2 className="text-lg font-black text-slate-950">입력값 관리</h2>
+          <p className="mt-2 text-sm leading-6 text-slate-500">현재 계산기의 브라우저 저장값과 입력값을 초기화합니다.</p>
+          <div className="mt-4 flex sm:justify-end">
+            <ResetButton onReset={handleReset} />
+          </div>
+        </div>
       </section>
       {hasMeaningfulInput ? (
         <div className="no-print fixed inset-x-3 bottom-3 z-40 rounded-2xl border border-blush-100 bg-white/95 p-3 shadow-soft backdrop-blur lg:hidden">
-          <p className="text-xs font-bold text-slate-500">{result.primaryLabel}</p>
-          <p className="mt-1 text-lg font-black text-blush-800">{result.total.toLocaleString("ko-KR")}원</p>
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <p className="text-xs font-bold text-slate-500">{result.primaryLabel}</p>
+              <p className="mt-1 text-lg font-black text-blush-800">{formatCurrency(result.total)}</p>
+            </div>
+            {mobileSecondarySummary ? (
+              <div>
+                <p className="text-xs font-bold text-slate-500">{mobileSecondarySummary.label}</p>
+                <p className="mt-1 text-sm font-black text-slate-900">{mobileSecondarySummary.value}</p>
+              </div>
+            ) : null}
+          </div>
         </div>
       ) : null}
     </div>

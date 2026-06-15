@@ -112,6 +112,10 @@ export type AuthorProfile = {
   name: string;
   role: string;
   bio: string;
+  scope?: string;
+  reviewCriteria?: string[];
+  updateCycle?: string;
+  contact?: string;
 };
 
 export type RichSection = {

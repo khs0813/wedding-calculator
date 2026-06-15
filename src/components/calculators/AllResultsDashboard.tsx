@@ -157,22 +157,23 @@ function getRowStatus(row: DashboardRow) {
 
 function ResultsTable({ rows }: { rows: DashboardRow[] }) {
   return (
-    <div className="overflow-x-auto">
+    <div className="table-scroll overflow-x-auto">
       <table className="w-full min-w-[840px] border-collapse text-sm">
+        <caption className="sr-only">브라우저에 저장된 계산기별 예산 결과 요약</caption>
         <thead>
             <tr className="border-b border-blush-100 text-left text-slate-500">
-            <th className="py-3 pr-3">계산기</th>
-            <th className="py-3 pr-3">상태</th>
-            <th className="py-3 pr-3 text-right">합계</th>
-            <th className="py-3 pr-3">보조 결과 1</th>
-            <th className="py-3 pr-3">보조 결과 2</th>
-            <th className="py-3 text-right no-print">이동</th>
+            <th scope="col" className="py-3 pr-3">계산기</th>
+            <th scope="col" className="py-3 pr-3">상태</th>
+            <th scope="col" className="py-3 pr-3 text-right">합계</th>
+            <th scope="col" className="py-3 pr-3">보조 결과 1</th>
+            <th scope="col" className="py-3 pr-3">보조 결과 2</th>
+            <th scope="col" className="py-3 text-right no-print">이동</th>
           </tr>
         </thead>
         <tbody>
           {rows.map((row) => (
             <tr key={`table-${row.config.slug}`} className="border-b border-blush-100/70 last:border-0">
-              <td className="py-3 pr-3 font-black text-slate-900">{row.config.shortTitle}</td>
+              <th scope="row" className="py-3 pr-3 text-left font-black text-slate-900">{row.config.shortTitle}</th>
               <td className="py-3 pr-3"><StatusBadge row={row} /></td>
               <td className="py-3 pr-3 text-right font-black text-blush-800">{formatCurrency(row.result.total)}</td>
               <td className="py-3 pr-3 text-slate-600">{row.result.summary[0]?.label}: {row.result.summary[0]?.value}</td>

@@ -19,12 +19,13 @@ export function InputSummary({ config, values, generatedAt }: { config: Calculat
     <section className="rounded-3xl border border-blush-100 bg-white p-6">
       <h3 className="text-xl font-black text-slate-950">입력값 요약</h3>
       <p className="mt-2 text-sm text-slate-500">PDF 출력 시 함께 포함되는 입력 내역입니다.</p>
-      <div className="mt-5 overflow-x-auto">
+      <div className="table-scroll mt-5 overflow-x-auto">
         <table className="w-full min-w-[520px] border-collapse text-sm">
+          <caption className="sr-only">{config.shortTitle} 입력값 요약</caption>
           <tbody>
             {config.fields.map((field) => (
               <tr key={field.id} className="border-b border-blush-100/70 last:border-0">
-                <th className="py-3 pr-4 text-left font-bold text-slate-700">{field.label}</th>
+                <th scope="row" className="py-3 pr-4 text-left font-bold text-slate-700">{field.label}</th>
                 <td className="py-3 text-right text-slate-600">{formatInputValue(field.id, config, values)}</td>
               </tr>
             ))}
