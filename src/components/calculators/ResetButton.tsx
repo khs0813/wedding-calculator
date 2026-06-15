@@ -11,7 +11,7 @@ export function ResetButton({ onReset }: { onReset: () => void }) {
   }
 
   return (
-    <Button type="button" variant="danger" onClick={handleReset} className="gap-2">
+    <Button type="button" variant="danger" onClick={handleReset} className="w-full gap-2 sm:w-auto">
       <RotateCcw className="h-4 w-4" aria-hidden="true" />
       초기화
     </Button>

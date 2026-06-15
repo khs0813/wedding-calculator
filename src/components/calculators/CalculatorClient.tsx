@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 import { Controller, type Resolver, useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -27,6 +28,7 @@ import { PrintButton } from "@/components/calculators/PrintButton";
 import { ResetButton } from "@/components/calculators/ResetButton";
 import { InputSummary } from "@/components/calculators/InputSummary";
 import { ExcelActions } from "@/components/calculators/ExcelActions";
+import { LayoutDashboard } from "lucide-react";
 // import { AdBanner } from "@/components/monetization/AdBanner";
 
 type FormValues = Record<string, FieldValue>;
@@ -134,6 +136,24 @@ export function CalculatorClient({ config }: { config: CalculatorConfig }) {
     return sanitizeValues(config, nextValues);
   }, [config, defaultValues]);
 
+  const examplePresets = useMemo(() => {
+    const makePreset = (scale: number) => {
+      const nextValues: FormValues = { ...exampleValues };
+      config.fields.forEach((field) => {
+        if (field.type === "money") {
+          nextValues[field.id] = safeNumber(safeNumber(exampleValues[field.id]) * scale);
+        }
+      });
+      return sanitizeValues(config, nextValues);
+    };
+
+    return [
+      { label: "소규모", values: makePreset(0.7) },
+      { label: "평균형", values: exampleValues },
+      { label: "넉넉한 예산", values: makePreset(1.4) },
+    ];
+  }, [config, exampleValues]);
+
   const hasMeaningfulInput = useMemo(() => {
     if (formState.isDirty) return true;
 
@@ -153,8 +173,8 @@ export function CalculatorClient({ config }: { config: CalculatorConfig }) {
     });
   }, [config.fields, formState.isDirty, values]);
 
-  function fillExampleValues() {
-    reset(exampleValues, { keepDirty: true });
+  function fillExampleValues(presetValues = exampleValues) {
+    reset(presetValues, { keepDirty: true });
   }
 
   function markGeneratedAt() {
@@ -194,13 +214,18 @@ export function CalculatorClient({ config }: { config: CalculatorConfig }) {
                   </button>
                 ))}
               </div>
-              <button
-                type="button"
-                onClick={fillExampleValues}
-                className="min-h-10 rounded-full border border-blush-200 bg-white px-4 py-2 text-xs font-black text-blush-800 transition hover:bg-blush-50"
-              >
-                예시값 채우기
-              </button>
+              <div className="flex flex-wrap gap-2" aria-label="예시값 프리셋">
+                {examplePresets.map((preset) => (
+                  <button
+                    key={preset.label}
+                    type="button"
+                    onClick={() => fillExampleValues(preset.values)}
+                    className="min-h-10 rounded-full border border-blush-200 bg-white px-4 py-2 text-xs font-black text-blush-800 transition hover:bg-blush-50"
+                  >
+                    {preset.label}
+                  </button>
+                ))}
+              </div>
             </div>
           </CardHeader>
           <CardContent>
@@ -320,7 +345,7 @@ export function CalculatorClient({ config }: { config: CalculatorConfig }) {
         {/* <AdBanner slot="content" label="계산기 입력 영역 하단 광고" /> */}
 
         <div className="rounded-3xl border border-blush-100 bg-white/85 p-4">
-          <div className="flex flex-wrap items-start gap-3">
+          <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-start">
             <ShareButton values={values} onAction={markGeneratedAt} />
             <PrintButton onAction={markGeneratedAt} />
           </div>
@@ -336,7 +361,7 @@ export function CalculatorClient({ config }: { config: CalculatorConfig }) {
               />
             </div>
           </details>
-          <div className="mt-4 flex justify-end border-t border-blush-100 pt-4">
+          <div className="mt-4 flex border-t border-blush-100 pt-4 sm:justify-end">
             <ResetButton onReset={handleReset} />
           </div>
         </div>
@@ -346,6 +371,12 @@ export function CalculatorClient({ config }: { config: CalculatorConfig }) {
         <ResultCard result={result} hasInput={hasMeaningfulInput} />
         <BudgetSummary result={result} hasInput={hasMeaningfulInput} />
         {hasMeaningfulInput ? <InputSummary config={config} values={values} generatedAt={generatedAt} /> : null}
+        {hasMeaningfulInput ? (
+          <Link href="/summary" className="no-print inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full border border-blush-200 bg-white px-5 py-2.5 text-sm font-black text-blush-800 transition hover:bg-blush-50">
+            <LayoutDashboard className="h-4 w-4" aria-hidden="true" />
+            전체 결과 보기
+          </Link>
+        ) : null}
       </section>
     </div>
   );

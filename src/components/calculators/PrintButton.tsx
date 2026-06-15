@@ -12,10 +12,10 @@ export function PrintButton({ onAction }: { onAction?: () => void }) {
         onAction?.();
         window.setTimeout(() => window.print(), 0);
       }}
-      className="gap-2"
+      className="w-full gap-2 sm:w-auto"
     >
       <Printer className="h-4 w-4" aria-hidden="true" />
-      PDF 저장
+      PDF 저장/인쇄
     </Button>
   );
 }

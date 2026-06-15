@@ -12,7 +12,7 @@ export function ResultCard({ result, hasInput }: { result: CalculatorResult; has
         </CardHeader>
         <CardContent>
           <p className="rounded-2xl bg-blush-50 p-5 text-sm leading-7 text-slate-600">
-            왼쪽에 금액을 입력하면 총 예산과 실제 부담액이 표시됩니다.
+            금액과 인원을 입력하면 총 예상 비용, 예상 회수액, 실제 부담 예상액이 표시됩니다.
           </p>
         </CardContent>
       </Card>

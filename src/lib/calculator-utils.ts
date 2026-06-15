@@ -18,6 +18,12 @@ export function safeNumber(value: unknown): number {
 }
 
 export function parseCurrency(value: string): number {
+  const normalized = value.replace(/,/g, "").trim();
+  const manwonMatch = normalized.match(/^([0-9]+(?:\.[0-9]+)?)\s*만\s*원?$/);
+  if (manwonMatch) {
+    return safeNumber(Number(manwonMatch[1]) * 10000);
+  }
+
   return safeNumber(value.replace(/[^0-9]/g, ""));
 }
 

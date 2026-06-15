@@ -31,9 +31,11 @@ export function InputSummary({ config, values, generatedAt }: { config: Calculat
           </tbody>
         </table>
       </div>
-      <p className="mt-5 text-xs text-slate-400">
-        생성일자: {generatedAt ? generatedAt.toLocaleString("ko-KR") : "공유, PDF, 엑셀 저장 시점에 생성"} · 사이트명: 웨딩 예산 계산기
-      </p>
+      {generatedAt ? (
+        <p className="mt-5 text-xs text-slate-400">
+          결과 생성일: {generatedAt.toLocaleString("ko-KR")} · 사이트명: 웨딩 예산 계산기
+        </p>
+      ) : null}
     </section>
   );
 }

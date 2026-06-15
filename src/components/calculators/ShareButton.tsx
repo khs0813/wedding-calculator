@@ -18,7 +18,7 @@ export function ShareButton({ values, onAction }: { values: Record<string, Field
 
   return (
     <div className="flex flex-col gap-2">
-      <Button type="button" variant="secondary" onClick={handleShare} className="gap-2">
+      <Button type="button" onClick={handleShare} className="w-full gap-2 sm:w-auto">
         <Link2 className="h-4 w-4" aria-hidden="true" />
         결과 공유
       </Button>

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowDown, LayoutDashboard } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 import type { CalculatorConfig } from "@/types/calculator";
 import { CalculatorClient } from "@/components/calculators/CalculatorClient";
 import { FAQSection } from "@/components/seo/FAQSection";
@@ -75,10 +75,6 @@ export function CalculatorShell({ config }: { config: CalculatorConfig }) {
             </a>
             <Link href="/methodology" className="inline-flex min-h-11 items-center gap-2 rounded-full border border-blush-200 bg-white px-5 py-2.5 text-sm font-black text-blush-800 transition hover:bg-blush-50">
               계산 기준 보기
-            </Link>
-            <Link href="/summary" className="inline-flex min-h-11 items-center gap-2 rounded-full border border-blush-200 bg-white px-5 py-2.5 text-sm font-black text-blush-800 transition hover:bg-blush-50">
-              <LayoutDashboard className="h-4 w-4" aria-hidden="true" />
-              내 예산 요약
             </Link>
           </div>
         </div>

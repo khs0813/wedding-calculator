@@ -10,11 +10,14 @@ const primaryCalculatorLinks = [
   { href: "/calculators/wedding-hall-cost", label: "웨딩홀 비용" },
   { href: "/calculators/studio-dress-makeup-cost", label: "스드메 비용" },
   { href: "/calculators/honsu-budget", label: "혼수 비용" },
+  { href: "/calculators/wedding-gift-budget", label: "예물 예산" },
   { href: "/calculators/honeymoon-budget", label: "신혼여행" },
+  { href: "/calculators/congratulatory-money", label: "축의금" },
 ];
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [calculatorOpen, setCalculatorOpen] = useState(false);
 
   return (
     <header className="no-print sticky top-0 z-50 border-b border-blush-100 bg-white/80 backdrop-blur-xl">
@@ -27,28 +30,44 @@ export function Header() {
         </Link>
 
         <nav className="hidden items-center gap-1 lg:flex" aria-label="주요 메뉴">
-          <div className="group relative">
+          <div className="relative" onMouseEnter={() => setCalculatorOpen(true)} onMouseLeave={() => setCalculatorOpen(false)}>
             <button
               type="button"
+              onClick={() => setCalculatorOpen((current) => !current)}
+              onKeyDown={(event) => {
+                if (event.key === "Escape") {
+                  setCalculatorOpen(false);
+                }
+              }}
               className="inline-flex min-h-11 items-center gap-2 rounded-full px-4 py-2 text-base font-black text-slate-600 transition hover:bg-blush-50 hover:text-blush-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blush-200"
+              aria-expanded={calculatorOpen}
+              aria-controls="desktop-calculator-menu"
             >
               <Calculator className="h-4 w-4" aria-hidden="true" />
               계산기
               <ChevronDown className="h-4 w-4" aria-hidden="true" />
             </button>
-            <div className="invisible absolute right-0 top-full w-[28rem] translate-y-2 rounded-3xl border border-blush-100 bg-white p-3 opacity-0 shadow-soft transition group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
+            <div
+              id="desktop-calculator-menu"
+              className={
+                calculatorOpen
+                  ? "visible absolute right-0 top-full w-[28rem] translate-y-0 rounded-3xl border border-blush-100 bg-white p-3 opacity-100 shadow-soft transition"
+                  : "invisible absolute right-0 top-full w-[28rem] translate-y-2 rounded-3xl border border-blush-100 bg-white p-3 opacity-0 shadow-soft transition"
+              }
+            >
               <div className="grid grid-cols-2 gap-2">
                 {primaryCalculatorLinks.map((calculator) => (
                   <Link
                     key={calculator.href}
                     href={calculator.href}
+                    onClick={() => setCalculatorOpen(false)}
                     className="rounded-2xl px-4 py-3 text-sm font-black text-slate-700 transition hover:bg-blush-50 hover:text-blush-800"
                   >
                     {calculator.label}
                   </Link>
                 ))}
               </div>
-              <Link href="/summary" className="mt-2 block rounded-2xl px-4 py-3 text-sm font-bold text-slate-500 transition hover:bg-blush-50 hover:text-blush-800">
+              <Link href="/summary" onClick={() => setCalculatorOpen(false)} className="mt-2 block rounded-2xl px-4 py-3 text-sm font-bold text-slate-500 transition hover:bg-blush-50 hover:text-blush-800">
                 내 예산 요약
               </Link>
             </div>
@@ -95,6 +114,14 @@ export function Header() {
       </div>
       {mobileOpen ? (
         <nav id="mobile-navigation" className="border-t border-blush-100 bg-white px-4 py-4 lg:hidden" aria-label="모바일 주요 메뉴">
+          <Link
+            href="/calculators/wedding-cost"
+            onClick={() => setMobileOpen(false)}
+            className="mb-3 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-2xl bg-blush-800 px-4 py-3 text-sm font-black text-white transition hover:bg-blush-700"
+          >
+            <Calculator className="h-4 w-4" aria-hidden="true" />
+            계산 시작
+          </Link>
           <div className="grid gap-2">
             {primaryCalculatorLinks.map((calculator) => (
               <Link

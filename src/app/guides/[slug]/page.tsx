@@ -132,6 +132,165 @@ function CostBreakdownExample({ enhancement }: { enhancement: NonNullable<(typeo
   );
 }
 
+type GuideTable = {
+  title: string;
+  columns: string[];
+  rows: string[][];
+};
+
+const guideTables: Partial<Record<GuideSlug, GuideTable[]>> = {
+  "wedding-guest-budget-table-guide": [
+    {
+      title: "하객 수별 기본 예산표",
+      columns: ["하객 수", "식대 단가", "식대 총액", "답례품/부대비", "예상 축의금 회수액", "순부담액"],
+      rows: [
+        ["100명", "70,000원", "700만원", "150만원", "500만원", "350만원"],
+        ["150명", "70,000원", "1,050만원", "220만원", "750만원", "520만원"],
+        ["200명", "70,000원", "1,400만원", "300만원", "1,000만원", "700만원"],
+      ],
+    },
+    {
+      title: "식대 5만/7만/9만 원 시나리오",
+      columns: ["하객 수", "5만원 식대", "7만원 식대", "9만원 식대", "7만원 대비 차이"],
+      rows: [
+        ["100명", "500만원", "700만원", "900만원", "±200만원"],
+        ["150명", "750만원", "1,050만원", "1,350만원", "±300만원"],
+        ["200명", "1,000만원", "1,400만원", "1,800만원", "±400만원"],
+      ],
+    },
+  ],
+  "wedding-hall-meal-cost-table-guide": [
+    {
+      title: "식대 단가 x 하객 수 매트릭스",
+      columns: ["식대 단가", "100명", "150명", "200명", "확인 포인트"],
+      rows: [
+        ["50,000원", "500만원", "750만원", "1,000만원", "대관료 별도 여부 확인"],
+        ["70,000원", "700만원", "1,050만원", "1,400만원", "가장 흔한 비교 기준"],
+        ["90,000원", "900만원", "1,350만원", "1,800만원", "봉사료 포함 여부 확인"],
+      ],
+    },
+    {
+      title: "보증 인원 미달/초과 시나리오",
+      columns: ["조건", "보증 인원", "실제 하객", "청구 식대 기준", "예상 영향"],
+      rows: [
+        ["미달", "150명", "120명", "150명", "오지 않은 30명분도 부담 가능"],
+        ["기준 일치", "150명", "150명", "150명", "견적과 실제가 가장 가까움"],
+        ["초과", "150명", "180명", "180명", "초과 30명 식대 추가"],
+      ],
+    },
+    {
+      title: "부가세/봉사료 포함 여부 비교",
+      columns: ["표기 방식", "기본 견적", "부가세 10%", "봉사료 3%", "최종 비교액"],
+      rows: [
+        ["모두 포함", "1,200만원", "포함", "포함", "1,200만원"],
+        ["부가세 별도", "1,200만원", "120만원", "포함", "1,320만원"],
+        ["둘 다 별도", "1,200만원", "120만원", "39.6만원", "1,359.6만원"],
+      ],
+    },
+  ],
+  "sdme-extra-cost-table-guide": [
+    {
+      title: "스드메 추가금 항목별 예시",
+      columns: ["항목", "낮은 예산", "보통 예산", "높은 예산", "확인할 내용"],
+      rows: [
+        ["드레스 추가금", "0~30만원", "50~100만원", "150만원 이상", "본식 드레스 등급"],
+        ["원본 파일", "20만원", "40~70만원", "100만원 이상", "원본 포함 여부"],
+        ["헬퍼비", "15만원", "20~30만원", "40만원 이상", "촬영/본식 각각 발생 여부"],
+        ["앨범", "0~30만원", "50~100만원", "150만원 이상", "페이지와 권수"],
+        ["액자", "0~20만원", "30~70만원", "100만원 이상", "크기와 소재"],
+        ["출장비", "0원", "10~30만원", "50만원 이상", "지역과 이동 시간"],
+      ],
+    },
+    {
+      title: "필수/선택/상황별 분류표",
+      columns: ["분류", "대표 항목", "판단 기준", "줄이는 방법"],
+      rows: [
+        ["필수", "기본 스튜디오·드레스·메이크업", "계약 패키지 핵심 구성", "구성 비교 후 패키지 조정"],
+        ["선택", "앨범 추가, 액자, 보정 컷", "만족도와 보관 목적", "권수·크기·컷 수 축소"],
+        ["상황별", "헬퍼비, 출장비, 얼리스타트", "장소·시간·이동 조건", "일정과 장소를 먼저 확정"],
+      ],
+    },
+  ],
+  "newlywed-home-initial-cost-guide": [
+    {
+      title: "보증금 외 초기비용 표",
+      columns: ["항목", "낮은 예산", "보통 예산", "높은 예산", "메모"],
+      rows: [
+        ["중개보수", "30만원", "80만원", "150만원 이상", "거래 금액과 유형에 따라 변동"],
+        ["이사비", "60만원", "120만원", "250만원 이상", "거리·짐 양·손 없는 날 영향"],
+        ["입주청소", "25만원", "45만원", "80만원 이상", "평수와 오염도 확인"],
+        ["커튼/조명", "50만원", "150만원", "300만원 이상", "창 개수와 설치 범위"],
+        ["가전 설치비", "0~20만원", "30~70만원", "100만원 이상", "빌트인·배관·타공 여부"],
+        ["생활용품", "50만원", "120만원", "250만원 이상", "첫 달 반복 구매 포함"],
+      ],
+    },
+    {
+      title: "입주 전후 지출 타임라인",
+      columns: ["시점", "주요 지출", "예산 예시", "확인 포인트"],
+      rows: [
+        ["입주 2주 전", "중개보수, 이사 예약금", "100~250만원", "잔금일과 이사일 확정"],
+        ["입주 1주 전", "입주청소, 커튼 실측", "50~200만원", "설치 가능 시간 확인"],
+        ["입주 당일", "이사 잔금, 가전 설치비", "100~400만원", "엘리베이터·사다리차 조건"],
+        ["입주 후 1개월", "생활용품, 추가 수납", "50~200만원", "실제 동선 확인 후 구매"],
+      ],
+    },
+  ],
+  "appliance-budget-table-guide": [
+    {
+      title: "가전 구매 우선순위 분류표",
+      columns: ["분류", "품목", "구매 시점", "판단 기준"],
+      rows: [
+        ["필수가전", "냉장고, 세탁기, 에어컨", "입주 전 또는 입주 직후", "생활 시작에 바로 필요"],
+        ["선택가전", "건조기, TV, 식기세척기", "예산 여유 확인 후", "생활 패턴과 집 구조에 따라 결정"],
+        ["나중 구매", "로봇청소기, 공기청정기, 소형가전", "입주 후 1~3개월", "실제 불편이 확인될 때 구매"],
+      ],
+    },
+    {
+      title: "500만/1000만/1500만 원 예산 시나리오",
+      columns: ["예산", "구성 예시", "포함 품목", "미루는 품목"],
+      rows: [
+        ["500만원", "필수 생활형", "냉장고, 세탁기, 기본 청소기", "TV, 건조기, 식기세척기"],
+        ["1,000만원", "균형형", "냉장고, 세탁기, 건조기, TV, 청소기", "프리미엄 소형가전"],
+        ["1,500만원", "넉넉한 예산형", "대형가전 패키지, 식기세척기, 로봇청소기", "중복 기능 제품"],
+      ],
+    },
+  ],
+};
+
+function GuideDataTables({ tables }: { tables: GuideTable[] }) {
+  return (
+    <div className="mt-10 space-y-6">
+      {tables.map((table) => (
+        <section key={table.title} className="rounded-4xl border border-blush-100 bg-white p-6 shadow-soft md:p-8">
+          <h2 className="text-2xl font-black text-slate-950">{table.title}</h2>
+          <div className="mt-5 overflow-x-auto">
+            <table className="w-full min-w-[680px] border-collapse text-sm">
+              <thead>
+                <tr className="border-b border-blush-100 text-left text-slate-500">
+                  {table.columns.map((column) => (
+                    <th key={column} className="py-3 pr-3">{column}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {table.rows.map((row) => (
+                  <tr key={row.join("|")} className="border-b border-blush-100/70 last:border-0">
+                    {row.map((cell, index) => (
+                      <td key={`${cell}-${index}`} className={index === 0 ? "py-3 pr-3 font-bold text-slate-800" : "py-3 pr-3 text-slate-600"}>
+                        {cell}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      ))}
+    </div>
+  );
+}
+
 type PageProps = {
   params: Promise<{
     slug: string;
@@ -161,6 +320,7 @@ export default async function GuidePage({ params }: PageProps) {
 
   const faqs = createGuideFaqs(guide);
   const enhancement = guideEnhancements[guide.slug as GuideSlug];
+  const tables = guideTables[guide.slug as GuideSlug] || [];
 
   return (
     <article className="mx-auto max-w-[90rem] px-4 py-10">
@@ -178,6 +338,7 @@ export default async function GuidePage({ params }: PageProps) {
             datePublished: guide.publishedAt,
             dateModified: guide.updatedAt,
             author: { "@type": "Person", name: guide.author.name },
+            reviewedBy: guide.reviewedBy ? { "@type": "Person", name: guide.reviewedBy.name } : undefined,
             publisher: {
               "@type": "Organization",
               name: "웨딩 예산 계산기",
@@ -234,6 +395,8 @@ export default async function GuidePage({ params }: PageProps) {
         <SectionBlocks sections={guide.sections} />
       </div>
 
+      {tables.length ? <GuideDataTables tables={tables} /> : null}
+
       {enhancement ? (
         <>
           <BudgetScenarioTable enhancement={enhancement} />
@@ -258,22 +421,24 @@ export default async function GuidePage({ params }: PageProps) {
         <FAQSection title={`${guide.title} FAQ`} items={faqs} />
       </section>
 
-      <section className="mt-10 rounded-4xl border border-blush-100 bg-white p-6 shadow-soft md:p-10">
-        <h2 className="text-2xl font-black text-slate-950">참고한 자료</h2>
-        <ul className="mt-5 space-y-3 text-sm leading-7 text-slate-600">
-          {guide.sources.map((source) => (
-            <li key={source.href}>
-              <a href={source.href} target="_blank" rel="noopener noreferrer" className="font-black text-slate-800 underline decoration-blush-200 underline-offset-4 hover:text-blush-800">
-                {source.label}
-              </a>
-              <span className="block text-xs text-slate-500">
-                {source.organization || "참고 기관"} · {source.href}
-              </span>
-              {source.reason ? <span className="block text-xs text-slate-500">참고 이유: {source.reason}</span> : null}
-            </li>
-          ))}
-        </ul>
-      </section>
+      {guide.sources.length ? (
+        <section className="mt-10 rounded-4xl border border-blush-100 bg-white p-6 shadow-soft md:p-10">
+          <h2 className="text-2xl font-black text-slate-950">참고한 자료</h2>
+          <ul className="mt-5 space-y-3 text-sm leading-7 text-slate-600">
+            {guide.sources.map((source) => (
+              <li key={source.href}>
+                <a href={source.href} target="_blank" rel="noopener noreferrer" className="font-black text-slate-800 underline decoration-blush-200 underline-offset-4 hover:text-blush-800">
+                  {source.label}
+                </a>
+                <span className="block text-xs text-slate-500">
+                  {source.organization || "참고 기관"} · {source.href}
+                </span>
+                {source.reason ? <span className="block text-xs text-slate-500">참고 이유: {source.reason}</span> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
 
       <section className="mt-10">
         <h2 className="text-2xl font-black text-slate-950">바로 계산해보기</h2>
