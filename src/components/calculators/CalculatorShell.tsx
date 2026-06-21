@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowDown } from "lucide-react";
+import { ArrowDown, HeartHandshake } from "lucide-react";
 import type { CalculatorConfig } from "@/types/calculator";
 import { CalculatorClient } from "@/components/calculators/CalculatorClient";
 import { FAQSection } from "@/components/seo/FAQSection";
@@ -13,12 +13,24 @@ import { SectionBlocks } from "@/components/content/SectionBlocks";
 import { AuthorBox } from "@/components/content/AuthorBox";
 import { AdBanner } from "@/components/monetization/AdBanner";
 
+const conversationPrompts: Record<CalculatorConfig["slug"], string[]> = {
+  "wedding-cost": ["총액 상한", "축의금 반영 범위", "양가 협의 항목"],
+  "newlywed-home-budget": ["초기 현금", "월 고정비", "입주 후 여유자금"],
+  "wedding-hall-cost": ["하객 수", "보증 인원", "식대 단가"],
+  "studio-dress-makeup-cost": ["남길 결과물", "옵션 상한", "현장 추가금"],
+  "honsu-budget": ["입주 즉시 필요", "나중 구매", "브랜드 우선순위"],
+  "wedding-gift-budget": ["상징성", "양가 기대", "간소화 기준"],
+  "honeymoon-budget": ["여행 목적", "숙소와 항공 비중", "현지 지출"],
+  "congratulatory-money": ["관계 기준", "식사 참석", "상호성"],
+};
+
 export function CalculatorShell({ config }: { config: CalculatorConfig }) {
   const content = calculatorContent[config.slug];
   const relatedGuides = guides.filter((guide) => content.relatedGuideSlugs.includes(guide.slug));
+  const prompts = conversationPrompts[config.slug];
 
   return (
-    <div className="mx-auto max-w-[90rem] px-4 py-10">
+    <div className="calculator-page mx-auto w-full max-w-[90rem] overflow-hidden px-4 py-10">
       <JsonLd
         data={[
           {
@@ -62,7 +74,7 @@ export function CalculatorShell({ config }: { config: CalculatorConfig }) {
       <section className="mb-8 grid gap-5 rounded-4xl border border-blush-100 bg-white/80 p-5 shadow-soft md:p-9">
         <div className="max-w-5xl">
           <p className="text-sm font-black uppercase tracking-[0.25em] text-blush-700">Wedding Budget</p>
-          <h1 className="mt-2.5 text-[clamp(1.5rem,3.8vw,2.8rem)] font-black tracking-tight text-slate-950">{config.title}</h1>
+          <h1 className="mt-2.5 max-w-full text-[clamp(1.5rem,3.8vw,2.8rem)] font-black leading-tight tracking-tight text-slate-950 [overflow-wrap:anywhere]">{config.title}</h1>
           <p className="mt-4 text-lg leading-8 text-slate-600">{config.hero}</p>
           <div className="mt-5 flex flex-wrap items-center gap-3 text-xs font-bold text-slate-500">
             <span>작성: {content.author.name}</span>
@@ -76,6 +88,32 @@ export function CalculatorShell({ config }: { config: CalculatorConfig }) {
             <Link href="/methodology" className="inline-flex min-h-11 items-center gap-2 rounded-full border border-blush-200 bg-white px-5 py-2.5 text-sm font-black text-blush-800 transition hover:bg-blush-50">
               계산 기준 보기
             </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="no-print mb-8 rounded-4xl border border-blush-100 bg-white p-5 shadow-soft md:p-6" aria-label="함께 정할 기준">
+        <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+          <div className="max-w-2xl">
+            <div className="flex items-center gap-3">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-blush-50 text-blush-800">
+                <HeartHandshake className="h-5 w-5" aria-hidden="true" />
+              </span>
+              <div>
+                <p className="text-sm font-black uppercase tracking-[0.2em] text-blush-700">Couple Check</p>
+                <h2 className="text-xl font-black text-slate-950">계산 전에 맞추면 좋은 기준</h2>
+              </div>
+            </div>
+            <p className="mt-3 text-sm leading-7 text-slate-600">
+              이 계산기는 정답을 정해 주기보다 두 사람이 같은 기준으로 비용을 바라보게 돕는 도구입니다.
+            </p>
+          </div>
+          <div className="grid gap-2 sm:grid-cols-3 lg:min-w-[34rem]">
+            {prompts.map((prompt) => (
+              <div key={prompt} className="rounded-2xl border border-blush-100 bg-blush-50/70 px-4 py-3 text-sm font-black text-slate-800">
+                {prompt}
+              </div>
+            ))}
           </div>
         </div>
       </section>

@@ -10,6 +10,12 @@
   box-sizing: border-box;
 }
 
+*,
+::before,
+::after {
+  min-width: 0;
+}
+
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
@@ -36,6 +42,17 @@ select,
 button,
 textarea {
   font: inherit;
+}
+
+fieldset {
+  min-inline-size: 0;
+}
+
+.calculator-page h1,
+.calculator-workspace label,
+.calculator-workspace button,
+.calculator-workspace p {
+  overflow-wrap: anywhere;
 }
 
 input[type="number"] {

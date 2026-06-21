@@ -6,44 +6,44 @@ const adsenseClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID?.trim();
 const adsensePublisherId = process.env.ADSENSE_PUBLISHER_ID?.trim();
 const googleSiteVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION?.trim();
 const routes = [
-  { route: "/", inSitemap: true },
-  { route: "/guides", inSitemap: true },
-  { route: "/summary", inSitemap: false },
-  { route: "/about", inSitemap: true },
-  { route: "/editorial-policy", inSitemap: true },
-  { route: "/methodology", inSitemap: true },
-  { route: "/calculators/wedding-cost", inSitemap: true },
-  { route: "/calculators/newlywed-home-budget", inSitemap: true },
-  { route: "/calculators/wedding-hall-cost", inSitemap: true },
-  { route: "/calculators/studio-dress-makeup-cost", inSitemap: true },
-  { route: "/calculators/honsu-budget", inSitemap: true },
-  { route: "/calculators/wedding-gift-budget", inSitemap: true },
-  { route: "/calculators/honeymoon-budget", inSitemap: true },
-  { route: "/calculators/congratulatory-money", inSitemap: true },
-  { route: "/guides/wedding-cost-guide", inSitemap: true },
-  { route: "/guides/newlywed-budget-guide", inSitemap: true },
-  { route: "/guides/wedding-saving-tips", inSitemap: true },
-  { route: "/guides/wedding-hall-checklist", inSitemap: true },
-  { route: "/guides/sdme-options-guide", inSitemap: true },
-  { route: "/guides/wedding-gift-negotiation-guide", inSitemap: true },
-  { route: "/guides/honsu-priority-guide", inSitemap: true },
-  { route: "/guides/honeymoon-destination-budget-guide", inSitemap: true },
-  { route: "/guides/congratulatory-money-etiquette-guide", inSitemap: true },
-  { route: "/guides/wedding-budget-timeline-guide", inSitemap: true },
-  { route: "/guides/small-wedding-budget-guide", inSitemap: true },
-  { route: "/guides/newlywed-loan-planning-guide", inSitemap: true },
-  { route: "/guides/wedding-contract-check-guide", inSitemap: true },
-  { route: "/guides/wedding-guest-budget-table-guide", inSitemap: true },
-  { route: "/guides/wedding-hall-meal-cost-table-guide", inSitemap: true },
-  { route: "/guides/sdme-extra-cost-table-guide", inSitemap: true },
-  { route: "/guides/newlywed-home-initial-cost-guide", inSitemap: true },
-  { route: "/guides/appliance-budget-table-guide", inSitemap: true },
-  { route: "/guides/honeymoon-budget-ratio-guide", inSitemap: true },
-  { route: "/guides/congratulatory-money-table-guide", inSitemap: true },
-  { route: "/privacy", inSitemap: true },
-  { route: "/terms", inSitemap: true },
-  { route: "/disclaimer", inSitemap: true },
-  { route: "/contact", inSitemap: true },
+  { route: "/", inSitemap: true, index: true },
+  { route: "/guides", inSitemap: true, index: true },
+  { route: "/summary", inSitemap: false, index: false },
+  { route: "/about", inSitemap: true, index: true },
+  { route: "/editorial-policy", inSitemap: true, index: true },
+  { route: "/methodology", inSitemap: true, index: true },
+  { route: "/calculators/wedding-cost", inSitemap: true, index: true },
+  { route: "/calculators/newlywed-home-budget", inSitemap: true, index: true },
+  { route: "/calculators/wedding-hall-cost", inSitemap: true, index: true },
+  { route: "/calculators/studio-dress-makeup-cost", inSitemap: true, index: true },
+  { route: "/calculators/honsu-budget", inSitemap: true, index: true },
+  { route: "/calculators/wedding-gift-budget", inSitemap: true, index: true },
+  { route: "/calculators/honeymoon-budget", inSitemap: true, index: true },
+  { route: "/calculators/congratulatory-money", inSitemap: true, index: true },
+  { route: "/guides/wedding-cost-guide", inSitemap: true, index: true },
+  { route: "/guides/newlywed-budget-guide", inSitemap: true, index: true },
+  { route: "/guides/wedding-saving-tips", inSitemap: true, index: true },
+  { route: "/guides/wedding-hall-checklist", inSitemap: true, index: true },
+  { route: "/guides/sdme-options-guide", inSitemap: true, index: true },
+  { route: "/guides/wedding-gift-negotiation-guide", inSitemap: true, index: true },
+  { route: "/guides/honsu-priority-guide", inSitemap: true, index: true },
+  { route: "/guides/honeymoon-destination-budget-guide", inSitemap: true, index: true },
+  { route: "/guides/congratulatory-money-etiquette-guide", inSitemap: true, index: true },
+  { route: "/guides/wedding-budget-timeline-guide", inSitemap: true, index: true },
+  { route: "/guides/small-wedding-budget-guide", inSitemap: true, index: true },
+  { route: "/guides/newlywed-loan-planning-guide", inSitemap: true, index: true },
+  { route: "/guides/wedding-contract-check-guide", inSitemap: true, index: true },
+  { route: "/guides/wedding-guest-budget-table-guide", inSitemap: true, index: true },
+  { route: "/guides/wedding-hall-meal-cost-table-guide", inSitemap: true, index: true },
+  { route: "/guides/sdme-extra-cost-table-guide", inSitemap: true, index: true },
+  { route: "/guides/newlywed-home-initial-cost-guide", inSitemap: true, index: true },
+  { route: "/guides/appliance-budget-table-guide", inSitemap: true, index: true },
+  { route: "/guides/honeymoon-budget-ratio-guide", inSitemap: true, index: true },
+  { route: "/guides/congratulatory-money-table-guide", inSitemap: true, index: true },
+  { route: "/privacy", inSitemap: true, index: true },
+  { route: "/terms", inSitemap: true, index: true },
+  { route: "/disclaimer", inSitemap: true, index: true },
+  { route: "/contact", inSitemap: true, index: true },
 ];
 
 const errors = [];
@@ -56,7 +56,7 @@ function exportFileForRoute(route) {
   return route === "/" ? "out/index.html" : join("out", route, "index.html");
 }
 
-for (const { route } of routes) {
+for (const { route, index } of routes) {
   const file = exportFileForRoute(route);
   if (!existsSync(file)) {
     errors.push(`${route}: build output not found. Run npm run build first.`);
@@ -73,9 +73,14 @@ for (const { route } of routes) {
   for (const property of ["og:title", "og:description", "og:url", "og:image"]) {
     if (!html.includes(`property="${property}"`)) errors.push(`${route}: ${property} missing`);
   }
+  if (!html.includes(`property="og:url" content="${expected}"`)) errors.push(`${route}: og:url mismatch`);
   for (const name of ["twitter:card", "twitter:title", "twitter:description", "twitter:image"]) {
     if (!html.includes(`name="${name}"`)) errors.push(`${route}: ${name} missing`);
   }
+  const robotsMatch = html.match(/<meta name="robots" content="([^"]+)"/);
+  const robotsContent = robotsMatch?.[1] || "";
+  if (index === false && !robotsContent.includes("noindex")) errors.push(`${route}: noindex robots meta missing`);
+  if (index !== false && robotsContent.includes("noindex")) errors.push(`${route}: indexable route has noindex robots meta`);
   if (!html.includes('type="application/ld+json"')) errors.push(`${route}: JSON-LD missing`);
   if (!/<h1[\s>]/.test(html)) errors.push(`${route}: h1 missing`);
 }
@@ -110,6 +115,10 @@ if (!existsSync(sitemapPath)) {
   for (const { route } of sitemapRoutes) {
     const expected = expectedUrl(route);
     if (!urls.includes(expected)) errors.push(`sitemap missing ${expected}`);
+  }
+  for (const { route } of routes.filter((item) => !item.inSitemap)) {
+    const expected = expectedUrl(route);
+    if (urls.includes(expected)) errors.push(`sitemap includes non-index route ${expected}`);
   }
 }
 

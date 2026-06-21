@@ -35,12 +35,12 @@ export function Header() {
 
   return (
     <header className="no-print sticky top-0 z-50 border-b border-blush-100 bg-white/80 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-[90rem] items-center justify-between px-4 py-3">
-        <Link href="/" className="flex items-center gap-2 font-black text-blush-800" aria-label="웨딩 예산 계산기 홈">
-          <span className="flex h-10 w-10 items-center justify-center rounded-full bg-blush-100 text-blush-700">
+      <div className="mx-auto flex max-w-[90rem] items-center justify-between gap-2 px-4 py-3">
+        <Link href="/" className="flex min-w-0 items-center gap-2 font-black text-blush-800" aria-label="웨딩 예산 계산기 홈">
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blush-100 text-blush-700">
             <Heart className="h-5 w-5" aria-hidden="true" />
           </span>
-          <span className="text-lg">웨딩 예산 계산기</span>
+          <span className="truncate text-lg">웨딩 예산 계산기</span>
         </Link>
 
         <nav className="hidden items-center gap-1 lg:flex" aria-label="주요 메뉴">
@@ -106,10 +106,10 @@ export function Header() {
           </Link>
         </nav>
 
-        <div className="flex items-center gap-2 lg:hidden">
-          <Link href="/calculators/wedding-cost" className="inline-flex min-h-10 items-center gap-2 rounded-full border border-blush-200 px-4 py-2 text-sm font-bold text-blush-800 transition hover:bg-blush-50">
+        <div className="flex shrink-0 items-center gap-2 lg:hidden">
+          <Link href="/calculators/wedding-cost" className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-blush-200 text-sm font-bold text-blush-800 transition hover:bg-blush-50 sm:w-auto sm:px-4">
             <Calculator className="h-4 w-4" aria-hidden="true" />
-            계산 시작
+            <span className="hidden sm:inline">계산 시작</span>
           </Link>
           <button
             type="button"

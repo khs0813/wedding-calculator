@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, LayoutDashboard, ShieldCheck, Sparkles } from "lucide-react";
+import { ArrowRight, HeartHandshake, LayoutDashboard, ShieldCheck } from "lucide-react";
 import { calculators } from "@/data/calculators";
 import { guides } from "@/data/guides";
 import { homeFaqs } from "@/data/faqs";
@@ -40,18 +40,18 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-const starterSteps = [
+const coupleDecisionFlow = [
   {
-    title: "전체 예산 상한부터 정하기",
-    body: "결혼 비용 계산기로 전체 지출과 축의금 회수액을 먼저 보고, 세부 계산기는 그다음에 분리해서 확인합니다.",
+    title: "둘이 감당할 상한",
+    body: "먼저 총액이 아니라 결혼식 전후에 실제로 감당할 수 있는 현금과 월 고정비를 맞춥니다.",
   },
   {
-    title: "신혼집은 별도 예산으로 보기",
-    body: "보증금과 대출, 월 상환액, 가전과 가구 비용을 묶어서 봐야 실제 현금 흐름이 보입니다.",
+    title: "가족과 협의할 항목",
+    body: "예물, 예단, 하객 수, 웨딩홀 조건처럼 양가 기대가 섞이는 항목은 숫자와 메모를 분리합니다.",
   },
   {
-    title: "옵션이 붙는 영역부터 관리하기",
-    body: "웨딩홀 식대, 스드메 옵션, 혼수 패키지, 신혼여행 액티비티는 총액이 커지기 쉬운 영역입니다.",
+    title: "줄여도 괜찮은 선택",
+    body: "사진, 식사, 여행처럼 중요한 경험은 남기고 만족도 영향이 낮은 옵션부터 조정합니다.",
   },
 ];
 
@@ -66,6 +66,13 @@ const scenarioExamples = [
   "결혼식 총액을 먼저 잡고 싶은 커플: 전체 결혼 비용 계산기 → 웨딩홀·스드메 세부 계산기 순서로 사용",
   "입주와 결혼식이 비슷한 시기에 몰린 커플: 신혼집 예산 계산기에서 초기 현금과 월 고정비를 먼저 분리",
   "예물·혼수에서 의견 차이가 있는 커플: 가이드 문서로 기준을 맞춘 뒤 계산기로 금액 조정",
+];
+
+const couplePrompts = [
+  "절대 넘기고 싶지 않은 총액",
+  "서로에게 가장 중요한 경험",
+  "가족과 미리 이야기할 항목",
+  "나중에 사도 되는 품목",
 ];
 
 export default function HomePage() {
@@ -104,17 +111,17 @@ export default function HomePage() {
         ]}
       />
 
-      <section className="grid gap-8 rounded-4xl border border-blush-100 bg-white/85 p-6 shadow-soft md:p-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
+      <section className="grid gap-8 rounded-4xl border border-blush-100 bg-white/85 p-6 shadow-soft md:p-10 lg:grid-cols-[1.12fr_0.88fr] lg:items-center">
         <div>
           <p className="inline-flex items-center gap-2 rounded-full bg-blush-50 px-4 py-2 text-sm font-black text-blush-800">
-            <Sparkles className="h-4 w-4" aria-hidden="true" />
-            결혼 예산 도구 + 원본 해설 콘텐츠
+            <HeartHandshake className="h-4 w-4" aria-hidden="true" />
+            둘이 함께 정하는 결혼 예산
           </p>
           <h1 className="mt-6 text-4xl font-black tracking-tight text-slate-950 md:text-6xl">
-            결혼 준비 비용을<br />항목별로 판단하세요
+            비용보다 먼저<br />기준을 맞추세요
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
-            웨딩홀, 스드메, 혼수, 예물, 신혼여행, 신혼집까지 결혼 준비에 필요한 예산을 계산하고, 각 항목에서 어떤 비용이 커지는지 설명까지 함께 제공합니다. 계산기만 있는 사이트가 아니라 실제 결정을 돕는 가이드 허브를 목표로 운영합니다.
+            결혼 예산은 숫자표이기 전에 두 사람의 우선순위입니다. 웨딩홀, 스드메, 혼수, 예물, 신혼여행, 신혼집까지 필요한 금액을 계산하고, 무엇을 남기고 무엇을 조정할지 함께 판단할 수 있게 구성했습니다.
           </p>
           <div className="mt-5 flex flex-wrap gap-3 text-sm font-black text-blush-800">
             <Link href="/about" className="underline decoration-blush-200 underline-offset-4">사이트 소개</Link>
@@ -134,19 +141,28 @@ export default function HomePage() {
             </Link>
           </div>
         </div>
-        <Card className="bg-gradient-to-br from-blush-50 via-cream-50 to-sage-50 p-6">
-          <p className="text-sm font-black text-blush-800">이 사이트의 운영 방식</p>
-          <ul className="mt-5 space-y-4 text-sm leading-7 text-slate-700">
-            <li className="flex gap-3"><ShieldCheck className="mt-1 h-5 w-5 shrink-0 text-sage-700" aria-hidden="true" /> 서버 DB 없이 브라우저에만 저장</li>
-            <li className="flex gap-3"><CheckCircle2 className="mt-1 h-5 w-5 shrink-0 text-blush-700" aria-hidden="true" /> 계산기별 해설 콘텐츠와 체크리스트 제공</li>
-            <li className="flex gap-3"><CheckCircle2 className="mt-1 h-5 w-5 shrink-0 text-blush-700" aria-hidden="true" /> 작성일·수정일·편집 기준 공개</li>
-            <li className="flex gap-3"><CheckCircle2 className="mt-1 h-5 w-5 shrink-0 text-blush-700" aria-hidden="true" /> 엑셀 다운로드와 공유 URL로 개인 예산 복원 가능</li>
-          </ul>
+        <Card className="p-6">
+          <p className="text-sm font-black uppercase tracking-[0.2em] text-blush-700">First Conversation</p>
+          <h2 className="mt-3 text-2xl font-black text-slate-950">처음부터 견적을 비교하지 않아도 됩니다</h2>
+          <p className="mt-4 text-sm leading-7 text-slate-600">
+            결혼 준비 초반에는 정확한 가격보다 서로의 기준을 먼저 확인하는 편이 좋습니다. 아래 네 가지가 맞으면 이후 견적 비교가 훨씬 차분해집니다.
+          </p>
+          <div className="mt-5 grid gap-2 sm:grid-cols-2">
+            {couplePrompts.map((prompt) => (
+              <div key={prompt} className="rounded-2xl border border-blush-100 bg-blush-50/70 px-4 py-3 text-sm font-black text-slate-800">
+                {prompt}
+              </div>
+            ))}
+          </div>
+          <div className="mt-5 flex items-start gap-3 rounded-2xl bg-sage-50 p-4 text-sm leading-6 text-slate-700">
+            <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-sage-700" aria-hidden="true" />
+            <p>입력값은 서버 DB가 아니라 현재 브라우저에만 저장됩니다.</p>
+          </div>
         </Card>
       </section>
 
       <section className="mt-10 rounded-4xl border border-blush-100 bg-white p-6 shadow-soft md:p-8">
-        <h2 className="text-2xl font-black text-slate-950">이 사이트를 실제로 이렇게 씁니다</h2>
+        <h2 className="text-2xl font-black text-slate-950">두 사람이 같이 볼 때 좋은 흐름</h2>
         <ul className="mt-5 space-y-3 text-sm leading-7 text-slate-600">
           {scenarioExamples.map((example) => (
             <li key={example}>{example}</li>
@@ -155,9 +171,9 @@ export default function HomePage() {
       </section>
 
       <section className="mt-16 grid gap-6 lg:grid-cols-3">
-        {starterSteps.map((step, index) => (
+        {coupleDecisionFlow.map((step, index) => (
           <Card key={step.title} className="p-6">
-            <p className="text-sm font-black uppercase tracking-[0.2em] text-blush-700">Step {index + 1}</p>
+            <p className="text-sm font-black uppercase tracking-[0.2em] text-blush-700">Decision {index + 1}</p>
             <h2 className="mt-3 text-2xl font-black text-slate-950">{step.title}</h2>
             <p className="mt-4 text-sm leading-8 text-slate-600">{step.body}</p>
           </Card>

@@ -31,7 +31,7 @@ export function NumberInput({ id, label, value, onChange, suffix, helpText, min 
             const bounded = Number.isFinite(parsed) ? Math.max(min, Math.round(parsed)) : 0;
             onChange(typeof max === "number" ? Math.min(max, bounded) : bounded);
           }}
-          className="h-10 w-full rounded-xl border border-blush-100 bg-white/95 px-3 pr-8 text-right text-sm font-bold text-slate-900 outline-none transition placeholder:text-slate-300 focus:border-blush-500 focus:ring-4 focus:ring-blush-100"
+          className="h-10 w-full min-w-0 rounded-xl border border-blush-100 bg-white/95 px-3 pr-8 text-right text-sm font-bold text-slate-900 outline-none transition placeholder:text-slate-300 focus:border-blush-500 focus:ring-4 focus:ring-blush-100"
         />
         {suffix ? <span className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400">{suffix}</span> : null}
       </div>
