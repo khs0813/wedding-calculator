@@ -27,44 +27,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: absolutePageUrl("/"),
       lastModified: toLastMod(homeUpdatedAt),
-      changeFrequency: "weekly",
-      priority: 1,
     },
     {
       url: absolutePageUrl("/calculators"),
       lastModified: toLastMod(calculatorsIndexUpdatedAt),
-      changeFrequency: "weekly",
-      priority: 0.9,
     },
     {
       url: absolutePageUrl("/guides"),
       lastModified: toLastMod(guidesIndexUpdatedAt),
-      changeFrequency: "weekly",
-      priority: 0.85,
     },
     ...calculators.map((calculator) => ({
       url: absolutePageUrl(calculator.path),
       lastModified: toLastMod(calculatorContent[calculator.slug].updatedAt),
-      changeFrequency: "monthly" as const,
-      priority: 0.9,
     })),
     ...guides.map((guide) => ({
       url: absolutePageUrl(guide.path),
       lastModified: toLastMod(guide.updatedAt),
-      changeFrequency: "monthly" as const,
-      priority: 0.8,
     })),
     ...sitePages.map((page) => ({
       url: absolutePageUrl(page.path),
       lastModified: toLastMod(page.updatedAt),
-      changeFrequency: "yearly" as const,
-      priority: 0.6,
     })),
     ...legalPages.map((page) => ({
       url: absolutePageUrl(page.path),
       lastModified: toLastMod(page.updatedAt),
-      changeFrequency: "yearly" as const,
-      priority: 0.4,
     })),
   ];
 }
