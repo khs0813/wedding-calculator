@@ -82,7 +82,7 @@ Start Command: npm run start
 
 ### 배포·색인 안정성 체크
 
-- `NEXT_PUBLIC_SITE_URL`은 `https://your-domain.com`이 아니라 실제 커스텀 도메인 origin으로 설정합니다.
+- `NEXT_PUBLIC_SITE_URL`은 `https://weddingbudget.co.kr`처럼 실제 커스텀 도메인 origin으로 설정합니다.
 - 이 값은 canonical, sitemap, robots.txt, Open Graph URL의 기준 URL입니다.
 - `server.mjs`는 `*.onrender.com` 호스트로 들어온 요청을 `NEXT_PUBLIC_SITE_URL` origin으로 301 redirect합니다.
 - `/robots.txt`는 정적 export 파일로 생성되며 `text/plain`으로 서빙됩니다.
@@ -96,7 +96,7 @@ Start Command: npm run start
 `.env.example`을 참고해 필요한 값만 설정합니다.
 
 ```txt
-NEXT_PUBLIC_SITE_URL=https://your-domain.com
+NEXT_PUBLIC_SITE_URL=https://weddingbudget.co.kr
 NEXT_PUBLIC_ADSENSE_CLIENT_ID=
 NEXT_PUBLIC_ADSENSE_APPROVED=false
 NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=

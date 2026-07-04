@@ -1,7 +1,7 @@
 import { readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
 
-const baseUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://wedding-calculator.onrender.com").replace(/\/$/, "");
+const baseUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://weddingbudget.co.kr").replace(/\/$/, "");
 const adsenseClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID?.trim();
 const adsensePublisherId = process.env.ADSENSE_PUBLISHER_ID?.trim();
 const googleSiteVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION?.trim();
@@ -109,6 +109,7 @@ if (!existsSync(adsTxtPath)) {
 
 const sitemapPath = "out/sitemap.xml";
 const robotsPath = "out/robots.txt";
+const rssPath = "out/rss.xml";
 const sitemapRoutes = routes.filter((item) => item.inSitemap);
 
 if (!existsSync(sitemapPath)) {
@@ -133,6 +134,18 @@ if (!existsSync(robotsPath)) {
   const robots = readFileSync(robotsPath, "utf8");
   if (!robots.includes("User-Agent: *") || !robots.includes("Allow: /")) errors.push("robots allow rule missing");
   if (!robots.includes(`Sitemap: ${baseUrl}/sitemap.xml`)) errors.push("robots sitemap missing");
+}
+
+if (!existsSync(rssPath)) {
+  errors.push("rss.xml build output missing");
+} else {
+  const rss = readFileSync(rssPath, "utf8");
+  if (!rss.includes("<rss version=\"2.0\"")) errors.push("rss.xml root missing");
+  if (!rss.includes("<channel>")) errors.push("rss.xml channel missing");
+  if (!rss.includes(`${baseUrl}/guides/`)) errors.push("rss.xml guide link missing");
+  if (!homeHtml.includes('rel="alternate"') || !homeHtml.includes("application/rss+xml")) {
+    errors.push("RSS alternate link missing from home HTML");
+  }
 }
 
 const serverFile = readFileSync("server.mjs", "utf8");

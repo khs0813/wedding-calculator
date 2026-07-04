@@ -55,6 +55,9 @@ export const metadata: Metadata = {
     : undefined,
   alternates: {
     canonical: "/",
+    types: {
+      "application/rss+xml": absoluteUrl("/rss.xml"),
+    },
   },
   formatDetection: {
     email: false,
@@ -77,6 +80,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ko">
       <head>
+        <link rel="alternate" type="application/rss+xml" title="웨딩 예산 계산기 가이드 RSS" href={absoluteUrl("/rss.xml")} />
         {adsenseApproved && adsenseClientId ? (
           <script
             async

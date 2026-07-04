@@ -136,5 +136,5 @@ grep -R "type=\"file\"\|FileUp\|importCalculatorExcel\|getExcelImportPolicyText"
 예시:
 
 ```txt
-NEXT_PUBLIC_SITE_URL=https://your-real-domain.com
+NEXT_PUBLIC_SITE_URL=https://weddingbudget.co.kr
 ```
