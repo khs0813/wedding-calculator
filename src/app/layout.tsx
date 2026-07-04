@@ -8,7 +8,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 const adsenseClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID;
 const adsenseApproved = process.env.NEXT_PUBLIC_ADSENSE_APPROVED === "true";
 const googleSiteVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
-const naverSiteVerification = process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION;
+const naverSiteVerification = process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION || "7f9774b684775497fa37bf8593bbe8c004c44548";
 
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
