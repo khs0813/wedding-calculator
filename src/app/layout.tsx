@@ -9,6 +9,7 @@ const adsenseClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID;
 const adsenseApproved = process.env.NEXT_PUBLIC_ADSENSE_APPROVED === "true";
 const googleSiteVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
 const naverSiteVerification = process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION || "7f9774b684775497fa37bf8593bbe8c004c44548";
+const siteDescription = "결혼 비용, 신혼집, 웨딩홀, 스드메, 혼수, 예물, 신혼여행 예산을 계산하는 무료 예산표입니다.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
@@ -20,11 +21,11 @@ export const metadata: Metadata = {
     default: "웨딩 예산 계산기 - 결혼·신혼 준비 비용 계산",
     template: "%s | 웨딩 예산 계산기",
   },
-  description: "결혼 비용, 신혼집 예산, 웨딩홀, 스드메, 혼수, 예물, 신혼여행, 축의금을 DB 없이 브라우저에서 계산하고 가이드까지 함께 제공하는 무료 예산 계산기입니다.",
+  description: siteDescription,
   keywords: ["결혼 비용 계산기", "신혼집 예산 계산기", "웨딩홀 비용", "스드메 가격", "혼수 비용", "축의금 계산기", "결혼 예산 가이드"],
   openGraph: {
     title: "웨딩 예산 계산기",
-    description: "결혼 준비와 신혼집 예산을 계산하고 판단 기준까지 함께 읽으세요.",
+    description: siteDescription,
     url: absolutePageUrl("/"),
     siteName: "웨딩 예산 계산기",
     locale: "ko_KR",
@@ -41,7 +42,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "웨딩 예산 계산기",
-    description: "결혼·신혼 준비 비용을 쉽고 안전하게 계산하세요.",
+    description: siteDescription,
     images: [absoluteUrl("/og-default.png")],
   },
   robots: {

@@ -146,7 +146,7 @@ if (!existsSync(robotsPath)) {
   errors.push("robots.txt build output missing");
 } else {
   const robots = readFileSync(robotsPath, "utf8");
-  if (!robots.includes("User-Agent: *") || !robots.includes("Allow: /")) errors.push("robots allow rule missing");
+  if (!robots.includes("User-agent: *") || !robots.includes("Allow: /")) errors.push("robots allow rule missing");
   if (!robots.includes(`Sitemap: ${baseUrl}/sitemap.xml`)) errors.push("robots sitemap missing");
 }
 

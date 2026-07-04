@@ -10,14 +10,16 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { Card, CardContent } from "@/components/ui/card";
 import { absolutePageUrl, absoluteUrl, buildBreadcrumbSchema } from "@/lib/seo";
 
+const homeDescription = "결혼 비용, 신혼집, 웨딩홀, 스드메, 혼수, 예물, 신혼여행 예산을 계산하는 무료 예산표입니다.";
+
 export const metadata: Metadata = {
   title: "웨딩 예산 계산기 - 결혼 비용·신혼집·혼수 예산표",
-  description: "예비 신랑·신부가 결혼 비용, 신혼집 예산, 웨딩홀 식대, 스드메 옵션, 혼수, 예물, 신혼여행, 축의금을 한곳에서 계산하고 공유할 수 있는 무료 예산표입니다.",
+  description: homeDescription,
   keywords: ["웨딩 예산 계산기", "결혼 비용 계산기", "신혼집 예산 계산기", "웨딩홀 식대 계산기", "스드메 비용", "혼수 비용", "결혼 예산표"],
   alternates: { canonical: "/" },
   openGraph: {
     title: "웨딩 예산 계산기 - 결혼 비용·신혼집·혼수 예산표",
-    description: "예비부부가 결혼 준비 비용과 신혼 준비 예산을 계산하고 공유하는 무료 예산표입니다.",
+    description: homeDescription,
     url: absolutePageUrl("/"),
     siteName: "웨딩 예산 계산기",
     locale: "ko_KR",
