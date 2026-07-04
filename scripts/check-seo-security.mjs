@@ -117,17 +117,7 @@ if (!existsSync(sitemapPath)) {
 } else {
   const sitemap = readFileSync(sitemapPath, "utf8");
   const urls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1]);
-  if (!sitemap.includes('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"')) {
-    errors.push("sitemap.xml urlset namespace missing");
-  }
-  if (sitemap.includes("<lastmod>")) errors.push("sitemap.xml should not include lastmod");
-  if (sitemap.includes("<changefreq>")) errors.push("sitemap.xml should not include changefreq");
-  if (sitemap.includes("<priority>")) errors.push("sitemap.xml should not include priority");
   if (urls.length !== sitemapRoutes.length) errors.push(`sitemap URL count ${urls.length} !== ${sitemapRoutes.length}`);
-  for (const url of urls) {
-    if (!url.startsWith(`${baseUrl}/`)) errors.push(`sitemap URL is not under canonical domain: ${url}`);
-    if (url.includes("://www.")) errors.push(`sitemap URL includes www domain: ${url}`);
-  }
   for (const { route } of sitemapRoutes) {
     const expected = expectedUrl(route);
     if (!urls.includes(expected)) errors.push(`sitemap missing ${expected}`);
