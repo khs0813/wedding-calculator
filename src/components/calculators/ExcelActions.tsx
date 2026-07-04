@@ -56,7 +56,7 @@ export function ExcelActions({
   }
 
   return (
-    <div className="flex max-w-2xl flex-col gap-3 rounded-3xl border border-blush-100 bg-white/80 p-3">
+    <div className="flex max-w-2xl flex-col gap-3 rounded-2xl border border-border bg-card p-3">
       <Button
         type="button"
         variant="secondary"

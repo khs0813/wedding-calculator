@@ -26,7 +26,7 @@ export function AdBanner({
 
   return (
     <aside className="no-print" aria-label={label}>
-      <p className="mb-2 text-xs font-bold text-slate-500">광고</p>
+      <p className="mb-2 text-xs font-bold text-muted-foreground">광고</p>
       <AdUnit clientId={clientId} slotId={slotId} />
     </aside>
   );

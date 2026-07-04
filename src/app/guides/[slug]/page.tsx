@@ -85,16 +85,16 @@ const guideEnhancements: Partial<Record<GuideSlug, {
 
 function BudgetScenarioTable({ enhancement }: { enhancement: NonNullable<(typeof guideEnhancements)[GuideSlug]> }) {
   return (
-    <section className="mt-10 rounded-4xl border border-blush-100 bg-white p-6 shadow-soft md:p-8">
-      <h2 className="text-2xl font-black text-slate-950">{enhancement.scenarioTitle}</h2>
-      <p className="mt-3 text-sm leading-7 text-slate-600">
+    <section className="mt-10 rounded-2xl border border-border bg-card p-6 shadow-sm md:p-8">
+      <h2 className="text-2xl font-semibold text-foreground">{enhancement.scenarioTitle}</h2>
+      <p className="mt-3 text-sm leading-7 text-muted-foreground">
         아래 숫자는 예시이며 실제 견적은 업체·지역·계약 조건에 따라 달라질 수 있습니다.
       </p>
       <div className="table-scroll mt-5 overflow-x-auto">
         <table className="w-full min-w-[620px] border-collapse text-sm">
           <caption className="sr-only">{enhancement.scenarioTitle}</caption>
           <thead>
-            <tr className="border-b border-blush-100 text-left text-slate-500">
+            <tr className="border-b border-border text-left text-muted-foreground">
               <th scope="col" className="py-3 pr-3">항목</th>
               <th scope="col" className="py-3 pr-3">100명/낮음</th>
               <th scope="col" className="py-3 pr-3">150명/보통</th>
@@ -104,12 +104,12 @@ function BudgetScenarioTable({ enhancement }: { enhancement: NonNullable<(typeof
           </thead>
           <tbody>
             {enhancement.scenarioRows.map((row) => (
-              <tr key={row.label} className="border-b border-blush-100/70 last:border-0">
-                <th scope="row" className="py-3 pr-3 text-left font-bold text-slate-800">{row.label}</th>
-                <td className="py-3 pr-3 text-slate-600">{row.low}</td>
-                <td className="py-3 pr-3 text-slate-600">{row.middle}</td>
-                <td className="py-3 pr-3 text-slate-600">{row.high}</td>
-                <td className="py-3 text-slate-500">{row.note}</td>
+              <tr key={row.label} className="border-b border-border last:border-0">
+                <th scope="row" className="py-3 pr-3 text-left font-bold text-foreground">{row.label}</th>
+                <td className="py-3 pr-3 text-muted-foreground">{row.low}</td>
+                <td className="py-3 pr-3 text-muted-foreground">{row.middle}</td>
+                <td className="py-3 pr-3 text-muted-foreground">{row.high}</td>
+                <td className="py-3 text-muted-foreground">{row.note}</td>
               </tr>
             ))}
           </tbody>
@@ -121,13 +121,13 @@ function BudgetScenarioTable({ enhancement }: { enhancement: NonNullable<(typeof
 
 function CostBreakdownExample({ enhancement }: { enhancement: NonNullable<(typeof guideEnhancements)[GuideSlug]> }) {
   return (
-    <section className="mt-10 rounded-4xl border border-blush-100 bg-blush-50/70 p-6 shadow-soft md:p-8">
-      <h2 className="text-2xl font-black text-slate-950">{enhancement.formulaTitle}</h2>
-      <p className="mt-4 rounded-2xl bg-white p-4 text-sm font-black leading-7 text-slate-800">{enhancement.formula}</p>
-      <ul className="mt-5 space-y-3 text-sm leading-7 text-slate-600">
+    <section className="mt-10 rounded-2xl border border-border bg-secondary p-6 shadow-sm md:p-8">
+      <h2 className="text-2xl font-semibold text-foreground">{enhancement.formulaTitle}</h2>
+      <p className="mt-4 rounded-2xl bg-card p-4 text-sm font-semibold leading-7 text-foreground">{enhancement.formula}</p>
+      <ul className="mt-5 space-y-3 text-sm leading-7 text-muted-foreground">
         {enhancement.formulaNotes.map((note) => (
           <li key={note} className="flex gap-3">
-            <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-blush-500" aria-hidden="true" />
+            <span className="mt-2 h-2 w-2 shrink-0 rounded-xl bg-primary" aria-hidden="true" />
             <span>{note}</span>
           </li>
         ))}
@@ -277,16 +277,16 @@ function GuideDataTables({ tables }: { tables: GuideTable[] }) {
   return (
     <div className="mt-10 space-y-6">
       {tables.map((table) => (
-        <section key={table.title} className="rounded-4xl border border-blush-100 bg-white p-6 shadow-soft md:p-8">
-          <h2 className="text-2xl font-black text-slate-950">{table.title}</h2>
-          <p className="mt-3 text-sm leading-7 text-slate-600">
+        <section key={table.title} className="rounded-2xl border border-border bg-card p-6 shadow-sm md:p-8">
+          <h2 className="text-2xl font-semibold text-foreground">{table.title}</h2>
+          <p className="mt-3 text-sm leading-7 text-muted-foreground">
             아래 숫자는 예시이며 실제 견적은 업체·지역·계약 조건에 따라 달라질 수 있습니다.
           </p>
           <div className="table-scroll mt-5 overflow-x-auto">
             <table className="w-full min-w-[680px] border-collapse text-sm">
               <caption className="sr-only">{table.title}</caption>
               <thead>
-                <tr className="border-b border-blush-100 text-left text-slate-500">
+                <tr className="border-b border-border text-left text-muted-foreground">
                   {table.columns.map((column) => (
                     <th key={column} scope="col" className="py-3 pr-3">{column}</th>
                   ))}
@@ -294,14 +294,14 @@ function GuideDataTables({ tables }: { tables: GuideTable[] }) {
               </thead>
               <tbody>
                 {table.rows.map((row) => (
-                  <tr key={row.join("|")} className="border-b border-blush-100/70 last:border-0">
+                  <tr key={row.join("|")} className="border-b border-border last:border-0">
                     {row.map((cell, index) =>
                       index === 0 ? (
-                        <th key={`${cell}-${index}`} scope="row" className="py-3 pr-3 text-left font-bold text-slate-800">
+                        <th key={`${cell}-${index}`} scope="row" className="py-3 pr-3 text-left font-bold text-foreground">
                           {cell}
                         </th>
                       ) : (
-                        <td key={`${cell}-${index}`} className="py-3 pr-3 text-slate-600">
+                        <td key={`${cell}-${index}`} className="py-3 pr-3 text-muted-foreground">
                           {cell}
                         </td>
                       ),
@@ -312,9 +312,9 @@ function GuideDataTables({ tables }: { tables: GuideTable[] }) {
             </table>
           </div>
           {table.assumptions?.length ? (
-            <ul className="mt-4 flex flex-wrap gap-2 text-xs text-slate-500">
+            <ul className="mt-4 flex flex-wrap gap-2 text-xs text-muted-foreground">
               {table.assumptions.map((assumption) => (
-                <li key={assumption} className="rounded-full bg-blush-50 px-3 py-1 font-bold">
+                <li key={assumption} className="rounded-full bg-secondary px-3 py-1 font-bold">
                   {assumption}
                 </li>
               ))}
@@ -358,7 +358,7 @@ export default async function GuidePage({ params }: PageProps) {
   const tables = guideTables[guide.slug as GuideSlug] || [];
 
   return (
-    <article className="mx-auto max-w-[90rem] px-4 py-10">
+    <article className="mx-auto max-w-6xl px-4 py-10">
       <JsonLd
         data={[
           {
@@ -390,35 +390,35 @@ export default async function GuidePage({ params }: PageProps) {
           ]),
         ]}
       />
-      <div className="rounded-4xl border border-blush-100 bg-white/85 p-6 shadow-soft md:p-10">
-        <p className="text-sm font-black uppercase tracking-[0.25em] text-blush-700">Guide</p>
-        <h1 className="mt-3 text-3xl font-black tracking-tight text-slate-950 md:text-5xl">{guide.title}</h1>
-        <p className="mt-5 text-lg leading-8 text-slate-600">{guide.description}</p>
-        <p className="mt-5 text-sm leading-7 text-slate-600">
+      <div className="rounded-2xl border border-border bg-card p-6 shadow-sm md:p-10">
+        <p className="text-sm font-semibold uppercase tracking-[0.25em] text-muted-foreground">가이드</p>
+        <h1 className="mt-3 text-3xl font-semibold tracking-tight text-foreground md:text-5xl">{guide.title}</h1>
+        <p className="mt-5 text-lg leading-8 text-muted-foreground">{guide.description}</p>
+        <p className="mt-5 text-sm leading-7 text-muted-foreground">
           관련 주제: {guide.keywords.join(", ")}
         </p>
-        <div className="mt-6 grid gap-3 rounded-3xl border border-blush-100 bg-blush-50/60 p-4 text-sm text-slate-600 md:grid-cols-2">
-          <p><span className="font-black text-slate-900">작성</span> {guide.author.name} · {guide.author.role}</p>
-          <p><span className="font-black text-slate-900">발행</span> {guide.publishedAt}</p>
-          <p><span className="font-black text-slate-900">검토</span> {guide.reviewedBy?.name || "편집팀"}</p>
-          <p><span className="font-black text-slate-900">수정</span> {guide.updatedAt}</p>
+        <div className="mt-6 grid gap-3 rounded-2xl border border-border bg-secondary p-4 text-sm text-muted-foreground md:grid-cols-2">
+          <p><span className="font-semibold text-foreground">작성</span> {guide.author.name} · {guide.author.role}</p>
+          <p><span className="font-semibold text-foreground">발행</span> {guide.publishedAt}</p>
+          <p><span className="font-semibold text-foreground">검토</span> {guide.reviewedBy?.name || "편집팀"}</p>
+          <p><span className="font-semibold text-foreground">수정</span> {guide.updatedAt}</p>
         </div>
-        <div className="mt-5 flex flex-wrap gap-3 text-sm font-black text-blush-800">
-          <Link href="/guides" className="underline decoration-blush-200 underline-offset-4">가이드 전체 보기</Link>
-          <Link href="/methodology" className="underline decoration-blush-200 underline-offset-4">계산 기준 보기</Link>
+        <div className="mt-5 flex flex-wrap gap-3 text-sm font-semibold text-foreground">
+          <Link href="/guides" className="underline decoration-border underline-offset-4">가이드 전체 보기</Link>
+          <Link href="/methodology" className="underline decoration-border underline-offset-4">계산 기준 보기</Link>
         </div>
       </div>
 
       <section className="mt-10 grid gap-6 lg:grid-cols-[1fr_0.9fr]">
-        <div className="rounded-4xl border border-blush-100 bg-white p-6 shadow-soft md:p-8">
-          <p className="text-sm font-black uppercase tracking-[0.2em] text-blush-700">Summary</p>
-          <h2 className="mt-2 text-2xl font-black text-slate-950">이 가이드 요약</h2>
-          <p className="mt-4 text-sm leading-7 text-slate-600">{guide.summary || guide.excerpt}</p>
+        <div className="rounded-2xl border border-border bg-card p-6 shadow-sm md:p-8">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">요약</p>
+          <h2 className="mt-2 text-2xl font-semibold text-foreground">이 가이드 요약</h2>
+          <p className="mt-4 text-sm leading-7 text-muted-foreground">{guide.summary || guide.excerpt}</p>
         </div>
-        <div className="rounded-4xl border border-blush-100 bg-gradient-to-br from-blush-50 via-cream-50 to-sage-50 p-6 shadow-soft md:p-8">
-          <p className="text-sm font-black uppercase tracking-[0.2em] text-blush-700">Next Step</p>
-          <h2 className="mt-2 text-2xl font-black text-slate-950">바로 이어서 할 일</h2>
-          <ul className="mt-5 space-y-3 text-sm leading-7 text-slate-700">
+        <div className="rounded-2xl border border-border bg-card p-6 shadow-sm md:p-8">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">다음 단계</p>
+          <h2 className="mt-2 text-2xl font-semibold text-foreground">바로 이어서 할 일</h2>
+          <ul className="mt-5 space-y-3 text-sm leading-7 text-muted-foreground">
             {guide.sections.slice(0, 3).map((section) => (
               <li key={section.heading}>{section.heading}</li>
             ))}
@@ -426,7 +426,7 @@ export default async function GuidePage({ params }: PageProps) {
         </div>
       </section>
 
-      <div className="mt-10 rounded-4xl border border-blush-100 bg-white p-6 shadow-soft md:p-10">
+      <div className="mt-10 rounded-2xl border border-border bg-card p-6 shadow-sm md:p-10">
         <SectionBlocks sections={guide.sections} />
       </div>
 
@@ -444,9 +444,9 @@ export default async function GuidePage({ params }: PageProps) {
         <AuthorBox author={guide.author} reviewer={guide.reviewedBy} updatedAt={guide.updatedAt} />
       </section>
 
-      <section className="mt-10 rounded-4xl border border-blush-100 bg-white p-6 shadow-soft md:p-8">
-        <h2 className="text-2xl font-black text-slate-950">수정 내역</h2>
-        <p className="mt-4 text-sm leading-7 text-slate-600">
+      <section className="mt-10 rounded-2xl border border-border bg-card p-6 shadow-sm md:p-8">
+        <h2 className="text-2xl font-semibold text-foreground">수정 내역</h2>
+        <p className="mt-4 text-sm leading-7 text-muted-foreground">
           최종 수정일: {guide.updatedAt}
           {enhancement ? ` · ${enhancement.updatedReason}` : " · 최신 계산기 구조와 내부 링크를 점검했습니다."}
         </p>
@@ -457,18 +457,18 @@ export default async function GuidePage({ params }: PageProps) {
       </section>
 
       {guide.sources.length ? (
-        <section className="mt-10 rounded-4xl border border-blush-100 bg-white p-6 shadow-soft md:p-10">
-          <h2 className="text-2xl font-black text-slate-950">참고한 자료</h2>
-          <ul className="mt-5 space-y-3 text-sm leading-7 text-slate-600">
+        <section className="mt-10 rounded-2xl border border-border bg-card p-6 shadow-sm md:p-10">
+          <h2 className="text-2xl font-semibold text-foreground">참고한 자료</h2>
+          <ul className="mt-5 space-y-3 text-sm leading-7 text-muted-foreground">
             {guide.sources.map((source) => (
               <li key={source.href}>
-                <a href={source.href} target="_blank" rel="noopener noreferrer" className="font-black text-slate-800 underline decoration-blush-200 underline-offset-4 hover:text-blush-800">
+                <a href={source.href} target="_blank" rel="noopener noreferrer" className="font-semibold text-foreground underline decoration-border underline-offset-4 hover:text-foreground">
                   {source.label}
                 </a>
-                <span className="block text-xs text-slate-500">
+                <span className="block text-xs text-muted-foreground">
                   {source.organization || "참고 기관"} · {source.href}
                 </span>
-                {source.reason ? <span className="block text-xs text-slate-500">참고 이유: {source.reason}</span> : null}
+                {source.reason ? <span className="block text-xs text-muted-foreground">참고 이유: {source.reason}</span> : null}
               </li>
             ))}
           </ul>
@@ -476,13 +476,13 @@ export default async function GuidePage({ params }: PageProps) {
       ) : null}
 
       <section className="mt-10">
-        <h2 className="text-2xl font-black text-slate-950">바로 계산해보기</h2>
+        <h2 className="text-2xl font-semibold text-foreground">바로 계산해보기</h2>
         <div className="mt-5 grid gap-4 md:grid-cols-3">
           {calculators.slice(0, 3).map((calculator) => (
             <Card key={calculator.slug} className="p-5">
-              <h3 className="font-black text-slate-950">{calculator.shortTitle}</h3>
-              <p className="mt-2 line-clamp-2 text-sm leading-6 text-slate-600">{calculator.description}</p>
-              <Link href={calculator.path} className="mt-4 inline-flex items-center gap-2 text-sm font-black text-blush-800">
+              <h3 className="font-semibold text-foreground">{calculator.shortTitle}</h3>
+              <p className="mt-2 line-clamp-2 text-sm leading-6 text-muted-foreground">{calculator.description}</p>
+              <Link href={calculator.path} className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-foreground">
                 계산하기
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>

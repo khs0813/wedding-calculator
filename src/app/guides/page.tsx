@@ -5,6 +5,7 @@ import { guides } from "@/data/guides";
 import { absolutePageUrl, absoluteUrl, buildBreadcrumbSchema } from "@/lib/seo";
 import { Card } from "@/components/ui/card";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { GuideFilterList } from "@/components/content/GuideFilterList";
 
 export const metadata: Metadata = {
   title: "웨딩 예산 가이드 모음",
@@ -29,11 +30,10 @@ export const metadata: Metadata = {
 };
 
 const featuredGuides = guides.slice(0, 3);
-const allGuides = guides;
 
 export default function GuidesIndexPage() {
   return (
-    <div className="mx-auto max-w-[90rem] px-4 py-10">
+    <div className="mx-auto max-w-6xl px-4 py-10">
       <JsonLd
         data={[
           {
@@ -62,31 +62,35 @@ export default function GuidesIndexPage() {
         ]}
       />
 
-      <section className="rounded-4xl border border-blush-100 bg-white/85 p-6 shadow-soft md:p-10">
-        <p className="text-sm font-black uppercase tracking-[0.2em] text-blush-700">Guide Hub</p>
-        <h1 className="mt-3 text-3xl font-black tracking-tight text-slate-950 md:text-5xl">웨딩 예산 가이드 모음</h1>
-        <p className="mt-5 max-w-5xl text-base leading-8 text-slate-600">계산기 결과만으로는 부족한 판단 기준을 문서로 정리한 허브입니다. 각 가이드는 발행일, 수정일, 작성자와 참고 자료를 포함하고, 실제 사용 예시를 함께 제공합니다.</p>
+      <section className="rounded-2xl border border-border bg-card p-6 shadow-sm md:p-10">
+        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">가이드 허브</p>
+        <h1 className="mt-3 text-3xl font-semibold tracking-tight text-foreground md:text-5xl">웨딩 예산 가이드 모음</h1>
+        <p className="mt-5 max-w-5xl text-base leading-8 text-muted-foreground">계산기 결과만으로는 부족한 판단 기준을 문서로 정리한 허브입니다. 각 가이드는 발행일, 수정일, 작성자와 참고 자료를 포함하고, 실제 사용 예시를 함께 제공합니다.</p>
       </section>
 
       <section className="mt-10">
         <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
           <div>
-            <p className="text-sm font-black uppercase tracking-[0.2em] text-blush-700">Featured</p>
-            <h2 className="mt-2 text-3xl font-black text-slate-950">먼저 읽으면 좋은 가이드</h2>
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">추천</p>
+            <h2 className="mt-2 text-3xl font-semibold text-foreground">먼저 읽으면 좋은 가이드</h2>
           </div>
-          <p className="max-w-2xl text-sm leading-7 text-slate-600">전체 예산 구조, 신혼집 현금 흐름, 비용 절약 판단 기준처럼 대부분의 사용자에게 먼저 필요한 문서부터 상단에 배치했습니다.</p>
+          <p className="max-w-2xl text-sm leading-7 text-muted-foreground">전체 예산 구조, 신혼집 현금 흐름, 비용 절약 판단 기준처럼 대부분의 사용자에게 먼저 필요한 문서부터 상단에 배치했습니다.</p>
         </div>
         <div className="mt-8 grid gap-5 lg:grid-cols-3">
           {featuredGuides.map((guide) => (
             <Card key={guide.slug} className="flex h-full flex-col p-6 md:p-7">
-              <p className="text-xs font-black uppercase tracking-[0.2em] text-blush-700">Featured Guide</p>
-              <h2 className="mt-3 text-2xl font-black leading-tight text-slate-950">{guide.title}</h2>
-              <p className="mt-4 text-sm leading-7 text-slate-600">{guide.description}</p>
-              <div className="mt-5 space-y-1 text-xs font-bold text-slate-500">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">추천 가이드</p>
+              <h2 className="mt-3 text-2xl font-semibold leading-tight text-foreground">
+                <Link href={guide.path} className="hover:underline">
+                  {guide.title}
+                </Link>
+              </h2>
+              <p className="mt-4 text-sm leading-7 text-muted-foreground">{guide.description}</p>
+              <div className="mt-5 space-y-1 text-xs font-bold text-muted-foreground">
                 <p>작성: {guide.author.name}</p>
                 <p>업데이트: {guide.updatedAt}</p>
               </div>
-              <Link href={guide.path} className="mt-auto inline-flex items-center gap-2 pt-6 text-sm font-black text-blush-800">
+              <Link href={guide.path} className="mt-auto inline-flex items-center gap-2 pt-6 text-sm font-semibold text-foreground">
                 읽어보기
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
@@ -98,27 +102,13 @@ export default function GuidesIndexPage() {
       <section className="mt-14">
         <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
           <div>
-            <p className="text-sm font-black uppercase tracking-[0.2em] text-blush-700">All Guides</p>
-            <h2 className="mt-2 text-3xl font-black text-slate-950">전체 가이드</h2>
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">전체 가이드</p>
+            <h2 className="mt-2 text-3xl font-semibold text-foreground">전체 가이드</h2>
           </div>
-          <p className="max-w-2xl text-sm leading-7 text-slate-600">계약, 예산, 체크리스트, 축의금, 신혼집, 허니문처럼 실제 준비 과정에서 자주 마주치는 주제를 중심으로 묶었습니다.</p>
+          <p className="max-w-2xl text-sm leading-7 text-muted-foreground">계약, 예산, 체크리스트, 축의금, 신혼집, 허니문처럼 실제 준비 과정에서 자주 마주치는 주제를 중심으로 묶었습니다.</p>
         </div>
-        <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-          {allGuides.map((guide) => (
-            <Card key={guide.slug} className="flex h-full flex-col p-5">
-              <p className="text-xs font-black uppercase tracking-[0.2em] text-blush-700">Guide</p>
-              <h3 className="mt-2 text-lg font-black leading-snug text-slate-950">{guide.title}</h3>
-              <p className="mt-3 text-sm leading-7 text-slate-600">{guide.excerpt}</p>
-              <div className="mt-4 space-y-1 text-xs font-bold text-slate-500">
-                <p>작성: {guide.author.name}</p>
-                <p>업데이트: {guide.updatedAt}</p>
-              </div>
-              <Link href={guide.path} className="mt-auto inline-flex items-center gap-2 pt-5 text-sm font-black text-blush-800">
-                읽어보기
-                <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </Link>
-            </Card>
-          ))}
+        <div className="mt-8">
+          <GuideFilterList guides={guides} />
         </div>
       </section>
     </div>

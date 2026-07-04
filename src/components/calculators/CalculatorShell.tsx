@@ -30,7 +30,7 @@ export function CalculatorShell({ config }: { config: CalculatorConfig }) {
   const prompts = conversationPrompts[config.slug];
 
   return (
-    <div className="calculator-page mx-auto w-full max-w-[90rem] overflow-hidden px-4 py-10">
+    <div className="calculator-page mx-auto w-full max-w-6xl overflow-hidden px-4 py-10">
       <JsonLd
         data={[
           {
@@ -71,46 +71,46 @@ export function CalculatorShell({ config }: { config: CalculatorConfig }) {
         ]}
       />
 
-      <section className="mb-8 grid gap-5 rounded-4xl border border-blush-100 bg-white/80 p-5 shadow-soft md:p-9">
+      <section className="mb-8 grid gap-5 rounded-2xl border border-border bg-card p-5 shadow-sm md:p-9">
         <div className="max-w-5xl">
-          <p className="text-sm font-black uppercase tracking-[0.25em] text-blush-700">Wedding Budget</p>
-          <h1 className="mt-2.5 max-w-full text-[clamp(1.5rem,3.8vw,2.8rem)] font-black leading-tight tracking-tight text-slate-950 [overflow-wrap:anywhere]">{config.title}</h1>
-          <p className="mt-4 text-lg leading-8 text-slate-600">{config.hero}</p>
-          <div className="mt-5 flex flex-wrap items-center gap-3 text-xs font-bold text-slate-500">
+          <p className="text-sm font-semibold uppercase tracking-[0.25em] text-muted-foreground">결혼 예산</p>
+          <h1 className="mt-2.5 max-w-full text-[clamp(1.5rem,3.8vw,2.8rem)] font-semibold leading-tight tracking-tight text-foreground [overflow-wrap:anywhere]">{config.title}</h1>
+          <p className="mt-4 text-lg leading-8 text-muted-foreground">{config.hero}</p>
+          <div className="mt-5 flex flex-wrap items-center gap-3 text-xs font-bold text-muted-foreground">
             <span>작성: {content.author.name}</span>
             <span>최종 업데이트: {content.updatedAt}</span>
           </div>
           <div className="no-print mt-6 flex flex-wrap gap-3">
-            <a href="#calculator" className="inline-flex min-h-11 items-center gap-2 rounded-full bg-blush-800 px-5 py-2.5 text-sm font-black text-white transition hover:bg-blush-700">
+            <a href="#calculator" className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90">
               <ArrowDown className="h-4 w-4" aria-hidden="true" />
               바로 계산하기
             </a>
-            <Link href="/methodology" className="inline-flex min-h-11 items-center gap-2 rounded-full border border-blush-200 bg-white px-5 py-2.5 text-sm font-black text-blush-800 transition hover:bg-blush-50">
+            <Link href="/methodology" className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-border bg-card px-5 py-2.5 text-sm font-semibold text-foreground transition hover:bg-secondary">
               계산 기준 보기
             </Link>
           </div>
         </div>
       </section>
 
-      <section className="no-print mb-8 rounded-4xl border border-blush-100 bg-white p-5 shadow-soft md:p-6" aria-label="함께 정할 기준">
+      <section className="no-print mb-8 rounded-2xl border border-border bg-card p-5 shadow-sm md:p-6" aria-label="함께 정할 기준">
         <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
           <div className="max-w-2xl">
             <div className="flex items-center gap-3">
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-blush-50 text-blush-800">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-secondary text-foreground">
                 <HeartHandshake className="h-5 w-5" aria-hidden="true" />
               </span>
               <div>
-                <p className="text-sm font-black uppercase tracking-[0.2em] text-blush-700">Couple Check</p>
-                <h2 className="text-xl font-black text-slate-950">계산 전에 맞추면 좋은 기준</h2>
+                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">함께 확인</p>
+                <h2 className="text-xl font-semibold text-foreground">계산 전에 맞추면 좋은 기준</h2>
               </div>
             </div>
-            <p className="mt-3 text-sm leading-7 text-slate-600">
-              이 계산기는 정답을 정해 주기보다 두 사람이 같은 기준으로 비용을 바라보게 돕는 도구입니다.
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">
+              이 계산기는 정답을 정해 주기보다 두 사람이 같은 기준으로 비용을 바라보게 돕는 도구입니다. 공유 URL로 상대와 같은 예산표를 볼 수 있습니다.
             </p>
           </div>
           <div className="grid gap-2 sm:grid-cols-3 lg:min-w-[34rem]">
             {prompts.map((prompt) => (
-              <div key={prompt} className="rounded-2xl border border-blush-100 bg-blush-50/70 px-4 py-3 text-sm font-black text-slate-800">
+              <div key={prompt} className="rounded-2xl border border-border bg-secondary px-4 py-3 text-sm font-semibold text-foreground">
                 {prompt}
               </div>
             ))}
@@ -123,22 +123,22 @@ export function CalculatorShell({ config }: { config: CalculatorConfig }) {
       <div className="no-print mt-10 space-y-10">
         <section className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
           <Card className="p-6">
-            <p className="text-sm font-black uppercase tracking-[0.2em] text-blush-700">Checklist</p>
-            <h2 className="mt-2 text-2xl font-black text-slate-950">입력 전 체크리스트</h2>
-            <ul className="mt-5 space-y-3 text-sm leading-7 text-slate-700">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">체크리스트</p>
+            <h2 className="mt-2 text-2xl font-semibold text-foreground">입력 전 체크리스트</h2>
+            <ul className="mt-5 space-y-3 text-sm leading-7 text-muted-foreground">
               {content.checklist.map((item) => (
                 <li key={item} className="flex gap-3">
-                  <span className="mt-2 h-2.5 w-2.5 rounded-full bg-blush-500" aria-hidden="true" />
+                  <span className="mt-2 h-2.5 w-2.5 rounded-xl bg-primary" aria-hidden="true" />
                   <span>{item}</span>
                 </li>
               ))}
             </ul>
           </Card>
           <Card className="p-6">
-            <p className="text-sm font-black uppercase tracking-[0.2em] text-blush-700">Summary</p>
-            <h2 className="mt-2 text-2xl font-black text-slate-950">이 계산기 요약</h2>
-            <p className="mt-4 text-sm leading-7 text-slate-600">{content.intro}</p>
-            <p className="mt-4 text-sm leading-7 text-slate-600">관련 주제: {config.keywords.join(", ")}</p>
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">요약</p>
+            <h2 className="mt-2 text-2xl font-semibold text-foreground">이 계산기 요약</h2>
+            <p className="mt-4 text-sm leading-7 text-muted-foreground">{content.intro}</p>
+            <p className="mt-4 text-sm leading-7 text-muted-foreground">관련 주제: {config.keywords.join(", ")}</p>
           </Card>
         </section>
 
@@ -153,16 +153,16 @@ export function CalculatorShell({ config }: { config: CalculatorConfig }) {
         {relatedGuides.length ? (
           <Card>
             <CardHeader>
-              <h2 className="text-2xl font-black text-slate-950">함께 읽으면 좋은 가이드</h2>
-              <p className="text-sm text-slate-500">계산 결과를 실제 의사결정으로 연결할 때 필요한 설명입니다.</p>
+              <h2 className="text-2xl font-semibold text-foreground">함께 읽으면 좋은 가이드</h2>
+              <p className="text-sm text-muted-foreground">계산 결과를 실제 의사결정으로 연결할 때 필요한 설명입니다.</p>
             </CardHeader>
             <CardContent>
               <div className="grid gap-4 md:grid-cols-3">
                 {relatedGuides.map((guide) => (
-                  <Link key={guide.slug} href={guide.path} className="rounded-3xl border border-blush-100 p-5 transition hover:border-blush-200 hover:bg-blush-50/60">
-                    <h3 className="font-black text-slate-950">{guide.title}</h3>
-                    <p className="mt-2 text-sm leading-6 text-slate-600">{guide.excerpt}</p>
-                    <span className="mt-4 inline-flex text-sm font-black text-blush-800">가이드 읽기</span>
+                  <Link key={guide.slug} href={guide.path} className="rounded-2xl border border-border p-5 transition hover:border-border hover:bg-secondary">
+                    <h3 className="font-semibold text-foreground">{guide.title}</h3>
+                    <p className="mt-2 text-sm leading-6 text-muted-foreground">{guide.excerpt}</p>
+                    <span className="mt-4 inline-flex text-sm font-semibold text-foreground">가이드 읽기</span>
                   </Link>
                 ))}
               </div>

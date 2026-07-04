@@ -24,7 +24,7 @@ export function FAQSection({ title = "자주 묻는 질문", items }: { title?: 
       />
       <Card>
         <CardHeader>
-          <h2 className="text-2xl font-black text-slate-950">{title}</h2>
+          <h2 className="text-2xl font-semibold text-foreground">{title}</h2>
         </CardHeader>
         <CardContent>
           <FAQAccordion items={items} />

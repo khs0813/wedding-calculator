@@ -16,24 +16,24 @@ function formatInputValue(fieldId: string, config: CalculatorConfig, values: Rec
 
 export function InputSummary({ config, values, generatedAt }: { config: CalculatorConfig; values: Record<string, FieldValue>; generatedAt?: Date | null }) {
   return (
-    <section className="rounded-3xl border border-blush-100 bg-white p-6">
-      <h3 className="text-xl font-black text-slate-950">입력값 요약</h3>
-      <p className="mt-2 text-sm text-slate-500">PDF 출력 시 함께 포함되는 입력 내역입니다.</p>
+    <section className="rounded-2xl border border-border bg-card p-6">
+      <h3 className="text-xl font-semibold text-foreground">입력값 요약</h3>
+      <p className="mt-2 text-sm text-muted-foreground">PDF 출력 시 함께 포함되는 입력 내역입니다.</p>
       <div className="table-scroll mt-5 overflow-x-auto">
         <table className="w-full min-w-[520px] border-collapse text-sm">
           <caption className="sr-only">{config.shortTitle} 입력값 요약</caption>
           <tbody>
             {config.fields.map((field) => (
-              <tr key={field.id} className="border-b border-blush-100/70 last:border-0">
-                <th scope="row" className="py-3 pr-4 text-left font-bold text-slate-700">{field.label}</th>
-                <td className="py-3 text-right text-slate-600">{formatInputValue(field.id, config, values)}</td>
+              <tr key={field.id} className="border-b border-border last:border-0">
+                <th scope="row" className="py-3 pr-4 text-left font-bold text-muted-foreground">{field.label}</th>
+                <td className="py-3 text-right text-muted-foreground">{formatInputValue(field.id, config, values)}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
       {generatedAt ? (
-        <p className="mt-5 text-xs text-slate-400">
+        <p className="mt-5 text-xs text-muted-foreground">
           결과 생성일: {generatedAt.toLocaleString("ko-KR")} · 사이트명: 웨딩 예산 계산기
         </p>
       ) : null}

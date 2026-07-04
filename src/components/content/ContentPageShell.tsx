@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export function ContentPageShell({ page }: { page: SiteContentPage }) {
   return (
-    <article className="mx-auto max-w-[90rem] px-4 py-10">
+    <article className="mx-auto max-w-6xl px-4 py-10">
       <JsonLd
         data={[
           {
@@ -25,23 +25,23 @@ export function ContentPageShell({ page }: { page: SiteContentPage }) {
           ]),
         ]}
       />
-      <header className="rounded-4xl border border-blush-100 bg-white/85 p-6 shadow-soft md:p-10">
-        <p className="text-sm font-black uppercase tracking-[0.25em] text-blush-700">{page.label}</p>
-        <h1 className="mt-3 text-3xl font-black tracking-tight text-slate-950 md:text-5xl">{page.title}</h1>
-        <p className="mt-5 text-base leading-8 text-slate-600">{page.description}</p>
-        <p className="mt-4 text-xs font-bold text-slate-500">최종 업데이트: {page.updatedAt}</p>
+      <header className="rounded-2xl border border-border bg-card p-6 shadow-sm md:p-10">
+        <p className="text-sm font-semibold uppercase tracking-[0.25em] text-muted-foreground">{page.label}</p>
+        <h1 className="mt-3 text-3xl font-semibold tracking-tight text-foreground md:text-5xl">{page.title}</h1>
+        <p className="mt-5 text-base leading-8 text-muted-foreground">{page.description}</p>
+        <p className="mt-4 text-xs font-bold text-muted-foreground">최종 업데이트: {page.updatedAt}</p>
       </header>
 
       <section className="mt-8 grid gap-6 lg:grid-cols-[1fr_0.9fr]">
-        <div className="rounded-4xl border border-blush-100 bg-white p-6 shadow-soft md:p-8">
-          <p className="text-sm font-black uppercase tracking-[0.2em] text-blush-700">Summary</p>
-          <h2 className="mt-2 text-2xl font-black text-slate-950">핵심 요약</h2>
-          <p className="mt-4 text-sm leading-7 text-slate-600">{page.summary}</p>
+        <div className="rounded-2xl border border-border bg-card p-6 shadow-sm md:p-8">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">요약</p>
+          <h2 className="mt-2 text-2xl font-semibold text-foreground">핵심 요약</h2>
+          <p className="mt-4 text-sm leading-7 text-muted-foreground">{page.summary}</p>
         </div>
-        <div className="rounded-4xl border border-blush-100 bg-gradient-to-br from-blush-50 via-cream-50 to-sage-50 p-6 shadow-soft md:p-8">
-          <p className="text-sm font-black uppercase tracking-[0.2em] text-blush-700">Related</p>
-          <h2 className="mt-2 text-2xl font-black text-slate-950">함께 보면 좋은 페이지</h2>
-          <div className="mt-5 flex flex-wrap gap-3 text-sm font-black text-blush-800">
+        <div className="rounded-2xl border border-border bg-card p-6 shadow-sm md:p-8">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">관련 페이지</p>
+          <h2 className="mt-2 text-2xl font-semibold text-foreground">함께 보면 좋은 페이지</h2>
+          <div className="mt-5 flex flex-wrap gap-3 text-sm font-semibold text-foreground">
             <Link href="/guides">예산 가이드 모음</Link>
             <Link href="/methodology">계산 기준과 운영 방법</Link>
             <Link href="/contact">문의사항</Link>
@@ -49,7 +49,7 @@ export function ContentPageShell({ page }: { page: SiteContentPage }) {
         </div>
       </section>
 
-      <div className="mt-8 rounded-4xl border border-blush-100 bg-white p-6 shadow-soft md:p-10">
+      <div className="mt-8 rounded-2xl border border-border bg-card p-6 shadow-sm md:p-10">
         <SectionBlocks sections={page.sections} />
       </div>
 

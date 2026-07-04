@@ -1,23 +1,23 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, HeartHandshake, LayoutDashboard, ShieldCheck } from "lucide-react";
+import { ArrowRight, CheckCircle2, HeartHandshake, Home, Landmark, Plane, Share2, ShieldCheck, Sparkles, WalletCards } from "lucide-react";
 import { calculators } from "@/data/calculators";
 import { guides } from "@/data/guides";
 import { homeFaqs } from "@/data/faqs";
 import { CalculatorCard } from "@/components/calculators/CalculatorCard";
 import { FAQSection } from "@/components/seo/FAQSection";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { Card } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { absolutePageUrl, absoluteUrl, buildBreadcrumbSchema } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "웨딩 예산 계산기 - 결혼·신혼 준비 비용 계산",
-  description: "결혼 비용, 신혼집 예산, 웨딩홀, 스드메, 혼수, 예물, 신혼여행, 축의금을 DB 없이 브라우저에서 계산하고 예산 판단 기준까지 함께 읽을 수 있는 무료 도구입니다.",
-  keywords: ["웨딩 예산 계산기", "결혼 비용 계산기", "신혼집 예산 계산기", "축의금 계산기", "스드메 비용", "혼수 비용", "결혼 예산표"],
+  title: "웨딩 예산 계산기 - 결혼 비용·신혼집·혼수 예산표",
+  description: "예비 신랑·신부가 결혼 비용, 신혼집 예산, 웨딩홀 식대, 스드메 옵션, 혼수, 예물, 신혼여행, 축의금을 한곳에서 계산하고 공유할 수 있는 무료 예산표입니다.",
+  keywords: ["웨딩 예산 계산기", "결혼 비용 계산기", "신혼집 예산 계산기", "웨딩홀 식대 계산기", "스드메 비용", "혼수 비용", "결혼 예산표"],
   alternates: { canonical: "/" },
   openGraph: {
-    title: "웨딩 예산 계산기 - 결혼·신혼 준비 비용 계산",
-    description: "계산기와 예산 가이드를 함께 보며 결혼·신혼 준비 비용을 정리하세요.",
+    title: "웨딩 예산 계산기 - 결혼 비용·신혼집·혼수 예산표",
+    description: "예비부부가 결혼 준비 비용과 신혼 준비 예산을 계산하고 공유하는 무료 예산표입니다.",
     url: absolutePageUrl("/"),
     siteName: "웨딩 예산 계산기",
     locale: "ko_KR",
@@ -40,54 +40,49 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-const coupleDecisionFlow = [
+const featuredGuides = guides.slice(0, 6);
+const trustSignals = [
+  { label: "서버 저장 없음", description: "입력값은 현재 브라우저에 저장", icon: ShieldCheck },
+  { label: "둘이 함께 보기", description: "공유 URL로 같은 예산표 확인", icon: Share2 },
+  { label: "총액과 현금 흐름", description: "큰 비용과 월 고정비를 분리", icon: WalletCards },
+];
+const stageChoices = [
   {
-    title: "둘이 감당할 상한",
-    body: "먼저 총액이 아니라 결혼식 전후에 실제로 감당할 수 있는 현금과 월 고정비를 맞춥니다.",
+    title: "전체 예산부터 잡고 싶어요",
+    description: "웨딩홀, 스드메, 혼수, 여행까지 한 번에 큰 흐름을 봅니다.",
+    href: "/calculators/wedding-cost",
+    icon: Sparkles,
   },
   {
-    title: "가족과 협의할 항목",
-    body: "예물, 예단, 하객 수, 웨딩홀 조건처럼 양가 기대가 섞이는 항목은 숫자와 메모를 분리합니다.",
+    title: "웨딩홀 상담을 앞두고 있어요",
+    description: "보증 인원, 식대, 대관료 기준으로 상담 전 금액을 확인합니다.",
+    href: "/calculators/wedding-hall-cost",
+    icon: Landmark,
   },
   {
-    title: "줄여도 괜찮은 선택",
-    body: "사진, 식사, 여행처럼 중요한 경험은 남기고 만족도 영향이 낮은 옵션부터 조정합니다.",
+    title: "신혼집 비용이 가장 걱정돼요",
+    description: "보증금, 대출, 월 고정비, 입주 비용을 분리해 봅니다.",
+    href: "/calculators/newlywed-home-budget",
+    icon: Home,
+  },
+  {
+    title: "신혼여행 예산을 정해야 해요",
+    description: "항공, 숙박, 현지 지출과 1일 평균 비용을 확인합니다.",
+    href: "/calculators/honeymoon-budget",
+    icon: Plane,
   },
 ];
-
-const qualitySignals = [
-  "계산기마다 예산 판단 기준과 체크리스트를 함께 제공",
-  "가이드마다 작성일, 수정일, 작성·검토 정보를 표시",
-  "문의, 소개, 편집 기준 페이지를 공개해 운영 주체를 명확히 안내",
-  "입력값은 브라우저에만 저장하고 서버 DB에 전송하지 않음",
-];
-
-const scenarioExamples = [
-  "결혼식 총액을 먼저 잡고 싶은 커플: 전체 결혼 비용 계산기 → 웨딩홀·스드메 세부 계산기 순서로 사용",
-  "입주와 결혼식이 비슷한 시기에 몰린 커플: 신혼집 예산 계산기에서 초기 현금과 월 고정비를 먼저 분리",
-  "예물·혼수에서 의견 차이가 있는 커플: 가이드 문서로 기준을 맞춘 뒤 계산기로 금액 조정",
-];
-
-const couplePrompts = [
-  "절대 넘기고 싶지 않은 총액",
-  "서로에게 가장 중요한 경험",
-  "가족과 미리 이야기할 항목",
-  "나중에 사도 되는 품목",
+const planningSteps = [
+  ["1", "총액 상한", "결혼식, 신혼집, 여행까지 합친 최대 예산을 먼저 정합니다."],
+  ["2", "큰 항목 분리", "웨딩홀 식대, 스드메 옵션, 혼수처럼 금액이 커지는 항목을 따로 봅니다."],
+  ["3", "같은 표로 조정", "계산 결과를 내 예산표에 모아 두 사람이 같은 기준으로 줄일 항목을 정합니다."],
 ];
 
 export default function HomePage() {
   return (
-    <div className="mx-auto max-w-[90rem] px-4 py-10">
+    <div>
       <JsonLd
         data={[
-          {
-            "@context": "https://schema.org",
-            "@type": "WebSite",
-            name: "웨딩 예산 계산기",
-            url: absolutePageUrl("/"),
-            inLanguage: "ko-KR",
-            description: "결혼 준비와 신혼집 준비 비용을 계산하고 예산 판단 기준을 읽을 수 있는 무료 도구",
-          },
           {
             "@context": "https://schema.org",
             "@type": "ItemList",
@@ -99,7 +94,7 @@ export default function HomePage() {
                 name: calculator.title,
                 url: absolutePageUrl(calculator.path),
               })),
-              ...guides.slice(0, 6).map((guide, index) => ({
+              ...featuredGuides.map((guide, index) => ({
                 "@type": "ListItem",
                 position: calculators.length + index + 1,
                 name: guide.title,
@@ -111,147 +106,172 @@ export default function HomePage() {
         ]}
       />
 
-      <section className="grid gap-8 rounded-4xl border border-blush-100 bg-white/85 p-6 shadow-soft md:p-10 lg:grid-cols-[1.12fr_0.88fr] lg:items-center">
-        <div>
-          <p className="inline-flex items-center gap-2 rounded-full bg-blush-50 px-4 py-2 text-sm font-black text-blush-800">
-            <HeartHandshake className="h-4 w-4" aria-hidden="true" />
-            둘이 함께 정하는 결혼 예산
-          </p>
-          <h1 className="mt-6 text-4xl font-black tracking-tight text-slate-950 md:text-6xl">
-            비용보다 먼저<br />기준을 맞추세요
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
-            결혼 예산은 숫자표이기 전에 두 사람의 우선순위입니다. 웨딩홀, 스드메, 혼수, 예물, 신혼여행, 신혼집까지 필요한 금액을 계산하고, 무엇을 남기고 무엇을 조정할지 함께 판단할 수 있게 구성했습니다.
-          </p>
-          <div className="mt-5 flex flex-wrap gap-3 text-sm font-black text-blush-800">
-            <Link href="/about" className="underline decoration-blush-200 underline-offset-4">사이트 소개</Link>
-            <Link href="/editorial-policy" className="underline decoration-blush-200 underline-offset-4">편집 기준</Link>
-            <Link href="/contact" className="underline decoration-blush-200 underline-offset-4">문의</Link>
+      <section className="bg-[radial-gradient(circle_at_top_left,_#eff6ff,_transparent_35%),linear-gradient(135deg,#f8fafc,#ffffff)]">
+        <div className="mx-auto grid max-w-6xl gap-8 px-4 py-16 md:py-24 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+          <div className="max-w-3xl">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">결혼 예산 계산</p>
+            <h1 className="mt-5 text-4xl font-bold leading-tight tracking-tight md:text-6xl">
+              <span className="block whitespace-nowrap">우리 결혼 예산과</span>
+              <span className="block whitespace-nowrap">신혼 준비 비용을 함께</span>
+              <span className="block whitespace-nowrap">정리하세요.</span>
+            </h1>
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">
+              결혼 비용, 신혼집 예산, 웨딩홀, 스드메, 혼수, 예물, 신혼여행, 축의금까지 한 흐름으로 계산하고 비교하세요.
+            </p>
+            <div className="mt-8 flex max-w-2xl flex-col gap-3 sm:flex-row">
+              <Link
+                href="/calculators/wedding-cost"
+                className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-primary px-5 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                계산 시작
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+              <Link
+                href="/summary"
+                className="inline-flex h-11 items-center justify-center rounded-xl border bg-background px-5 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                내 예산표 보기
+              </Link>
+            </div>
+            <div className="mt-5 flex items-start gap-3 text-sm leading-6 text-muted-foreground">
+              <HeartHandshake className="mt-0.5 h-5 w-5 shrink-0" aria-hidden="true" />
+              <p>둘이 같은 기준으로 입력하고, 공유 URL로 같은 예산표를 보며 조정할 수 있습니다.</p>
+            </div>
           </div>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="/calculators/wedding-cost" className="inline-flex min-h-12 items-center gap-2 rounded-full bg-blush-800 px-6 py-3 text-sm font-black text-white shadow-[0_10px_28px_rgba(18,46,89,0.18)] transition hover:bg-blush-700">
-              결혼 비용 계산하기
-              <ArrowRight className="h-4 w-4" aria-hidden="true" />
-            </Link>
-            <Link href="/calculators/newlywed-home-budget" className="inline-flex min-h-12 items-center gap-2 rounded-full border border-blush-200 bg-white px-6 py-3 text-sm font-black text-blush-800 transition hover:bg-blush-50">
-              신혼집 예산 계산하기
-            </Link>
-            <Link href="/guides/wedding-budget-timeline-guide" className="inline-flex min-h-12 items-center gap-2 rounded-full border border-blush-200 bg-white px-6 py-3 text-sm font-black text-blush-800 transition hover:bg-blush-50">
-              예산 가이드 읽기
-            </Link>
-          </div>
-        </div>
-        <Card className="p-6">
-          <p className="text-sm font-black uppercase tracking-[0.2em] text-blush-700">First Conversation</p>
-          <h2 className="mt-3 text-2xl font-black text-slate-950">처음부터 견적을 비교하지 않아도 됩니다</h2>
-          <p className="mt-4 text-sm leading-7 text-slate-600">
-            결혼 준비 초반에는 정확한 가격보다 서로의 기준을 먼저 확인하는 편이 좋습니다. 아래 네 가지가 맞으면 이후 견적 비교가 훨씬 차분해집니다.
-          </p>
-          <div className="mt-5 grid gap-2 sm:grid-cols-2">
-            {couplePrompts.map((prompt) => (
-              <div key={prompt} className="rounded-2xl border border-blush-100 bg-blush-50/70 px-4 py-3 text-sm font-black text-slate-800">
-                {prompt}
+          <div className="rounded-2xl border bg-card p-5 shadow-sm md:p-6" aria-label="예산 정리 흐름">
+            <div className="flex items-center justify-between gap-4 border-b pb-4">
+              <div>
+                <p className="text-sm font-semibold text-muted-foreground">예비부부용 예산표</p>
+                <h2 className="mt-1 text-2xl font-bold tracking-tight">무엇부터 정리할까요?</h2>
               </div>
-            ))}
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground">
+                <CheckCircle2 className="h-5 w-5" aria-hidden="true" />
+              </span>
+            </div>
+            <div className="mt-5 space-y-3">
+              {planningSteps.map(([number, title, description]) => (
+                <div key={title} className="grid grid-cols-[2.25rem_1fr] gap-3 rounded-xl border bg-background p-4">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-secondary text-sm font-bold text-foreground">{number}</span>
+                  <div>
+                    <h3 className="font-semibold text-foreground">{title}</h3>
+                    <p className="mt-1 text-sm leading-6 text-muted-foreground">{description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="mt-5 grid gap-3 sm:grid-cols-3">
+              {trustSignals.map((signal) => {
+                const Icon = signal.icon;
+                return (
+                  <div key={signal.label} className="rounded-xl bg-secondary p-3">
+                    <Icon className="h-5 w-5 text-foreground" aria-hidden="true" />
+                    <p className="mt-2 text-sm font-semibold text-foreground">{signal.label}</p>
+                    <p className="mt-1 text-xs leading-5 text-muted-foreground">{signal.description}</p>
+                  </div>
+                );
+              })}
+            </div>
           </div>
-          <div className="mt-5 flex items-start gap-3 rounded-2xl bg-sage-50 p-4 text-sm leading-6 text-slate-700">
-            <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-sage-700" aria-hidden="true" />
-            <p>입력값은 서버 DB가 아니라 현재 브라우저에만 저장됩니다.</p>
-          </div>
-        </Card>
-      </section>
-
-      <section className="mt-10 rounded-4xl border border-blush-100 bg-white p-6 shadow-soft md:p-8">
-        <h2 className="text-2xl font-black text-slate-950">두 사람이 같이 볼 때 좋은 흐름</h2>
-        <ul className="mt-5 space-y-3 text-sm leading-7 text-slate-600">
-          {scenarioExamples.map((example) => (
-            <li key={example}>{example}</li>
-          ))}
-        </ul>
-      </section>
-
-      <section className="mt-16 grid gap-6 lg:grid-cols-3">
-        {coupleDecisionFlow.map((step, index) => (
-          <Card key={step.title} className="p-6">
-            <p className="text-sm font-black uppercase tracking-[0.2em] text-blush-700">Decision {index + 1}</p>
-            <h2 className="mt-3 text-2xl font-black text-slate-950">{step.title}</h2>
-            <p className="mt-4 text-sm leading-8 text-slate-600">{step.body}</p>
-          </Card>
-        ))}
-      </section>
-
-      <section id="calculators" className="mt-16">
-        <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-          <div>
-            <p className="text-sm font-black uppercase tracking-[0.2em] text-blush-700">Calculators</p>
-            <h2 className="mt-2 text-3xl font-black text-slate-950">상황별 예산 계산기</h2>
-          </div>
-          <p className="max-w-2xl text-sm leading-7 text-slate-600">전체 예산, 세부 항목, 신혼집 현금 흐름, 축의금 판단 범위를 각각 따로 계산할 수 있습니다. 각 계산기 페이지에는 입력 UI만 아니라 비용이 커지는 이유와 체크 포인트를 함께 정리했습니다.</p>
         </div>
-        <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 py-10">
+        <div className="mb-6">
+          <p className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">상황별 시작</p>
+          <h2 className="mt-2 text-3xl font-bold tracking-tight">지금 가장 급한 준비부터 시작하세요</h2>
+        </div>
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {stageChoices.map((choice) => {
+            const Icon = choice.icon;
+            return (
+              <Link key={choice.href} href={choice.href}>
+                <Card className="h-full transition hover:-translate-y-1 hover:shadow-md">
+                  <CardContent className="p-5">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-secondary text-foreground">
+                      <Icon className="h-5 w-5" aria-hidden="true" />
+                    </span>
+                    <h3 className="mt-4 text-lg font-semibold">{choice.title}</h3>
+                    <p className="mt-3 text-sm leading-6 text-muted-foreground">{choice.description}</p>
+                  </CardContent>
+                </Card>
+              </Link>
+            );
+          })}
+        </div>
+      </section>
+
+      <section id="calculators" className="mx-auto max-w-6xl scroll-mt-24 px-4 py-10">
+        <div className="mb-6 flex items-end justify-between gap-4">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">시작하기</p>
+            <h2 className="mt-2 text-3xl font-bold tracking-tight">예산 계산기</h2>
+          </div>
+          <Link
+            href="/summary"
+            className="inline-flex h-11 items-center justify-center rounded-xl border bg-background px-5 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            내 예산표
+          </Link>
+        </div>
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {calculators.map((calculator) => (
             <CalculatorCard key={calculator.slug} calculator={calculator} />
           ))}
         </div>
       </section>
 
-      <section className="mt-16 grid gap-6 lg:grid-cols-[1.3fr_0.7fr]">
-        <Card className="p-6 md:p-8">
-          <h2 className="text-2xl font-black text-slate-950">예산을 판단하는 기준</h2>
-          <div className="mt-5 space-y-4 text-sm leading-8 text-slate-600">
-            <p>결혼 준비 평균 비용은 참고용일 뿐입니다. 실제 총액은 하객 수, 보증 인원, 스드메 옵션, 혼수 우선순위, 신혼집 대출 구조에 따라 크게 달라집니다.</p>
-            <p>이 사이트는 평균값을 단정적으로 제시하기보다, 어떤 항목을 나눠 적어야 현실적인 예산표가 되는지에 초점을 맞춥니다. 특히 계약 후 늘기 쉬운 비용을 따로 보도록 설계했습니다.</p>
-          </div>
-        </Card>
-        <Card className="p-6 md:p-8">
-          <h2 className="text-2xl font-black text-slate-950">운영 신호</h2>
-          <ul className="mt-5 space-y-3 text-sm leading-7 text-slate-600">
-            {qualitySignals.map((signal) => (
-              <li key={signal}>{signal}</li>
-            ))}
-          </ul>
-          <div className="mt-6 flex flex-wrap gap-3">
-            <Link href="/about" className="text-sm font-black text-blush-800 underline decoration-blush-200 underline-offset-4">사이트 소개</Link>
-            <Link href="/editorial-policy" className="text-sm font-black text-blush-800 underline decoration-blush-200 underline-offset-4">편집 기준</Link>
-          </div>
-        </Card>
-      </section>
-
-      <section className="mt-16">
-        <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-          <div>
-            <p className="text-sm font-black uppercase tracking-[0.2em] text-blush-700">Guides</p>
-            <h2 className="mt-2 text-3xl font-black text-slate-950">예산 가이드 라이브러리</h2>
-          </div>
-          <p className="max-w-2xl text-sm leading-7 text-slate-600">가이드에는 발행일, 수정일, 작성자와 참고 자료를 함께 표시합니다. 계산 결과를 실제 의사결정으로 바꾸는 데 필요한 문서만 우선 확장하고 있습니다.</p>
+      <section className="mx-auto max-w-6xl px-4 py-10">
+        <div className="mb-6">
+          <p className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">준비 흐름</p>
+          <h2 className="mt-2 text-3xl font-bold tracking-tight">추천 예산 정리 순서</h2>
         </div>
-        <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {guides.slice(0, 6).map((guide) => (
-            <Card key={guide.slug} className="flex h-full flex-col p-6">
-              <p className="text-xs font-black uppercase tracking-[0.2em] text-blush-700">Guide</p>
-              <h3 className="mt-2 text-xl font-black text-slate-950">{guide.title}</h3>
-              <p className="mt-3 text-sm leading-7 text-slate-600">{guide.excerpt}</p>
-              <p className="mt-4 text-xs font-bold text-slate-500">업데이트: {guide.updatedAt}</p>
-              <Link href={guide.path} className="mt-auto inline-flex items-center gap-2 pt-5 text-sm font-black text-blush-800">
-                읽어보기
-                <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </Link>
+        <div className="grid gap-4 md:grid-cols-3">
+          {[
+            ["예산 상한 정하기", "먼저 결혼식과 신혼집을 포함한 전체 예산 상한을 정합니다."],
+            ["항목별 비교하기", "웨딩홀, 스드메, 혼수, 여행처럼 견적이 커지는 항목을 분리합니다."],
+            ["한 장으로 모으기", "계산한 결과를 내 예산표에서 모아 보고 함께 조정합니다."],
+          ].map(([title, description]) => (
+            <Card key={title} className="h-full">
+              <CardContent className="p-6">
+                <p className="text-sm text-muted-foreground">결혼 예산</p>
+                <h3 className="mt-3 text-xl font-semibold">{title}</h3>
+                <p className="mt-3 text-sm leading-6 text-muted-foreground">{description}</p>
+              </CardContent>
             </Card>
           ))}
         </div>
       </section>
 
-      <section className="mt-16">
-        <FAQSection items={homeFaqs} />
+      <section className="mx-auto max-w-6xl px-4 py-10">
+        <div className="mb-6">
+          <p className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">가이드</p>
+          <h2 className="mt-2 text-3xl font-bold tracking-tight">예산 가이드와 체크리스트</h2>
+        </div>
+        <div className="grid gap-4 md:grid-cols-3">
+          {featuredGuides.map((guide) => (
+            <Card key={guide.slug} className="h-full">
+              <CardContent className="flex h-full flex-col p-6">
+                <p className="text-sm text-muted-foreground">수정일 {guide.updatedAt}</p>
+                <h3 className="mt-3 text-xl font-semibold">
+                  <Link href={guide.path} className="hover:underline">
+                    {guide.title}
+                  </Link>
+                </h3>
+                <p className="mt-3 text-sm leading-6 text-muted-foreground">{guide.excerpt}</p>
+                <Link
+                  href={guide.path}
+                  className="mt-auto inline-flex h-11 w-fit items-center justify-center rounded-xl border bg-background px-5 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                >
+                  가이드 보기
+                </Link>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       </section>
 
-      <section className="mt-16 rounded-4xl border border-blush-100 bg-white p-6 shadow-soft md:p-10">
-        <h2 className="text-2xl font-black text-slate-950">통합 요약 화면은 이렇게 쓰면 좋습니다</h2>
-        <p className="mt-4 text-sm leading-8 text-slate-600">개별 계산기를 먼저 채운 뒤 통합 요약 화면에서 전체 흐름을 보는 방식이 가장 효율적입니다. 다만 통합 화면은 개인 브라우저 저장값을 읽는 도구라서, 검색 유입용 랜딩 페이지가 아니라 실제 사용 중인 방문자를 위한 기능으로 운영합니다.</p>
-        <Link href="/summary" className="mt-6 inline-flex items-center gap-2 text-sm font-black text-blush-800">
-          <LayoutDashboard className="h-4 w-4" aria-hidden="true" />
-          통합 결과 보기
-        </Link>
+      <section className="mx-auto max-w-6xl px-4 py-10">
+        <FAQSection items={homeFaqs} />
       </section>
     </div>
   );

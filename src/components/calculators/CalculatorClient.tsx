@@ -29,7 +29,7 @@ import { PrintButton } from "@/components/calculators/PrintButton";
 import { ResetButton } from "@/components/calculators/ResetButton";
 import { InputSummary } from "@/components/calculators/InputSummary";
 import { ExcelActions } from "@/components/calculators/ExcelActions";
-import { LayoutDashboard } from "lucide-react";
+import { ChevronDown, HeartHandshake, LayoutDashboard, ShieldCheck } from "lucide-react";
 // import { AdBanner } from "@/components/monetization/AdBanner";
 
 type FormValues = Record<string, FieldValue>;
@@ -75,6 +75,8 @@ const presetLabelsByCalculator: Record<CalculatorConfig["slug"], [string, string
   "honeymoon-budget": ["국내/근거리", "아시아권", "장거리/휴양형"],
   "congratulatory-money": ["지인/가벼운 관계", "일반 친구/동료", "가까운 친구/가족"],
 };
+
+const agreementFieldPattern = /(gift|yedan|honsu|home|appliance|furniture|family|rings|watch|bag|jewelry|hanbok|loan|rent|maintenance|interior)/i;
 
 export function CalculatorClient({ config }: { config: CalculatorConfig }) {
   const [hydrated, setHydrated] = useState(false);
@@ -146,6 +148,15 @@ export function CalculatorClient({ config }: { config: CalculatorConfig }) {
     });
     return Array.from(map.entries());
   }, [config]);
+
+  const quickFieldIds = useMemo(() => new Set(config.fields.slice(0, Math.min(6, config.fields.length)).map((field) => field.id)), [config.fields]);
+  const quickFields = useMemo(() => config.fields.filter((field) => quickFieldIds.has(field.id)), [config.fields, quickFieldIds]);
+  const detailGroups = useMemo(
+    () => groups
+      .map(([groupName, fields]) => [groupName, fields.filter((field) => !quickFieldIds.has(field.id))] as const)
+      .filter(([, fields]) => fields.length > 0),
+    [groups, quickFieldIds],
+  );
 
   const exampleValues = useMemo(() => {
     const nextValues: FormValues = { ...defaultValues };
@@ -221,6 +232,129 @@ export function CalculatorClient({ config }: { config: CalculatorConfig }) {
     setGeneratedAt(new Date());
   }
 
+  function renderField(fieldDef: CalculatorConfig["fields"][number]) {
+    const agreementNote = agreementFieldPattern.test(fieldDef.id) || /예물|예단|혼수|신혼집|가전|가구|대출|월세|관리비|양가/.test(fieldDef.label);
+
+    return (
+      <Controller
+        key={fieldDef.id}
+        control={control}
+        name={fieldDef.id}
+        render={({ field }) => {
+          const help = [fieldDef.helpText, agreementNote ? "둘이 합의할 항목" : ""].filter(Boolean).join(" · ");
+
+          if (fieldDef.type === "money") {
+            return (
+              <MoneyInput
+                id={fieldDef.id}
+                label={fieldDef.label}
+                helpText={help}
+                placeholder={fieldDef.placeholder}
+                value={safeNumber(field.value)}
+                onChange={field.onChange}
+                unit={moneyUnit}
+              />
+            );
+          }
+
+          if (
+            fieldDef.type === "number" ||
+            fieldDef.type === "percent"
+          ) {
+            return (
+              <NumberInput
+                id={fieldDef.id}
+                label={fieldDef.label}
+                helpText={help}
+                suffix={fieldDef.suffix}
+                value={safeNumber(field.value)}
+                max={
+                  fieldDef.type === "percent" ? 100 : undefined
+                }
+                onChange={field.onChange}
+              />
+            );
+          }
+
+          if (fieldDef.type === "checkbox") {
+            const checked = Boolean(field.value);
+            return (
+              <div className="space-y-1.5">
+                <span id={`${fieldDef.id}-label`} className="block min-h-5 text-sm font-medium leading-5 text-foreground">
+                  {fieldDef.label}
+                </span>
+                <button
+                  type="button"
+                  id={fieldDef.id}
+                  onClick={() => field.onChange(!checked)}
+                  aria-pressed={checked}
+                  aria-labelledby={`${fieldDef.id}-label`}
+                  className={
+                    checked
+                      ? "flex h-11 w-full items-center justify-between rounded-xl border border-input bg-secondary px-3 py-2 text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                      : "flex h-11 w-full items-center justify-between rounded-xl border border-input bg-background px-3 py-2 text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  }
+                >
+                  <span>{checked ? "예" : "아니오"}</span>
+                  <span
+                    className={
+                      checked
+                        ? "flex h-6 w-11 items-center justify-end rounded-xl bg-primary p-1"
+                        : "flex h-6 w-11 items-center justify-start rounded-full bg-slate-200 p-1"
+                    }
+                    aria-hidden="true"
+                  >
+                    <span className="h-4 w-4 rounded-full bg-card shadow-sm" />
+                  </span>
+                </button>
+                {help ? (
+                  <p className="text-xs leading-5 text-muted-foreground">
+                    {help}
+                  </p>
+                ) : null}
+              </div>
+            );
+          }
+
+          return (
+            <div className="space-y-2">
+              <label
+                htmlFor={fieldDef.id}
+                className="block min-h-5 text-sm font-medium leading-5 text-foreground"
+              >
+                {fieldDef.label}
+              </label>
+              <select
+                id={fieldDef.id}
+                value={String(
+                  field.value ?? fieldDef.defaultValue,
+                )}
+                onChange={(event) =>
+                  field.onChange(event.target.value)
+                }
+                className="flex h-11 w-full rounded-xl border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                {fieldDef.options?.map((option) => (
+                  <option
+                    key={option.value}
+                    value={option.value}
+                  >
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+              {help ? (
+                <p className="text-xs leading-5 text-muted-foreground">
+                  {help}
+                </p>
+              ) : null}
+            </div>
+          );
+        }}
+      />
+    );
+  }
+
   const mobileSecondarySummary = result.summary.find((summary) => /부담|초기|월 고정|추천|범위/.test(summary.label)) || result.summary[0];
 
   return (
@@ -229,15 +363,19 @@ export function CalculatorClient({ config }: { config: CalculatorConfig }) {
         <section className="no-print space-y-5" aria-label="계산기 입력 영역">
           <Card>
             <CardHeader>
-              <p className="text-sm font-black uppercase tracking-[0.2em] text-blush-700">
-                Input
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+                입력
               </p>
-              <h2 className="text-2xl font-black text-slate-950">예산 입력</h2>
-              <p className="text-sm leading-6 text-slate-500">
-                입력값은 서버가 아니라 현재 브라우저에만 자동 저장됩니다.
+              <h2 className="text-2xl font-semibold text-foreground">예산 입력</h2>
+              <div className="inline-flex w-fit items-center gap-2 rounded-full bg-muted px-3 py-2 text-xs font-semibold text-muted-foreground">
+                <ShieldCheck className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
+                서버 저장 없음 · 현재 브라우저에만 보관
+              </div>
+              <p className="text-sm leading-6 text-muted-foreground">
+                정확히 모르는 항목은 비워도 계산할 수 있습니다. 먼저 빠른 계산으로 큰 흐름을 확인하세요.
               </p>
               <div className="mt-4 flex flex-wrap items-center gap-3">
-                <div className="inline-flex rounded-full border border-blush-200 bg-white p-1" aria-label="금액 입력 단위">
+                <div className="inline-flex rounded-xl border border-border bg-card p-1" aria-label="금액 입력 단위">
                   {[
                     { value: "won", label: "원 단위" },
                     { value: "manwon", label: "만원 단위" },
@@ -248,8 +386,8 @@ export function CalculatorClient({ config }: { config: CalculatorConfig }) {
                       onClick={() => setMoneyUnit(item.value as "won" | "manwon")}
                       className={
                         moneyUnit === item.value
-                          ? "rounded-full bg-blush-800 px-4 py-2 text-xs font-black text-white"
-                          : "rounded-full px-4 py-2 text-xs font-black text-slate-600 hover:bg-blush-50"
+                          ? "min-h-11 rounded-xl bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground"
+                          : "min-h-11 rounded-xl px-4 py-2 text-xs font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground"
                       }
                       aria-pressed={moneyUnit === item.value}
                     >
@@ -263,7 +401,7 @@ export function CalculatorClient({ config }: { config: CalculatorConfig }) {
                       key={preset.label}
                       type="button"
                       onClick={() => fillExampleValues(preset.values)}
-                      className="min-h-10 rounded-full border border-blush-200 bg-white px-4 py-2 text-xs font-black text-blush-800 transition hover:bg-blush-50"
+                      className="min-h-11 rounded-xl border border-border bg-card px-4 py-2 text-xs font-semibold text-foreground transition hover:bg-secondary"
                     >
                       {preset.label}
                     </button>
@@ -273,131 +411,38 @@ export function CalculatorClient({ config }: { config: CalculatorConfig }) {
             </CardHeader>
             <CardContent>
               <div className="space-y-6">
-                {groups.map(([groupName, fields]) => (
-                  <fieldset key={groupName} className="space-y-3">
-                    <legend className="rounded-full bg-blush-100 px-3 py-1 text-xs font-black text-blush-800">
-                      {groupName}
-                    </legend>
-                    <div className="grid gap-3 sm:grid-cols-2">
-                    {fields.map((fieldDef) => (
-                      <Controller
-                        key={fieldDef.id}
-                        control={control}
-                        name={fieldDef.id}
-                        render={({ field }) => {
-                          if (fieldDef.type === "money") {
-                            return (
-                              <MoneyInput
-                                id={fieldDef.id}
-                                label={fieldDef.label}
-                                helpText={fieldDef.helpText}
-                                placeholder={fieldDef.placeholder}
-                                value={safeNumber(field.value)}
-                                onChange={field.onChange}
-                                unit={moneyUnit}
-                              />
-                            );
-                          }
+                <fieldset className="space-y-3">
+                  <legend className="rounded-full bg-secondary px-3 py-1 text-xs font-semibold text-foreground">
+                    빠른 계산
+                  </legend>
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    {quickFields.map((fieldDef) => renderField(fieldDef))}
+                  </div>
+                </fieldset>
 
-                          if (
-                            fieldDef.type === "number" ||
-                            fieldDef.type === "percent"
-                          ) {
-                            return (
-                              <NumberInput
-                                id={fieldDef.id}
-                                label={fieldDef.label}
-                                helpText={fieldDef.helpText}
-                                suffix={fieldDef.suffix}
-                                value={safeNumber(field.value)}
-                                max={
-                                  fieldDef.type === "percent" ? 100 : undefined
-                                }
-                                onChange={field.onChange}
-                              />
-                            );
-                          }
-
-                          if (fieldDef.type === "checkbox") {
-                            const checked = Boolean(field.value);
-                            return (
-                              <div className="space-y-1.5">
-                                <span id={`${fieldDef.id}-label`} className="block h-5 text-sm font-bold leading-5 text-slate-800">
-                                  {fieldDef.label}
-                                </span>
-                                <button
-                                  type="button"
-                                  id={fieldDef.id}
-                                  onClick={() => field.onChange(!checked)}
-                                  aria-pressed={checked}
-                                  aria-labelledby={`${fieldDef.id}-label`}
-                                  className={
-                                    checked
-                                      ? "flex h-10 w-full items-center justify-between rounded-xl border border-blush-200 bg-blush-50 px-3 text-sm font-bold leading-none text-blush-900 outline-none transition focus:border-blush-500 focus:ring-4 focus:ring-blush-100"
-                                      : "flex h-10 w-full items-center justify-between rounded-xl border border-blush-100 bg-white/95 px-3 text-sm font-bold leading-none text-slate-800 outline-none transition focus:border-blush-500 focus:ring-4 focus:ring-blush-100"
-                                  }
-                                >
-                                  <span>{checked ? "예" : "아니오"}</span>
-                                  <span
-                                    className={
-                                      checked
-                                        ? "flex h-6 w-11 items-center justify-end rounded-full bg-blush-700 p-1"
-                                        : "flex h-6 w-11 items-center justify-start rounded-full bg-slate-200 p-1"
-                                    }
-                                    aria-hidden="true"
-                                  >
-                                    <span className="h-4 w-4 rounded-full bg-white shadow-sm" />
-                                  </span>
-                                </button>
-                                {fieldDef.helpText ? (
-                                  <p className="text-xs leading-5 text-slate-500">
-                                    {fieldDef.helpText}
-                                  </p>
-                                ) : null}
-                              </div>
-                            );
-                          }
-
-                          return (
-                            <div className="space-y-2">
-                              <label
-                                htmlFor={fieldDef.id}
-                                className="block h-5 text-sm font-bold leading-5 text-slate-800"
-                              >
-                                {fieldDef.label}
-                              </label>
-                              <select
-                                id={fieldDef.id}
-                                value={String(
-                                  field.value ?? fieldDef.defaultValue,
-                                )}
-                                onChange={(event) =>
-                                  field.onChange(event.target.value)
-                                }
-                                className="h-10 w-full rounded-xl border border-blush-100 bg-white/95 px-3 text-sm font-bold text-slate-900 outline-none transition focus:border-blush-500 focus:ring-4 focus:ring-blush-100"
-                              >
-                                {fieldDef.options?.map((option) => (
-                                  <option
-                                    key={option.value}
-                                    value={option.value}
-                                  >
-                                    {option.label}
-                                  </option>
-                                ))}
-                              </select>
-                              {fieldDef.helpText ? (
-                                <p className="text-xs leading-5 text-slate-500">
-                                  {fieldDef.helpText}
-                                </p>
-                              ) : null}
-                            </div>
-                          );
-                        }}
-                      />
+                <details className="group rounded-2xl border border-border bg-muted p-4">
+                  <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 text-sm font-semibold text-foreground">
+                    <span>상세 항목 열기</span>
+                    <ChevronDown className="h-4 w-4 transition group-open:rotate-180" aria-hidden="true" />
+                  </summary>
+                  <div className="mt-5 space-y-6">
+                    {detailGroups.map(([groupName, fields]) => (
+                      <fieldset key={groupName} className="space-y-3">
+                        <legend className="rounded-full bg-card px-3 py-1 text-xs font-semibold text-foreground">
+                          {groupName}
+                        </legend>
+                        <div className="grid gap-3 sm:grid-cols-2">
+                          {fields.map((fieldDef) => renderField(fieldDef))}
+                        </div>
+                      </fieldset>
                     ))}
-                    </div>
-                  </fieldset>
-                ))}
+                  </div>
+                </details>
+
+                <div className="flex items-start gap-3 rounded-2xl border border-border bg-card p-4 text-sm leading-6 text-muted-foreground">
+                  <HeartHandshake className="mt-0.5 h-5 w-5 shrink-0 text-muted-foreground" aria-hidden="true" />
+                  <p>예물, 예단, 혼수, 신혼집처럼 금액 차이가 커지는 항목은 결과를 공유한 뒤 둘이 합의할 항목으로 표시해 두세요.</p>
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -411,24 +456,25 @@ export function CalculatorClient({ config }: { config: CalculatorConfig }) {
           </div>
           {hasMeaningfulInput ? (
             <div className="no-print grid gap-3 sm:grid-cols-2">
-              <Link href="#budget-insights" className="inline-flex min-h-11 items-center justify-center rounded-full bg-blush-800 px-5 py-2.5 text-sm font-black text-white transition hover:bg-blush-700">
-                비중과 절약팁 보기
+              <Link href="#budget-insights" className="inline-flex min-h-11 items-center justify-center rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90">
+                결과 자세히 보기
               </Link>
-              <Link href="/summary" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-blush-200 bg-white px-5 py-2.5 text-sm font-black text-blush-800 transition hover:bg-blush-50">
+              <Link href="/summary" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-border bg-card px-5 py-2.5 text-sm font-semibold text-foreground transition hover:bg-secondary">
                 <LayoutDashboard className="h-4 w-4" aria-hidden="true" />
-                전체 요약
+                내 예산표
               </Link>
             </div>
           ) : null}
           {hasMeaningfulInput ? (
-            <div className="no-print rounded-3xl border border-blush-100 bg-white/85 p-4">
-              <h2 className="text-lg font-black text-slate-950">공유와 출력</h2>
+            <div className="no-print rounded-2xl border border-border bg-card p-4">
+              <h2 className="text-lg font-semibold text-foreground">둘이 같이 보기</h2>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">공유 URL로 상대와 같은 입력값을 보고 조정할 수 있습니다.</p>
               <div className="mt-4 flex flex-col items-stretch gap-3 sm:flex-row sm:items-start">
                 <ShareButton values={values} onAction={markGeneratedAt} />
                 <PrintButton onAction={markGeneratedAt} />
               </div>
-              <details className="mt-4 rounded-2xl border border-blush-100 bg-white px-4 py-3">
-                <summary className="cursor-pointer text-sm font-black text-slate-700">엑셀 내보내기</summary>
+              <details className="mt-4 rounded-2xl border border-border bg-card px-4 py-3">
+                <summary className="cursor-pointer text-sm font-semibold text-muted-foreground">엑셀 내보내기</summary>
                 <div className="mt-3">
                   <ExcelActions
                     config={config}
@@ -440,9 +486,9 @@ export function CalculatorClient({ config }: { config: CalculatorConfig }) {
               </details>
             </div>
           ) : null}
-          <div className="no-print rounded-3xl border border-red-100 bg-white/85 p-4">
-            <h2 className="text-lg font-black text-slate-950">입력값 관리</h2>
-            <p className="mt-2 text-sm leading-6 text-slate-500">현재 계산기의 브라우저 저장값과 입력값을 초기화합니다.</p>
+          <div className="no-print rounded-2xl border border-red-100 bg-red-50/40 p-4">
+            <h2 className="text-lg font-semibold text-foreground">입력값 관리</h2>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">현재 계산기의 브라우저 저장값과 입력값을 초기화합니다.</p>
             <div className="mt-4 flex sm:justify-end">
               <ResetButton onReset={handleReset} />
             </div>
@@ -452,14 +498,14 @@ export function CalculatorClient({ config }: { config: CalculatorConfig }) {
 
       {hasMeaningfulInput ? (
         <section id="budget-insights" className="print-area mt-8 scroll-mt-24 space-y-6" aria-label="예산 분석과 입력 요약">
-          <div className="rounded-3xl border border-blush-100 bg-white/80 p-5 shadow-soft md:p-6">
-            <p className="text-sm font-black uppercase tracking-[0.2em] text-blush-700">Review</p>
-            <h2 className="mt-2 text-2xl font-black text-slate-950">예산 검토</h2>
-            <p className="mt-2 text-sm leading-6 text-slate-500">먼저 핵심 지표를 확인하고, 큰 비중 항목과 절약 팁을 함께 보세요. 입력값 요약은 출력과 최종 검토용으로 접어 두었습니다.</p>
+          <div className="rounded-2xl border border-border bg-card p-5 shadow-sm md:p-6">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">검토</p>
+            <h2 className="mt-2 text-2xl font-semibold text-foreground">예산 검토</h2>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">먼저 핵심 지표를 확인하고, 큰 비중 항목과 절약 팁을 함께 보세요. 입력값 요약은 출력과 최종 검토용으로 접어 두었습니다.</p>
           </div>
           <BudgetSummary result={result} hasInput={hasMeaningfulInput} />
-          <details className="rounded-3xl border border-blush-100 bg-white p-5 shadow-soft md:p-6">
-            <summary className="cursor-pointer text-lg font-black text-slate-950">입력값 요약</summary>
+          <details className="rounded-2xl border border-border bg-card p-5 shadow-sm md:p-6">
+            <summary className="cursor-pointer text-lg font-semibold text-foreground">입력값 요약</summary>
             <div className="mt-5">
               <InputSummary config={config} values={values} generatedAt={generatedAt} />
             </div>
@@ -468,18 +514,15 @@ export function CalculatorClient({ config }: { config: CalculatorConfig }) {
       ) : null}
 
       {hasMeaningfulInput ? (
-        <div className="no-print fixed inset-x-3 bottom-3 z-40 rounded-2xl border border-blush-100 bg-white/95 p-3 shadow-soft backdrop-blur lg:hidden">
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <p className="text-xs font-bold text-slate-500">{result.primaryLabel}</p>
-              <p className="mt-1 text-lg font-black text-blush-800">{formatCurrency(result.total)}</p>
-            </div>
-            {mobileSecondarySummary ? (
-              <div>
-                <p className="text-xs font-bold text-slate-500">{mobileSecondarySummary.label}</p>
-                <p className="mt-1 text-sm font-black text-slate-900">{mobileSecondarySummary.value}</p>
-              </div>
-            ) : null}
+        <div className="no-print fixed inset-x-3 bottom-3 z-40 rounded-2xl border border-border bg-background/95 p-3 shadow-sm backdrop-blur lg:hidden">
+          <div className="flex items-center justify-between gap-3">
+            <p className="min-w-0 text-sm font-semibold text-foreground">
+              예상 총액 <span className="text-foreground">{formatCurrency(result.total)}</span>
+              {mobileSecondarySummary ? <span className="text-muted-foreground"> · 결과 보기</span> : null}
+            </p>
+            <a href="#budget-insights" className="shrink-0 rounded-xl bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground">
+              보기
+            </a>
           </div>
         </div>
       ) : null}

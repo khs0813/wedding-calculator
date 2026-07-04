@@ -9,6 +9,7 @@ import { absolutePageUrl } from "@/lib/seo";
 export const dynamic = "force-static";
 
 const homeUpdatedAt = "2026-06-03";
+const calculatorsIndexUpdatedAt = "2026-06-03";
 const guidesIndexUpdatedAt = "2026-06-03";
 
 function toDate(value: string): Date {
@@ -28,6 +29,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: toDate(homeUpdatedAt),
       changeFrequency: "weekly",
       priority: 1,
+    },
+    {
+      url: absolutePageUrl("/calculators"),
+      lastModified: toDate(calculatorsIndexUpdatedAt),
+      changeFrequency: "weekly",
+      priority: 0.9,
     },
     {
       url: absolutePageUrl("/guides"),

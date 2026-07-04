@@ -644,9 +644,9 @@ function createSummarySheet(rows: SummaryExcelRow[]): SheetDefinition {
 function createSummaryWorkbookFiles(rows: SummaryExcelRow[]): ZipFile[] {
   const sheets = [createSummarySheet(rows)];
   const summaryConfig = {
-    title: "웨딩·신혼 예산 통합 요약",
-    shortTitle: "통합 예산 요약",
-    keywords: ["웨딩 예산 요약", "결혼 예산 통합", "전체 결과 표"],
+    title: "웨딩·신혼 내 예산표",
+    shortTitle: "내 예산표",
+    keywords: ["웨딩 예산표", "결혼 예산 통합", "전체 결과 표"],
   } as CalculatorConfig;
 
   return [
@@ -672,7 +672,7 @@ export async function downloadSummaryExcel(rows: SummaryExcelRow[]) {
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.href = url;
-  link.download = `통합-예산-요약-${new Date().toISOString().slice(0, 10)}.xlsx`;
+  link.download = `내-예산표-${new Date().toISOString().slice(0, 10)}.xlsx`;
   document.body.appendChild(link);
   link.click();
   link.remove();

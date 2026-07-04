@@ -221,11 +221,11 @@ export const calculators: CalculatorConfig[] = [
   {
     slug: "congratulatory-money",
     path: "/calculators/congratulatory-money",
-    title: "축의금 계산기 - 관계별 결혼식 축의금 추천 범위",
-    shortTitle: "축의금 계산기",
-    description: "가족, 친척, 친구, 직장동료, 거래처 등 관계와 식사 참석 여부를 입력해 참고용 축의금 추천 범위를 계산합니다.",
-    hero: "관계, 친밀도, 식사 참석, 동반자 여부를 반영해 참고용 축의금 범위를 확인하세요. 정답이 아니라 개인 상황에 맞춘 참고값입니다.",
-    keywords: ["축의금 계산기", "축의금 얼마", "결혼식 축의금", "친구 축의금", "직장동료 축의금"],
+    title: "하객 축의금 참고 - 관계별 결혼식 축의금 범위",
+    shortTitle: "하객 축의금 참고",
+    description: "하객 입장에서 가족, 친척, 친구, 직장동료, 거래처 등 관계와 식사 참석 여부를 입력해 참고용 축의금 범위를 계산합니다.",
+    hero: "이 계산기는 하객용 축의금 참고 도구입니다. 예비부부의 축의금 회수 예상은 결혼 비용·웨딩홀 계산기에서 하객 수와 1인당 예상 축의금으로 따로 확인하세요.",
+    keywords: ["축의금 참고", "하객 축의금", "축의금 얼마", "결혼식 축의금", "친구 축의금", "직장동료 축의금"],
     storageKey: "wedding-budget:congratulatory-money",
     affiliateKeys: ["weddingHall"],
     fields: [
@@ -262,7 +262,7 @@ export const calculators: CalculatorConfig[] = [
       { id: "receivedAmount", label: "과거 받은 축의금 금액", type: "money", defaultValue: 0, group: "상호성" }
     ],
     faqs: [
-      { question: "축의금 계산기는 정답을 알려주나요?", answer: "아니요. 관계와 참석 상황을 기준으로 참고용 범위를 제안합니다. 실제 금액은 개인 사정과 관계에 따라 달라질 수 있습니다." },
+      { question: "하객 축의금 참고는 정답을 알려주나요?", answer: "아니요. 관계와 참석 상황을 기준으로 참고용 범위를 제안합니다. 실제 금액은 개인 사정과 관계에 따라 달라질 수 있습니다." },
       { question: "식사 참석 여부가 왜 중요하나요?", answer: "식사를 하면 예식장 식대 부담이 발생하기 때문에 일반적으로 축의금 판단 시 식사 참석 여부를 함께 고려합니다." },
       { question: "과거 받은 축의금은 어떻게 반영되나요?", answer: "과거 받은 금액이 있으면 일반 추천 금액이 그 금액보다 크게 낮아지지 않도록 참고값에 반영합니다." }
     ],

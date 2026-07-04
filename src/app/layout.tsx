@@ -8,12 +8,13 @@ import { JsonLd } from "@/components/seo/JsonLd";
 const adsenseClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID;
 const adsenseApproved = process.env.NEXT_PUBLIC_ADSENSE_APPROVED === "true";
 const googleSiteVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
+const naverSiteVerification = process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION;
 
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
   applicationName: "웨딩 예산 계산기",
-  creator: "Wedding Budget Calculator",
-  publisher: "Wedding Budget Calculator",
+  creator: "웨딩 예산 계산기",
+  publisher: "웨딩 예산 계산기",
   category: "finance",
   title: {
     default: "웨딩 예산 계산기 - 결혼·신혼 준비 비용 계산",
@@ -69,7 +70,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#fff1f2",
+  themeColor: "#ffffff",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -83,6 +84,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             crossOrigin="anonymous"
           />
         ) : null}
+        {naverSiteVerification ? <meta name="naver-site-verification" content={naverSiteVerification} /> : null}
       </head>
       <body>
         <JsonLd
