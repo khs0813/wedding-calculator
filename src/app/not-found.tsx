@@ -3,6 +3,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "페이지를 찾을 수 없습니다",
+  description: "요청한 주소가 없거나 이동된 경우 안내하는 웨딩 예산 계산기 404 페이지입니다.",
   robots: {
     index: false,
     follow: false

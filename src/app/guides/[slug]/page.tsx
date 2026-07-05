@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 import { guides, getGuideBySlug } from "@/data/guides";
-import { absolutePageUrl, absoluteUrl, buildBreadcrumbSchema, createGuideFaqs, createGuideMetadata } from "@/lib/seo";
+import { absolutePageUrl, absoluteUrl, buildBreadcrumbSchema, buildFaqSchema, createGuideFaqs, createGuideMetadata } from "@/lib/seo";
 import type { GuideSlug } from "@/types/calculator";
 import { calculators } from "@/data/calculators";
 import { Card } from "@/components/ui/card";
@@ -383,11 +383,23 @@ export default async function GuidePage({ params }: PageProps) {
               },
             },
           },
+          {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            name: "웨딩 예산 계산기",
+            applicationCategory: "FinanceApplication",
+            operatingSystem: "Web",
+            url: absolutePageUrl("/calculators"),
+            description: "결혼 준비와 신혼 준비 비용을 계산하고 예산 가이드와 함께 비교하는 무료 웹 계산기",
+            inLanguage: "ko-KR",
+            offers: { "@type": "Offer", price: "0", priceCurrency: "KRW" },
+          },
           buildBreadcrumbSchema([
             { name: "홈", path: "/" },
             { name: "가이드", path: "/guides" },
             { name: guide.title, path: guide.path },
           ]),
+          buildFaqSchema(faqs),
         ]}
       />
       <div className="rounded-2xl border border-border bg-card p-6 shadow-sm md:p-10">
@@ -453,7 +465,7 @@ export default async function GuidePage({ params }: PageProps) {
       </section>
 
       <section className="mt-10">
-        <FAQSection title={`${guide.title} FAQ`} items={faqs} />
+        <FAQSection title={`${guide.title} FAQ`} items={faqs} emitJsonLd={false} />
       </section>
 
       {guide.sources.length ? (

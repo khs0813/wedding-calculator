@@ -5,7 +5,7 @@ import { CalculatorClient } from "@/components/calculators/CalculatorClient";
 import { FAQSection } from "@/components/seo/FAQSection";
 import { RelatedCalculators } from "@/components/seo/RelatedCalculators";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { absolutePageUrl, absoluteUrl, buildBreadcrumbSchema } from "@/lib/seo";
+import { absolutePageUrl, absoluteUrl, buildBreadcrumbSchema, buildFaqSchema } from "@/lib/seo";
 import { calculatorContent } from "@/data/calculatorContent";
 import { guides } from "@/data/guides";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -64,10 +64,33 @@ export function CalculatorShell({ config }: { config: CalculatorConfig }) {
               url: absolutePageUrl(config.path),
             },
           },
+          {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: config.title,
+            description: config.description,
+            url: absolutePageUrl(config.path),
+            mainEntityOfPage: absolutePageUrl(config.path),
+            inLanguage: "ko-KR",
+            image: absoluteUrl("/og-default.png"),
+            datePublished: content.updatedAt,
+            dateModified: content.updatedAt,
+            author: { "@type": "Organization", name: content.author.name },
+            publisher: {
+              "@type": "Organization",
+              name: "웨딩 예산 계산기",
+              logo: {
+                "@type": "ImageObject",
+                url: absoluteUrl("/apple-touch-icon.png"),
+              },
+            },
+          },
           buildBreadcrumbSchema([
             { name: "홈", path: "/" },
+            { name: "계산기", path: "/calculators" },
             { name: config.shortTitle, path: config.path },
           ]),
+          buildFaqSchema(config.faqs),
         ]}
       />
 
@@ -170,7 +193,7 @@ export function CalculatorShell({ config }: { config: CalculatorConfig }) {
           </Card>
         ) : null}
 
-        <FAQSection title={`${config.shortTitle} FAQ`} items={config.faqs} />
+        <FAQSection title={`${config.shortTitle} FAQ`} items={config.faqs} emitJsonLd={false} />
         <RelatedCalculators currentSlug={config.slug} relatedSlugs={config.relatedSlugs} />
       </div>
     </div>
