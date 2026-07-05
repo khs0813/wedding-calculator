@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   title: "웨딩 예산 가이드 모음",
   description: "결혼 비용, 신혼집 예산, 웨딩홀, 스드메, 혼수, 신혼여행, 축의금 판단 기준을 정리한 가이드 모음입니다.",
   keywords: ["웨딩 가이드", "결혼 예산 가이드", "신혼집 예산 가이드", "웨딩홀 체크리스트", "스드메 옵션"],
-  alternates: { canonical: "/guides" },
+  alternates: { canonical: absolutePageUrl("/guides") },
   openGraph: {
     title: "웨딩 예산 가이드 모음",
     description: "결혼·신혼 준비 예산을 실제 의사결정으로 연결하는 가이드 허브입니다.",

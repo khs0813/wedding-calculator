@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   title: "웨딩 예산 계산기 - 결혼 비용·신혼집·혼수 예산표",
   description: homeDescription,
   keywords: ["웨딩 예산 계산기", "결혼 비용 계산기", "신혼집 예산 계산기", "웨딩홀 식대 계산기", "스드메 비용", "혼수 비용", "결혼 예산표"],
-  alternates: { canonical: "/" },
+  alternates: { canonical: absolutePageUrl("/") },
   openGraph: {
     title: "웨딩 예산 계산기 - 결혼 비용·신혼집·혼수 예산표",
     description: homeDescription,

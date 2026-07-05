@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: page?.title,
   description: page?.description,
   keywords: ["면책고지", "웨딩 예산 계산기 면책", "계산 결과 참고", "예산 계산 유의사항"],
-  alternates: { canonical: "/disclaimer" },
+  alternates: { canonical: absolutePageUrl("/disclaimer") },
   openGraph: {
     title: page?.title,
     description: page?.description,

@@ -22,53 +22,35 @@ function toLastMod(value: string): string {
   return value.slice(0, 10);
 }
 
-function toIsoLastMod(value: string): string {
-  return `${toLastMod(value)}T03:00:00.000Z`;
-}
-
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
       url: absolutePageUrl("/"),
-      lastModified: toIsoLastMod(homeUpdatedAt),
-      changeFrequency: "daily",
-      priority: 1,
+      lastModified: toLastMod(homeUpdatedAt),
     },
     {
       url: absolutePageUrl("/calculators"),
-      lastModified: toIsoLastMod(calculatorsIndexUpdatedAt),
-      changeFrequency: "weekly",
-      priority: 0.9,
+      lastModified: toLastMod(calculatorsIndexUpdatedAt),
     },
     {
       url: absolutePageUrl("/guides"),
-      lastModified: toIsoLastMod(guidesIndexUpdatedAt),
-      changeFrequency: "weekly",
-      priority: 0.7,
+      lastModified: toLastMod(guidesIndexUpdatedAt),
     },
     ...calculators.map((calculator) => ({
       url: absolutePageUrl(calculator.path),
-      lastModified: toIsoLastMod(calculatorContent[calculator.slug].updatedAt),
-      changeFrequency: "weekly" as const,
-      priority: 0.9,
+      lastModified: toLastMod(calculatorContent[calculator.slug].updatedAt),
     })),
     ...guides.map((guide) => ({
       url: absolutePageUrl(guide.path),
-      lastModified: toIsoLastMod(guide.updatedAt),
-      changeFrequency: "weekly" as const,
-      priority: 0.7,
+      lastModified: toLastMod(guide.updatedAt),
     })),
     ...sitePages.map((page) => ({
       url: absolutePageUrl(page.path),
-      lastModified: toIsoLastMod(page.updatedAt),
-      changeFrequency: "weekly" as const,
-      priority: 0.7,
+      lastModified: toLastMod(page.updatedAt),
     })),
     ...legalPages.map((page) => ({
       url: absolutePageUrl(page.path),
-      lastModified: toIsoLastMod(page.updatedAt),
-      changeFrequency: "weekly" as const,
-      priority: 0.7,
+      lastModified: toLastMod(page.updatedAt),
     })),
   ];
 }

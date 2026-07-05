@@ -55,7 +55,7 @@ export const metadata: Metadata = {
       }
     : undefined,
   alternates: {
-    canonical: "/",
+    canonical: absolutePageUrl("/"),
     types: {
       "application/rss+xml": absoluteUrl("/rss.xml"),
     },

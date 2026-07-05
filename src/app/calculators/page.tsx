@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   title: "결혼 예산 계산기 모음 - 웨딩홀·스드메·신혼집 비용",
   description: "예비 신랑·신부가 결혼 비용, 웨딩홀 식대, 신혼집 초기비용, 스드메 옵션, 혼수, 예물, 신혼여행, 축의금을 단계별로 계산할 수 있습니다.",
   keywords: ["결혼 예산 계산기", "웨딩홀 식대 계산기", "스드메 비용 계산기", "신혼집 초기비용", "혼수 예산 계산기"],
-  alternates: { canonical: "/calculators" },
+  alternates: { canonical: absolutePageUrl("/calculators") },
   openGraph: {
     title: "결혼 예산 계산기 모음",
     description: "결혼 비용, 웨딩홀 식대, 신혼집 초기비용, 스드메 옵션, 혼수, 예물, 신혼여행, 축의금 계산기를 한곳에서 선택하세요.",

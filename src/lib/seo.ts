@@ -197,7 +197,7 @@ export function createCalculatorMetadata(slug: CalculatorSlug): Metadata {
     title: calculator.title,
     description: calculator.description,
     keywords: calculator.keywords,
-    alternates: { canonical: calculator.path },
+    alternates: { canonical: absolutePageUrl(calculator.path) },
     openGraph: {
       title: calculator.title,
       description: calculator.description,
@@ -238,7 +238,7 @@ export function createGuideMetadata(slug: GuideSlug): Metadata {
     title: guide.title,
     description: guide.description,
     keywords: guide.keywords,
-    alternates: { canonical: guide.path },
+    alternates: { canonical: absolutePageUrl(guide.path) },
     openGraph: {
       title: guide.title,
       description: guide.description,

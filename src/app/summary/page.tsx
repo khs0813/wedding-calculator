@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: "내 예산표 - 웨딩·신혼 계산기 결과 비교",
   description: "현재 브라우저에 저장된 결혼 비용, 신혼집, 웨딩홀, 스드메, 혼수, 예물, 신혼여행, 하객 축의금 참고 결과를 한 화면에서 비교합니다.",
   keywords: ["웨딩 예산 요약", "결혼 예산 통합", "신혼 예산표", "결혼 비용 한눈에", "웨딩 계산기 요약", "통합 예산 비교"],
-  alternates: { canonical: "/summary" },
+  alternates: { canonical: absolutePageUrl("/summary") },
   openGraph: {
     title: "내 예산표 - 웨딩·신혼 계산기 결과 비교",
     description: "현재 브라우저에 저장된 각 계산기 결과를 비교하는 개인용 통합 화면입니다.",

@@ -39,11 +39,9 @@ export function FAQAccordion({ items }: { items: FAQItem[] }) {
               </span>
               <span className="sr-only">{open ? "답변 닫기" : "답변 열기"}</span>
             </button>
-            {open ? (
-              <p id={answerId} className="mt-3 text-sm leading-7 text-muted-foreground">
-                {item.answer}
-              </p>
-            ) : null}
+            <p id={answerId} className={`mt-3 text-sm leading-7 text-muted-foreground ${open ? "" : "hidden"}`}>
+              {item.answer}
+            </p>
           </div>
         );
       })}
