@@ -43,7 +43,7 @@ function toRssDate(value: string): string {
   const weekday = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][new Date(Date.UTC(year, month - 1, day)).getUTCDay()];
   const monthName = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][month - 1];
 
-  return `${weekday}, ${day} ${monthName} ${year} 12:00:00 +0900`;
+  return `${weekday}, ${String(day).padStart(2, "0")} ${monthName} ${year} 03:00:00 GMT`;
 }
 
 function buildContent(title: string, description: string): string {
