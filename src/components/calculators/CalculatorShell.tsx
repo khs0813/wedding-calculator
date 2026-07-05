@@ -99,6 +99,10 @@ export function CalculatorShell({ config }: { config: CalculatorConfig }) {
           <p className="text-sm font-semibold uppercase tracking-[0.25em] text-muted-foreground">결혼 예산</p>
           <h1 className="mt-2.5 max-w-full text-[clamp(1.5rem,3.8vw,2.8rem)] font-semibold leading-tight tracking-tight text-foreground [overflow-wrap:anywhere]">{config.title}</h1>
           <p className="mt-4 text-lg leading-8 text-muted-foreground">{config.hero}</p>
+          <div className="mt-5 rounded-2xl border border-border bg-background p-5">
+            <p className="text-sm font-semibold text-foreground">이 페이지 요약</p>
+            <p className="mt-2 text-sm leading-7 text-muted-foreground">{config.description}</p>
+          </div>
           <div className="mt-5 flex flex-wrap items-center gap-3 text-xs font-bold text-muted-foreground">
             <span>작성: {content.author.name}</span>
             <span>최종 업데이트: {content.updatedAt}</span>

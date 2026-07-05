@@ -12,7 +12,7 @@ export function RelatedCalculators({ currentSlug, relatedSlugs }: { currentSlug:
   if (related.length === 0) return null;
 
   return (
-    <section>
+    <section data-nosnippet>
       <Card>
         <CardHeader>
           <h2 className="text-2xl font-semibold text-foreground">관련 계산기</h2>
