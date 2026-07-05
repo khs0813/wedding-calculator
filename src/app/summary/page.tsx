@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     description: "결혼·신혼 예산 계산기 결과를 한 화면에서 비교하세요.",
     images: [absoluteUrl("/og-default.png")],
   },
-  robots: { index: false, follow: true },
+  robots: "noindex,follow",
 };
 
 export default function SummaryPage() {

@@ -29,6 +29,9 @@ export function Footer() {
             <Link href="/guides">가이드</Link>
             <Link href={guides[0]?.path ?? "/guides"}>추천 가이드</Link>
             <Link href="/contact">문의</Link>
+            <Link href="/privacy">개인정보처리방침</Link>
+            <Link href="/terms">이용약관</Link>
+            <Link href="/disclaimer">면책고지</Link>
           </div>
         </div>
       </div>

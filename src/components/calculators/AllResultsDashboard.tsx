@@ -21,6 +21,7 @@ import {
   sanitizeValues,
 } from "@/lib/calculator-utils";
 import {
+  isWeddingBudgetStorageKey,
   loadCalculatorState,
   removeCalculatorState,
 } from "@/lib/storage";
@@ -114,7 +115,7 @@ function createRow(
 
 function loadRows(): DashboardRow[] {
   return calculators.map((config) => {
-    const storedValues = loadCalculatorState(config.storageKey);
+    const storedValues = loadCalculatorState(config);
 
     return createRow(
       config,
@@ -209,7 +210,7 @@ export function SummaryResultsTableCard() {
     refreshRows();
 
     function handleStorage(event: StorageEvent) {
-      if (!event.key || event.key.startsWith("wedding-budget:")) {
+      if (isWeddingBudgetStorageKey(event.key)) {
         refreshRows();
       }
     }
@@ -317,7 +318,7 @@ export function AllResultsDashboard() {
     refreshRows();
 
     function handleStorage(event: StorageEvent) {
-      if (!event.key || event.key.startsWith("wedding-budget:")) {
+      if (isWeddingBudgetStorageKey(event.key)) {
         refreshRows();
       }
     }

@@ -25,14 +25,14 @@ const contentTypes = new Map([
 ]);
 
 const securityHeaders = {
-  "Content-Security-Policy":
-    "default-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'; script-src-attr 'none'; script-src 'self' 'unsafe-inline' https://pagead2.googlesyndication.com https://*.googlesyndication.com https://*.googleadservices.com https://www.googletagmanager.com https://www.google-analytics.com https://*.doubleclick.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data:; media-src 'self'; connect-src 'self' https://*.googlesyndication.com https://*.googleadservices.com https://*.google-analytics.com https://*.doubleclick.net https://www.google.com https://google.com; frame-src https://*.googlesyndication.com https://*.doubleclick.net https://www.google.com; worker-src 'self' blob:; manifest-src 'self'; upgrade-insecure-requests",
+  "Content-Security-Policy-Report-Only":
+    "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; img-src 'self' data: https:; font-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' https:; connect-src 'self' https:; frame-src https:; upgrade-insecure-requests",
   "Referrer-Policy": "strict-origin-when-cross-origin",
   "X-Content-Type-Options": "nosniff",
   "X-Frame-Options": "DENY",
   "X-DNS-Prefetch-Control": "on",
-  "Strict-Transport-Security": "max-age=63072000; includeSubDomains; preload",
-  "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=(), usb=(), bluetooth=(), clipboard-write=(self)",
+  "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+  "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=(), usb=()",
   "Cross-Origin-Opener-Policy": "same-origin",
   "Cross-Origin-Resource-Policy": "same-origin",
   "Origin-Agent-Cluster": "?1",
@@ -74,7 +74,7 @@ function sendFile(res, filePath, statusCode, pathname = "") {
   const contentType = contentTypes.get(extension) || "application/octet-stream";
   const isCrawlerControlFile = pathname === "/robots.txt" || pathname === "/sitemap.xml";
   const extraHeaders = pathname === "/summary" || pathname === "/summary/"
-    ? { "X-Robots-Tag": "noindex, follow" }
+    ? { "X-Robots-Tag": "noindex,follow" }
     : {};
 
   res.writeHead(statusCode, {

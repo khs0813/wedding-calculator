@@ -9,7 +9,7 @@ export const calculators: CalculatorConfig[] = [
     description: "웨딩홀, 식대, 스드메, 예물, 혼수, 신혼여행 비용을 입력하면 결혼 준비 총 예산과 실제 부담 예상 금액을 계산합니다.",
     hero: "결혼식과 신혼 준비에 들어가는 주요 비용을 한 번에 정리하고, 축의금 예상 회수액까지 반영해 실제 부담액을 확인해보세요.",
     keywords: ["결혼 비용 계산기", "결혼 준비 비용", "결혼식 비용", "결혼 예산"],
-    storageKey: "wedding-budget:wedding-cost",
+    storageKey: "weddingbudget:wedding-cost",
     affiliateKeys: ["weddingHall", "studioDressMakeup", "homeAppliance", "honeymoon"],
     fields: [
       { id: "weddingHallBase", label: "웨딩홀 대관/패키지 비용", type: "money", defaultValue: 0, group: "웨딩홀", helpText: "대관료, 기본 연출비 등 식대를 제외한 비용입니다." },
@@ -42,7 +42,7 @@ export const calculators: CalculatorConfig[] = [
     description: "전세보증금·매매가와 대출 월상환액, 월세, 관리비, 이사·입주청소, 가전·가구 구매비를 분리해 신혼집 초기 현금과 매월 주거비를 계산합니다.",
     hero: "초기 현금 필요액과 매월 나가는 주거비를 함께 계산해 신혼집 준비에 필요한 현실적인 예산을 확인하세요.",
     keywords: ["신혼집 예산 계산기", "신혼집 비용", "신혼집 준비 비용", "신혼부부 집 예산"],
-    storageKey: "wedding-budget:newlywed-home",
+    storageKey: "weddingbudget:newlywed-home",
     affiliateKeys: ["homeAppliance", "cleaning", "internet"],
     fields: [
       { id: "homePrice", label: "전세보증금 또는 매매가", type: "money", defaultValue: 0, group: "주거비" },
@@ -74,7 +74,7 @@ export const calculators: CalculatorConfig[] = [
     description: "보증 인원과 예상 하객 수 중 실제 청구 기준을 반영하고, 식대·대관료·꽃장식·부가세·봉사료를 더해 웨딩홀 최소 부담액과 순부담액을 계산합니다.",
     hero: "웨딩홀 견적에서 가장 큰 비중을 차지하는 식대와 보증 인원 기준 최소 비용을 비교해보세요.",
     keywords: ["웨딩홀 비용 계산기", "웨딩홀 비용", "결혼식장 비용", "식대 계산"],
-    storageKey: "wedding-budget:wedding-hall",
+    storageKey: "weddingbudget:wedding-hall",
     affiliateKeys: ["weddingHall"],
     fields: [
       { id: "guaranteeGuests", label: "보증 인원", type: "number", defaultValue: 0, suffix: "명", group: "인원" },
@@ -104,7 +104,7 @@ export const calculators: CalculatorConfig[] = [
     description: "스튜디오·드레스·메이크업 기본 패키지와 헬퍼비, 원본 구매비, 앨범·액자 업그레이드, 출장비를 나눠 스드메 옵션 비중을 계산합니다.",
     hero: "스드메는 기본 패키지보다 추가 옵션에서 예산이 늘어나는 경우가 많습니다. 옵션 비중을 따로 확인해보세요.",
     keywords: ["스드메 비용 계산기", "스드메 가격", "스튜디오 드레스 메이크업 비용"],
-    storageKey: "wedding-budget:studio-dress-makeup",
+    storageKey: "weddingbudget:studio-dress-makeup",
     affiliateKeys: ["studioDressMakeup"],
     fields: [
       { id: "studioCost", label: "스튜디오 촬영 비용", type: "money", defaultValue: 0, group: "기본 패키지" },
@@ -134,7 +134,7 @@ export const calculators: CalculatorConfig[] = [
     description: "냉장고, 세탁기, 건조기, TV, 에어컨, 침대, 소파 등 신혼 가전과 가구 예산을 항목별로 계산합니다.",
     hero: "필수 가전·가구와 선택 품목을 나눠 혼수 예산을 정리하고 목표 예산 대비 초과 여부를 확인하세요.",
     keywords: ["혼수 비용 계산기", "신혼 가전 예산", "혼수 가전 비용", "신혼집 가구 예산"],
-    storageKey: "wedding-budget:honsu",
+    storageKey: "weddingbudget:honsu",
     affiliateKeys: ["homeAppliance"],
     fields: [
       { id: "fridge", label: "냉장고", type: "money", defaultValue: 0, group: "가전", required: true },
@@ -168,7 +168,7 @@ export const calculators: CalculatorConfig[] = [
     description: "결혼반지, 예물 시계, 가방, 보석, 양가 선물, 한복 등 예물 예산을 항목별로 계산합니다.",
     hero: "예물은 양가 합의와 커플의 가치관에 따라 달라지는 항목입니다. 항목별 비용을 정리해 전체 결혼 예산 대비 비중을 확인하세요.",
     keywords: ["예물 예산 계산기", "예물 비용", "결혼 예물 비용", "결혼반지 비용"],
-    storageKey: "wedding-budget:wedding-gift",
+    storageKey: "weddingbudget:wedding-gift",
     affiliateKeys: ["studioDressMakeup"],
     fields: [
       { id: "rings", label: "결혼반지", type: "money", defaultValue: 0, group: "예물" },
@@ -195,7 +195,7 @@ export const calculators: CalculatorConfig[] = [
     description: "항공권과 숙박비, 현지 교통·식비·액티비티·쇼핑, 여행자보험·환전·비상금을 합산해 신혼여행 총액과 1인당·1일 평균 비용을 계산합니다.",
     hero: "총 여행비뿐 아니라 1인당 비용과 1일 평균 비용을 함께 확인해 허니문 예산을 현실적으로 잡아보세요.",
     keywords: ["신혼여행 예산 계산기", "신혼여행 비용", "허니문 비용", "해외여행 예산"],
-    storageKey: "wedding-budget:honeymoon",
+    storageKey: "weddingbudget:honeymoon",
     affiliateKeys: ["honeymoon"],
     fields: [
       { id: "flight", label: "항공권 비용", type: "money", defaultValue: 0, group: "교통/숙박" },
@@ -226,7 +226,7 @@ export const calculators: CalculatorConfig[] = [
     description: "하객 입장에서 가족, 친척, 친구, 직장동료, 거래처 등 관계와 식사 참석 여부를 입력해 참고용 축의금 범위를 계산합니다.",
     hero: "이 계산기는 하객용 축의금 참고 도구입니다. 예비부부의 축의금 회수 예상은 결혼 비용·웨딩홀 계산기에서 하객 수와 1인당 예상 축의금으로 따로 확인하세요.",
     keywords: ["축의금 참고", "하객 축의금", "축의금 얼마", "결혼식 축의금", "친구 축의금", "직장동료 축의금"],
-    storageKey: "wedding-budget:congratulatory-money",
+    storageKey: "weddingbudget:congratulatory-money",
     affiliateKeys: ["weddingHall"],
     fields: [
       { id: "relation", label: "관계 유형", type: "select", defaultValue: "friend-close", group: "관계", options: [

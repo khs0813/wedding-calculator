@@ -157,6 +157,7 @@ if (!existsSync(rssPath)) {
   if (!rss.includes("<rss version=\"2.0\"")) errors.push("rss.xml root missing");
   if (!rss.includes("<channel>")) errors.push("rss.xml channel missing");
   if (!rss.includes(`${baseUrl}/guides/`)) errors.push("rss.xml guide link missing");
+  if (rss.includes(`${baseUrl}/summary/`)) errors.push("rss.xml includes noindex summary route");
   if (!homeHtml.includes('rel="alternate"') || !homeHtml.includes("application/rss+xml")) {
     errors.push("RSS alternate link missing from home HTML");
   }
@@ -164,7 +165,7 @@ if (!existsSync(rssPath)) {
 
 const serverFile = readFileSync("server.mjs", "utf8");
 for (const requiredHeader of [
-  "Content-Security-Policy",
+  "Content-Security-Policy-Report-Only",
   "Referrer-Policy",
   "X-Content-Type-Options",
   "X-Frame-Options",
@@ -175,6 +176,16 @@ for (const requiredHeader of [
   "Origin-Agent-Cluster",
 ]) {
   if (!serverFile.includes(requiredHeader)) errors.push(`security header missing: ${requiredHeader}`);
+}
+
+const securityTxtPath = "out/.well-known/security.txt";
+if (!existsSync(securityTxtPath)) {
+  errors.push("security.txt build output missing");
+} else {
+  const securityTxt = readFileSync(securityTxtPath, "utf8");
+  for (const field of ["Contact:", "Preferred-Languages:", "Canonical:", "Expires:"]) {
+    if (!securityTxt.includes(field)) errors.push(`security.txt field missing: ${field}`);
+  }
 }
 
 if (errors.length) {

@@ -165,6 +165,7 @@ function createCellXml(
   const styleAttribute = styleId > 0 ? ` s="${styleId}"` : "";
 
   if (typeof value === "number") {
+    if (!Number.isFinite(value)) return "";
     return `<c r="${reference}"${styleAttribute}><v>${safeNumber(value)}</v></c>`;
   }
 

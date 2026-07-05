@@ -1,0 +1,4 @@
+Contact: https://weddingbudget.co.kr/contact/
+Preferred-Languages: ko, en
+Canonical: https://weddingbudget.co.kr/.well-known/security.txt
+Expires: 2027-07-05T00:00:00Z

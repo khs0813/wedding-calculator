@@ -105,7 +105,7 @@ export function CalculatorClient({ config }: { config: CalculatorConfig }) {
     const sharedValues = dataParam ? decodeShareData(dataParam) : null;
     const storedValues = sharedValues
       ? null
-      : loadCalculatorState(config.storageKey);
+      : loadCalculatorState(config);
     const nextValues = sanitizeValues(
       config,
       sharedValues || storedValues || defaultValues,

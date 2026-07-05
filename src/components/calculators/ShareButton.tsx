@@ -11,6 +11,7 @@ export function ShareButton({ values, onAction }: { values: Record<string, Field
 
   async function handleShare() {
     onAction?.();
+    window.alert("공유 URL에는 입력한 숫자와 선택값이 포함될 수 있습니다. 이름, 전화번호, 이메일, 상세주소는 포함하지 마세요.");
     const url = `${window.location.origin}${window.location.pathname}${createShareHash(values)}`;
     const copied = await copyText(url);
     setMessage(copied ? "공유 URL이 복사되었습니다." : url);
