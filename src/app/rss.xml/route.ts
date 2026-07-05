@@ -56,19 +56,19 @@ export function GET() {
       title: "웨딩 예산 계산기 | 결혼·신혼 준비 비용 계산기",
       path: "/",
       description: "결혼 준비 비용, 신혼집 예산, 웨딩홀, 스드메, 혼수, 신혼여행, 축의금을 한 곳에서 계산하고 정리하세요.",
-      updatedAt: "2026-06-03",
+      updatedAt: "2026-07-04",
     },
     {
       title: "결혼·신혼 예산 계산기 모음",
       path: "/calculators",
       description: "결혼 비용, 신혼집 예산, 웨딩홀, 스드메, 혼수, 신혼여행, 축의금 계산기를 한곳에서 확인하세요.",
-      updatedAt: "2026-06-03",
+      updatedAt: "2026-07-04",
     },
     {
       title: "결혼 준비 예산 가이드 모음",
       path: "/guides",
       description: "결혼 준비 비용과 신혼 예산을 현실적으로 정리하기 위한 가이드와 체크리스트를 확인하세요.",
-      updatedAt: "2026-06-03",
+      updatedAt: "2026-07-04",
     },
     ...calculators.map((calculator) => ({
       title: calculator.title,
@@ -97,7 +97,7 @@ export function GET() {
   ];
 
   const sortedItems = feedItems.sort((a, b) => toDateOnly(b.updatedAt).localeCompare(toDateOnly(a.updatedAt)));
-  const lastBuildDate = toRssDate(sortedItems[0]?.updatedAt || "2026-06-03");
+  const lastBuildDate = toRssDate(sortedItems[0]?.updatedAt || "2026-07-04");
 
   const items = sortedItems
     .map((item) => {

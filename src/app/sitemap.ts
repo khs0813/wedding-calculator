@@ -8,9 +8,9 @@ import { absolutePageUrl } from "@/lib/seo";
 
 export const dynamic = "force-static";
 
-const homeUpdatedAt = "2026-06-03";
-const calculatorsIndexUpdatedAt = "2026-06-03";
-const guidesIndexUpdatedAt = "2026-06-03";
+const homeUpdatedAt = "2026-07-04";
+const calculatorsIndexUpdatedAt = "2026-07-04";
+const guidesIndexUpdatedAt = "2026-07-04";
 
 function toLastMod(value: string): string {
   const koreanDateMatch = value.match(/^(\d{4})년\s*(\d{1,2})월\s*(\d{1,2})일$/);

@@ -13,7 +13,7 @@ const editorialAuthor: AuthorProfile = {
 export const calculatorContent: Record<CalculatorSlug, CalculatorEditorialContent> = {
   "wedding-cost": {
     intro: "결혼 전체 예산은 한 장의 견적서로 끝나지 않습니다. 웨딩홀, 스드메, 예물, 혼수, 신혼여행처럼 계약 시점이 다른 항목을 함께 봐야 실제 부담액이 보입니다.",
-    updatedAt: "2026-06-03",
+    updatedAt: "2026-07-04",
     author: editorialAuthor,
     checklist: [
       "웨딩홀과 식대는 하객 수 가정을 보수적으로 잡습니다.",
@@ -53,7 +53,7 @@ export const calculatorContent: Record<CalculatorSlug, CalculatorEditorialConten
   },
   "newlywed-home-budget": {
     intro: "신혼집 예산은 집값만 보는 순간 왜곡됩니다. 실제로는 보증금이나 매매가 외에 대출 상환액, 인테리어, 가전, 가구, 이사, 생활용품이 함께 움직입니다.",
-    updatedAt: "2026-06-03",
+    updatedAt: "2026-07-04",
     author: editorialAuthor,
     checklist: [
       "초기 현금 필요액과 월 고정비를 반드시 분리합니다.",
@@ -88,7 +88,7 @@ export const calculatorContent: Record<CalculatorSlug, CalculatorEditorialConten
   },
   "wedding-hall-cost": {
     intro: "웨딩홀 비용은 대관료보다 식대와 보증 인원 조건에서 차이가 크게 납니다. 겉보기 견적이 비슷해도 총결제액은 많이 달라질 수 있습니다.",
-    updatedAt: "2026-06-03",
+    updatedAt: "2026-07-04",
     author: editorialAuthor,
     checklist: [
       "보증 인원과 예상 하객 수를 따로 적습니다.",
@@ -122,7 +122,7 @@ export const calculatorContent: Record<CalculatorSlug, CalculatorEditorialConten
   },
   "studio-dress-makeup-cost": {
     intro: "스드메는 기본 패키지보다 추가 옵션에서 예산이 커지는 경우가 많습니다. 패키지 가격만 비교하면 실제 결제액을 놓치기 쉽습니다.",
-    updatedAt: "2026-06-03",
+    updatedAt: "2026-07-04",
     author: editorialAuthor,
     checklist: [
       "원본 파일 포함 여부를 확인합니다.",
@@ -161,7 +161,7 @@ export const calculatorContent: Record<CalculatorSlug, CalculatorEditorialConten
   },
   "honsu-budget": {
     intro: "혼수는 브랜드와 품목 수가 늘어나기 쉬운 영역이라, 필수와 선택을 먼저 가르지 않으면 예산이 빠르게 커집니다.",
-    updatedAt: "2026-06-03",
+    updatedAt: "2026-07-04",
     author: editorialAuthor,
     checklist: [
       "입주 직후 필요한 품목을 우선 적습니다.",
@@ -193,7 +193,7 @@ export const calculatorContent: Record<CalculatorSlug, CalculatorEditorialConten
   },
   "wedding-gift-budget": {
     intro: "예물은 가격보다 기준 합의가 먼저 필요한 항목입니다. 양가 기대치와 커플의 우선순위가 다르면 작은 차이도 크게 느껴질 수 있습니다.",
-    updatedAt: "2026-06-03",
+    updatedAt: "2026-07-04",
     author: editorialAuthor,
     checklist: [
       "결혼반지와 추가 예물을 분리해서 적습니다.",
@@ -227,7 +227,7 @@ export const calculatorContent: Record<CalculatorSlug, CalculatorEditorialConten
   },
   "honeymoon-budget": {
     intro: "신혼여행은 총액만 보면 체감이 어렵고, 구성비를 보면 조정 지점이 보입니다. 항공권, 숙박, 액티비티, 식비, 쇼핑 중 무엇이 중요한지부터 나눠야 합니다.",
-    updatedAt: "2026-06-03",
+    updatedAt: "2026-07-04",
     author: editorialAuthor,
     checklist: [
       "항공권과 숙박은 고정비로 먼저 적습니다.",
@@ -259,7 +259,7 @@ export const calculatorContent: Record<CalculatorSlug, CalculatorEditorialConten
   },
   "congratulatory-money": {
     intro: "축의금은 정답이 아니라 관계와 상황을 반영한 기준값이 필요합니다. 이 계산기는 금액을 확정해 주기보다 판단 범위를 정리해 주는 용도에 가깝습니다.",
-    updatedAt: "2026-06-03",
+    updatedAt: "2026-07-04",
     author: editorialAuthor,
     checklist: [
       "관계 유형과 친밀도를 함께 봅니다.",
