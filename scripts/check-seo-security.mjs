@@ -188,6 +188,41 @@ if (!existsSync(securityTxtPath)) {
   }
 }
 
+const renderYamlPath = "render.yaml";
+if (!existsSync(renderYamlPath)) {
+  errors.push("render.yaml missing");
+} else {
+  const renderYaml = readFileSync(renderYamlPath, "utf8");
+  for (const requiredSnippet of [
+    "runtime: static",
+    "staticPublishPath: ./out",
+    "weddingbudget.co.kr",
+    "renderSubdomainPolicy: disabled",
+    "name: X-Robots-Tag",
+    "value: \"noindex, follow\"",
+  ]) {
+    if (!renderYaml.includes(requiredSnippet)) {
+      errors.push(`render.yaml static SEO config missing: ${requiredSnippet}`);
+    }
+  }
+
+  for (const requiredHeader of [
+    "Content-Security-Policy-Report-Only",
+    "Referrer-Policy",
+    "X-Content-Type-Options",
+    "X-Frame-Options",
+    "Strict-Transport-Security",
+    "Permissions-Policy",
+    "Cross-Origin-Opener-Policy",
+    "Cross-Origin-Resource-Policy",
+    "Origin-Agent-Cluster",
+  ]) {
+    if (!renderYaml.includes(`name: ${requiredHeader}`)) {
+      errors.push(`render.yaml static header missing: ${requiredHeader}`);
+    }
+  }
+}
+
 if (errors.length) {
   console.error(errors.join("\n"));
   process.exit(1);
