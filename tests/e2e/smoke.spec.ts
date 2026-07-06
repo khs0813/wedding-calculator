@@ -80,8 +80,32 @@ test("public pages, calculators, storage, summary, share URL, and XLSX download 
   await download.saveAs(downloadPath);
   await expectXlsxDownload(downloadPath);
 
+  await page.evaluate(() => {
+    (window as typeof window & { __printCalled?: boolean }).__printCalled = false;
+    window.print = () => {
+      (window as typeof window & { __printCalled?: boolean }).__printCalled = true;
+    };
+  });
+  await page.getByRole("button", { name: "PDF 저장" }).click();
+  await expect.poll(() => page.evaluate(() => (window as typeof window & { __printCalled?: boolean }).__printCalled)).toBe(true);
+
   await page.goto("/summary/");
   page.once("dialog", (dialog) => dialog.accept());
   await page.getByRole("button", { name: "초기화" }).click();
   await expect(page.getByText("저장된 계산 결과가 아직 없습니다.")).toBeVisible();
+});
+
+test("SEO controls expose summary noindex and trailing-slash canonical redirects", async ({ request }) => {
+  const summary = await request.get("/summary/");
+  expect(summary.ok()).toBe(true);
+  expect(summary.headers()["x-robots-tag"]).toBe("noindex, follow");
+  expect(await summary.text()).toContain('<meta name="robots" content="noindex, follow"/>');
+
+  const sitemap = await request.get("/sitemap.xml");
+  expect(sitemap.ok()).toBe(true);
+  expect(await sitemap.text()).not.toContain("/summary/");
+
+  const response = await request.get("/guides/newlywed-budget-guide", { maxRedirects: 0 });
+  expect(response.status()).toBe(301);
+  expect(response.headers()["location"]).toBe("/guides/newlywed-budget-guide/");
 });
