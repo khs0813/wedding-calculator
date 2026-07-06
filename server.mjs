@@ -69,6 +69,10 @@ function resolveFile(pathname) {
   return null;
 }
 
+function isPagePathWithoutTrailingSlash(pathname) {
+  return pathname !== "/" && !pathname.endsWith("/") && !extname(pathname);
+}
+
 function sendFile(res, filePath, statusCode, pathname = "") {
   const extension = extname(filePath).toLowerCase();
   const contentType = contentTypes.get(extension) || "application/octet-stream";
@@ -103,6 +107,17 @@ createServer((req, res) => {
   }
 
   const pathname = safePathname(req.url);
+
+  if (isPagePathWithoutTrailingSlash(pathname)) {
+    const requestUrl = new URL(req.url || "/", "http://localhost");
+    res.writeHead(301, {
+      Location: `${pathname}/${requestUrl.search}`,
+      ...securityHeaders,
+    });
+    res.end();
+    return;
+  }
+
   const matchedFile = resolveFile(pathname);
 
   if (matchedFile) {

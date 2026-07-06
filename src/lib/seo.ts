@@ -285,6 +285,9 @@ export function createGuideMetadata(slug: GuideSlug): Metadata {
       siteName: "웨딩 예산 계산기",
       locale: "ko_KR",
       type: "article",
+      publishedTime: guide.publishedAt,
+      modifiedTime: guide.updatedAt,
+      authors: [guide.author.name],
       images: [
         {
           url: absoluteUrl(defaultOpenGraphImage),

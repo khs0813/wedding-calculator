@@ -49,6 +49,18 @@ const routes = [
 ];
 
 const errors = [];
+const guideSource = readFileSync("src/data/guides.ts", "utf8");
+const guides = [...guideSource.matchAll(/slug:\s*"([^"]+)",[\s\S]*?path:\s*"([^"]+)",[\s\S]*?publishedAt:\s*"(\d{4}-\d{2}-\d{2})",[\s\S]*?updatedAt:\s*"(\d{4}-\d{2}-\d{2})",/g)]
+  .map((match) => ({
+    slug: match[1],
+    path: match[2],
+    publishedAt: match[3],
+    updatedAt: match[4],
+  }));
+
+if (!guides.length) {
+  errors.push("guide metadata source could not be parsed");
+}
 
 function expectedUrl(route) {
   return route === "/" ? `${baseUrl}/` : `${baseUrl}${route}/`;
@@ -56,6 +68,10 @@ function expectedUrl(route) {
 
 function exportFileForRoute(route) {
   return route === "/" ? "out/index.html" : join("out", route, "index.html");
+}
+
+function withoutReactMarkers(html) {
+  return html.replaceAll("<!-- -->", "");
 }
 
 for (const { route, index } of routes) {
@@ -82,9 +98,39 @@ for (const { route, index } of routes) {
   const robotsMatch = html.match(/<meta name="robots" content="([^"]+)"/);
   const robotsContent = robotsMatch?.[1] || "";
   if (index === false && !robotsContent.includes("noindex")) errors.push(`${route}: noindex robots meta missing`);
+  if (index === false && !robotsContent.includes("follow")) errors.push(`${route}: follow robots meta missing`);
   if (index !== false && robotsContent.includes("noindex")) errors.push(`${route}: indexable route has noindex robots meta`);
   if (!html.includes('type="application/ld+json"')) errors.push(`${route}: JSON-LD missing`);
   if (!/<h1[\s>]/.test(html)) errors.push(`${route}: h1 missing`);
+}
+
+for (const guide of guides) {
+  const file = exportFileForRoute(guide.path);
+  if (!existsSync(file)) {
+    errors.push(`${guide.path}: guide build output not found. Run npm run build first.`);
+    continue;
+  }
+
+  const html = readFileSync(file, "utf8");
+  const visibleHtml = withoutReactMarkers(html);
+  if (!html.includes(`property="article:published_time" content="${guide.publishedAt}"`)) {
+    errors.push(`${guide.path}: article:published_time mismatch`);
+  }
+  if (!html.includes(`property="article:modified_time" content="${guide.updatedAt}"`)) {
+    errors.push(`${guide.path}: article:modified_time mismatch`);
+  }
+  if (!html.includes(`"datePublished":"${guide.publishedAt}"`)) {
+    errors.push(`${guide.path}: JSON-LD datePublished mismatch`);
+  }
+  if (!html.includes(`"dateModified":"${guide.updatedAt}"`)) {
+    errors.push(`${guide.path}: JSON-LD dateModified mismatch`);
+  }
+  if (!visibleHtml.includes(`발행</span> ${guide.publishedAt}`)) {
+    errors.push(`${guide.path}: visible published date mismatch`);
+  }
+  if (!visibleHtml.includes(`수정</span> ${guide.updatedAt}`)) {
+    errors.push(`${guide.path}: visible modified date mismatch`);
+  }
 }
 
 const homeHtml = existsSync("out/index.html") ? readFileSync("out/index.html", "utf8") : "";
@@ -140,6 +186,15 @@ if (!existsSync(sitemapPath)) {
     const expected = expectedUrl(route);
     if (urls.includes(expected)) errors.push(`sitemap includes non-index route ${expected}`);
   }
+  for (const guide of guides) {
+    const expected = expectedUrl(guide.path);
+    const entryMatch = sitemap.match(new RegExp(`<loc>${expected.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}<\\/loc>\\s*<lastmod>(.*?)<\\/lastmod>`));
+    if (!entryMatch) {
+      errors.push(`sitemap missing guide lastmod entry ${expected}`);
+    } else if (entryMatch[1] !== guide.updatedAt) {
+      errors.push(`${guide.path}: sitemap lastmod ${entryMatch[1]} !== updatedAt ${guide.updatedAt}`);
+    }
+  }
 }
 
 if (!existsSync(robotsPath)) {
@@ -164,6 +219,9 @@ if (!existsSync(rssPath)) {
 }
 
 const serverFile = readFileSync("server.mjs", "utf8");
+if (!serverFile.includes("isPagePathWithoutTrailingSlash") || !serverFile.includes("Location: `${pathname}/${requestUrl.search}`")) {
+  errors.push("server.mjs trailing slash 301 redirect missing");
+}
 for (const requiredHeader of [
   "Content-Security-Policy-Report-Only",
   "Referrer-Policy",
