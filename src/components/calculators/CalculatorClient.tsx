@@ -82,6 +82,7 @@ export function CalculatorClient({ config }: { config: CalculatorConfig }) {
   const [hydrated, setHydrated] = useState(false);
   const [moneyUnit, setMoneyUnit] = useState<"won" | "manwon">("won");
   const [generatedAt, setGeneratedAt] = useState<Date | null>(null);
+  const [shareRestoreMessage, setShareRestoreMessage] = useState("");
   const defaultValues = useMemo(() => getDefaultValues(config), [config]);
 
   const { control, reset, formState } = useForm<FormValues>({
@@ -113,6 +114,13 @@ export function CalculatorClient({ config }: { config: CalculatorConfig }) {
     reset(nextValues);
     if (sharedValues || window.location.search || window.location.hash) {
       replaceCleanUrl();
+    }
+    if (dataParam) {
+      setShareRestoreMessage(
+        sharedValues
+          ? "공유 URL의 입력값을 복원했습니다. URL은 대표 주소로 정리했습니다."
+          : "공유 URL 값이 올바르지 않아 저장값 또는 기본값으로 열었습니다.",
+      );
     }
     setHydrated(true);
   }, [config, defaultValues, reset]);
@@ -454,6 +462,11 @@ export function CalculatorClient({ config }: { config: CalculatorConfig }) {
           <div className="print-area">
             <ResultCard result={result} hasInput={hasMeaningfulInput} emptyState={emptyStateByCalculator[config.slug]} />
           </div>
+          {shareRestoreMessage ? (
+            <p className="no-print rounded-2xl border border-border bg-card px-4 py-3 text-sm leading-6 text-muted-foreground" role="status">
+              {shareRestoreMessage}
+            </p>
+          ) : null}
           {hasMeaningfulInput ? (
             <div className="no-print grid gap-3 sm:grid-cols-2">
               <Link href="#budget-insights" className="inline-flex min-h-11 items-center justify-center rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90">
@@ -470,7 +483,7 @@ export function CalculatorClient({ config }: { config: CalculatorConfig }) {
               <h2 className="text-lg font-semibold text-foreground">둘이 같이 보기</h2>
               <p className="mt-2 text-sm leading-6 text-muted-foreground">공유 URL로 상대와 같은 입력값을 보고 조정할 수 있습니다.</p>
               <div className="mt-4 flex flex-col items-stretch gap-3 sm:flex-row sm:items-start">
-                <ShareButton values={values} onAction={markGeneratedAt} />
+                <ShareButton config={config} values={values} onAction={markGeneratedAt} />
                 <PrintButton onAction={markGeneratedAt} />
               </div>
               <details className="mt-4 rounded-2xl border border-border bg-card px-4 py-3">

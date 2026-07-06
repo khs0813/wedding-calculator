@@ -25,7 +25,7 @@ export function RelatedCalculators({ currentSlug, relatedSlugs }: { currentSlug:
                 <h3 className="font-semibold text-foreground">{calculator.shortTitle}</h3>
                 <p className="mt-2 line-clamp-2 text-sm leading-6 text-muted-foreground">{calculator.description}</p>
                 <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-foreground">
-                  바로가기
+                  {calculator.shortTitle} 열기
                   <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" aria-hidden="true" />
                 </span>
               </Link>

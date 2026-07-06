@@ -1,10 +1,49 @@
-import type { FieldValue } from "@/types/calculator";
+import type { CalculatorConfig, FieldValue } from "@/types/calculator";
 import { isPlainRecord } from "@/lib/security";
 
 const maxShareDataLength = 12_000;
+const shareDataVersion = 1;
+const sensitiveFieldPattern = /(name|phone|email|address|resident|ssn|jumin|주민|전화|이메일|주소|성명|이름)/i;
+
+type SharePayload = {
+  version: number;
+  values: Record<string, FieldValue>;
+};
+
+function isSupportedShareValue(value: unknown): value is FieldValue {
+  return (
+    (typeof value === "number" && Number.isFinite(value)) ||
+    typeof value === "string" ||
+    typeof value === "boolean"
+  );
+}
+
+export function createSafeShareValues(
+  config: CalculatorConfig,
+  values: Record<string, FieldValue>,
+) {
+  const safeValues: Record<string, FieldValue> = {};
+
+  for (const field of config.fields) {
+    if (sensitiveFieldPattern.test(field.id) || sensitiveFieldPattern.test(field.label)) {
+      continue;
+    }
+
+    const value = values[field.id];
+    if (isSupportedShareValue(value)) {
+      safeValues[field.id] = value;
+    }
+  }
+
+  return safeValues;
+}
 
 export function encodeShareData(values: Record<string, FieldValue>): string {
-  const json = JSON.stringify(values);
+  const payload: SharePayload = {
+    version: shareDataVersion,
+    values,
+  };
+  const json = JSON.stringify(payload);
   const bytes = new TextEncoder().encode(json);
   let binary = "";
   bytes.forEach((byte) => {
@@ -26,7 +65,16 @@ export function decodeShareData(encoded: string): Record<string, FieldValue> | n
     const bytes = Uint8Array.from(binary, (char) => char.charCodeAt(0));
     const json = new TextDecoder().decode(bytes);
     const parsed = JSON.parse(json);
-    return isPlainRecord(parsed) ? parsed as Record<string, FieldValue> : null;
+    if (!isPlainRecord(parsed)) return null;
+
+    if (
+      parsed.version === shareDataVersion &&
+      isPlainRecord(parsed.values)
+    ) {
+      return parsed.values as Record<string, FieldValue>;
+    }
+
+    return parsed as Record<string, FieldValue>;
   } catch {
     return null;
   }
@@ -53,8 +101,11 @@ export async function copyText(text: string): Promise<boolean> {
   }
 }
 
-export function createShareHash(values: Record<string, FieldValue>): string {
-  return `#state=${encodeShareData(values)}`;
+export function createShareHash(
+  config: CalculatorConfig,
+  values: Record<string, FieldValue>,
+): string {
+  return `#state=${encodeShareData(createSafeShareValues(config, values))}`;
 }
 
 export function getSharedDataFromLocation(location: Location): string | null {

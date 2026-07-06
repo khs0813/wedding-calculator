@@ -379,7 +379,7 @@ function createInputSheet(
       ["생성일", getNowText()],
       [
         "안내",
-        "현재 입력값을 보관하거나 별도 예산표에서 참고할 수 있도록 내보낸 파일입니다.",
+        "본 파일은 입력값을 바탕으로 생성한 참고용 예산표입니다. 실제 견적은 지역, 날짜, 업체, 계약 조건에 따라 달라질 수 있습니다.",
       ],
       [
         "항목명",
@@ -433,6 +433,8 @@ function createResultSheet(result: CalculatorResult): SheetDefinition {
   rows.push([]);
   rows.push(["예산 안내", "", "", ""]);
   headerRows.push(rows.length);
+  rows.push(["입력값을 바탕으로 한 예상 비용이며, 실제 견적은 지역, 날짜, 업체, 계약 조건에 따라 달라질 수 있습니다.", "", "", ""]);
+  rows.push(["기본값은 예산 계획을 돕기 위한 예시이며 실제 시장 평균을 보장하지 않습니다.", "", "", ""]);
   result.advice.forEach((advice) => rows.push([advice, "", "", ""]));
 
   if (result.disclaimer) {
@@ -613,7 +615,7 @@ export async function downloadCalculatorExcel(
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.href = url;
-  link.download = `${sanitizeFileName(config.shortTitle)}-${new Date().toISOString().slice(0, 10)}.xlsx`;
+  link.download = `wedding-budget-${sanitizeFileName(config.slug)}-${new Date().toISOString().slice(0, 10)}.xlsx`;
   document.body.appendChild(link);
   link.click();
   link.remove();
@@ -625,11 +627,12 @@ function createSummarySheet(rows: SummaryExcelRow[]): SheetDefinition {
     name: "전체결과",
     columnWidths: [28, 14, 18, 38, 38],
     titleRow: 1,
-    headerRows: [3],
-    frozenRows: 3,
+    headerRows: [4],
+    frozenRows: 4,
     rows: [
       ["전체 결과 표", "", "", "", ""],
       ["생성일", getNowText(), "", "", ""],
+      ["안내", "본 파일은 참고용입니다. 실제 견적은 지역, 날짜, 업체, 계약 조건에 따라 달라질 수 있습니다.", "", "", ""],
       ["계산기", "상태", "합계", "보조 결과 1", "보조 결과 2"],
       ...rows.map((row) => [
         row.title,
@@ -673,7 +676,7 @@ export async function downloadSummaryExcel(rows: SummaryExcelRow[]) {
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.href = url;
-  link.download = `내-예산표-${new Date().toISOString().slice(0, 10)}.xlsx`;
+  link.download = `wedding-budget-summary-${new Date().toISOString().slice(0, 10)}.xlsx`;
   document.body.appendChild(link);
   link.click();
   link.remove();

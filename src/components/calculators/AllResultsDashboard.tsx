@@ -200,6 +200,7 @@ export function SummaryResultsTableCard() {
   const [rows, setRows] = useState<DashboardRow[]>([]);
   const [hydrated, setHydrated] = useState(false);
   const [downloading, setDownloading] = useState(false);
+  const hasDownloadableRows = rows.some((row) => row.hasMeaningfulInput);
 
   const refreshRows = useCallback(() => {
     setRows(loadRows());
@@ -273,7 +274,7 @@ export function SummaryResultsTableCard() {
               type="button"
               variant="secondary"
               onClick={handleDownload}
-              disabled={!hydrated || downloading}
+              disabled={!hydrated || downloading || !hasDownloadableRows}
               className="min-h-10 gap-2 px-4 py-2 text-xs"
             >
               <FileDown className="h-4 w-4" aria-hidden="true" />
@@ -294,7 +295,14 @@ export function SummaryResultsTableCard() {
       </CardHeader>
       <CardContent>
         {hydrated ? (
-          <ResultsTable rows={rows} />
+          <>
+            {!hasDownloadableRows ? (
+              <p className="mb-4 rounded-2xl border border-border bg-muted px-4 py-3 text-sm leading-6 text-muted-foreground">
+                저장된 계산 결과가 아직 없습니다. 개별 계산기를 입력하면 현재 브라우저에만 저장되고 이 표에 표시됩니다.
+              </p>
+            ) : null}
+            <ResultsTable rows={rows} />
+          </>
         ) : (
           <p className="text-sm leading-7 text-muted-foreground">브라우저에 저장된 계산 결과를 불러오는 중입니다.</p>
         )}

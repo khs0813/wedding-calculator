@@ -8,8 +8,8 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { absolutePageUrl, absoluteUrl, buildBreadcrumbSchema } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "결혼 예산 계산기 모음 - 웨딩홀·스드메·신혼집 비용",
-  description: "예비 신랑·신부가 결혼 비용, 웨딩홀 식대, 신혼집 초기비용, 스드메 옵션, 혼수, 예물, 신혼여행, 축의금을 단계별로 계산할 수 있습니다.",
+  title: "결혼 비용 계산기 | 하객 수·축의금·스드메 포함 총예산 계산",
+  description: "결혼 비용, 웨딩홀 식대, 신혼집 초기비용, 스드메 옵션, 혼수, 예물, 신혼여행, 축의금을 개인정보 없이 브라우저에서 계산합니다.",
   keywords: ["결혼 예산 계산기", "웨딩홀 식대 계산기", "스드메 비용 계산기", "신혼집 초기비용", "혼수 예산 계산기"],
   alternates: { canonical: absolutePageUrl("/calculators") },
   openGraph: {
@@ -73,6 +73,17 @@ export default function CalculatorsPage() {
             { name: "홈", path: "/" },
             { name: "계산기", path: "/calculators" },
           ]),
+          {
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            name: "결혼 예산 계산기 목록",
+            itemListElement: calculators.map((calculator, index) => ({
+              "@type": "ListItem",
+              position: index + 1,
+              name: calculator.shortTitle,
+              url: absolutePageUrl(calculator.path),
+            })),
+          },
         ]}
       />
 

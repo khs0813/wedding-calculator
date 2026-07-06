@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   publisher: "웨딩 예산 계산기",
   category: "finance",
   title: {
-    default: "웨딩 예산 계산기 - 결혼·신혼 준비 비용 계산",
+    default: "결혼 비용 계산기 2026 | 웨딩홀·스드메·혼수·신혼여행 예산표",
     template: "%s | 웨딩 예산 계산기",
   },
   description: siteDescription,
