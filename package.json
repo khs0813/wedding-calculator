@@ -11,7 +11,8 @@
     "lint": "eslint . --max-warnings=0",
     "audit:prod": "npm audit --omit=dev",
     "audit:all": "npm audit",
-    "check:seo-security": "node scripts/check-seo-security.mjs"
+    "check:seo-security": "node scripts/check-seo-security.mjs",
+    "e2e": "playwright test"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",
@@ -27,6 +28,7 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@playwright/test": "1.61.1",
     "@types/node": "^25.9.1",
     "@types/react": "^19.2.15",
     "@types/react-dom": "^19.2.3",

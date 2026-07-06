@@ -8,26 +8,54 @@ import { Card, CardContent } from "@/components/ui/card";
 
 const categories = [
   "전체",
-  "처음 예산 잡기",
-  "웨딩홀 계약 전",
-  "스드메 옵션",
-  "신혼집·대출",
-  "혼수·가전",
-  "예물·예단",
+  "총예산",
+  "웨딩홀",
+  "스드메",
+  "신혼집",
+  "혼수",
+  "예물",
   "신혼여행",
   "축의금",
+  "체크리스트",
 ];
 
+const guideCategoryBySlug: Record<string, string> = {
+  "wedding-cost-guide": "총예산",
+  "wedding-saving-tips": "총예산",
+  "wedding-budget-timeline-guide": "체크리스트",
+  "small-wedding-budget-guide": "총예산",
+  "wedding-contract-check-guide": "체크리스트",
+  "wedding-hall-checklist": "웨딩홀",
+  "wedding-guest-budget-table-guide": "웨딩홀",
+  "wedding-hall-meal-cost-table-guide": "웨딩홀",
+  "sdme-options-guide": "스드메",
+  "sdme-extra-cost-table-guide": "스드메",
+  "newlywed-budget-guide": "신혼집",
+  "newlywed-loan-planning-guide": "신혼집",
+  "newlywed-home-initial-cost-guide": "신혼집",
+  "honsu-priority-guide": "혼수",
+  "appliance-budget-table-guide": "혼수",
+  "wedding-gift-negotiation-guide": "예물",
+  "honeymoon-destination-budget-guide": "신혼여행",
+  "honeymoon-budget-ratio-guide": "신혼여행",
+  "congratulatory-money-etiquette-guide": "축의금",
+  "congratulatory-money-table-guide": "축의금",
+};
+
 function getGuideCategory(guide: Guide) {
+  const mappedCategory = guideCategoryBySlug[guide.slug];
+  if (mappedCategory) return mappedCategory;
+
   const text = `${guide.title} ${guide.description} ${guide.keywords.join(" ")}`;
-  if (/웨딩홀|보증 인원|식대|계약/.test(text)) return "웨딩홀 계약 전";
-  if (/스드메|드레스|헬퍼비|원본/.test(text)) return "스드메 옵션";
-  if (/신혼집|대출|전세|입주|월세/.test(text)) return "신혼집·대출";
-  if (/혼수|가전|가구|청소/.test(text)) return "혼수·가전";
-  if (/예물|예단|양가|반지/.test(text)) return "예물·예단";
+  if (/웨딩홀|보증 인원|식대/.test(text)) return "웨딩홀";
+  if (/스드메|드레스|헬퍼비|원본/.test(text)) return "스드메";
+  if (/신혼집|대출|전세|입주|월세/.test(text)) return "신혼집";
+  if (/혼수|가전|가구|청소/.test(text)) return "혼수";
+  if (/예물|예단|양가|반지/.test(text)) return "예물";
   if (/신혼여행|허니문|여행/.test(text)) return "신혼여행";
   if (/축의금|하객/.test(text)) return "축의금";
-  return "처음 예산 잡기";
+  if (/체크리스트|계약|일정표/.test(text)) return "체크리스트";
+  return "총예산";
 }
 
 export function GuideFilterList({ guides }: { guides: Guide[] }) {

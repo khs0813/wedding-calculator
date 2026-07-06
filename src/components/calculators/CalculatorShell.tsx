@@ -24,10 +24,54 @@ const conversationPrompts: Record<CalculatorConfig["slug"], string[]> = {
   "congratulatory-money": ["관계 기준", "식사 참석", "상호성"],
 };
 
+const exampleResults: Record<CalculatorConfig["slug"], { scenario: string; result: string; note: string }> = {
+  "wedding-cost": {
+    scenario: "예상 하객 200명, 식대 7만 원, 웨딩홀 대관/패키지 300만 원, 스드메 300만 원, 혼수 1,200만 원, 신혼여행 600만 원을 입력하는 경우",
+    result: "식대 1,400만 원을 포함해 주요 항목 합계는 약 3,500만 원입니다. 하객 1인당 예상 축의금을 5만 원으로 보면 예상 회수액은 1,000만 원입니다.",
+    note: "예비비와 예물·청첩장·스냅 등 추가 항목 입력에 따라 실제 부담 예상 금액이 달라집니다.",
+  },
+  "newlywed-home-budget": {
+    scenario: "전세보증금 2억 원, 대출금 1억 2천만 원, 월 관리비 20만 원, 가전·가구·이사 등 초기 비용 1,500만 원을 입력하는 경우",
+    result: "초기 현금 필요액은 보증금에서 대출금을 뺀 8,000만 원에 초기 비용 1,500만 원을 더한 약 9,500만 원입니다.",
+    note: "대출 월 상환액은 금리와 대출기간을 입력하면 월 고정 주거비에 함께 반영됩니다.",
+  },
+  "wedding-hall-cost": {
+    scenario: "예상 하객 200명, 보증 인원 180명, 식대 7만 원, 대관료 300만 원, 꽃장식 100만 원을 입력하는 경우",
+    result: "식대는 보증 인원과 예상 하객 수 중 큰 값인 200명을 기준으로 1,400만 원입니다. 대관료와 꽃장식을 더하면 웨딩홀 예상 비용은 약 1,800만 원입니다.",
+    note: "부가세와 봉사료가 별도인 견적이면 최종 결제액은 더 커질 수 있습니다.",
+  },
+  "studio-dress-makeup-cost": {
+    scenario: "스튜디오 120만 원, 드레스 150만 원, 메이크업 80만 원, 원본·앨범·헬퍼비 등 추가 옵션 100만 원을 입력하는 경우",
+    result: "기본 패키지는 350만 원, 추가 옵션은 100만 원으로 스드메 예상 총액은 약 450만 원입니다.",
+    note: "원본 파일, 드레스 추가금, 출장비는 계약 조건에 따라 별도 청구될 수 있습니다.",
+  },
+  "honsu-budget": {
+    scenario: "냉장고 250만 원, 세탁기 180만 원, 침대 200만 원, 소파 150만 원, 주방·생활용품 100만 원을 입력하는 경우",
+    result: "가전·가구·생활용품을 합친 혼수 예상 비용은 약 880만 원입니다.",
+    note: "목표 예산을 입력하면 예산 초과 또는 잔여 금액을 함께 확인할 수 있습니다.",
+  },
+  "wedding-gift-budget": {
+    scenario: "결혼반지 200만 원, 예물 시계 300만 원, 양가 선물 200만 원, 한복 100만 원을 입력하는 경우",
+    result: "예물·가족 선물 예상 총액은 약 800만 원입니다.",
+    note: "신랑 측·신부 측 예상 예산은 단순 참고 배분이며 실제 부담 방식은 양가 협의에 따라 달라집니다.",
+  },
+  "honeymoon-budget": {
+    scenario: "항공 200만 원, 숙박 250만 원, 식비 100만 원, 액티비티 80만 원, 쇼핑 100만 원, 2명 5일 여행을 입력하는 경우",
+    result: "신혼여행 예상 총액은 약 730만 원이고, 1인당 약 365만 원, 1일 평균 약 146만 원입니다.",
+    note: "환전 예산과 현지 지출을 중복 입력하지 않도록 사용 목적을 나눠 입력하세요.",
+  },
+  "congratulatory-money": {
+    scenario: "친한 친구, 친밀도 높음, 식사 참석, 동반자 없음, 수도권 기준으로 선택하는 경우",
+    result: "관계와 참석 조건을 반영해 1만 원 단위로 반올림한 참고용 축의금 범위를 표시합니다.",
+    note: "추천 금액은 강제 기준이 아니며 본인의 재정 상황과 관계를 함께 고려해야 합니다.",
+  },
+};
+
 export function CalculatorShell({ config }: { config: CalculatorConfig }) {
   const content = calculatorContent[config.slug];
   const relatedGuides = guides.filter((guide) => content.relatedGuideSlugs.includes(guide.slug));
   const prompts = conversationPrompts[config.slug];
+  const example = exampleResults[config.slug];
 
   return (
     <div className="calculator-page mx-auto w-full max-w-6xl overflow-hidden px-4 py-10">
@@ -171,6 +215,16 @@ export function CalculatorShell({ config }: { config: CalculatorConfig }) {
 
         <Card className="p-6 md:p-8">
           <SectionBlocks sections={content.sections} />
+        </Card>
+
+        <Card className="p-6 md:p-8">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">예시</p>
+          <h2 className="mt-2 text-2xl font-semibold text-foreground">예시 결과</h2>
+          <div className="mt-4 space-y-3 text-sm leading-7 text-muted-foreground">
+            <p>{example.scenario}</p>
+            <p className="rounded-2xl border border-border bg-muted p-4 font-semibold text-foreground">{example.result}</p>
+            <p>{example.note}</p>
+          </div>
         </Card>
 
         <Card className="p-6 md:p-8">

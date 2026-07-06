@@ -26,7 +26,7 @@ const contentTypes = new Map([
 
 const securityHeaders = {
   "Content-Security-Policy-Report-Only":
-    "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; img-src 'self' data: https:; font-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' https:; connect-src 'self' https:; frame-src https:; upgrade-insecure-requests",
+    "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; img-src 'self' data: https:; font-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' https:; connect-src 'self' https:; frame-src https:",
   "Referrer-Policy": "strict-origin-when-cross-origin",
   "X-Content-Type-Options": "nosniff",
   "X-Frame-Options": "DENY",
@@ -74,7 +74,7 @@ function sendFile(res, filePath, statusCode, pathname = "") {
   const contentType = contentTypes.get(extension) || "application/octet-stream";
   const isCrawlerControlFile = pathname === "/robots.txt" || pathname === "/sitemap.xml";
   const extraHeaders = pathname === "/summary" || pathname === "/summary/"
-    ? { "X-Robots-Tag": "noindex,follow" }
+    ? { "X-Robots-Tag": "noindex, follow" }
     : {};
 
   res.writeHead(statusCode, {
