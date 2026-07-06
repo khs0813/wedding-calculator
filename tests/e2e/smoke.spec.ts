@@ -36,6 +36,10 @@ async function expectXlsxDownload(downloadPath: string) {
   expect(buffer.toString("utf8")).toContain("[Content_Types].xml");
 }
 
+async function fillLabeledInput(page: Page, label: string, value: string) {
+  await page.getByLabel(label, { exact: true }).fill(value);
+}
+
 test("public pages, calculators, storage, summary, share URL, and XLSX download work", async ({ browser, context, page }, testInfo) => {
   await context.grantPermissions(["clipboard-read", "clipboard-write"]);
 
@@ -93,6 +97,36 @@ test("public pages, calculators, storage, summary, share URL, and XLSX download 
   page.once("dialog", (dialog) => dialog.accept());
   await page.getByRole("button", { name: "초기화" }).click();
   await expect(page.getByText("저장된 계산 결과가 아직 없습니다.")).toBeVisible();
+});
+
+test("calculator formulas cover wedding hall guest boundary and newlywed home cash flow", async ({ page }) => {
+  await page.goto("/calculators/wedding-hall-cost/");
+  await fillLabeledInput(page, "보증 인원", "150");
+  await fillLabeledInput(page, "예상 하객 수", "120");
+  await fillLabeledInput(page, "식대 1인당 비용", "70000");
+  await fillLabeledInput(page, "대관료", "1000000");
+  await expect(page.getByText("10,500,000원").first()).toBeVisible();
+  await expect(page.getByLabel("핵심 지표").getByText("150명 기준")).toBeVisible();
+  await expect(page.getByText("11,500,000원").first()).toBeVisible();
+
+  await page.goto("/calculators/newlywed-home-budget/");
+  await fillLabeledInput(page, "전세보증금 또는 매매가", "300000000");
+  await fillLabeledInput(page, "월세", "500000");
+  await fillLabeledInput(page, "관리비", "200000");
+  await fillLabeledInput(page, "인테리어 비용", "0");
+  await fillLabeledInput(page, "가전 구매 비용", "10000000");
+  await fillLabeledInput(page, "가구 구매 비용", "5000000");
+  await page.locator("summary").filter({ hasText: "상세 항목 열기" }).click();
+  await fillLabeledInput(page, "이사 비용", "1000000");
+  await fillLabeledInput(page, "입주청소 비용", "500000");
+  await fillLabeledInput(page, "인터넷/TV 설치비", "100000");
+  await fillLabeledInput(page, "생활용품 초기 구매비", "1000000");
+  await fillLabeledInput(page, "대출금", "200000000");
+  await fillLabeledInput(page, "대출금리", "0");
+  await fillLabeledInput(page, "대출기간", "20");
+  await expect(page.getByText("117,600,000원").first()).toBeVisible();
+  await expect(page.getByText("1,533,333원").first()).toBeVisible();
+  await expect(page.getByText("833,333원").first()).toBeVisible();
 });
 
 test("SEO controls expose summary noindex and trailing-slash canonical redirects", async ({ request }) => {
