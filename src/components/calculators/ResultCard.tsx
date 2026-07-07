@@ -47,7 +47,7 @@ export function ResultCard({
       <CardContent className="space-y-4">
         <div className="rounded-2xl border border-border bg-muted p-5">
           <p className="text-sm font-semibold text-muted-foreground">예상 총액</p>
-          <p className="mt-2 text-4xl font-semibold tracking-tight text-foreground md:text-5xl">{formatCurrency(result.total)}</p>
+          <p className="mt-2 text-[clamp(1.9rem,9vw,3rem)] font-semibold tracking-tight text-foreground [overflow-wrap:anywhere]">{formatCurrency(result.total)}</p>
           <p className="mt-2 text-sm font-bold text-muted-foreground">{result.primaryLabel}</p>
         </div>
         <div className="grid gap-3 sm:grid-cols-2">

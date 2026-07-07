@@ -527,9 +527,9 @@ export function CalculatorClient({ config }: { config: CalculatorConfig }) {
       ) : null}
 
       {hasMeaningfulInput ? (
-        <div className="no-print fixed inset-x-3 bottom-3 z-40 rounded-2xl border border-border bg-background/95 p-3 shadow-sm backdrop-blur lg:hidden">
+        <div className="no-print fixed inset-x-3 bottom-[calc(env(safe-area-inset-bottom)+0.75rem)] z-40 rounded-2xl border border-border bg-background/95 p-3 shadow-sm backdrop-blur lg:hidden">
           <div className="flex items-center justify-between gap-3">
-            <p className="min-w-0 text-sm font-semibold text-foreground">
+            <p className="min-w-0 truncate text-sm font-semibold text-foreground">
               예상 총액 <span className="text-foreground">{formatCurrency(result.total)}</span>
               {mobileSecondarySummary ? <span className="text-muted-foreground"> · 결과 보기</span> : null}
             </p>

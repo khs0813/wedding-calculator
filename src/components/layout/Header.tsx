@@ -11,8 +11,8 @@ const nav = [
 export function Header() {
   return (
     <header className="no-print sticky top-0 z-40 border-b bg-background/95 backdrop-blur">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
-        <Link href="/" className="text-lg font-bold tracking-tight">
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-4">
+        <Link href="/" className="min-w-0 text-lg font-bold tracking-tight">
           웨딩 예산 계산기
         </Link>
         <nav className="hidden items-center gap-6 md:flex" aria-label="주요 메뉴">
@@ -29,7 +29,10 @@ export function Header() {
           계산 시작
         </Link>
       </div>
-      <nav className="mx-auto flex max-w-6xl gap-2 overflow-x-auto px-4 pb-3 md:hidden" aria-label="모바일 주요 메뉴">
+      <nav
+        className="mx-auto flex max-w-6xl gap-2 overflow-x-auto px-4 pb-3 [scrollbar-width:none] md:hidden [&::-webkit-scrollbar]:hidden"
+        aria-label="모바일 주요 메뉴"
+      >
         {nav.map((item) => (
           <Link
             key={item.href}
@@ -39,6 +42,7 @@ export function Header() {
             {item.label}
           </Link>
         ))}
+        <span className="w-2 shrink-0" aria-hidden="true" />
       </nav>
     </header>
   );

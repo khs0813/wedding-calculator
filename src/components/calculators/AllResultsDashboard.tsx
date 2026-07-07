@@ -158,7 +158,7 @@ function getRowStatus(row: DashboardRow) {
 
 function ResultsTable({ rows }: { rows: DashboardRow[] }) {
   return (
-    <div className="table-scroll overflow-x-auto">
+    <div className="table-scroll hidden overflow-x-auto md:block">
       <table className="w-full min-w-[840px] border-collapse text-sm">
         <caption className="sr-only">브라우저에 저장된 계산기별 예산 결과 요약</caption>
         <thead>
@@ -192,6 +192,43 @@ function ResultsTable({ rows }: { rows: DashboardRow[] }) {
           ))}
         </tbody>
       </table>
+    </div>
+  );
+}
+
+function MobileResultsList({ rows }: { rows: DashboardRow[] }) {
+  return (
+    <div className="space-y-3 md:hidden">
+      {rows.map((row) => (
+        <article key={`mobile-${row.config.slug}`} className="rounded-2xl border border-border bg-card p-4">
+          <div className="flex items-start justify-between gap-3">
+            <div className="min-w-0">
+              <h3 className="font-semibold text-foreground">{row.config.shortTitle}</h3>
+              <p className="mt-1 text-xs text-muted-foreground">{row.filledFields}개 항목 입력</p>
+            </div>
+            <StatusBadge row={row} />
+          </div>
+          <dl className="mt-4 space-y-3 text-sm">
+            <div className="flex items-start justify-between gap-3">
+              <dt className="text-muted-foreground">합계</dt>
+              <dd className="text-right font-semibold text-foreground">{formatCurrency(row.result.total)}</dd>
+            </div>
+            {row.result.summary.slice(0, 2).map((summary) => (
+              <div key={summary.label} className="flex items-start justify-between gap-3">
+                <dt className="text-muted-foreground">{summary.label}</dt>
+                <dd className="max-w-[55%] text-right font-medium text-foreground">{summary.value}</dd>
+              </div>
+            ))}
+          </dl>
+          <Link
+            href={row.config.path}
+            className="mt-4 inline-flex min-h-10 w-full items-center justify-center gap-2 rounded-xl border border-border bg-background px-4 py-2 text-sm font-semibold text-foreground"
+          >
+            계산기로 이동
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </Link>
+        </article>
+      ))}
     </div>
   );
 }
@@ -301,6 +338,7 @@ export function SummaryResultsTableCard() {
                 저장된 계산 결과가 아직 없습니다. 개별 계산기를 입력하면 현재 브라우저에만 저장되고 이 표에 표시됩니다.
               </p>
             ) : null}
+            <MobileResultsList rows={rows} />
             <ResultsTable rows={rows} />
           </>
         ) : (

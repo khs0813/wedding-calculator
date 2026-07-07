@@ -112,10 +112,10 @@ export default function HomePage() {
         <div className="mx-auto grid max-w-6xl gap-8 px-4 py-16 md:py-24 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
           <div className="max-w-3xl">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">결혼 예산 계산</p>
-            <h1 className="mt-5 text-4xl font-bold leading-tight tracking-tight md:text-6xl">
-              <span className="block whitespace-nowrap">우리 결혼 예산과</span>
-              <span className="block whitespace-nowrap">신혼 준비 비용을 함께</span>
-              <span className="block whitespace-nowrap">정리하세요.</span>
+            <h1 className="mt-5 text-[clamp(2.1rem,9vw,3.75rem)] font-bold leading-tight tracking-tight">
+              <span className="block">우리 결혼 예산과</span>
+              <span className="block">신혼 준비 비용을</span>
+              <span className="block">함께 정리하세요.</span>
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">
               결혼 비용, 신혼집 예산, 웨딩홀, 스드메, 혼수, 예물, 신혼여행, 축의금까지 한 흐름으로 계산하고 비교하세요.
