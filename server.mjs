@@ -1,10 +1,10 @@
-import { createReadStream, existsSync, statSync } from "node:fs";
+import { createReadStream, existsSync, readFileSync, statSync } from "node:fs";
 import { extname, join, normalize } from "node:path";
 import { createServer } from "node:http";
 
 const rootDir = join(process.cwd(), "out");
 const port = Number(process.env.PORT || 3000);
-const canonicalSiteUrl = process.env.NEXT_PUBLIC_SITE_URL ? new URL(process.env.NEXT_PUBLIC_SITE_URL) : null;
+const canonicalSiteUrl = new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://weddingbudget.co.kr");
 
 const contentTypes = new Map([
   [".html", "text/html; charset=utf-8"],
@@ -73,11 +73,72 @@ function isPagePathWithoutTrailingSlash(pathname) {
   return pathname !== "/" && !pathname.endsWith("/") && !extname(pathname);
 }
 
-function sendFile(res, filePath, statusCode, pathname = "") {
+function isLocalHostname(hostname) {
+  return ["localhost", "127.0.0.1", "::1"].includes(hostname);
+}
+
+function forwardedProtocol(req) {
+  const value = req.headers["x-forwarded-proto"];
+  if (!value) {
+    return null;
+  }
+
+  return (Array.isArray(value) ? value[0] : value).split(",")[0]?.trim() || null;
+}
+
+function canonicalPathname(pathname) {
+  return isPagePathWithoutTrailingSlash(pathname) ? `${pathname}/` : pathname;
+}
+
+function canonicalRedirectLocation(req, pathname) {
+  const requestUrl = new URL(req.url || "/", "http://localhost");
+  const targetPathname = canonicalPathname(pathname);
+  const host = req.headers.host?.split(":")[0];
+  const protocol = forwardedProtocol(req);
+  const shouldUseCanonicalOrigin =
+    host &&
+    !isLocalHostname(host) &&
+    (host !== canonicalSiteUrl.hostname ||
+      (protocol !== null && protocol !== canonicalSiteUrl.protocol.replace(":", "")));
+  const shouldUseCanonicalPath = targetPathname !== pathname;
+
+  if (!shouldUseCanonicalOrigin && !shouldUseCanonicalPath) {
+    return null;
+  }
+
+  const targetPathAndQuery = `${targetPathname}${requestUrl.search}`;
+  return shouldUseCanonicalOrigin ? `${canonicalSiteUrl.origin}${targetPathAndQuery}` : targetPathAndQuery;
+}
+
+function isHtmlPageResponse(filePath, pathname) {
+  return extname(filePath).toLowerCase() === ".html" && !extname(pathname);
+}
+
+function shouldNoindexRequest(pathname, search) {
+  if (pathname === "/summary" || pathname === "/summary/") {
+    return true;
+  }
+
+  return Boolean(search) && !extname(pathname);
+}
+
+function withRobotsMeta(html, content) {
+  const robotsMeta = `<meta name="robots" content="${content}"/>`;
+  const replaced = html.replace(/<meta\s+name=["']robots["']\s+content=["'][^"']*["']\s*\/?>/i, robotsMeta);
+
+  if (replaced !== html) {
+    return replaced;
+  }
+
+  return html.replace(/<head>/i, `<head>${robotsMeta}`);
+}
+
+function sendFile(res, filePath, statusCode, pathname = "", search = "") {
   const extension = extname(filePath).toLowerCase();
   const contentType = contentTypes.get(extension) || "application/octet-stream";
   const isCrawlerControlFile = pathname === "/robots.txt" || pathname === "/sitemap.xml";
-  const extraHeaders = pathname === "/summary" || pathname === "/summary/"
+  const shouldNoindex = statusCode === 200 && isHtmlPageResponse(filePath, pathname) && shouldNoindexRequest(pathname, search);
+  const extraHeaders = shouldNoindex
     ? { "X-Robots-Tag": "noindex, follow" }
     : {};
 
@@ -87,31 +148,21 @@ function sendFile(res, filePath, statusCode, pathname = "") {
     ...securityHeaders,
     ...extraHeaders,
   });
+
+  if (shouldNoindex) {
+    res.end(withRobotsMeta(readFileSync(filePath, "utf8"), "noindex, follow"));
+    return;
+  }
+
   createReadStream(filePath).pipe(res);
 }
 
 createServer((req, res) => {
-  const host = req.headers.host?.split(":")[0];
-  if (
-    canonicalSiteUrl &&
-    host &&
-    host.endsWith(".onrender.com") &&
-    host !== canonicalSiteUrl.hostname
-  ) {
-    res.writeHead(301, {
-      Location: `${canonicalSiteUrl.origin}${req.url || "/"}`,
-      ...securityHeaders,
-    });
-    res.end();
-    return;
-  }
-
   const pathname = safePathname(req.url);
-
-  if (isPagePathWithoutTrailingSlash(pathname)) {
-    const requestUrl = new URL(req.url || "/", "http://localhost");
+  const redirectLocation = canonicalRedirectLocation(req, pathname);
+  if (redirectLocation) {
     res.writeHead(301, {
-      Location: `${pathname}/${requestUrl.search}`,
+      Location: redirectLocation,
       ...securityHeaders,
     });
     res.end();
@@ -121,7 +172,8 @@ createServer((req, res) => {
   const matchedFile = resolveFile(pathname);
 
   if (matchedFile) {
-    sendFile(res, matchedFile, 200, pathname);
+    const requestUrl = new URL(req.url || "/", "http://localhost");
+    sendFile(res, matchedFile, 200, pathname, requestUrl.search);
     return;
   }
 

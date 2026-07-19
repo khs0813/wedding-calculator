@@ -60,13 +60,13 @@ export function GET() {
     },
     {
       title: "결혼·신혼 예산 계산기 모음",
-      path: "/calculators",
+      path: "/calculators/",
       description: "결혼 비용, 신혼집 예산, 웨딩홀, 스드메, 혼수, 신혼여행, 축의금 계산기를 한곳에서 확인하세요.",
       updatedAt: "2026-07-04",
     },
     {
       title: "결혼 준비 예산 가이드 모음",
-      path: "/guides",
+      path: "/guides/",
       description: "결혼 준비 비용과 신혼 예산을 현실적으로 정리하기 위한 가이드와 체크리스트를 확인하세요.",
       updatedAt: "2026-07-04",
     },

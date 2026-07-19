@@ -5,6 +5,7 @@ import { guides } from "@/data/guides";
 import type { CalculatorSlug, FAQItem, Guide, GuideSlug, RichSection } from "@/types/calculator";
 
 const defaultOpenGraphImage = "/og-default.png";
+const canonicalSiteUrl = "https://weddingbudget.co.kr";
 
 const calculatorSeoCopy: Partial<Record<CalculatorSlug, { title: string; description: string }>> = {
   "wedding-cost": {
@@ -145,7 +146,7 @@ const guideFaqsBySlug: Partial<Record<GuideSlug, FAQItem[]>> = {
 };
 
 export function getSiteUrl(): string {
-  return getSafeSiteUrl(process.env.NEXT_PUBLIC_SITE_URL);
+  return getSafeSiteUrl(canonicalSiteUrl);
 }
 
 export function absoluteUrl(path: string): string {

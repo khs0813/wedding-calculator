@@ -3,7 +3,7 @@ import type { SiteContentPage } from "@/types/calculator";
 export const sitePages: SiteContentPage[] = [
   {
     slug: "about",
-    path: "/about",
+    path: "/about/",
     title: "웨딩 예산 계산기 소개",
     description: "웨딩 예산 계산기가 어떤 문제를 해결하려고 만들었는지, 어떤 범위의 정보를 제공하는지 소개합니다.",
     summary: "결혼 준비 예산을 숫자 도구와 해설 콘텐츠로 함께 정리하려는 사이트 목적, 제공 범위, 제공하지 않는 기능을 설명하는 소개 페이지입니다.",
@@ -46,7 +46,7 @@ export const sitePages: SiteContentPage[] = [
   },
   {
     slug: "editorial-policy",
-    path: "/editorial-policy",
+    path: "/editorial-policy/",
     title: "콘텐츠 편집 기준",
     description: "웨딩 예산 계산기의 가이드와 계산기 해설 콘텐츠를 어떤 기준으로 작성하고 업데이트하는지 설명합니다.",
     summary: "가이드와 계산기 해설 콘텐츠를 실제 의사결정 중심으로 작성하고, 계산기 구조와 맞는지 검토하며, 변동 가능성이 큰 정보는 업데이트하는 기준을 설명합니다.",
@@ -88,7 +88,7 @@ export const sitePages: SiteContentPage[] = [
   },
   {
     slug: "methodology",
-    path: "/methodology",
+    path: "/methodology/",
     title: "계산 기준과 운영 방법",
     description: "각 계산기가 어떤 가정과 계산 기준으로 동작하는지, 입력값을 어떻게 해석하는지 설명합니다.",
     summary: "계산기가 참고용 비교 도구라는 점, 입력값 해석 방식, 대표 계산 규칙, 브라우저 저장 기반 운영 방식을 한곳에 정리한 방법론 페이지입니다.",

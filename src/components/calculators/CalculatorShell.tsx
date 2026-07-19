@@ -131,7 +131,7 @@ export function CalculatorShell({ config }: { config: CalculatorConfig }) {
           },
           buildBreadcrumbSchema([
             { name: "홈", path: "/" },
-            { name: "계산기", path: "/calculators" },
+            { name: "계산기", path: "/calculators/" },
             { name: config.shortTitle, path: config.path },
           ]),
           buildFaqSchema(config.faqs),
@@ -156,7 +156,7 @@ export function CalculatorShell({ config }: { config: CalculatorConfig }) {
               <ArrowDown className="h-4 w-4" aria-hidden="true" />
               바로 계산하기
             </a>
-            <Link href="/methodology" className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-border bg-card px-5 py-2.5 text-sm font-semibold text-foreground transition hover:bg-secondary">
+            <Link href="/methodology/" className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-border bg-card px-5 py-2.5 text-sm font-semibold text-foreground transition hover:bg-secondary">
               계산 기준 보기
             </Link>
           </div>
@@ -235,7 +235,7 @@ export function CalculatorShell({ config }: { config: CalculatorConfig }) {
             <p>기본값과 예시 프리셋은 예산 계획을 돕기 위한 예시이며 실제 시장 평균을 보장하지 않습니다. 기준일은 이 페이지의 최종 업데이트일인 {content.updatedAt}입니다.</p>
             <p>정확한 비용은 계약 전 업체 견적서와 포함·제외 항목을 기준으로 확인하세요.</p>
           </div>
-          <Link href="/methodology" className="mt-5 inline-flex min-h-11 items-center rounded-xl border border-border bg-card px-5 py-2.5 text-sm font-semibold text-foreground transition hover:bg-secondary">
+          <Link href="/methodology/" className="mt-5 inline-flex min-h-11 items-center rounded-xl border border-border bg-card px-5 py-2.5 text-sm font-semibold text-foreground transition hover:bg-secondary">
             계산 방법론 확인
           </Link>
         </Card>

@@ -41,9 +41,9 @@ export function LegalPageShell({ page }: { page: LegalPage }) {
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">관련 페이지</p>
           <h2 className="mt-2 text-2xl font-semibold text-foreground">함께 확인할 페이지</h2>
           <div className="mt-5 flex flex-wrap gap-3 text-sm font-semibold text-foreground">
-            <Link href="/about">사이트 소개</Link>
-            <Link href="/editorial-policy">편집 기준</Link>
-            <Link href="/contact">문의사항</Link>
+            <Link href="/about/">사이트 소개</Link>
+            <Link href="/editorial-policy/">편집 기준</Link>
+            <Link href="/contact/">문의사항</Link>
           </div>
         </div>
       </section>

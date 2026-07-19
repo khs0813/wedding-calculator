@@ -42,9 +42,9 @@ export function ContentPageShell({ page }: { page: SiteContentPage }) {
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">관련 페이지</p>
           <h2 className="mt-2 text-2xl font-semibold text-foreground">함께 보면 좋은 페이지</h2>
           <div className="mt-5 flex flex-wrap gap-3 text-sm font-semibold text-foreground">
-            <Link href="/guides">예산 가이드 모음</Link>
-            <Link href="/methodology">계산 기준과 운영 방법</Link>
-            <Link href="/contact">문의사항</Link>
+            <Link href="/guides/">예산 가이드 모음</Link>
+            <Link href="/methodology/">계산 기준과 운영 방법</Link>
+            <Link href="/contact/">문의사항</Link>
           </div>
         </div>
       </section>

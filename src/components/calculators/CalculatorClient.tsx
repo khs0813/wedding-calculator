@@ -472,7 +472,7 @@ export function CalculatorClient({ config }: { config: CalculatorConfig }) {
               <Link href="#budget-insights" className="inline-flex min-h-11 items-center justify-center rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90">
                 결과 자세히 보기
               </Link>
-              <Link href="/summary" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-border bg-card px-5 py-2.5 text-sm font-semibold text-foreground transition hover:bg-secondary">
+              <Link href="/summary/" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-border bg-card px-5 py-2.5 text-sm font-semibold text-foreground transition hover:bg-secondary">
                 <LayoutDashboard className="h-4 w-4" aria-hidden="true" />
                 내 예산표
               </Link>

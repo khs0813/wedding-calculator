@@ -3,7 +3,7 @@ import type { CalculatorConfig } from "@/types/calculator";
 export const calculators: CalculatorConfig[] = [
   {
     slug: "wedding-cost",
-    path: "/calculators/wedding-cost",
+    path: "/calculators/wedding-cost/",
     title: "결혼 비용 계산기 - 결혼 준비 비용 총정리",
     shortTitle: "결혼 비용 계산기",
     description: "웨딩홀, 식대, 스드메, 예물, 혼수, 신혼여행 비용을 입력하면 결혼 준비 총 예산과 실제 부담 예상 금액을 계산합니다.",
@@ -36,7 +36,7 @@ export const calculators: CalculatorConfig[] = [
   },
   {
     slug: "newlywed-home-budget",
-    path: "/calculators/newlywed-home-budget",
+    path: "/calculators/newlywed-home-budget/",
     title: "신혼집 예산 계산기 - 신혼집 준비 비용 계산",
     shortTitle: "신혼집 예산 계산기",
     description: "전세보증금·매매가와 대출 월상환액, 월세, 관리비, 이사·입주청소, 가전·가구 구매비를 분리해 신혼집 초기 현금과 매월 주거비를 계산합니다.",
@@ -68,7 +68,7 @@ export const calculators: CalculatorConfig[] = [
   },
   {
     slug: "wedding-hall-cost",
-    path: "/calculators/wedding-hall-cost",
+    path: "/calculators/wedding-hall-cost/",
     title: "웨딩홀 비용 계산기 - 식대·대관료 총액 계산",
     shortTitle: "웨딩홀 비용 계산기",
     description: "보증 인원과 예상 하객 수 중 실제 청구 기준을 반영하고, 식대·대관료·꽃장식·부가세·봉사료를 더해 웨딩홀 최소 부담액과 순부담액을 계산합니다.",
@@ -98,7 +98,7 @@ export const calculators: CalculatorConfig[] = [
   },
   {
     slug: "studio-dress-makeup-cost",
-    path: "/calculators/studio-dress-makeup-cost",
+    path: "/calculators/studio-dress-makeup-cost/",
     title: "스드메 비용 계산기 - 스튜디오·드레스·메이크업 가격 계산",
     shortTitle: "스드메 비용 계산기",
     description: "스튜디오·드레스·메이크업 기본 패키지와 헬퍼비, 원본 구매비, 앨범·액자 업그레이드, 출장비를 나눠 스드메 옵션 비중을 계산합니다.",
@@ -128,7 +128,7 @@ export const calculators: CalculatorConfig[] = [
   },
   {
     slug: "honsu-budget",
-    path: "/calculators/honsu-budget",
+    path: "/calculators/honsu-budget/",
     title: "혼수 비용 계산기 - 신혼 가전·가구 예산 계산",
     shortTitle: "혼수 비용 계산기",
     description: "냉장고, 세탁기, 건조기, TV, 에어컨, 침대, 소파 등 신혼 가전과 가구 예산을 항목별로 계산합니다.",
@@ -162,7 +162,7 @@ export const calculators: CalculatorConfig[] = [
   },
   {
     slug: "wedding-gift-budget",
-    path: "/calculators/wedding-gift-budget",
+    path: "/calculators/wedding-gift-budget/",
     title: "예물 예산 계산기 - 결혼 예물 비용 계산",
     shortTitle: "예물 예산 계산기",
     description: "결혼반지, 예물 시계, 가방, 보석, 양가 선물, 한복 등 예물 예산을 항목별로 계산합니다.",
@@ -189,7 +189,7 @@ export const calculators: CalculatorConfig[] = [
   },
   {
     slug: "honeymoon-budget",
-    path: "/calculators/honeymoon-budget",
+    path: "/calculators/honeymoon-budget/",
     title: "신혼여행 예산 계산기 - 허니문 비용 계산",
     shortTitle: "신혼여행 예산 계산기",
     description: "항공권과 숙박비, 현지 교통·식비·액티비티·쇼핑, 여행자보험·환전·비상금을 합산해 신혼여행 총액과 1인당·1일 평균 비용을 계산합니다.",
@@ -220,7 +220,7 @@ export const calculators: CalculatorConfig[] = [
   },
   {
     slug: "congratulatory-money",
-    path: "/calculators/congratulatory-money",
+    path: "/calculators/congratulatory-money/",
     title: "하객 축의금 참고 - 관계별 결혼식 축의금 범위",
     shortTitle: "하객 축의금 참고",
     description: "하객 입장에서 가족, 친척, 친구, 직장동료, 거래처 등 관계와 식사 참석 여부를 입력해 참고용 축의금 범위를 계산합니다.",

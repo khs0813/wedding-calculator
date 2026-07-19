@@ -57,7 +57,7 @@ export default function GuidesIndexPage() {
           },
           buildBreadcrumbSchema([
             { name: "홈", path: "/" },
-            { name: "가이드", path: "/guides" },
+            { name: "가이드", path: "/guides/" },
           ]),
         ]}
       />

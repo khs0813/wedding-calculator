@@ -33,25 +33,25 @@ const stageChoices = [
   {
     title: "전체 예산을 먼저 잡기",
     description: "결혼식과 신혼 준비에 들어가는 큰 비용을 한 번에 정리합니다.",
-    href: "/calculators/wedding-cost",
+    href: "/calculators/wedding-cost/",
     icon: Sparkles,
   },
   {
     title: "웨딩홀 상담 전 확인",
     description: "보증 인원, 식대, 대관료 기준으로 상담 전 금액을 계산합니다.",
-    href: "/calculators/wedding-hall-cost",
+    href: "/calculators/wedding-hall-cost/",
     icon: Landmark,
   },
   {
     title: "신혼집 예산 확인",
     description: "초기 현금, 대출, 월 고정비, 입주 비용을 분리해 봅니다.",
-    href: "/calculators/newlywed-home-budget",
+    href: "/calculators/newlywed-home-budget/",
     icon: Home,
   },
   {
     title: "신혼여행 예산 정하기",
     description: "항공, 숙박, 현지 지출과 1일 평균 비용을 확인합니다.",
-    href: "/calculators/honeymoon-budget",
+    href: "/calculators/honeymoon-budget/",
     icon: Plane,
   },
 ];
@@ -71,7 +71,7 @@ export default function CalculatorsPage() {
           },
           buildBreadcrumbSchema([
             { name: "홈", path: "/" },
-            { name: "계산기", path: "/calculators" },
+            { name: "계산기", path: "/calculators/" },
           ]),
           {
             "@context": "https://schema.org",
@@ -95,14 +95,14 @@ export default function CalculatorsPage() {
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
           <Link
-            href="/calculators/wedding-cost"
+            href="/calculators/wedding-cost/"
             className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-primary px-5 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             대표 계산기 시작
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
           <Link
-            href="/summary"
+            href="/summary/"
             className="inline-flex h-11 items-center justify-center rounded-xl border bg-background px-5 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             내 예산표 보기

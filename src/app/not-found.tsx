@@ -20,10 +20,10 @@ export default function NotFound() {
         <Link href="/" className="inline-flex rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground hover:bg-primary/90">
           홈으로 이동
         </Link>
-        <Link href="/guides" className="inline-flex rounded-xl border border-border bg-card px-6 py-3 text-sm font-semibold text-foreground hover:bg-secondary">
+        <Link href="/guides/" className="inline-flex rounded-xl border border-border bg-card px-6 py-3 text-sm font-semibold text-foreground hover:bg-secondary">
           가이드 보기
         </Link>
-        <Link href="/calculators/wedding-cost" className="inline-flex rounded-xl border border-border bg-card px-6 py-3 text-sm font-semibold text-foreground hover:bg-secondary">
+        <Link href="/calculators/wedding-cost/" className="inline-flex rounded-xl border border-border bg-card px-6 py-3 text-sm font-semibold text-foreground hover:bg-secondary">
           대표 계산기 열기
         </Link>
       </div>

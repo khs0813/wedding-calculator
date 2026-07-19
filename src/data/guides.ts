@@ -31,7 +31,7 @@ const housingLoanSource: GuideSource = {
 const baseGuides: Guide[] = [
   {
     slug: "wedding-cost-guide",
-    path: "/guides/wedding-cost-guide",
+    path: "/guides/wedding-cost-guide/",
     title: "결혼 준비 비용은 얼마나 들까?",
     description: "결혼 준비 비용을 웨딩홀, 스드메, 예물, 혼수, 신혼여행, 기타 비용으로 나누어 현실적으로 예산을 세우는 방법을 안내합니다.",
     keywords: ["결혼 준비 비용", "결혼 비용", "결혼 예산", "웨딩 비용"],
@@ -67,7 +67,7 @@ const baseGuides: Guide[] = [
   },
   {
     slug: "newlywed-budget-guide",
-    path: "/guides/newlywed-budget-guide",
+    path: "/guides/newlywed-budget-guide/",
     title: "신혼집 준비 예산은 어떻게 잡아야 할까?",
     description: "신혼집 보증금, 월세, 관리비, 대출 상환액, 인테리어, 가전·가구, 생활용품 예산을 현실적으로 세우는 방법입니다.",
     keywords: ["신혼집 준비 비용", "신혼집 예산", "신혼부부 집 예산", "신혼 가전 가구"],
@@ -105,7 +105,7 @@ const baseGuides: Guide[] = [
   },
   {
     slug: "wedding-saving-tips",
-    path: "/guides/wedding-saving-tips",
+    path: "/guides/wedding-saving-tips/",
     title: "결혼 비용을 줄이는 현실적인 방법",
     description: "웨딩홀, 스드메, 혼수, 신혼여행, 예물 비용을 무리 없이 줄이는 현실적인 예산 절약 팁을 정리했습니다.",
     keywords: ["결혼 비용 줄이기", "웨딩 비용 절약", "결혼 예산 절약", "스드메 절약"],
@@ -141,7 +141,7 @@ const baseGuides: Guide[] = [
   },
   {
     slug: "wedding-hall-checklist",
-    path: "/guides/wedding-hall-checklist",
+    path: "/guides/wedding-hall-checklist/",
     title: "웨딩홀 상담 전에 꼭 확인할 체크리스트",
     description: "웨딩홀 상담 전후에 확인해야 할 보증 인원, 식대, 세금, 봉사료, 포함 품목을 정리했습니다.",
     keywords: ["웨딩홀 체크리스트", "웨딩홀 상담", "웨딩홀 식대", "보증 인원"],
@@ -175,7 +175,7 @@ const baseGuides: Guide[] = [
   },
   {
     slug: "sdme-options-guide",
-    path: "/guides/sdme-options-guide",
+    path: "/guides/sdme-options-guide/",
     title: "스드메 추가 옵션은 어디서 예산이 커질까?",
     description: "스드메 상담에서 기본 패키지 외에 자주 붙는 추가 옵션, 드레스 추가금, 원본 구매비, 헬퍼비 판단 기준을 정리했습니다.",
     keywords: ["스드메 옵션", "스드메 추가금", "드레스 추가금", "원본 구매비"],
@@ -209,7 +209,7 @@ const baseGuides: Guide[] = [
   },
   {
     slug: "wedding-gift-negotiation-guide",
-    path: "/guides/wedding-gift-negotiation-guide",
+    path: "/guides/wedding-gift-negotiation-guide/",
     title: "예물·예단 비용은 어떻게 합의해야 할까?",
     description: "예물과 예단 예산을 둘러싼 기준 차이를 줄이기 위해 금액보다 먼저 정해야 할 합의 포인트를 정리했습니다.",
     keywords: ["예물 예산", "예단 비용", "양가 합의", "결혼 예물"],
@@ -242,7 +242,7 @@ const baseGuides: Guide[] = [
   },
   {
     slug: "honsu-priority-guide",
-    path: "/guides/honsu-priority-guide",
+    path: "/guides/honsu-priority-guide/",
     title: "혼수는 무엇부터 사고 무엇은 나중에 사도 될까?",
     description: "신혼집 입주 직후 필요한 혼수와 생활하면서 추가해도 되는 품목을 나누는 기준을 정리했습니다.",
     keywords: ["혼수 우선순위", "가전 가구 예산", "신혼 혼수", "입주 준비"],
@@ -275,7 +275,7 @@ const baseGuides: Guide[] = [
   },
   {
     slug: "honeymoon-destination-budget-guide",
-    path: "/guides/honeymoon-destination-budget-guide",
+    path: "/guides/honeymoon-destination-budget-guide/",
     title: "신혼여행 예산은 여행지보다 구성비가 더 중요합니다",
     description: "여행지 선택보다 항공권, 숙박, 식비, 액티비티, 쇼핑 구성비를 어떻게 나눌지 판단하는 기준을 설명합니다.",
     keywords: ["신혼여행 예산", "허니문 비용", "여행 예산 구성", "항공권 숙박 예산"],
@@ -308,7 +308,7 @@ const baseGuides: Guide[] = [
   },
   {
     slug: "congratulatory-money-etiquette-guide",
-    path: "/guides/congratulatory-money-etiquette-guide",
+    path: "/guides/congratulatory-money-etiquette-guide/",
     title: "축의금은 얼마가 적당할까? 관계별 판단 기준",
     description: "축의금 금액을 절대값이 아니라 관계, 친밀도, 식사 참석, 개인 상황에 따라 판단하는 기준을 정리했습니다.",
     keywords: ["축의금 기준", "축의금 얼마", "결혼식 예절", "관계별 축의금"],
@@ -341,7 +341,7 @@ const baseGuides: Guide[] = [
   },
   {
     slug: "wedding-budget-timeline-guide",
-    path: "/guides/wedding-budget-timeline-guide",
+    path: "/guides/wedding-budget-timeline-guide/",
     title: "결혼 준비 예산은 일정표와 같이 봐야 합니다",
     description: "예산 초과를 줄이기 위해 결혼 준비 일정을 계약 시점과 지출 시점 기준으로 나누어 관리하는 방법을 안내합니다.",
     keywords: ["결혼 준비 일정", "예산 일정표", "계약 시점", "지출 관리"],
@@ -374,7 +374,7 @@ const baseGuides: Guide[] = [
   },
   {
     slug: "small-wedding-budget-guide",
-    path: "/guides/small-wedding-budget-guide",
+    path: "/guides/small-wedding-budget-guide/",
     title: "스몰웨딩 예산도 정말 더 저렴할까?",
     description: "스몰웨딩이 무조건 저렴하다고 보기 어려운 이유와, 어떤 항목에서 비용 차이가 생기는지 설명합니다.",
     keywords: ["스몰웨딩 예산", "작은 결혼식", "하객 수", "웨딩 비용 비교"],
@@ -407,7 +407,7 @@ const baseGuides: Guide[] = [
   },
   {
     slug: "newlywed-loan-planning-guide",
-    path: "/guides/newlywed-loan-planning-guide",
+    path: "/guides/newlywed-loan-planning-guide/",
     title: "신혼집 대출은 얼마까지가 아니라 얼마를 갚을 수 있는지가 중요합니다",
     description: "신혼집 대출 계획을 세울 때 월 상환액, 금리 변화, 입주 후 추가 지출을 함께 보는 방법을 정리했습니다.",
     keywords: ["신혼집 대출", "월 상환액", "주거비 계획", "대출 예산"],
@@ -440,7 +440,7 @@ const baseGuides: Guide[] = [
   },
   {
     slug: "wedding-contract-check-guide",
-    path: "/guides/wedding-contract-check-guide",
+    path: "/guides/wedding-contract-check-guide/",
     title: "결혼 준비 계약서에서 예산과 직결되는 항목은 무엇일까?",
     description: "웨딩홀, 스드메, 혼수, 여행 계약에서 예산 초과를 만드는 조건과 확인 포인트를 정리했습니다.",
     keywords: ["결혼 계약서", "웨딩 계약", "추가금", "예산 초과"],
@@ -473,7 +473,7 @@ const baseGuides: Guide[] = [
   },
   {
     slug: "wedding-guest-budget-table-guide",
-    path: "/guides/wedding-guest-budget-table-guide",
+    path: "/guides/wedding-guest-budget-table-guide/",
     title: "하객 100명·150명·200명 예산표는 어떻게 달라질까?",
     description: "하객 수가 100명, 150명, 200명일 때 웨딩홀 식대와 전체 예산 구조가 어떻게 달라지는지 비교용 표 기준으로 정리했습니다.",
     keywords: ["하객 100명 예산", "하객 150명 예산", "하객 200명 예산", "웨딩 예산표"],
@@ -509,7 +509,7 @@ const baseGuides: Guide[] = [
   },
   {
     slug: "wedding-hall-meal-cost-table-guide",
-    path: "/guides/wedding-hall-meal-cost-table-guide",
+    path: "/guides/wedding-hall-meal-cost-table-guide/",
     title: "웨딩홀 식대별 총비용은 어떻게 비교해야 할까?",
     description: "웨딩홀 식대가 5만 원, 7만 원, 9만 원대일 때 총비용 차이를 하객 수와 함께 비교하는 기준을 설명합니다.",
     keywords: ["웨딩홀 식대", "식대별 총비용", "웨딩홀 총비용", "보증 인원 계산"],
@@ -545,7 +545,7 @@ const baseGuides: Guide[] = [
   },
   {
     slug: "sdme-extra-cost-table-guide",
-    path: "/guides/sdme-extra-cost-table-guide",
+    path: "/guides/sdme-extra-cost-table-guide/",
     title: "스드메 추가금은 어디에서 많이 붙을까?",
     description: "드레스 추가금, 원본 구매비, 헬퍼비, 앨범 업그레이드처럼 스드메 총액을 키우는 대표 추가금을 표 기준으로 정리했습니다.",
     keywords: ["스드메 추가금", "드레스 추가금", "원본 구매비", "헬퍼비"],
@@ -581,7 +581,7 @@ const baseGuides: Guide[] = [
   },
   {
     slug: "newlywed-home-initial-cost-guide",
-    path: "/guides/newlywed-home-initial-cost-guide",
+    path: "/guides/newlywed-home-initial-cost-guide/",
     title: "신혼집 초기비용은 어디까지 잡아야 할까?",
     description: "보증금 외에 이사비, 중개비, 입주청소, 커튼, 가전·가구까지 포함한 신혼집 초기비용 범위를 정리했습니다.",
     keywords: ["신혼집 초기비용", "입주 초기비용", "신혼집 예산표", "이사비용"],
@@ -617,7 +617,7 @@ const baseGuides: Guide[] = [
   },
   {
     slug: "appliance-budget-table-guide",
-    path: "/guides/appliance-budget-table-guide",
+    path: "/guides/appliance-budget-table-guide/",
     title: "혼수 가전 예산표는 어떻게 짜야 할까?",
     description: "냉장고, 세탁기, 건조기, TV, 청소기처럼 신혼집 가전 예산을 필수·선택 품목으로 나누는 기준을 정리했습니다.",
     keywords: ["혼수 가전 예산", "가전 예산표", "신혼 가전", "혼수 우선순위"],
@@ -653,7 +653,7 @@ const baseGuides: Guide[] = [
   },
   {
     slug: "honeymoon-budget-ratio-guide",
-    path: "/guides/honeymoon-budget-ratio-guide",
+    path: "/guides/honeymoon-budget-ratio-guide/",
     title: "신혼여행 예산 구성비는 어떻게 나눠야 할까?",
     description: "항공, 숙소, 식비, 이동, 액티비티, 쇼핑 예산을 어떤 비율로 나눌지 목적별로 판단하는 기준을 정리했습니다.",
     keywords: ["신혼여행 예산 구성비", "허니문 예산", "항공 숙소 비중", "신혼여행 식비"],
@@ -689,7 +689,7 @@ const baseGuides: Guide[] = [
   },
   {
     slug: "congratulatory-money-table-guide",
-    path: "/guides/congratulatory-money-table-guide",
+    path: "/guides/congratulatory-money-table-guide/",
     title: "축의금 관계별 판단표는 어떻게 봐야 할까?",
     description: "친구, 직장 동료, 친척, 가까운 지인처럼 관계별로 축의금 기준을 정할 때 고려할 요소를 표 형태로 정리했습니다.",
     keywords: ["축의금 판단표", "관계별 축의금", "친구 축의금", "직장 동료 축의금"],

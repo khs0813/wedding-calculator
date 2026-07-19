@@ -54,7 +54,7 @@ export default function SummaryPage() {
           },
           buildBreadcrumbSchema([
             { name: "홈", path: "/" },
-            { name: "내 예산표", path: "/summary" },
+            { name: "내 예산표", path: "/summary/" },
           ]),
         ]}
       />

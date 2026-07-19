@@ -396,7 +396,7 @@ export default async function GuidePage({ params }: PageProps) {
           },
           buildBreadcrumbSchema([
             { name: "홈", path: "/" },
-            { name: "가이드", path: "/guides" },
+            { name: "가이드", path: "/guides/" },
             { name: guide.title, path: guide.path },
           ]),
           buildFaqSchema(faqs),
@@ -416,8 +416,8 @@ export default async function GuidePage({ params }: PageProps) {
           <p><span className="font-semibold text-foreground">수정</span> {guide.updatedAt}</p>
         </div>
         <div className="mt-5 flex flex-wrap gap-3 text-sm font-semibold text-foreground">
-          <Link href="/guides" className="underline decoration-border underline-offset-4">가이드 전체 보기</Link>
-          <Link href="/methodology" className="underline decoration-border underline-offset-4">계산 기준 보기</Link>
+          <Link href="/guides/" className="underline decoration-border underline-offset-4">가이드 전체 보기</Link>
+          <Link href="/methodology/" className="underline decoration-border underline-offset-4">계산 기준 보기</Link>
         </div>
       </div>
 

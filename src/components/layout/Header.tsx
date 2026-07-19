@@ -1,11 +1,11 @@
 import Link from "next/link";
 
 const nav = [
-  { href: "/calculators", label: "계산기" },
-  { href: "/summary", label: "내 예산표" },
-  { href: "/guides", label: "가이드" },
-  { href: "/methodology", label: "계산 기준" },
-  { href: "/contact", label: "문의" },
+  { href: "/calculators/", label: "계산기" },
+  { href: "/summary/", label: "내 예산표" },
+  { href: "/guides/", label: "가이드" },
+  { href: "/methodology/", label: "계산 기준" },
+  { href: "/contact/", label: "문의" },
 ];
 
 export function Header() {
@@ -23,7 +23,7 @@ export function Header() {
           ))}
         </nav>
         <Link
-          href="/calculators/wedding-cost"
+          href="/calculators/wedding-cost/"
           className="inline-flex h-9 items-center justify-center whitespace-nowrap rounded-xl bg-primary px-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
         >
           계산 시작

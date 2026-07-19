@@ -63,7 +63,8 @@ if (!guides.length) {
 }
 
 function expectedUrl(route) {
-  return route === "/" ? `${baseUrl}/` : `${baseUrl}${route}/`;
+  const pageRoute = route === "/" ? "/" : route.endsWith("/") ? route : `${route}/`;
+  return `${baseUrl}${pageRoute}`;
 }
 
 function exportFileForRoute(route) {
@@ -219,7 +220,7 @@ if (!existsSync(rssPath)) {
 }
 
 const serverFile = readFileSync("server.mjs", "utf8");
-if (!serverFile.includes("isPagePathWithoutTrailingSlash") || !serverFile.includes("Location: `${pathname}/${requestUrl.search}`")) {
+if (!serverFile.includes("canonicalRedirectLocation") || !serverFile.includes("canonicalPathname") || !serverFile.includes("X-Robots-Tag")) {
   errors.push("server.mjs trailing slash 301 redirect missing");
 }
 for (const requiredHeader of [

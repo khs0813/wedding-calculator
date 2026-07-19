@@ -82,12 +82,12 @@ Start Command: npm run start
 
 ### 배포·색인 안정성 체크
 
-- `NEXT_PUBLIC_SITE_URL`은 `https://weddingbudget.co.kr`처럼 실제 커스텀 도메인 origin으로 설정합니다.
-- 이 값은 canonical, sitemap, robots.txt, Open Graph URL의 기준 URL입니다.
-- `server.mjs`는 `*.onrender.com` 호스트로 들어온 요청을 `NEXT_PUBLIC_SITE_URL` origin으로 301 redirect합니다.
+- canonical, sitemap, robots.txt, Open Graph URL의 기준 origin은 `https://weddingbudget.co.kr`로 고정합니다.
+- `NEXT_PUBLIC_SITE_URL`도 같은 origin으로 설정해 `server.mjs`의 host redirect 기준과 일치시킵니다.
+- `server.mjs`는 non-canonical host와 slash 없는 페이지 URL을 `https://weddingbudget.co.kr/.../` 형식으로 301 redirect합니다.
 - `/robots.txt`는 정적 export 파일로 생성되며 `text/plain`으로 서빙됩니다.
 - `/sitemap.xml`은 정적 export 파일로 생성되며 `application/xml`로 서빙됩니다.
-- Render Free Web Service를 쓰면 휴면 후 첫 요청 지연으로 robots/sitemap 확인이 불안정할 수 있습니다. AdSense·Search Console 신청 전에는 유료 인스턴스, Render Static Site, 또는 robots/sitemap을 항상 즉시 응답하는 정적 호스팅을 사용하세요.
+- Render Free Web Service를 쓰면 휴면 후 첫 요청 지연으로 robots/sitemap 확인이 불안정할 수 있습니다. Search Console 제출 전에는 상시 응답 가능한 Web Service 또는 동등하게 redirect/header를 제어할 수 있는 호스팅을 사용하세요.
 - Search Console URL Inspection에서 `/`, `/calculators/wedding-cost/`, `/calculators/newlywed-home-budget/`, `/calculators/wedding-hall-cost/`, `/guides/`, 핵심 가이드 5개를 확인합니다.
 - URL Inspection 기준은 `Crawled successfully`, `Indexing allowed`, `User-declared canonical` 정상, `Google-selected canonical`이 커스텀 도메인 URL과 동일한지입니다.
 
@@ -113,7 +113,7 @@ AFFILIATE_CLEANING_URL=#
 AFFILIATE_INTERNET_URL=#
 ```
 
-`NEXT_PUBLIC_SITE_URL`은 실제 배포 도메인으로 반드시 바꾸는 것이 좋습니다. 이 값은 canonical URL, sitemap, robots.txt, Open Graph URL 생성에 사용됩니다.
+`NEXT_PUBLIC_SITE_URL`은 `https://weddingbudget.co.kr`로 유지합니다. canonical URL, sitemap, robots.txt, Open Graph URL은 코드에서 이 production origin으로 고정되어 있고, 이 환경변수는 서버 redirect 기준과 일치해야 합니다.
 
 AdSense 신청 전에는 `NEXT_PUBLIC_ADSENSE_CLIENT_ID`에 `ca-pub-...` 값을 넣어 사이트 검토 스크립트가 모든 페이지의 `<head>`에 포함되도록 합니다. `ADSENSE_PUBLISHER_ID`에는 `pub-...` 값을 넣으면 빌드 시 `/ads.txt`가 `google.com, pub-..., DIRECT, f08c47fec0942fa0` 형식으로 생성됩니다. 승인 전에는 `NEXT_PUBLIC_ADSENSE_APPROVED=false`를 유지하고, 승인 후 광고 슬롯을 운영할 때 `true`로 전환합니다.
 

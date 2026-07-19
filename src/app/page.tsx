@@ -52,25 +52,25 @@ const stageChoices = [
   {
     title: "전체 예산부터 잡고 싶어요",
     description: "웨딩홀, 스드메, 혼수, 여행까지 한 번에 큰 흐름을 봅니다.",
-    href: "/calculators/wedding-cost",
+    href: "/calculators/wedding-cost/",
     icon: Sparkles,
   },
   {
     title: "웨딩홀 상담을 앞두고 있어요",
     description: "보증 인원, 식대, 대관료 기준으로 상담 전 금액을 확인합니다.",
-    href: "/calculators/wedding-hall-cost",
+    href: "/calculators/wedding-hall-cost/",
     icon: Landmark,
   },
   {
     title: "신혼집 비용이 가장 걱정돼요",
     description: "보증금, 대출, 월 고정비, 입주 비용을 분리해 봅니다.",
-    href: "/calculators/newlywed-home-budget",
+    href: "/calculators/newlywed-home-budget/",
     icon: Home,
   },
   {
     title: "신혼여행 예산을 정해야 해요",
     description: "항공, 숙박, 현지 지출과 1일 평균 비용을 확인합니다.",
-    href: "/calculators/honeymoon-budget",
+    href: "/calculators/honeymoon-budget/",
     icon: Plane,
   },
 ];
@@ -122,14 +122,14 @@ export default function HomePage() {
             </p>
             <div className="mt-8 flex max-w-2xl flex-col gap-3 sm:flex-row">
               <Link
-                href="/calculators/wedding-cost"
+                href="/calculators/wedding-cost/"
                 className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-primary px-5 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 계산 시작
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
               <Link
-                href="/summary"
+                href="/summary/"
                 className="inline-flex h-11 items-center justify-center rounded-xl border bg-background px-5 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 내 예산표 보기
@@ -209,7 +209,7 @@ export default function HomePage() {
             <h2 className="mt-2 text-3xl font-bold tracking-tight">예산 계산기</h2>
           </div>
           <Link
-            href="/summary"
+            href="/summary/"
             className="inline-flex h-11 items-center justify-center rounded-xl border bg-background px-5 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             내 예산표

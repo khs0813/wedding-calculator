@@ -18,7 +18,7 @@ export function Footer() {
                 {calculator.shortTitle}
               </Link>
             ))}
-            <Link href="/calculators" className="font-medium text-foreground">
+            <Link href="/calculators/" className="font-medium text-foreground">
               전체 계산기 보기
             </Link>
           </div>
@@ -26,12 +26,12 @@ export function Footer() {
         <div>
           <h3 className="font-semibold">도움말</h3>
           <div className="mt-3 flex flex-col gap-2 text-sm text-muted-foreground">
-            <Link href="/guides">가이드</Link>
-            <Link href={guides[0]?.path ?? "/guides"}>추천 가이드</Link>
-            <Link href="/contact">문의</Link>
-            <Link href="/privacy">개인정보처리방침</Link>
-            <Link href="/terms">이용약관</Link>
-            <Link href="/disclaimer">면책고지</Link>
+            <Link href="/guides/">가이드</Link>
+            <Link href={guides[0]?.path ?? "/guides/"}>추천 가이드</Link>
+            <Link href="/contact/">문의</Link>
+            <Link href="/privacy/">개인정보처리방침</Link>
+            <Link href="/terms/">이용약관</Link>
+            <Link href="/disclaimer/">면책고지</Link>
           </div>
         </div>
       </div>

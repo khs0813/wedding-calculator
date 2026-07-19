@@ -17,7 +17,7 @@ export type LegalPage = {
 export const legalPages: LegalPage[] = [
   {
     slug: "privacy",
-    path: "/privacy",
+    path: "/privacy/",
     title: "개인정보 처리방침",
     description: "웨딩 예산 계산기의 개인정보 처리 기준, 브라우저 저장 방식, 공유 URL과 엑셀 다운로드 이용 시 유의사항을 안내합니다.",
     summary: "개인정보를 서버 DB에 수집하지 않고, 계산기 입력값은 브라우저 저장소와 공유 URL 범위에서만 처리한다는 점을 중심으로 설명하는 정책 페이지입니다.",
@@ -69,7 +69,7 @@ export const legalPages: LegalPage[] = [
   },
   {
     slug: "terms",
-    path: "/terms",
+    path: "/terms/",
     title: "이용약관",
     description: "웨딩 예산 계산기 이용 조건, 계산 결과의 참고 범위, 브라우저 저장값 관리와 사용자 책임에 대한 기본 안내입니다.",
     summary: "서비스 목적, 참고용 계산 결과의 범위, 공유 URL과 파일 관리 책임, 기능 변경 가능성을 한 페이지에서 정리한 약관 문서입니다.",
@@ -117,7 +117,7 @@ export const legalPages: LegalPage[] = [
   },
   {
     slug: "disclaimer",
-    path: "/disclaimer",
+    path: "/disclaimer/",
     title: "면책고지",
     description: "웨딩 예산 계산기의 계산 결과와 예산 정보가 참고용 자료임을 안내하고 실제 계약과 지출 결정 시 유의할 사항을 설명합니다.",
     summary: "계산 결과의 한계와 전문 조언이 아니라는 점, 외부 자료와 링크 사용 시 책임 범위를 명확히 안내하는 면책 페이지입니다.",
@@ -158,7 +158,7 @@ export const legalPages: LegalPage[] = [
   },
   {
     slug: "contact",
-    path: "/contact",
+    path: "/contact/",
     title: "문의사항",
     description: "웨딩 예산 계산기 이용 중 오류 제보, 개선 제안, 개인정보 및 정책 관련 문의를 보낼 수 있는 연락처 안내입니다.",
     summary: "오류 제보, 개선 제안, 정책 문의를 보낼 수 있는 공식 연락 채널과 문의 시 함께 보내면 좋은 정보 범위를 안내합니다.",

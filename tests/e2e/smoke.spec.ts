@@ -59,7 +59,7 @@ test("public pages, calculators, storage, summary, share URL, and XLSX download 
   }
 
   await page.goto("/summary/");
-  await expect(page.getByText("입력됨")).toHaveCount(calculators.length);
+  await expect(page.locator("table").getByText("입력됨")).toHaveCount(calculators.length);
 
   await page.goto(calculators[0].path);
   await applyPresetAndExpectResult(page, calculators[0].preset);
