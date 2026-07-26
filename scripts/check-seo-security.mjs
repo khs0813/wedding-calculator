@@ -5,7 +5,7 @@ const baseUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://weddingbudget.co.k
 const adsenseClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID?.trim();
 const adsensePublisherId = process.env.ADSENSE_PUBLISHER_ID?.trim();
 const googleSiteVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION?.trim();
-const naverSiteVerification = process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION?.trim();
+const naverSiteVerification = "7f9774b684775497fa37bf8593bbe8c004c44548";
 const routes = [
   { route: "/", inSitemap: true, index: true },
   { route: "/calculators", inSitemap: true, index: true },
@@ -141,7 +141,7 @@ if (adsenseClientId && !homeHtml.includes(`pagead/js/adsbygoogle.js?client=${ads
 if (googleSiteVerification && !homeHtml.includes(`name="google-site-verification" content="${googleSiteVerification}"`)) {
   errors.push("google-site-verification meta tag missing");
 }
-if (naverSiteVerification && !homeHtml.includes(`name="naver-site-verification" content="${naverSiteVerification}"`)) {
+if (!homeHtml.includes(`name="naver-site-verification" content="${naverSiteVerification}"`)) {
   errors.push("naver-site-verification meta tag missing");
 }
 
@@ -256,7 +256,8 @@ if (!existsSync(renderYamlPath)) {
     "runtime: node",
     "buildCommand: npm ci && npm run build -- --webpack",
     "startCommand: npm run start",
-    "weddingbudget.co.kr",
+    "NEXT_PUBLIC_SITE_URL",
+    "https://weddingbudget.co.kr",
     "renderSubdomainPolicy: disabled",
   ]) {
     if (!renderYaml.includes(requiredSnippet)) {

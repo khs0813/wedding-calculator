@@ -82,9 +82,10 @@ Start Command: npm run start
 
 ### 배포·색인 안정성 체크
 
-- canonical, sitemap, robots.txt, Open Graph URL의 기준 origin은 `https://weddingbudget.co.kr`로 고정합니다.
-- `NEXT_PUBLIC_SITE_URL`도 같은 origin으로 설정해 `server.mjs`의 host redirect 기준과 일치시킵니다.
-- `server.mjs`는 non-canonical host와 slash 없는 페이지 URL을 `https://weddingbudget.co.kr/.../` 형식으로 301 redirect합니다.
+- canonical, sitemap, robots.txt, RSS, Open Graph URL의 기준 origin은 `NEXT_PUBLIC_SITE_URL`입니다.
+- 현재 운영 도메인 origin은 `https://weddingbudget.co.kr`입니다.
+- 실제 배포 전에는 `NEXT_PUBLIC_SITE_URL`과 `render.yaml`의 `domains` 값이 같은 운영 도메인인지 확인합니다.
+- `server.mjs`는 non-canonical host와 slash 없는 페이지 URL을 `NEXT_PUBLIC_SITE_URL` 기준 URL로 301 redirect합니다.
 - `/robots.txt`는 정적 export 파일로 생성되며 `text/plain`으로 서빙됩니다.
 - `/sitemap.xml`은 정적 export 파일로 생성되며 `application/xml`로 서빙됩니다.
 - Render Free Web Service를 쓰면 휴면 후 첫 요청 지연으로 robots/sitemap 확인이 불안정할 수 있습니다. Search Console 제출 전에는 상시 응답 가능한 Web Service 또는 동등하게 redirect/header를 제어할 수 있는 호스팅을 사용하세요.
@@ -99,7 +100,6 @@ Start Command: npm run start
 NEXT_PUBLIC_SITE_URL=https://weddingbudget.co.kr
 NEXT_PUBLIC_ADSENSE_CLIENT_ID=
 NEXT_PUBLIC_ADSENSE_APPROVED=false
-NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=
 NEXT_PUBLIC_AD_SLOT_TOP=
 NEXT_PUBLIC_AD_SLOT_CONTENT=
 NEXT_PUBLIC_AD_SLOT_RESULT=
@@ -113,7 +113,9 @@ AFFILIATE_CLEANING_URL=#
 AFFILIATE_INTERNET_URL=#
 ```
 
-`NEXT_PUBLIC_SITE_URL`은 `https://weddingbudget.co.kr`로 유지합니다. canonical URL, sitemap, robots.txt, Open Graph URL은 코드에서 이 production origin으로 고정되어 있고, 이 환경변수는 서버 redirect 기준과 일치해야 합니다.
+`NEXT_PUBLIC_SITE_URL`은 실제 운영 도메인의 origin으로 설정합니다. 현재 값은 `https://weddingbudget.co.kr`입니다. canonical URL, sitemap, robots.txt, RSS, Open Graph URL은 이 값으로 생성되며, 서버 redirect 기준도 같은 값을 사용합니다.
+
+Google Search Console 소유확인은 DNS TXT 레코드 방식으로 이미 등록되어 있으므로 별도 HTML 메타태그 환경변수는 사용하지 않습니다. Naver Search Advisor 메타태그는 기존 토큰 `7f9774b684775497fa37bf8593bbe8c004c44548`을 고정 출력합니다.
 
 AdSense 신청 전에는 `NEXT_PUBLIC_ADSENSE_CLIENT_ID`에 `ca-pub-...` 값을 넣어 사이트 검토 스크립트가 모든 페이지의 `<head>`에 포함되도록 합니다. `ADSENSE_PUBLISHER_ID`에는 `pub-...` 값을 넣으면 빌드 시 `/ads.txt`가 `google.com, pub-..., DIRECT, f08c47fec0942fa0` 형식으로 생성됩니다. 승인 전에는 `NEXT_PUBLIC_ADSENSE_APPROVED=false`를 유지하고, 승인 후 광고 슬롯을 운영할 때 `true`로 전환합니다.
 

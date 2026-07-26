@@ -112,7 +112,7 @@ export default function HomePage() {
         <div className="mx-auto grid max-w-6xl gap-8 px-4 py-16 md:py-24 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
           <div className="max-w-3xl">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">결혼 예산 계산</p>
-            <h1 className="mt-5 text-[clamp(2.1rem,9vw,3.75rem)] font-bold leading-tight tracking-tight">
+            <h1 className="mt-5 text-4xl font-bold leading-tight tracking-tight sm:text-5xl md:text-6xl">
               <span className="block">우리 결혼 예산과</span>
               <span className="block">신혼 준비 비용을</span>
               <span className="block">함께 정리하세요.</span>

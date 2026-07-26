@@ -131,7 +131,7 @@ grep -R "type=\"file\"\|FileUp\|importCalculatorExcel\|getExcelImportPolicyText"
 
 ## 배포 전 필수 확인
 
-`NEXT_PUBLIC_SITE_URL`을 실제 도메인으로 설정해야 canonical, sitemap, robots.txt, Open Graph URL이 실제 도메인으로 생성됩니다.
+`NEXT_PUBLIC_SITE_URL`을 실제 도메인으로 설정해야 canonical, sitemap, robots.txt, RSS, Open Graph URL이 실제 도메인으로 생성됩니다.
 
 예시:
 

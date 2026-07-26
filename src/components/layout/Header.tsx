@@ -12,7 +12,7 @@ export function Header() {
   return (
     <header className="no-print sticky top-0 z-40 border-b bg-background/95 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-4">
-        <Link href="/" className="min-w-0 text-lg font-bold tracking-tight">
+        <Link href="/" className="flex min-h-11 min-w-0 items-center text-lg font-bold tracking-tight">
           웨딩 예산 계산기
         </Link>
         <nav className="hidden items-center gap-6 md:flex" aria-label="주요 메뉴">
@@ -24,7 +24,7 @@ export function Header() {
         </nav>
         <Link
           href="/calculators/wedding-cost/"
-          className="inline-flex h-9 items-center justify-center whitespace-nowrap rounded-xl bg-primary px-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+          className="inline-flex min-h-11 items-center justify-center whitespace-nowrap rounded-xl bg-primary px-3 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
         >
           계산 시작
         </Link>
@@ -37,7 +37,7 @@ export function Header() {
           <Link
             key={item.href}
             href={item.href}
-            className="shrink-0 rounded-xl border bg-background px-3 py-2 text-sm font-medium text-muted-foreground"
+            className="inline-flex min-h-11 shrink-0 items-center rounded-xl border bg-background px-3 py-2 text-sm font-medium text-muted-foreground"
           >
             {item.label}
           </Link>

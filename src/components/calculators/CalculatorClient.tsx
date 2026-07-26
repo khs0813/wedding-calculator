@@ -366,7 +366,7 @@ export function CalculatorClient({ config }: { config: CalculatorConfig }) {
   const mobileSecondarySummary = result.summary.find((summary) => /부담|초기|월 고정|추천|범위/.test(summary.label)) || result.summary[0];
 
   return (
-    <div id="calculator" className="calculator-workspace scroll-mt-24">
+    <div id="calculator" className={`calculator-workspace scroll-mt-24 ${hasMeaningfulInput ? "pb-24 lg:pb-0" : ""}`}>
       <div className="grid gap-8 lg:grid-cols-[minmax(22rem,0.82fr)_minmax(0,1.18fr)]">
         <section className="no-print space-y-5" aria-label="계산기 입력 영역">
           <Card>
@@ -533,7 +533,7 @@ export function CalculatorClient({ config }: { config: CalculatorConfig }) {
               예상 총액 <span className="text-foreground">{formatCurrency(result.total)}</span>
               {mobileSecondarySummary ? <span className="text-muted-foreground"> · 결과 보기</span> : null}
             </p>
-            <a href="#budget-insights" className="shrink-0 rounded-xl bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground">
+            <a href="#budget-insights" className="inline-flex min-h-11 shrink-0 items-center rounded-xl bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground">
               보기
             </a>
           </div>

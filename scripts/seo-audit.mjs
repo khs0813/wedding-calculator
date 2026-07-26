@@ -1,6 +1,7 @@
 import { writeFileSync } from "node:fs";
 
-const canonicalOrigin = "https://weddingbudget.co.kr";
+const defaultSiteUrl = "https://weddingbudget.co.kr";
+const canonicalOrigin = normalizeOrigin(process.env.NEXT_PUBLIC_SITE_URL || defaultSiteUrl);
 const googlebotUserAgent = "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)";
 const defaultUserAgent = "WeddingBudgetSEOAudit/1.0";
 const baseUrl = normalizeBaseUrl(process.argv[2] || process.env.SEO_AUDIT_BASE_URL || canonicalOrigin);
@@ -9,6 +10,10 @@ const maxRedirects = 5;
 
 const checks = [];
 const issues = [];
+
+function normalizeOrigin(value) {
+  return new URL(value).origin.replace(/\/$/, "");
+}
 
 function normalizeBaseUrl(value) {
   const parsed = new URL(value);
@@ -230,10 +235,12 @@ async function auditRedirects() {
   }
 
   if (baseUrl.origin === canonicalOrigin) {
+    const canonicalHost = new URL(canonicalOrigin).hostname;
+    const alternateHost = canonicalHost.startsWith("www.") ? canonicalHost.replace(/^www\./, "") : `www.${canonicalHost}`;
     const productionRedirects = [
-      { label: "http to https", source: "http://weddingbudget.co.kr/about", expected: `${canonicalOrigin}/about/` },
-      { label: "www to non-www", source: "https://www.weddingbudget.co.kr/about", expected: `${canonicalOrigin}/about/` },
-      { label: "http www to canonical", source: "http://www.weddingbudget.co.kr/about", expected: `${canonicalOrigin}/about/` },
+      { label: "http to https", source: `http://${canonicalHost}/about`, expected: `${canonicalOrigin}/about/` },
+      { label: "alternate host to canonical", source: `https://${alternateHost}/about`, expected: `${canonicalOrigin}/about/` },
+      { label: "http alternate host to canonical", source: `http://${alternateHost}/about`, expected: `${canonicalOrigin}/about/` },
     ];
 
     for (const item of productionRedirects) {

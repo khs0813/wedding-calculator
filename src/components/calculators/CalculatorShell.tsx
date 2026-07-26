@@ -141,7 +141,7 @@ export function CalculatorShell({ config }: { config: CalculatorConfig }) {
       <section className="mb-8 grid gap-5 rounded-2xl border border-border bg-card p-5 shadow-sm md:p-9">
         <div className="max-w-5xl">
           <p className="text-sm font-semibold uppercase tracking-[0.25em] text-muted-foreground">결혼 예산</p>
-          <h1 className="mt-2.5 max-w-full text-[clamp(1.5rem,3.8vw,2.8rem)] font-semibold leading-tight tracking-tight text-foreground [overflow-wrap:anywhere]">{config.title}</h1>
+          <h1 className="mt-2.5 max-w-full text-2xl font-semibold leading-tight tracking-tight text-foreground [overflow-wrap:anywhere] sm:text-3xl md:text-5xl">{config.title}</h1>
           <p className="mt-4 text-lg leading-8 text-muted-foreground">{config.hero}</p>
           <div className="mt-5 rounded-2xl border border-border bg-background p-5">
             <p className="text-sm font-semibold text-foreground">이 페이지 요약</p>

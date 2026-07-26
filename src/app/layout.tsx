@@ -8,7 +8,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 const adsenseClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID;
 const adsenseApproved = process.env.NEXT_PUBLIC_ADSENSE_APPROVED === "true";
 const googleSiteVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
-const naverSiteVerification = process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION || "7f9774b684775497fa37bf8593bbe8c004c44548";
+const naverSiteVerification = "7f9774b684775497fa37bf8593bbe8c004c44548";
 const siteDescription = "결혼 비용, 신혼집, 웨딩홀, 스드메, 혼수, 예물, 신혼여행 예산을 계산하는 무료 예산표입니다.";
 
 export const metadata: Metadata = {
@@ -89,7 +89,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             crossOrigin="anonymous"
           />
         ) : null}
-        {naverSiteVerification ? <meta name="naver-site-verification" content={naverSiteVerification} /> : null}
+        <meta name="naver-site-verification" content={naverSiteVerification} />
       </head>
       <body>
         <JsonLd
