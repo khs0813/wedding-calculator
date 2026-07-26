@@ -14,16 +14,34 @@ services:
         value: "true"
       - key: NEXT_PUBLIC_SITE_URL
         value: "https://weddingbudget.co.kr"
-      - key: NEXT_PUBLIC_ADSENSE_CLIENT_ID
-        value: ""
-      - key: NEXT_PUBLIC_ADSENSE_APPROVED
+      - key: NEXT_PUBLIC_ADFIT_ENABLED
         value: "false"
-      - key: NEXT_PUBLIC_AD_SLOT_TOP
-        value: ""
-      - key: NEXT_PUBLIC_AD_SLOT_CONTENT
-        value: ""
-      - key: NEXT_PUBLIC_AD_SLOT_RESULT
-        value: ""
+      - key: NEXT_PUBLIC_ADFIT_ALLOWED_HOSTS
+        value: "weddingbudget.co.kr,www.weddingbudget.co.kr"
+      - key: NEXT_PUBLIC_ADFIT_CALC_SECONDARY_ENABLED
+        value: "false"
+      - key: NEXT_PUBLIC_ADFIT_CALC_PRIMARY_M_320X100
+        value: "DAN-REPLACE-ME"
+      - key: NEXT_PUBLIC_ADFIT_CALC_PRIMARY_D_728X90
+        value: "DAN-REPLACE-ME"
+      - key: NEXT_PUBLIC_ADFIT_CALC_PRIMARY_D_300X250
+        value: "DAN-REPLACE-ME"
+      - key: NEXT_PUBLIC_ADFIT_CALC_SECONDARY_M_300X250
+        value: "DAN-REPLACE-ME"
+      - key: NEXT_PUBLIC_ADFIT_CALC_SECONDARY_D_300X250
+        value: "DAN-REPLACE-ME"
+      - key: NEXT_PUBLIC_ADFIT_HOME_AFTER_SITUATIONS_M_320X100
+        value: "DAN-REPLACE-ME"
+      - key: NEXT_PUBLIC_ADFIT_HOME_AFTER_SITUATIONS_D_728X90
+        value: "DAN-REPLACE-ME"
+      - key: NEXT_PUBLIC_ADFIT_GUIDE_HUB_M_320X100
+        value: "DAN-REPLACE-ME"
+      - key: NEXT_PUBLIC_ADFIT_GUIDE_HUB_D_728X90
+        value: "DAN-REPLACE-ME"
+      - key: NEXT_PUBLIC_ADFIT_GUIDE_MID_M_300X250
+        value: "DAN-REPLACE-ME"
+      - key: NEXT_PUBLIC_ADFIT_GUIDE_MID_D_300X250
+        value: "DAN-REPLACE-ME"
       - key: AFFILIATE_WEDDING_HALL_URL
         value: "#"
       - key: AFFILIATE_STUDIO_DRESS_MAKEUP_URL

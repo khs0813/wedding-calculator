@@ -1,11 +1,9 @@
-import { readFileSync, existsSync } from "node:fs";
+import { readFileSync, existsSync, readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
 
 const baseUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://weddingbudget.co.kr").replace(/\/$/, "");
-const adsenseClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID?.trim();
-const adsensePublisherId = process.env.ADSENSE_PUBLISHER_ID?.trim();
-const googleSiteVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION?.trim();
 const naverSiteVerification = "7f9774b684775497fa37bf8593bbe8c004c44548";
+const adFitSdkSrc = "https://t1.kakaocdn.net/kas/static/ba.min.js";
 const routes = [
   { route: "/", inSitemap: true, index: true },
   { route: "/calculators", inSitemap: true, index: true },
@@ -135,12 +133,6 @@ for (const guide of guides) {
 }
 
 const homeHtml = existsSync("out/index.html") ? readFileSync("out/index.html", "utf8") : "";
-if (adsenseClientId && !homeHtml.includes(`pagead/js/adsbygoogle.js?client=${adsenseClientId}`)) {
-  errors.push("AdSense script missing from exported HTML");
-}
-if (googleSiteVerification && !homeHtml.includes(`name="google-site-verification" content="${googleSiteVerification}"`)) {
-  errors.push("google-site-verification meta tag missing");
-}
 if (!homeHtml.includes(`name="naver-site-verification" content="${naverSiteVerification}"`)) {
   errors.push("naver-site-verification meta tag missing");
 }
@@ -148,11 +140,17 @@ if (!homeHtml.includes(`name="naver-site-verification" content="${naverSiteVerif
 const adsTxtPath = "out/ads.txt";
 if (!existsSync(adsTxtPath)) {
   errors.push("ads.txt missing from export");
-} else if (adsensePublisherId) {
+} else {
   const adsTxt = readFileSync(adsTxtPath, "utf8");
-  const expectedAdsTxt = `google.com, ${adsensePublisherId}, DIRECT, f08c47fec0942fa0`;
-  if (!adsTxt.includes(expectedAdsTxt)) errors.push("ads.txt does not contain the configured AdSense publisher ID");
+  if (/google\.com,\s*pub-/.test(adsTxt)) errors.push("ads.txt still contains an AdSense publisher entry");
 }
+
+const sourceText = readProjectText(["src", "scripts", "public", "README.md", "SECURITY_SEO_AUDIT.md", ".env.example", "render.yaml"]);
+for (const legacySnippet of ["adsby" + "google", "google" + "syndication", "Google " + "AdSense", "t1." + "daumcdn.net"]) {
+  if (sourceText.includes(legacySnippet)) errors.push(`legacy ad snippet still present: ${legacySnippet}`);
+}
+if (!sourceText.includes(adFitSdkSrc)) errors.push("AdFit SDK source missing");
+if (/DAN-(?!REPLACE-ME)[A-Za-z0-9_-]+/.test(sourceText)) errors.push("real-looking AdFit DAN ID appears to be committed");
 
 const sitemapPath = "out/sitemap.xml";
 const robotsPath = "out/robots.txt";
@@ -258,12 +256,50 @@ if (!existsSync(renderYamlPath)) {
     "startCommand: npm run start",
     "NEXT_PUBLIC_SITE_URL",
     "https://weddingbudget.co.kr",
+    "NEXT_PUBLIC_ADFIT_ENABLED",
+    "NEXT_PUBLIC_ADFIT_ALLOWED_HOSTS",
+    "NEXT_PUBLIC_ADFIT_CALC_PRIMARY_M_320X100",
     "renderSubdomainPolicy: disabled",
   ]) {
     if (!renderYaml.includes(requiredSnippet)) {
       errors.push(`render.yaml Node deployment config missing: ${requiredSnippet}`);
     }
   }
+}
+
+function readProjectText(paths) {
+  const chunks = [];
+
+  for (const path of paths) {
+    if (!existsSync(path)) continue;
+    const stat = statSync(path);
+    if (stat.isDirectory()) {
+      for (const file of walkTextFiles(path)) {
+        chunks.push(readFileSync(file, "utf8"));
+      }
+    } else {
+      chunks.push(readFileSync(path, "utf8"));
+    }
+  }
+
+  return chunks.join("\n");
+}
+
+function walkTextFiles(directory) {
+  const files = [];
+
+  for (const entry of readdirSync(directory)) {
+    const fullPath = join(directory, entry);
+    const stat = statSync(fullPath);
+    if (stat.isDirectory()) {
+      if (entry === ".next" || entry === "node_modules" || entry === ".git") continue;
+      files.push(...walkTextFiles(fullPath));
+    } else if (/\.(ts|tsx|mjs|js|json|md|txt|yaml|yml)$/.test(entry)) {
+      files.push(fullPath);
+    }
+  }
+
+  return files;
 }
 
 if (errors.length) {

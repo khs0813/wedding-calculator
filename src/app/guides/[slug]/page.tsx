@@ -11,7 +11,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { SectionBlocks } from "@/components/content/SectionBlocks";
 import { AuthorBox } from "@/components/content/AuthorBox";
 import { FAQSection } from "@/components/seo/FAQSection";
-import { AdBanner } from "@/components/monetization/AdBanner";
+import { AdFitSlot } from "@/components/monetization/AdFitSlot";
 
 const guideEnhancements: Partial<Record<GuideSlug, {
   scenarioTitle: string;
@@ -356,6 +356,7 @@ export default async function GuidePage({ params }: PageProps) {
   const faqs = createGuideFaqs(guide);
   const enhancement = guideEnhancements[guide.slug as GuideSlug];
   const tables = guideTables[guide.slug as GuideSlug] || [];
+  const showMidAd = guide.sections.length >= 4;
 
   return (
     <article className="mx-auto max-w-6xl px-4 py-10">
@@ -439,7 +440,11 @@ export default async function GuidePage({ params }: PageProps) {
       </section>
 
       <div className="mt-10 rounded-2xl border border-border bg-card p-6 shadow-sm md:p-10">
-        <SectionBlocks sections={guide.sections} />
+        <SectionBlocks
+          sections={guide.sections}
+          afterSectionIndex={showMidAd ? 2 : undefined}
+          afterSection={showMidAd ? <AdFitSlot placement="guide.mid" className="mt-16 mb-16" /> : undefined}
+        />
       </div>
 
       {tables.length ? <GuideDataTables tables={tables} /> : null}
@@ -447,7 +452,6 @@ export default async function GuidePage({ params }: PageProps) {
       {enhancement ? (
         <>
           <BudgetScenarioTable enhancement={enhancement} />
-          <AdBanner slot="content" pageKind="guide-article" label="광고" />
           <CostBreakdownExample enhancement={enhancement} />
         </>
       ) : null}

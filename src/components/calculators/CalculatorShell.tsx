@@ -11,7 +11,7 @@ import { guides } from "@/data/guides";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { SectionBlocks } from "@/components/content/SectionBlocks";
 import { AuthorBox } from "@/components/content/AuthorBox";
-import { AdBanner } from "@/components/monetization/AdBanner";
+import { CalculatorSecondaryAd } from "@/components/monetization/CalculatorSecondaryAd";
 
 const conversationPrompts: Record<CalculatorConfig["slug"], string[]> = {
   "wedding-cost": ["총액 상한", "축의금 반영 범위", "양가 협의 항목"],
@@ -240,7 +240,7 @@ export function CalculatorShell({ config }: { config: CalculatorConfig }) {
           </Link>
         </Card>
 
-        <AdBanner slot="content" pageKind="calculator" label="광고" />
+        <CalculatorSecondaryAd calculatorSlug={config.slug} />
 
         <AuthorBox author={content.author} updatedAt={content.updatedAt} />
 

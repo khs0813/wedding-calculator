@@ -4,14 +4,10 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { ProgressBar } from "@/components/calculators/ProgressBar";
 import { Lightbulb, PieChart, Table2 } from "lucide-react";
 
-export function BudgetSummary({ result, hasInput }: { result: CalculatorResult; hasInput: boolean }) {
+export function ResultDetails({ result }: { result: CalculatorResult }) {
   const visibleItems = result.items.filter((item) => item.amount > 0);
   const keySummaries = result.summary.slice(0, 3);
   const secondarySummaries = result.summary.slice(keySummaries.length);
-
-  if (!hasInput) {
-    return null;
-  }
 
   return (
     <div className="space-y-6">

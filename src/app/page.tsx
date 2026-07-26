@@ -9,6 +9,7 @@ import { FAQSection } from "@/components/seo/FAQSection";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Card, CardContent } from "@/components/ui/card";
 import { absolutePageUrl, absoluteUrl, buildBreadcrumbSchema } from "@/lib/seo";
+import { AdFitSlot } from "@/components/monetization/AdFitSlot";
 
 const homeDescription = "결혼 비용, 신혼집, 웨딩홀, 스드메, 혼수, 예물, 신혼여행 예산을 계산하는 무료 예산표입니다.";
 
@@ -200,6 +201,7 @@ export default function HomePage() {
             );
           })}
         </div>
+        <AdFitSlot placement="home.afterSituationCards" className="mt-16 mb-16" />
       </section>
 
       <section id="calculators" className="mx-auto max-w-6xl scroll-mt-24 px-4 py-10">

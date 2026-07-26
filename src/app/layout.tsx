@@ -5,9 +5,6 @@ import { Footer } from "@/components/layout/Footer";
 import { absolutePageUrl, absoluteUrl, getSiteUrl } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
 
-const adsenseClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID;
-const adsenseApproved = process.env.NEXT_PUBLIC_ADSENSE_APPROVED === "true";
-const googleSiteVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
 const naverSiteVerification = "7f9774b684775497fa37bf8593bbe8c004c44548";
 const siteDescription = "결혼 비용, 신혼집, 웨딩홀, 스드메, 혼수, 예물, 신혼여행 예산을 계산하는 무료 예산표입니다.";
 
@@ -49,11 +46,6 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
-  verification: googleSiteVerification
-    ? {
-        google: googleSiteVerification,
-      }
-    : undefined,
   alternates: {
     canonical: absolutePageUrl("/"),
     types: {
@@ -82,13 +74,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="ko">
       <head>
         <link rel="alternate" type="application/rss+xml" title="웨딩 예산 계산기 가이드 RSS" href={absoluteUrl("/rss.xml")} />
-        {adsenseApproved && adsenseClientId ? (
-          <script
-            async
-            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClientId}`}
-            crossOrigin="anonymous"
-          />
-        ) : null}
         <meta name="naver-site-verification" content={naverSiteVerification} />
       </head>
       <body>
