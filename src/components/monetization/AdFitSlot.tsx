@@ -78,8 +78,21 @@ export function AdFitSlot({ placement, active = true, className = "" }: AdFitSlo
     routeCounts[route] = (routeCounts[route] || 0) + 1;
     setShouldReserve(true);
     setSlot(resolved);
-    window.requestAnimationFrame(loadAdFitSdkOnce);
   }, [active, placement]);
+
+  useEffect(() => {
+    if (!active || !slot) {
+      return;
+    }
+
+    const adElement = wrapperRef.current?.querySelector("ins.kakao_ad_area");
+    if (!adElement) {
+      return;
+    }
+
+    const frame = window.requestAnimationFrame(loadAdFitSdkOnce);
+    return () => window.cancelAnimationFrame(frame);
+  }, [active, slot]);
 
   if (!active || !shouldReserve) {
     return null;
