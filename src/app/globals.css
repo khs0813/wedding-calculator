@@ -82,6 +82,33 @@ a {
   -webkit-overflow-scrolling: touch;
 }
 
+.adfit-slot {
+  --adfit-slot-width: 300px;
+  --adfit-slot-height: 250px;
+}
+
+.adfit-slot[data-adfit-format="horizontal"] {
+  --adfit-slot-width: 320px;
+  --adfit-slot-height: 100px;
+}
+
+.adfit-slot[data-adfit-format="rectangle"] {
+  --adfit-slot-width: 300px;
+  --adfit-slot-height: 250px;
+}
+
+.adfit-slot__inner {
+  width: var(--adfit-slot-width);
+  min-height: var(--adfit-slot-height);
+}
+
+@media (min-width: 768px) {
+  .adfit-slot[data-adfit-format="horizontal"] {
+    --adfit-slot-width: 728px;
+    --adfit-slot-height: 90px;
+  }
+}
+
 input,
 select,
 button,

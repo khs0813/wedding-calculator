@@ -33,6 +33,7 @@ export function AdFitSlot({ placement, active = true, className = "" }: AdFitSlo
   const [slot, setSlot] = useState<AdFitResolvedSlot | null>(null);
   const [shouldReserve, setShouldReserve] = useState(active && hasAdFitBuildCandidate(placement));
   const reservedSize = slot || getAdFitReservedSize(placement);
+  const slotFormat = getSlotFormat(placement, slot);
 
   useEffect(() => {
     if (!active || !hasAdFitBuildCandidate(placement)) {
@@ -90,14 +91,12 @@ export function AdFitSlot({ placement, active = true, className = "" }: AdFitSlo
       className={`adfit-slot no-print ${className}`}
       data-adfit-placement={placement}
       data-adfit-size={`${reservedSize.width}x${reservedSize.height}`}
+      data-adfit-format={slotFormat}
       aria-label="광고"
     >
       <div className="w-screen ml-[calc(50%-50vw)] mr-[calc(50%-50vw)] sm:ml-0 sm:mr-0 sm:w-full">
         <p className="mb-2 text-center text-[11px] font-medium leading-none text-muted-foreground">광고</p>
-        <div
-          className="mx-auto flex max-w-full flex-col items-center justify-start overflow-hidden"
-          style={{ width: `${reservedSize.width}px`, minHeight: `${reservedSize.height}px` }}
-        >
+        <div className="adfit-slot__inner mx-auto flex max-w-full flex-col items-center justify-start overflow-hidden">
           {slot ? (
             <ins
               className="kakao_ad_area"
@@ -111,6 +110,18 @@ export function AdFitSlot({ placement, active = true, className = "" }: AdFitSlo
       </div>
     </aside>
   );
+}
+
+function getSlotFormat(placement: AdFitPlacement, slot: AdFitResolvedSlot | null) {
+  if (slot?.width === 300 && slot.height === 250) {
+    return "rectangle";
+  }
+
+  if (placement === "calc.secondaryAfterExample" || placement === "guide.mid") {
+    return "rectangle";
+  }
+
+  return "horizontal";
 }
 
 function loadAdFitSdkOnce() {
