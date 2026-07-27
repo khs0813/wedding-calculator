@@ -65,6 +65,53 @@ function expectedUrl(route) {
   return `${baseUrl}${pageRoute}`;
 }
 
+function extractTags(html, tagName) {
+  return [...html.matchAll(new RegExp(`<${tagName}\\b[^>]*>`, "gi"))].map((match) => match[0]);
+}
+
+function attr(tag, name) {
+  const match = tag.match(new RegExp(`${name}=["']([^"']+)["']`, "i"));
+  return match?.[1] || "";
+}
+
+function canonicalLinks(html) {
+  return extractTags(html, "link")
+    .filter((tag) => attr(tag, "rel").toLowerCase().split(/\s+/).includes("canonical"))
+    .map((tag) => attr(tag, "href"));
+}
+
+function metaPropertyValues(html, property) {
+  return extractTags(html, "meta")
+    .filter((tag) => attr(tag, "property").toLowerCase() === property)
+    .map((tag) => attr(tag, "content"));
+}
+
+function isStaticOrControlPath(pathname) {
+  return (
+    pathname === "/" ||
+    pathname.startsWith("/_next/") ||
+    pathname === "/api" ||
+    pathname.startsWith("/api/") ||
+    pathname.startsWith("/.well-known/") ||
+    /\/[^/]+\.[^/]+$/.test(pathname)
+  );
+}
+
+function internalPageLinks(html) {
+  return extractTags(html, "a")
+    .map((tag) => attr(tag, "href"))
+    .filter((href) => href && !href.startsWith("#") && !href.startsWith("mailto:") && !href.startsWith("tel:"))
+    .map((href) => {
+      try {
+        return new URL(href, baseUrl);
+      } catch {
+        return null;
+      }
+    })
+    .filter((url) => url && url.origin === baseUrl)
+    .filter((url) => !isStaticOrControlPath(url.pathname));
+}
+
 function exportFileForRoute(route) {
   return route === "/" ? "out/index.html" : join("out", route, "index.html");
 }
@@ -86,11 +133,15 @@ for (const { route, index } of routes) {
   if (!/<title>[^<]{10,}<\/title>/.test(html)) errors.push(`${route}: title missing or too short`);
   if (!/<meta name="description" content="[^"]{50,}"/.test(html)) errors.push(`${route}: description missing or too short`);
   if (!/<meta name="keywords" content="[^"]{5,}"/.test(html)) errors.push(`${route}: keywords missing`);
-  if (!html.includes(`<link rel="canonical" href="${expected}"`)) errors.push(`${route}: canonical mismatch`);
+  const canonical = canonicalLinks(html);
+  if (canonical.length !== 1) errors.push(`${route}: canonical count ${canonical.length} !== 1`);
+  if (canonical[0] !== expected) errors.push(`${route}: canonical ${canonical[0] || "missing"} !== ${expected}`);
   for (const property of ["og:title", "og:description", "og:url", "og:image"]) {
     if (!html.includes(`property="${property}"`)) errors.push(`${route}: ${property} missing`);
   }
-  if (!html.includes(`property="og:url" content="${expected}"`)) errors.push(`${route}: og:url mismatch`);
+  const ogUrls = metaPropertyValues(html, "og:url");
+  if (ogUrls.length !== 1) errors.push(`${route}: og:url count ${ogUrls.length} !== 1`);
+  if (ogUrls[0] !== expected) errors.push(`${route}: og:url ${ogUrls[0] || "missing"} !== ${expected}`);
   for (const name of ["twitter:card", "twitter:title", "twitter:description", "twitter:image"]) {
     if (!html.includes(`name="${name}"`)) errors.push(`${route}: ${name} missing`);
   }
@@ -101,6 +152,12 @@ for (const { route, index } of routes) {
   if (index !== false && robotsContent.includes("noindex")) errors.push(`${route}: indexable route has noindex robots meta`);
   if (!html.includes('type="application/ld+json"')) errors.push(`${route}: JSON-LD missing`);
   if (!/<h1[\s>]/.test(html)) errors.push(`${route}: h1 missing`);
+
+  for (const link of internalPageLinks(html)) {
+    if (!link.pathname.endsWith("/")) {
+      errors.push(`${route}: internal link is not canonical: ${link.pathname}${link.search}${link.hash}`);
+    }
+  }
 }
 
 for (const guide of guides) {
@@ -163,19 +220,24 @@ if (!existsSync(sitemapPath)) {
   const sitemap = readFileSync(sitemapPath, "utf8");
   const urls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1]);
   const lastmods = [...sitemap.matchAll(/<lastmod>(.*?)<\/lastmod>/g)].map((match) => match[1]);
+  const uniqueUrls = new Set(urls);
   if (!sitemap.includes('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"')) {
     errors.push("sitemap.xml urlset namespace missing");
   }
   if (sitemap.includes("<changefreq>")) errors.push("sitemap.xml should not include changefreq");
   if (sitemap.includes("<priority>")) errors.push("sitemap.xml should not include priority");
   if (urls.length !== sitemapRoutes.length) errors.push(`sitemap URL count ${urls.length} !== ${sitemapRoutes.length}`);
+  if (urls.length !== uniqueUrls.size) errors.push(`sitemap URL list has duplicates: count ${urls.length}, unique ${uniqueUrls.size}`);
   if (lastmods.length !== urls.length) errors.push(`sitemap lastmod count ${lastmods.length} !== URL count ${urls.length}`);
   for (const lastmod of lastmods) {
     if (!/^\d{4}-\d{2}-\d{2}$/.test(lastmod)) errors.push(`sitemap invalid lastmod format: ${lastmod}`);
   }
   for (const url of urls) {
+    const parsedUrl = new URL(url);
     if (!url.startsWith(`${baseUrl}/`)) errors.push(`sitemap URL is not under canonical domain: ${url}`);
     if (url.includes("://www.")) errors.push(`sitemap URL includes www domain: ${url}`);
+    if (parsedUrl.search || parsedUrl.hash) errors.push(`sitemap URL contains query or hash: ${url}`);
+    if (parsedUrl.pathname !== "/" && !parsedUrl.pathname.endsWith("/")) errors.push(`sitemap URL is not canonical trailing slash page: ${url}`);
   }
   for (const { route } of sitemapRoutes) {
     const expected = expectedUrl(route);

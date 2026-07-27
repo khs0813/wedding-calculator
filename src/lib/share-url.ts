@@ -108,6 +108,17 @@ export function createShareHash(
   return `#state=${encodeShareData(createSafeShareValues(config, values))}`;
 }
 
+export function createShareUrl(
+  config: CalculatorConfig,
+  origin: string,
+  values: Record<string, FieldValue>,
+): string {
+  const url = new URL(config.path, origin);
+  url.search = "";
+  url.hash = createShareHash(config, values);
+  return url.toString();
+}
+
 export function getSharedDataFromLocation(location: Location): string | null {
   const hash = location.hash.startsWith("#")
     ? location.hash.slice(1)

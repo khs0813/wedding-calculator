@@ -1,11 +1,30 @@
 import type { Metadata } from "next";
-import { getSafeSiteUrl } from "@/lib/security";
 import { calculators } from "@/data/calculators";
 import { guides } from "@/data/guides";
 import type { CalculatorSlug, FAQItem, Guide, GuideSlug, RichSection } from "@/types/calculator";
 
 const defaultOpenGraphImage = "/og-default.png";
-const defaultSiteUrl = "https://weddingbudget.co.kr";
+const canonicalSiteUrl = "https://weddingbudget.co.kr";
+const trailingSlashExcludedExactPaths = new Set([
+  "/ads.txt",
+  "/apple-touch-icon.png",
+  "/favicon.ico",
+  "/favicon.svg",
+  "/manifest",
+  "/manifest.json",
+  "/manifest.webmanifest",
+  "/robots.txt",
+  "/rss.xml",
+  "/service-worker",
+  "/service-worker.js",
+  "/sitemap.xml",
+  "/sw",
+  "/sw.js",
+  "/workbox",
+  "/workbox.js",
+]);
+const trailingSlashExcludedPrefixes = ["/api", "/_next", "/static", "/assets", "/images", "/fonts", "/.well-known"];
+const fileExtensionPattern = /\/[^/]+\.[^/]+$/;
 
 const calculatorSeoCopy: Partial<Record<CalculatorSlug, { title: string; description: string }>> = {
   "wedding-cost": {
@@ -146,20 +165,39 @@ const guideFaqsBySlug: Partial<Record<GuideSlug, FAQItem[]>> = {
 };
 
 export function getSiteUrl(): string {
-  return getSafeSiteUrl(process.env.NEXT_PUBLIC_SITE_URL, defaultSiteUrl);
+  return canonicalSiteUrl;
+}
+
+export function normalizeUrlPath(path: string): string {
+  const trimmedPath = path.trim() || "/";
+  const urlInput = /^\/\//.test(trimmedPath) ? `/${trimmedPath.replace(/^\/+/, "")}` : trimmedPath;
+
+  try {
+    const parsed = new URL(urlInput, `${canonicalSiteUrl}/`);
+    return parsed.pathname.replace(/\/{2,}/g, "/") || "/";
+  } catch {
+    const pathname = urlInput.split(/[?#]/, 1)[0] || "/";
+    const normalized = pathname.startsWith("/") ? pathname : `/${pathname}`;
+    return normalized.replace(/\/{2,}/g, "/") || "/";
+  }
+}
+
+export function usesTrailingSlash(path: string): boolean {
+  const pathname = normalizeUrlPath(path);
+  if (pathname === "/") return true;
+  if (trailingSlashExcludedExactPaths.has(pathname)) return false;
+  if (trailingSlashExcludedPrefixes.some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`))) return false;
+  return !fileExtensionPattern.test(pathname);
 }
 
 export function absoluteUrl(path: string): string {
-  return `${getSiteUrl()}${path.startsWith("/") ? path : `/${path}`}`;
+  return `${getSiteUrl()}${normalizeUrlPath(path)}`;
 }
 
 export function toPagePath(path: string): string {
-  if (!path || path === "/") {
-    return "/";
-  }
-
-  const normalized = path.startsWith("/") ? path : `/${path}`;
-  return normalized.endsWith("/") ? normalized : `${normalized}/`;
+  const pathname = normalizeUrlPath(path);
+  if (!usesTrailingSlash(pathname)) return pathname;
+  return pathname === "/" ? "/" : `${pathname.replace(/\/+$/, "")}/`;
 }
 
 export function absolutePageUrl(path: string): string {

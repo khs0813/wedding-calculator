@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Link2 } from "lucide-react";
 import type { CalculatorConfig, FieldValue } from "@/types/calculator";
-import { copyText, createShareHash } from "@/lib/share-url";
+import { copyText, createShareUrl } from "@/lib/share-url";
 import { Button } from "@/components/ui/button";
 
 export function ShareButton({
@@ -20,7 +20,7 @@ export function ShareButton({
   async function handleShare() {
     onAction?.();
     window.alert("공유 URL에는 이 계산기에 입력한 숫자와 선택값만 포함됩니다. 이름, 전화번호, 이메일, 상세주소 같은 개인정보는 입력하지 마세요.");
-    const url = `${window.location.origin}${window.location.pathname}${createShareHash(config, values)}`;
+    const url = createShareUrl(config, window.location.origin, values);
     const copied = await copyText(url);
     setMessage(copied ? "공유 URL이 복사되었습니다." : url);
   }

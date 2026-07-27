@@ -4,7 +4,26 @@ import { createServer } from "node:http";
 
 const rootDir = join(process.cwd(), "out");
 const port = Number(process.env.PORT || 3000);
-const canonicalSiteUrl = new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://weddingbudget.co.kr");
+const canonicalSiteUrl = new URL("https://weddingbudget.co.kr");
+const trailingSlashExcludedExactPaths = new Set([
+  "/ads.txt",
+  "/apple-touch-icon.png",
+  "/favicon.ico",
+  "/favicon.svg",
+  "/manifest",
+  "/manifest.json",
+  "/manifest.webmanifest",
+  "/robots.txt",
+  "/rss.xml",
+  "/service-worker",
+  "/service-worker.js",
+  "/sitemap.xml",
+  "/sw",
+  "/sw.js",
+  "/workbox",
+  "/workbox.js",
+]);
+const trailingSlashExcludedPrefixes = ["/api", "/_next", "/static", "/assets", "/images", "/fonts", "/.well-known"];
 
 const contentTypes = new Map([
   [".html", "text/html; charset=utf-8"],
@@ -40,10 +59,15 @@ const securityHeaders = {
   "X-XSS-Protection": "0",
 };
 
+function parseRequestUrl(urlString = "/") {
+  const normalizedUrlString = urlString.startsWith("//") ? `/${urlString.replace(/^\/+/, "")}` : urlString;
+  return new URL(normalizedUrlString, "http://localhost");
+}
+
 function safePathname(urlString = "/") {
-  const pathname = new URL(urlString, "http://localhost").pathname;
+  const pathname = parseRequestUrl(urlString).pathname;
   const decoded = decodeURIComponent(pathname);
-  const normalizedPath = normalize(decoded).replace(/^(\.\.[/\\])+/, "");
+  const normalizedPath = normalize(decoded).replace(/^(\.\.[/\\])+/, "").replace(/\/{2,}/g, "/");
   return normalizedPath === "." ? "/" : normalizedPath;
 }
 
@@ -70,7 +94,23 @@ function resolveFile(pathname) {
 }
 
 function isPagePathWithoutTrailingSlash(pathname) {
-  return pathname !== "/" && !pathname.endsWith("/") && !extname(pathname);
+  return isHtmlPagePathname(pathname) && !pathname.endsWith("/");
+}
+
+function isHtmlPagePathname(pathname) {
+  if (pathname === "/") {
+    return true;
+  }
+
+  if (trailingSlashExcludedExactPaths.has(pathname)) {
+    return false;
+  }
+
+  if (trailingSlashExcludedPrefixes.some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`))) {
+    return false;
+  }
+
+  return !extname(pathname);
 }
 
 function isLocalHostname(hostname) {
@@ -87,11 +127,12 @@ function forwardedProtocol(req) {
 }
 
 function canonicalPathname(pathname) {
-  return isPagePathWithoutTrailingSlash(pathname) ? `${pathname}/` : pathname;
+  const normalizedPathname = pathname.replace(/\/{2,}/g, "/");
+  return isPagePathWithoutTrailingSlash(normalizedPathname) ? `${normalizedPathname}/` : normalizedPathname;
 }
 
 function canonicalRedirectLocation(req, pathname) {
-  const requestUrl = new URL(req.url || "/", "http://localhost");
+  const requestUrl = parseRequestUrl(req.url || "/");
   const targetPathname = canonicalPathname(pathname);
   const host = req.headers.host?.split(":")[0];
   const protocol = forwardedProtocol(req);
@@ -100,7 +141,7 @@ function canonicalRedirectLocation(req, pathname) {
     !isLocalHostname(host) &&
     (host !== canonicalSiteUrl.hostname ||
       (protocol !== null && protocol !== canonicalSiteUrl.protocol.replace(":", "")));
-  const shouldUseCanonicalPath = targetPathname !== pathname;
+  const shouldUseCanonicalPath = targetPathname !== requestUrl.pathname;
 
   if (!shouldUseCanonicalOrigin && !shouldUseCanonicalPath) {
     return null;

@@ -11,11 +11,11 @@ export const metadata: Metadata = {
   title: "결혼 비용 계산기 | 하객 수·축의금·스드메 포함 총예산 계산",
   description: "결혼 비용, 웨딩홀 식대, 신혼집 초기비용, 스드메 옵션, 혼수, 예물, 신혼여행, 축의금을 개인정보 없이 브라우저에서 계산합니다.",
   keywords: ["결혼 예산 계산기", "웨딩홀 식대 계산기", "스드메 비용 계산기", "신혼집 초기비용", "혼수 예산 계산기"],
-  alternates: { canonical: absolutePageUrl("/calculators") },
+  alternates: { canonical: absolutePageUrl("/calculators/") },
   openGraph: {
     title: "결혼 예산 계산기 모음",
     description: "결혼 비용, 웨딩홀 식대, 신혼집 초기비용, 스드메 옵션, 혼수, 예물, 신혼여행, 축의금 계산기를 한곳에서 선택하세요.",
-    url: absolutePageUrl("/calculators"),
+    url: absolutePageUrl("/calculators/"),
     siteName: "웨딩 예산 계산기",
     locale: "ko_KR",
     type: "website",
@@ -66,7 +66,7 @@ export default function CalculatorsPage() {
             "@type": "CollectionPage",
             name: "예산 계산기 모음",
             description: "결혼과 신혼 준비 비용 계산기 목록",
-            url: absolutePageUrl("/calculators"),
+            url: absolutePageUrl("/calculators/"),
             inLanguage: "ko-KR",
           },
           buildBreadcrumbSchema([

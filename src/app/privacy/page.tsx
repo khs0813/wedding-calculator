@@ -9,11 +9,11 @@ export const metadata: Metadata = {
   title: page?.title,
   description: page?.description,
   keywords: ["개인정보 처리방침", "웨딩 예산 계산기 개인정보", "브라우저 저장", "개인정보 보호"],
-  alternates: { canonical: absolutePageUrl("/privacy") },
+  alternates: { canonical: absolutePageUrl("/privacy/") },
   openGraph: {
     title: page?.title,
     description: page?.description,
-    url: absolutePageUrl("/privacy"),
+    url: absolutePageUrl("/privacy/"),
     siteName: "웨딩 예산 계산기",
     locale: "ko_KR",
     type: "website",

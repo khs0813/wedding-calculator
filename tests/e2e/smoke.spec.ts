@@ -137,7 +137,39 @@ test("SEO controls expose summary noindex and trailing-slash canonical redirects
 
   const sitemap = await request.get("/sitemap.xml");
   expect(sitemap.ok()).toBe(true);
-  expect(await sitemap.text()).not.toContain("/summary/");
+  const sitemapXml = await sitemap.text();
+  expect(sitemapXml).not.toContain("/summary/");
+
+  const canonicalSamples = [
+    "/contact/",
+    "/guides/newlywed-budget-guide/",
+    "/guides/wedding-saving-tips/",
+    "/guides/congratulatory-money-etiquette-guide/",
+    "/guides/congratulatory-money-table-guide/",
+    "/guides/small-wedding-budget-guide/",
+  ];
+
+  for (const pathname of canonicalSamples) {
+    const canonical = `https://weddingbudget.co.kr${pathname}`;
+    const response = await request.get(pathname);
+    expect(response.status(), pathname).toBe(200);
+    const html = await response.text();
+    expect(html.match(/<link rel="canonical"/g)?.length ?? 0, pathname).toBe(1);
+    expect(html, pathname).toContain(`<link rel="canonical" href="${canonical}"`);
+    expect(html.match(/property="og:url"/g)?.length ?? 0, pathname).toBe(1);
+    expect(html, pathname).toContain(`property="og:url" content="${canonical}"`);
+    expect(html, pathname).not.toContain("noindex");
+    expect(sitemapXml, pathname).toContain(`<loc>${canonical}</loc>`);
+
+    const slashless = pathname.replace(/\/$/, "");
+    const redirect = await request.get(slashless, { maxRedirects: 0 });
+    expect(redirect.status(), slashless).toBe(301);
+    expect(redirect.headers()["location"], slashless).toBe(pathname);
+  }
+
+  const queryRedirect = await request.get("/contact?utm_source=seo", { maxRedirects: 0 });
+  expect(queryRedirect.status()).toBe(301);
+  expect(queryRedirect.headers()["location"]).toBe("/contact/?utm_source=seo");
 
   const response = await request.get("/guides/newlywed-budget-guide", { maxRedirects: 0 });
   expect(response.status()).toBe(301);

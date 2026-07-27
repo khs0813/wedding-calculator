@@ -23,7 +23,6 @@ export const metadata: Metadata = {
   openGraph: {
     title: "웨딩 예산 계산기",
     description: siteDescription,
-    url: absolutePageUrl("/"),
     siteName: "웨딩 예산 계산기",
     locale: "ko_KR",
     type: "website",
@@ -47,7 +46,6 @@ export const metadata: Metadata = {
     follow: true,
   },
   alternates: {
-    canonical: absolutePageUrl("/"),
     types: {
       "application/rss+xml": absoluteUrl("/rss.xml"),
     },

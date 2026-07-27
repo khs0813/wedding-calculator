@@ -29,11 +29,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: toLastMod(homeUpdatedAt),
     },
     {
-      url: absolutePageUrl("/calculators"),
+      url: absolutePageUrl("/calculators/"),
       lastModified: toLastMod(calculatorsIndexUpdatedAt),
     },
     {
-      url: absolutePageUrl("/guides"),
+      url: absolutePageUrl("/guides/"),
       lastModified: toLastMod(guidesIndexUpdatedAt),
     },
     ...calculators.map((calculator) => ({

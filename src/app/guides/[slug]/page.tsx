@@ -390,7 +390,7 @@ export default async function GuidePage({ params }: PageProps) {
             name: "웨딩 예산 계산기",
             applicationCategory: "FinanceApplication",
             operatingSystem: "Web",
-            url: absolutePageUrl("/calculators"),
+            url: absolutePageUrl("/calculators/"),
             description: "결혼 준비와 신혼 준비 비용을 계산하고 예산 가이드와 함께 비교하는 무료 웹 계산기",
             inLanguage: "ko-KR",
             offers: { "@type": "Offer", price: "0", priceCurrency: "KRW" },

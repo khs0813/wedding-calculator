@@ -119,6 +119,38 @@ function metaRobots(html, name = "robots") {
     .map((tag) => attr(tag, "content"));
 }
 
+function metaProperty(html, property) {
+  return extractTags(html, "meta")
+    .filter((tag) => attr(tag, "property").toLowerCase() === property)
+    .map((tag) => attr(tag, "content"));
+}
+
+function isStaticOrControlPath(pathname) {
+  return (
+    pathname === "/" ||
+    pathname === "/api" ||
+    pathname.startsWith("/api/") ||
+    pathname.startsWith("/_next/") ||
+    pathname.startsWith("/.well-known/") ||
+    /\/[^/]+\.[^/]+$/.test(pathname)
+  );
+}
+
+function internalPageLinks(html) {
+  return extractTags(html, "a")
+    .map((tag) => attr(tag, "href"))
+    .filter((href) => href && !href.startsWith("#") && !href.startsWith("mailto:") && !href.startsWith("tel:"))
+    .map((href) => {
+      try {
+        return new URL(href, canonicalOrigin);
+      } catch {
+        return null;
+      }
+    })
+    .filter((url) => url && url.origin === canonicalOrigin)
+    .filter((url) => !isStaticOrControlPath(url.pathname));
+}
+
 function hasNoindex(value) {
   return value.toLowerCase().split(/\s*,\s*|\s+/).includes("noindex");
 }
@@ -153,17 +185,24 @@ async function auditIndexablePage(loc) {
   const normal = await tracedFetch(path);
   const bot = await tracedFetch(path, { userAgent: googlebotUserAgent });
   const canonical = canonicalLinks(normal.body);
+  const ogUrl = metaProperty(normal.body, "og:url");
   const robots = metaRobots(normal.body);
   const googlebotRobots = metaRobots(normal.body, "googlebot");
   const xRobotsTag = normal.headers["x-robots-tag"] || "";
+  const nonCanonicalInternalLinks = internalPageLinks(normal.body)
+    .filter((url) => !url.pathname.endsWith("/"))
+    .map((url) => `${url.pathname}${url.search}${url.hash}`);
 
   addCheck("sitemap URL returns 200", loc, normal.status === 200, `chain=${normal.chain.length}`, normal.status);
   addCheck("sitemap URL has no redirect", loc, normal.chain.length === 0, normal.chain.map((item) => `${item.status}->${item.location}`).join(" | "));
   addCheck("canonical count is one", loc, canonical.length === 1, `count=${canonical.length}`);
   addCheck("canonical is self", loc, canonical[0] === loc, `canonical=${canonical[0] || "missing"}`);
+  addCheck("og:url count is one", loc, ogUrl.length === 1, `count=${ogUrl.length}`);
+  addCheck("og:url equals canonical", loc, ogUrl[0] === canonical[0], `og:url=${ogUrl[0] || "missing"}, canonical=${canonical[0] || "missing"}`);
   addCheck("meta robots allows index", loc, !robots.some(hasNoindex), `robots=${robots.join(" | ") || "missing"}`);
   addCheck("googlebot noindex absent", loc, !googlebotRobots.some(hasNoindex), `googlebot=${googlebotRobots.join(" | ") || "missing"}`);
   addCheck("X-Robots-Tag noindex absent", loc, !hasNoindex(xRobotsTag), `x-robots-tag=${xRobotsTag || "missing"}`);
+  addCheck("internal links use canonical paths", loc, nonCanonicalInternalLinks.length === 0, nonCanonicalInternalLinks.join(" | ") || "ok");
   addCheck("Googlebot SEO response matches default", loc, sameSeoResponse(normal, bot), "status/canonical/robots/x-robots compared");
 }
 
@@ -224,8 +263,15 @@ async function auditQueryUrls(sitemapUrls) {
 async function auditRedirects() {
   const localRedirects = [
     { label: "trailing slash /about", source: "/about", expectedFinalPath: "/about/" },
+    { label: "trailing slash /contact", source: "/contact", expectedFinalPath: "/contact/" },
     { label: "trailing slash calculator", source: "/calculators/wedding-cost", expectedFinalPath: "/calculators/wedding-cost/" },
     { label: "trailing slash guide", source: "/guides/newlywed-budget-guide", expectedFinalPath: "/guides/newlywed-budget-guide/" },
+    { label: "trailing slash guide saving tips", source: "/guides/wedding-saving-tips", expectedFinalPath: "/guides/wedding-saving-tips/" },
+    { label: "trailing slash guide money etiquette", source: "/guides/congratulatory-money-etiquette-guide", expectedFinalPath: "/guides/congratulatory-money-etiquette-guide/" },
+    { label: "trailing slash guide money table", source: "/guides/congratulatory-money-table-guide", expectedFinalPath: "/guides/congratulatory-money-table-guide/" },
+    { label: "trailing slash guide small wedding", source: "/guides/small-wedding-budget-guide", expectedFinalPath: "/guides/small-wedding-budget-guide/" },
+    { label: "trailing slash preserves query", source: "/contact?utm_source=seo-audit", expectedFinalPath: "/contact/?utm_source=seo-audit" },
+    { label: "duplicate slash normalized", source: "/guides//wedding-saving-tips", expectedFinalPath: "/guides/wedding-saving-tips/" },
   ];
 
   for (const item of localRedirects) {
@@ -272,6 +318,8 @@ async function main() {
     const parsed = new URL(url);
     return parsed.pathname === "/" || parsed.pathname.endsWith("/");
   }));
+  addCheck("sitemap URLs have no query", "/sitemap.xml", sitemapUrls.every((url) => !new URL(url).search));
+  addCheck("sitemap URLs have no hash", "/sitemap.xml", sitemapUrls.every((url) => !new URL(url).hash));
 
   for (const loc of sitemapUrls) {
     await auditIndexablePage(loc);

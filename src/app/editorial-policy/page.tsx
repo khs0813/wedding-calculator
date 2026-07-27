@@ -9,11 +9,11 @@ export const metadata: Metadata = {
   title: page?.title,
   description: page?.description,
   keywords: ["편집 기준", "콘텐츠 정책", "웨딩 예산 계산기 운영 기준", "콘텐츠 검수"],
-  alternates: { canonical: absolutePageUrl("/editorial-policy") },
+  alternates: { canonical: absolutePageUrl("/editorial-policy/") },
   openGraph: {
     title: page?.title,
     description: page?.description,
-    url: absolutePageUrl("/editorial-policy"),
+    url: absolutePageUrl("/editorial-policy/"),
     siteName: "웨딩 예산 계산기",
     locale: "ko_KR",
     type: "website",

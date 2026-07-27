@@ -9,11 +9,11 @@ export const metadata: Metadata = {
   title: page?.title,
   description: page?.description,
   keywords: ["계산 기준", "웨딩 예산 계산 방법", "계산 로직", "운영 방법"],
-  alternates: { canonical: absolutePageUrl("/methodology") },
+  alternates: { canonical: absolutePageUrl("/methodology/") },
   openGraph: {
     title: page?.title,
     description: page?.description,
-    url: absolutePageUrl("/methodology"),
+    url: absolutePageUrl("/methodology/"),
     siteName: "웨딩 예산 계산기",
     locale: "ko_KR",
     type: "website",
