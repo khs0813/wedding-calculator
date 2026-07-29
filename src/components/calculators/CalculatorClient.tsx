@@ -30,6 +30,7 @@ import { ResetButton } from "@/components/calculators/ResetButton";
 import { InputSummary } from "@/components/calculators/InputSummary";
 import { ExcelActions } from "@/components/calculators/ExcelActions";
 import { NextCalculatorSection } from "@/components/calculators/NextCalculatorSection";
+import { SdmeQuoteComparison } from "@/components/calculators/SdmeQuoteComparison";
 import { AdFitSlot } from "@/components/monetization/AdFitSlot";
 import { ChevronDown, HeartHandshake, LayoutDashboard, ShieldCheck } from "lucide-react";
 
@@ -467,14 +468,34 @@ export function CalculatorClient({ config }: { config: CalculatorConfig }) {
             </p>
           ) : null}
           {hasMeaningfulInput ? (
-            <div className="no-print">
-              <Link href="#budget-insights" className="inline-flex min-h-11 items-center justify-center rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90">
-                결과 자세히 보기
+            <div className="no-print rounded-2xl border border-border bg-card p-4 shadow-sm">
+              <h2 className="text-lg font-semibold text-foreground">결과 저장과 공유</h2>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">현재 입력 기준과 결과 표를 파일이나 링크로 남길 수 있습니다.</p>
+              <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                <PrintButton onAction={markGeneratedAt} />
+                <ExcelActions
+                  config={config}
+                  values={values}
+                  result={result}
+                  onAction={markGeneratedAt}
+                />
+                <ShareButton config={config} values={values} onAction={markGeneratedAt} />
+                <Link href="/summary/" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-border bg-card px-5 py-2.5 text-sm font-semibold text-foreground transition hover:bg-secondary">
+                  <LayoutDashboard className="h-4 w-4" aria-hidden="true" />
+                  내 예산표에 저장
+                </Link>
+              </div>
+              <Link href="#budget-insights" className="mt-4 inline-flex min-h-11 items-center justify-center rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90">
+                예산 분석 표 보기
               </Link>
             </div>
           ) : null}
         </section>
       </div>
+
+      {config.slug === "studio-dress-makeup-cost" ? (
+        <SdmeQuoteComparison />
+      ) : null}
 
       {canShowResultAds ? (
         <AdFitSlot placement="calc.primaryAfterSummary" className="mt-16 mb-16" />
@@ -488,34 +509,14 @@ export function CalculatorClient({ config }: { config: CalculatorConfig }) {
             <p className="mt-2 text-sm leading-6 text-muted-foreground">먼저 핵심 지표를 확인하고, 큰 비중 항목과 절약 팁을 함께 보세요. 입력값 요약은 출력과 최종 검토용으로 접어 두었습니다.</p>
           </div>
           <ResultDetails result={result} />
-          <details className="rounded-2xl border border-border bg-card p-5 shadow-sm md:p-6">
+          <details className="no-print rounded-2xl border border-border bg-card p-5 shadow-sm md:p-6">
             <summary className="cursor-pointer text-lg font-semibold text-foreground">입력값 요약</summary>
             <div className="mt-5">
               <InputSummary config={config} values={values} generatedAt={generatedAt} />
             </div>
           </details>
-          <div className="no-print rounded-2xl border border-border bg-card p-5 shadow-sm md:p-6">
-            <h2 className="text-lg font-semibold text-foreground">결과 저장과 공유</h2>
-            <p className="mt-2 text-sm leading-6 text-muted-foreground">공유 URL, PDF 저장, 엑셀 내보내기로 같은 입력값과 결과를 다시 확인할 수 있습니다.</p>
-            <div className="mt-5 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-start">
-              <ShareButton config={config} values={values} onAction={markGeneratedAt} />
-              <PrintButton onAction={markGeneratedAt} />
-              <Link href="/summary/" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-border bg-card px-5 py-2.5 text-sm font-semibold text-foreground transition hover:bg-secondary">
-                <LayoutDashboard className="h-4 w-4" aria-hidden="true" />
-                내 예산표
-              </Link>
-            </div>
-            <details className="mt-5 rounded-2xl border border-border bg-card px-4 py-3">
-              <summary className="cursor-pointer text-sm font-semibold text-muted-foreground">엑셀 내보내기</summary>
-              <div className="mt-3">
-                <ExcelActions
-                  config={config}
-                  values={values}
-                  result={result}
-                  onAction={markGeneratedAt}
-                />
-              </div>
-            </details>
+          <div className="print-only">
+            <InputSummary config={config} values={values} generatedAt={generatedAt} />
           </div>
           <div className="no-print rounded-2xl border border-red-100 bg-red-50/40 p-5 shadow-sm md:p-6">
             <h2 className="text-lg font-semibold text-foreground">입력값 관리</h2>

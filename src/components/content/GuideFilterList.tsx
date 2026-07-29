@@ -129,9 +129,9 @@ export function GuideFilterList({ guides }: { guides: Guide[] }) {
               </div>
               <Link
                 href={guide.path}
-                className="mt-auto inline-flex h-11 w-fit items-center justify-center rounded-xl border bg-background px-5 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="mt-auto inline-flex min-h-11 w-fit items-center justify-center rounded-xl border bg-background px-5 py-2 text-left text-sm font-medium leading-5 transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
-                가이드 보기
+                {guide.title} 읽기
               </Link>
             </CardContent>
           </Card>

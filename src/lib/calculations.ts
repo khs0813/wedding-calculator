@@ -15,6 +15,10 @@ function b(values: Values, key: string): boolean {
   return Boolean(values[key]);
 }
 
+function requiredFlag(values: Values, key: string, fallback: boolean): boolean {
+  return values[key] === undefined ? fallback : b(values, key);
+}
+
 function item(id: string, label: string, amount: number, category: string, required?: boolean): BudgetItem {
   return { id, label, amount: safeNumber(amount), category, required };
 }
@@ -98,11 +102,14 @@ function calculateWeddingCost(values: Values): CalculatorResult {
 function calculateNewlywedHome(values: Values): CalculatorResult {
   const oneTimeItems = [
     item("homePrice", "전세보증금 또는 매매가", n(values, "homePrice"), "주거비", true),
+    item("brokerageFee", "중개비", n(values, "brokerageFee"), "초기 비용"),
     item("interiorCost", "인테리어", n(values, "interiorCost"), "초기 비용"),
     item("applianceCost", "가전 구매", n(values, "applianceCost"), "초기 비용", true),
     item("furnitureCost", "가구 구매", n(values, "furnitureCost"), "초기 비용", true),
     item("movingCost", "이사", n(values, "movingCost"), "초기 비용"),
     item("cleaningCost", "입주청소", n(values, "cleaningCost"), "초기 비용"),
+    item("curtainCost", "커튼/블라인드", n(values, "curtainCost"), "초기 비용"),
+    item("lightingCost", "조명", n(values, "lightingCost"), "초기 비용"),
     item("internetInstallCost", "인터넷/TV 설치", n(values, "internetInstallCost"), "초기 비용"),
     item("livingGoodsCost", "생활용품 초기 구매", n(values, "livingGoodsCost"), "초기 비용")
   ];
@@ -182,6 +189,7 @@ function calculateSdme(values: Values): CalculatorResult {
     item("rawFileFee", "원본 구매", n(values, "rawFileFee"), "추가 옵션"),
     item("albumExtraFee", "앨범 추가", n(values, "albumExtraFee"), "추가 옵션"),
     item("frameExtraFee", "액자 추가", n(values, "frameExtraFee"), "추가 옵션"),
+    item("earlyStartFee", "얼리스타트", n(values, "earlyStartFee"), "추가 옵션"),
     item("travelFee", "출장비", n(values, "travelFee"), "추가 옵션"),
     item("etcOptionFee", "기타 옵션", n(values, "etcOptionFee"), "추가 옵션")
   ];
@@ -214,26 +222,27 @@ function calculateSdme(values: Values): CalculatorResult {
 
 function calculateHonsu(values: Values): CalculatorResult {
   const items = [
-    item("fridge", "냉장고", n(values, "fridge"), "가전", true),
-    item("washer", "세탁기", n(values, "washer"), "가전", true),
-    item("dryer", "건조기", n(values, "dryer"), "가전"),
-    item("tv", "TV", n(values, "tv"), "가전"),
-    item("aircon", "에어컨", n(values, "aircon"), "가전"),
-    item("vacuum", "청소기", n(values, "vacuum"), "가전"),
-    item("bed", "침대", n(values, "bed"), "가구", true),
-    item("sofa", "소파", n(values, "sofa"), "가구"),
-    item("diningTable", "식탁", n(values, "diningTable"), "가구"),
-    item("closet", "옷장", n(values, "closet"), "가구"),
-    item("curtain", "커튼/블라인드", n(values, "curtain"), "가구"),
-    item("kitchenware", "주방용품", n(values, "kitchenware"), "생활용품"),
-    item("smallAppliances", "생활가전", n(values, "smallAppliances"), "생활용품"),
-    item("etc", "기타", n(values, "etc"), "생활용품")
+    item("fridge", "냉장고", n(values, "fridge"), "가전", requiredFlag(values, "fridgeRequired", true)),
+    item("washer", "세탁기", n(values, "washer"), "가전", requiredFlag(values, "washerRequired", true)),
+    item("dryer", "건조기", n(values, "dryer"), "가전", requiredFlag(values, "dryerRequired", false)),
+    item("tv", "TV", n(values, "tv"), "가전", requiredFlag(values, "tvRequired", false)),
+    item("aircon", "에어컨", n(values, "aircon"), "가전", requiredFlag(values, "airconRequired", false)),
+    item("vacuum", "청소기", n(values, "vacuum"), "가전", requiredFlag(values, "vacuumRequired", false)),
+    item("bed", "침대", n(values, "bed"), "가구", requiredFlag(values, "bedRequired", true)),
+    item("sofa", "소파", n(values, "sofa"), "가구", requiredFlag(values, "sofaRequired", false)),
+    item("diningTable", "식탁", n(values, "diningTable"), "가구", requiredFlag(values, "diningTableRequired", false)),
+    item("closet", "옷장", n(values, "closet"), "가구", requiredFlag(values, "closetRequired", false)),
+    item("curtain", "커튼/블라인드", n(values, "curtain"), "가구", requiredFlag(values, "curtainRequired", false)),
+    item("kitchenware", "주방용품", n(values, "kitchenware"), "생활용품", requiredFlag(values, "kitchenwareRequired", false)),
+    item("smallAppliances", "생활가전", n(values, "smallAppliances"), "생활용품", requiredFlag(values, "smallAppliancesRequired", false)),
+    item("etc", "기타", n(values, "etc"), "생활용품", requiredFlag(values, "etcRequired", false))
   ];
   const total = totalOf(items);
   const applianceTotal = totalOf(items.filter((entry) => entry.category === "가전"));
   const furnitureTotal = totalOf(items.filter((entry) => entry.category === "가구"));
   const lifestyleTotal = totalOf(items.filter((entry) => entry.category === "생활용품"));
   const requiredTotal = totalOf(items.filter((entry) => entry.required));
+  const optionalTotal = totalOf(items.filter((entry) => !entry.required));
   const targetBudget = n(values, "targetBudget");
 
   return {
@@ -245,6 +254,7 @@ function calculateHonsu(values: Values): CalculatorResult {
       { label: "가구 총 비용", value: formatCurrency(furnitureTotal) },
       { label: "생활용품 총 비용", value: formatCurrency(lifestyleTotal) },
       { label: "필수 항목 비용", value: formatCurrency(requiredTotal), description: "냉장고, 세탁기, 침대 등 필수 품목 기준" },
+      { label: "선택 항목 비용", value: formatCurrency(optionalTotal), description: "사용자가 선택으로 표시한 품목 합계" },
       { label: "예산 초과 여부", value: budgetComparison(total, targetBudget) }
     ],
     advice: [

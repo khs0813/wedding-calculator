@@ -82,6 +82,10 @@ a {
   -webkit-overflow-scrolling: touch;
 }
 
+.print-only {
+  display: none;
+}
+
 .adfit-slot {
   --adfit-slot-width: 300px;
   --adfit-slot-height: 250px;
@@ -185,8 +189,16 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 @media print {
+  header,
+  footer,
+  .adfit-slot,
+  [data-adfit-placement],
   .no-print {
     display: none !important;
+  }
+
+  .print-only {
+    display: block !important;
   }
 
   body {

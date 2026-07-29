@@ -7,6 +7,7 @@ const responsiveViewports = [
   { width: 360, height: 800 },
   { width: 375, height: 812 },
   { width: 390, height: 844 },
+  { width: 430, height: 932 },
   { width: 768, height: 1024 },
   { width: 1280, height: 800 },
   { width: 1440, height: 900 },
@@ -101,7 +102,7 @@ test("AdFit is not requested on local or disabled environments", async ({ page }
   expect(adFitRequests).toHaveLength(0);
 });
 
-test("calculator result summary appears before details and result actions", async ({ page }) => {
+test("calculator result summary appears before result actions and details", async ({ page }) => {
   await page.goto("/calculators/wedding-cost/");
   await page.getByRole("button", { name: "평균형" }).click();
 
@@ -119,13 +120,13 @@ test("calculator result summary appears before details and result actions", asyn
     const actionsElement = [...document.querySelectorAll("h2")].find((element) => element.textContent?.trim() === "결과 저장과 공유");
 
     return {
-      summary: summaryElement?.compareDocumentPosition(detailsElement || document.body),
-      details: detailsElement?.compareDocumentPosition(actionsElement || document.body),
+      summary: summaryElement?.compareDocumentPosition(actionsElement || document.body),
+      actions: actionsElement?.compareDocumentPosition(detailsElement || document.body),
     };
   });
 
   expect(order.summary && (order.summary & documentPositionFollowing)).toBeTruthy();
-  expect(order.details && (order.details & documentPositionFollowing)).toBeTruthy();
+  expect(order.actions && (order.actions & documentPositionFollowing)).toBeTruthy();
 });
 
 test("key pages stay within the viewport across mobile and desktop sizes", async ({ page }) => {

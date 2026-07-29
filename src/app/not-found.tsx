@@ -21,10 +21,10 @@ export default function NotFound() {
           홈으로 이동
         </Link>
         <Link href="/guides/" className="inline-flex rounded-xl border border-border bg-card px-6 py-3 text-sm font-semibold text-foreground hover:bg-secondary">
-          가이드 보기
+          예산 가이드 모음 보기
         </Link>
         <Link href="/calculators/wedding-cost/" className="inline-flex rounded-xl border border-border bg-card px-6 py-3 text-sm font-semibold text-foreground hover:bg-secondary">
-          대표 계산기 열기
+          결혼식 예산표 만들기
         </Link>
       </div>
     </div>

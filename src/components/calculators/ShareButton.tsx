@@ -29,7 +29,7 @@ export function ShareButton({
     <div className="flex flex-col gap-2">
       <Button type="button" onClick={handleShare} className="w-full gap-2 sm:w-auto">
         <Link2 className="h-4 w-4" aria-hidden="true" />
-        상대와 공유하기
+        공유 링크 복사
       </Button>
       {message ? <p className="max-w-sm break-all text-xs leading-5 text-foreground" role="status">{message}</p> : null}
     </div>

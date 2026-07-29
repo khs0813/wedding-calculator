@@ -64,7 +64,7 @@ test("public pages, calculators, storage, summary, share URL, and XLSX download 
   await page.goto(calculators[0].path);
   await applyPresetAndExpectResult(page, calculators[0].preset);
   page.once("dialog", (dialog) => dialog.accept());
-  await page.getByRole("button", { name: "상대와 공유하기" }).click();
+  await page.getByRole("button", { name: "공유 링크 복사" }).click();
   const copiedUrl = await page.evaluate(() => navigator.clipboard.readText());
   expect(copiedUrl).toContain("#state=");
 
@@ -75,10 +75,9 @@ test("public pages, calculators, storage, summary, share URL, and XLSX download 
   await expect(sharedPage.getByText("예상 총액", { exact: true })).toBeVisible();
   await sharedContext.close();
 
-  await page.locator("summary").filter({ hasText: "엑셀 내보내기" }).click();
   const download = await Promise.all([
     page.waitForEvent("download"),
-    page.getByRole("button", { name: "엑셀 내보내기" }).click(),
+    page.getByRole("button", { name: "엑셀용 파일 다운로드" }).click(),
   ]).then(([file]) => file);
   const downloadPath = path.join(testInfo.outputDir, await download.suggestedFilename());
   await download.saveAs(downloadPath);
@@ -90,7 +89,7 @@ test("public pages, calculators, storage, summary, share URL, and XLSX download 
       (window as typeof window & { __printCalled?: boolean }).__printCalled = true;
     };
   });
-  await page.getByRole("button", { name: "PDF 저장" }).click();
+  await page.getByRole("button", { name: "예산표 PDF 저장" }).click();
   await expect.poll(() => page.evaluate(() => (window as typeof window & { __printCalled?: boolean }).__printCalled)).toBe(true);
 
   await page.goto("/summary/");
@@ -115,8 +114,8 @@ test("calculator formulas cover wedding hall guest boundary and newlywed home ca
   await fillLabeledInput(page, "관리비", "200000");
   await fillLabeledInput(page, "인테리어 비용", "0");
   await fillLabeledInput(page, "가전 구매 비용", "10000000");
-  await fillLabeledInput(page, "가구 구매 비용", "5000000");
   await page.locator("summary").filter({ hasText: "상세 항목 열기" }).click();
+  await fillLabeledInput(page, "가구 구매 비용", "5000000");
   await fillLabeledInput(page, "이사 비용", "1000000");
   await fillLabeledInput(page, "입주청소 비용", "500000");
   await fillLabeledInput(page, "인터넷/TV 설치비", "100000");

@@ -98,7 +98,7 @@ export default function CalculatorsPage() {
             href="/calculators/wedding-cost/"
             className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-primary px-5 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
-            대표 계산기 시작
+            결혼식 예산표 만들기
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
           <Link

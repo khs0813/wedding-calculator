@@ -14,6 +14,17 @@ const calculatorOutcomes: Record<CalculatorConfig["slug"], string> = {
   "congratulatory-money": "관계별 축의금 범위",
 };
 
+const calculatorActionLabels: Record<CalculatorConfig["slug"], string> = {
+  "wedding-cost": "결혼식 예산표 만들기",
+  "newlywed-home-budget": "신혼집 초기비용 계산하기",
+  "wedding-hall-cost": "웨딩홀 보증인원 계산하기",
+  "studio-dress-makeup-cost": "스드메 추가금 계산하기",
+  "honsu-budget": "혼수 예산 계산하기",
+  "wedding-gift-budget": "예물 예산 계산하기",
+  "honeymoon-budget": "신혼여행 예산 계산하기",
+  "congratulatory-money": "관계별 축의금 참고하기",
+};
+
 export function CalculatorCard({ calculator }: { calculator: CalculatorConfig }) {
   return (
     <Link href={calculator.path} aria-label={`${calculator.shortTitle}로 이동`} className="group block h-full">
@@ -28,7 +39,7 @@ export function CalculatorCard({ calculator }: { calculator: CalculatorConfig })
           <h3 className="mt-3 text-xl font-semibold">{calculator.shortTitle}</h3>
           <p className="mt-3 line-clamp-3 text-sm leading-6 text-muted-foreground">{calculator.description}</p>
           <span className="mt-auto inline-flex items-center gap-1 pt-5 text-sm font-semibold text-foreground">
-            계산하기
+            {calculatorActionLabels[calculator.slug]}
             <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" aria-hidden="true" />
           </span>
         </CardContent>

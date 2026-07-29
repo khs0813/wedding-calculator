@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 import { guides, getGuideBySlug } from "@/data/guides";
 import { absolutePageUrl, absoluteUrl, buildBreadcrumbSchema, buildFaqSchema, createGuideFaqs, createGuideMetadata } from "@/lib/seo";
-import type { GuideSlug } from "@/types/calculator";
+import type { CalculatorSlug, GuideSlug } from "@/types/calculator";
 import { calculators } from "@/data/calculators";
 import { Card } from "@/components/ui/card";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -81,6 +81,26 @@ const guideEnhancements: Partial<Record<GuideSlug, {
     formulaNotes: ["무조건 삭제한 금액이 절약액은 아닙니다. 대체 구매나 추가 이동비가 생기면 함께 반영합니다.", "만족도가 높은 핵심 항목보다 옵션성 항목부터 줄이는 편이 실패 확률이 낮습니다."],
     updatedReason: "항목별 절약 시나리오와 실제 절약액 계산 관점을 추가했습니다.",
   },
+};
+
+const guideCalculatorLinks: Partial<Record<GuideSlug, CalculatorSlug[]>> = {
+  "wedding-cost-guide": ["wedding-cost", "wedding-hall-cost", "studio-dress-makeup-cost"],
+  "sdme-options-guide": ["studio-dress-makeup-cost", "wedding-cost", "wedding-hall-cost"],
+  "sdme-extra-cost-table-guide": ["studio-dress-makeup-cost", "wedding-cost", "wedding-gift-budget"],
+  "newlywed-budget-guide": ["newlywed-home-budget", "honsu-budget", "wedding-cost"],
+  "newlywed-home-initial-cost-guide": ["newlywed-home-budget", "honsu-budget", "wedding-cost"],
+  "wedding-hall-checklist": ["wedding-hall-cost", "wedding-cost", "congratulatory-money"],
+};
+
+const calculatorLinkLabels: Record<CalculatorSlug, string> = {
+  "wedding-cost": "결혼식 예산표 만들기",
+  "newlywed-home-budget": "신혼집 초기비용 계산하기",
+  "wedding-hall-cost": "웨딩홀 보증인원 계산하기",
+  "studio-dress-makeup-cost": "스드메 추가금 계산하기",
+  "honsu-budget": "혼수 예산 계산하기",
+  "wedding-gift-budget": "예물 예산 계산하기",
+  "honeymoon-budget": "신혼여행 예산 계산하기",
+  "congratulatory-money": "관계별 축의금 참고하기",
 };
 
 function BudgetScenarioTable({ enhancement }: { enhancement: NonNullable<(typeof guideEnhancements)[GuideSlug]> }) {
@@ -357,6 +377,9 @@ export default async function GuidePage({ params }: PageProps) {
   const enhancement = guideEnhancements[guide.slug as GuideSlug];
   const tables = guideTables[guide.slug as GuideSlug] || [];
   const showMidAd = guide.sections.length >= 4;
+  const relatedCalculators = (guideCalculatorLinks[guide.slug as GuideSlug] || ["wedding-cost", "newlywed-home-budget", "honsu-budget"])
+    .map((calculatorSlug) => calculators.find((calculator) => calculator.slug === calculatorSlug))
+    .filter((calculator): calculator is (typeof calculators)[number] => Boolean(calculator));
 
   return (
     <article className="mx-auto max-w-6xl px-4 py-10">
@@ -384,17 +407,6 @@ export default async function GuidePage({ params }: PageProps) {
               },
             },
           },
-          {
-            "@context": "https://schema.org",
-            "@type": "WebApplication",
-            name: "웨딩 예산 계산기",
-            applicationCategory: "FinanceApplication",
-            operatingSystem: "Web",
-            url: absolutePageUrl("/calculators/"),
-            description: "결혼 준비와 신혼 준비 비용을 계산하고 예산 가이드와 함께 비교하는 무료 웹 계산기",
-            inLanguage: "ko-KR",
-            offers: { "@type": "Offer", price: "0", priceCurrency: "KRW" },
-          },
           buildBreadcrumbSchema([
             { name: "홈", path: "/" },
             { name: "가이드", path: "/guides/" },
@@ -407,9 +419,7 @@ export default async function GuidePage({ params }: PageProps) {
         <p className="text-sm font-semibold uppercase tracking-[0.25em] text-muted-foreground">가이드</p>
         <h1 className="mt-3 text-3xl font-semibold tracking-tight text-foreground md:text-5xl">{guide.title}</h1>
         <p className="mt-5 text-lg leading-8 text-muted-foreground">{guide.description}</p>
-        <p className="mt-5 text-sm leading-7 text-muted-foreground">
-          관련 주제: {guide.keywords.join(", ")}
-        </p>
+        <p className="mt-5 text-sm leading-7 text-muted-foreground">{guide.excerpt}</p>
         <div className="mt-6 grid gap-3 rounded-2xl border border-border bg-secondary p-4 text-sm text-muted-foreground md:grid-cols-2">
           <p><span className="font-semibold text-foreground">작성</span> {guide.author.name} · {guide.author.role}</p>
           <p><span className="font-semibold text-foreground">발행</span> {guide.publishedAt}</p>
@@ -494,12 +504,12 @@ export default async function GuidePage({ params }: PageProps) {
       <section className="mt-10">
         <h2 className="text-2xl font-semibold text-foreground">바로 계산해보기</h2>
         <div className="mt-5 grid gap-4 md:grid-cols-3">
-          {calculators.slice(0, 3).map((calculator) => (
+          {relatedCalculators.map((calculator) => (
             <Card key={calculator.slug} className="p-5">
               <h3 className="font-semibold text-foreground">{calculator.shortTitle}</h3>
               <p className="mt-2 line-clamp-2 text-sm leading-6 text-muted-foreground">{calculator.description}</p>
               <Link href={calculator.path} className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-foreground">
-                계산하기
+                {calculatorLinkLabels[calculator.slug]}
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
             </Card>

@@ -92,7 +92,7 @@ export default function GuidesIndexPage() {
                 <p>업데이트: {guide.updatedAt}</p>
               </div>
               <Link href={guide.path} className="mt-auto inline-flex items-center gap-2 pt-6 text-sm font-semibold text-foreground">
-                읽어보기
+                {guide.title} 읽기
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
             </Card>

@@ -65,7 +65,7 @@ export function ExcelActions({
         className="gap-2"
       >
         <FileDown className="h-4 w-4" aria-hidden="true" />
-        엑셀 내보내기
+        엑셀용 파일 다운로드
       </Button>
 
       {status ? (

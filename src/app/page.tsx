@@ -10,40 +10,48 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { Card, CardContent } from "@/components/ui/card";
 import { absolutePageUrl, absoluteUrl, buildBreadcrumbSchema } from "@/lib/seo";
 import { AdFitSlot } from "@/components/monetization/AdFitSlot";
+import { SEO_TARGETS } from "@/data/seoTargets";
 
-const homeDescription = "결혼 비용, 신혼집, 웨딩홀, 스드메, 혼수, 예물, 신혼여행 예산을 계산하는 무료 예산표입니다.";
+const homeSeo = SEO_TARGETS["/"];
 
 export const metadata: Metadata = {
-  title: "웨딩 예산 계산기 - 결혼 비용·신혼집·혼수 예산표",
-  description: homeDescription,
-  keywords: ["웨딩 예산 계산기", "결혼 비용 계산기", "신혼집 예산 계산기", "웨딩홀 식대 계산기", "스드메 비용", "혼수 비용", "결혼 예산표"],
+  title: homeSeo.title,
+  description: homeSeo.description,
+  keywords: ["웨딩 예산 계산기", "결혼 준비 예산", "결혼 준비 계산기 모음"],
   alternates: { canonical: absolutePageUrl("/") },
   openGraph: {
-    title: "웨딩 예산 계산기 - 결혼 비용·신혼집·혼수 예산표",
-    description: homeDescription,
+    title: homeSeo.title,
+    description: homeSeo.description,
     url: absolutePageUrl("/"),
     siteName: "웨딩 예산 계산기",
     locale: "ko_KR",
     type: "website",
     images: [
       {
-        url: absoluteUrl("/og-default.png"),
+        url: absoluteUrl(homeSeo.ogImage),
         width: 1200,
         height: 630,
-        alt: "웨딩 예산 계산기",
+        alt: homeSeo.title,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "웨딩 예산 계산기",
-    description: "결혼·신혼 준비 비용을 계산하고 판단 기준까지 함께 읽으세요.",
-    images: [absoluteUrl("/og-default.png")],
+    title: homeSeo.title,
+    description: homeSeo.description,
+    images: [absoluteUrl(homeSeo.ogImage)],
   },
   robots: { index: true, follow: true },
 };
 
 const featuredGuides = guides.slice(0, 6);
+const heroCalculatorLinks = [
+  { label: "결혼식 예산표 만들기", href: "/calculators/wedding-cost/" },
+  { label: "혼수 예산 계산하기", href: "/calculators/honsu-budget/" },
+  { label: "스드메 견적 계산하기", href: "/calculators/studio-dress-makeup-cost/" },
+  { label: "웨딩홀 보증인원 계산하기", href: "/calculators/wedding-hall-cost/" },
+  { label: "신혼집 이사 예산 계산하기", href: "/calculators/newlywed-home-budget/" },
+];
 const trustSignals = [
   { label: "서버 저장 없음", description: "입력값은 현재 브라우저에 저장", icon: ShieldCheck },
   { label: "둘이 함께 보기", description: "공유 URL로 같은 예산표 확인", icon: Share2 },
@@ -51,19 +59,19 @@ const trustSignals = [
 ];
 const stageChoices = [
   {
-    title: "전체 예산부터 잡고 싶어요",
+    title: "결혼식 예산표가 필요해요",
     description: "웨딩홀, 스드메, 혼수, 여행까지 한 번에 큰 흐름을 봅니다.",
     href: "/calculators/wedding-cost/",
     icon: Sparkles,
   },
   {
-    title: "웨딩홀 상담을 앞두고 있어요",
+    title: "웨딩홀 견적을 비교해요",
     description: "보증 인원, 식대, 대관료 기준으로 상담 전 금액을 확인합니다.",
     href: "/calculators/wedding-hall-cost/",
     icon: Landmark,
   },
   {
-    title: "신혼집 비용이 가장 걱정돼요",
+    title: "신혼집 초기비용을 봐요",
     description: "보증금, 대출, 월 고정비, 입주 비용을 분리해 봅니다.",
     href: "/calculators/newlywed-home-budget/",
     icon: Home,
@@ -114,19 +122,17 @@ export default function HomePage() {
           <div className="max-w-3xl">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">결혼 예산 계산</p>
             <h1 className="mt-5 text-4xl font-bold leading-tight tracking-tight sm:text-5xl md:text-6xl">
-              <span className="block">우리 결혼 예산과</span>
-              <span className="block">신혼 준비 비용을</span>
-              <span className="block">함께 정리하세요.</span>
+              {homeSeo.h1}
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">
-              결혼 비용, 신혼집 예산, 웨딩홀, 스드메, 혼수, 예물, 신혼여행, 축의금까지 한 흐름으로 계산하고 비교하세요.
+              결혼 준비 계산기는 한곳에서 찾고, 세부 예산은 각 계산기에서 입력하세요. PDF 저장, 엑셀용 다운로드, 공유 링크로 예산표를 이어서 관리할 수 있습니다.
             </p>
             <div className="mt-8 flex max-w-2xl flex-col gap-3 sm:flex-row">
               <Link
                 href="/calculators/wedding-cost/"
                 className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-primary px-5 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
-                계산 시작
+                결혼식 예산표 만들기
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
               <Link
@@ -140,6 +146,18 @@ export default function HomePage() {
               <HeartHandshake className="mt-0.5 h-5 w-5 shrink-0" aria-hidden="true" />
               <p>둘이 같은 기준으로 입력하고, 공유 URL로 같은 예산표를 보며 조정할 수 있습니다.</p>
             </div>
+            <nav className="mt-6 grid max-w-2xl gap-2 sm:grid-cols-2" aria-label="주요 계산기 바로가기">
+              {heroCalculatorLinks.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="inline-flex min-h-11 items-center justify-between gap-3 rounded-xl border border-border bg-background px-4 py-2.5 text-sm font-semibold text-foreground transition hover:bg-secondary"
+                >
+                  <span>{item.label}</span>
+                  <ArrowRight className="h-4 w-4 shrink-0" aria-hidden="true" />
+                </Link>
+              ))}
+            </nav>
           </div>
           <div className="rounded-2xl border bg-card p-5 shadow-sm md:p-6" aria-label="예산 정리 흐름">
             <div className="flex items-center justify-between gap-4 border-b pb-4">
@@ -266,7 +284,7 @@ export default function HomePage() {
                   href={guide.path}
                   className="mt-auto inline-flex h-11 w-fit items-center justify-center rounded-xl border bg-background px-5 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 >
-                  가이드 보기
+                  {guide.title} 읽기
                 </Link>
               </CardContent>
             </Card>

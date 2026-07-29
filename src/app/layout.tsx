@@ -4,9 +4,10 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { absolutePageUrl, absoluteUrl, getSiteUrl } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { SEO_TARGETS } from "@/data/seoTargets";
 
 const naverSiteVerification = "7f9774b684775497fa37bf8593bbe8c004c44548";
-const siteDescription = "결혼 비용, 신혼집, 웨딩홀, 스드메, 혼수, 예물, 신혼여행 예산을 계산하는 무료 예산표입니다.";
+const homeSeo = SEO_TARGETS["/"];
 
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
@@ -14,32 +15,29 @@ export const metadata: Metadata = {
   creator: "웨딩 예산 계산기",
   publisher: "웨딩 예산 계산기",
   category: "finance",
-  title: {
-    default: "결혼 비용 계산기 2026 | 웨딩홀·스드메·혼수·신혼여행 예산표",
-    template: "%s | 웨딩 예산 계산기",
-  },
-  description: siteDescription,
-  keywords: ["결혼 비용 계산기", "신혼집 예산 계산기", "웨딩홀 비용", "스드메 가격", "혼수 비용", "축의금 계산기", "결혼 예산 가이드"],
+  title: homeSeo.title,
+  description: homeSeo.description,
+  keywords: ["웨딩 예산 계산기", "결혼 준비 예산", "결혼 준비 계산기 모음", "웨딩홀 보증인원", "스드메 예산", "혼수 예산", "신혼집 예산"],
   openGraph: {
-    title: "웨딩 예산 계산기",
-    description: siteDescription,
+    title: homeSeo.title,
+    description: homeSeo.description,
     siteName: "웨딩 예산 계산기",
     locale: "ko_KR",
     type: "website",
     images: [
       {
-        url: absoluteUrl("/og-default.png"),
+        url: absoluteUrl(homeSeo.ogImage),
         width: 1200,
         height: 630,
-        alt: "웨딩 예산 계산기",
+        alt: homeSeo.title,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "웨딩 예산 계산기",
-    description: siteDescription,
-    images: [absoluteUrl("/og-default.png")],
+    title: homeSeo.title,
+    description: homeSeo.description,
+    images: [absoluteUrl(homeSeo.ogImage)],
   },
   robots: {
     index: true,
@@ -83,7 +81,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               name: "웨딩 예산 계산기",
               url: absolutePageUrl("/"),
               inLanguage: "ko-KR",
-              description: "결혼 준비와 신혼집 준비 비용을 계산하고 예산 판단 기준을 읽을 수 있는 무료 도구",
+              description: homeSeo.description,
             },
             {
               "@context": "https://schema.org",

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { calculators } from "@/data/calculators";
 import { guides } from "@/data/guides";
+import { getCalculatorSeoTarget } from "@/data/seoTargets";
 import type { CalculatorSlug, FAQItem, Guide, GuideSlug, RichSection } from "@/types/calculator";
 
 const defaultOpenGraphImage = "/og-default.png";
@@ -25,41 +26,6 @@ const trailingSlashExcludedExactPaths = new Set([
 ]);
 const trailingSlashExcludedPrefixes = ["/api", "/_next", "/static", "/assets", "/images", "/fonts", "/.well-known"];
 const fileExtensionPattern = /\/[^/]+\.[^/]+$/;
-
-const calculatorSeoCopy: Partial<Record<CalculatorSlug, { title: string; description: string }>> = {
-  "wedding-cost": {
-    title: "결혼 비용 계산기 2026 | 하객 수·축의금·스드메 총예산 계산",
-    description: "웨딩홀, 식대, 하객 수, 축의금, 스드메, 혼수, 예물, 신혼여행 비용을 개인정보 없이 입력하고 브라우저에만 저장하는 무료 결혼 예산 계산기입니다.",
-  },
-  "newlywed-home-budget": {
-    title: "신혼집 예산 계산기 | 전세·월세·인테리어·대출 이자 계산",
-    description: "전세보증금, 월세, 관리비, 인테리어, 가전·가구, 대출금리로 신혼집 초기 비용과 월 고정비를 참고용으로 계산합니다.",
-  },
-  "wedding-hall-cost": {
-    title: "웨딩홀 비용 계산기 | 보증인원·식대·대관료 총액 계산",
-    description: "보증 인원과 예상 하객 수 중 청구 기준을 반영해 식대, 대관료, 꽃장식, 부가세, 봉사료와 예상 순부담액을 계산합니다.",
-  },
-  "studio-dress-makeup-cost": {
-    title: "스드메 비용 계산기 | 드레스·메이크업·촬영 추가금 계산",
-    description: "스튜디오, 드레스, 메이크업 기본 패키지와 헬퍼비, 원본, 앨범, 액자, 출장비 등 스드메 추가금 비중을 계산합니다.",
-  },
-  "honsu-budget": {
-    title: "혼수 비용 계산기 | 가전·가구·생활용품 예산표",
-    description: "냉장고, 세탁기, 침대, 소파, 주방용품 등 신혼 혼수 비용을 카테고리별로 합산하고 목표 예산 초과 여부를 확인합니다.",
-  },
-  "wedding-gift-budget": {
-    title: "결혼 예물 비용 계산기 | 반지·시계·가방·가족선물 예산",
-    description: "결혼반지, 시계, 가방, 보석, 양가 선물, 한복 등 예물 비용을 항목별로 정리하고 전체 결혼 예산 대비 비중을 계산합니다.",
-  },
-  "honeymoon-budget": {
-    title: "신혼여행 비용 계산기 | 항공·숙박·환전·쇼핑 총액",
-    description: "항공권, 숙박, 교통, 식비, 액티비티, 쇼핑, 여행자보험, 환전 예산을 합산해 1인당 비용과 1일 평균 비용을 계산합니다.",
-  },
-  "congratulatory-money": {
-    title: "축의금 금액 계산기 | 관계·친밀도·식대 기준 추천",
-    description: "관계, 친밀도, 식사 참석, 동반 여부, 지역, 이전에 받은 금액을 바탕으로 강제성 없는 참고용 축의금 범위를 계산합니다.",
-  },
-};
 
 const guideFaqsBySlug: Partial<Record<GuideSlug, FAQItem[]>> = {
   "wedding-cost-guide": [
@@ -266,10 +232,12 @@ export function createCalculatorMetadata(slug: CalculatorSlug): Metadata {
   if (!calculator) {
     return {};
   }
-  const seoCopy = calculatorSeoCopy[slug] || {
+  const seoCopy = getCalculatorSeoTarget(slug, {
     title: calculator.title,
     description: calculator.description,
-  };
+    h1: calculator.title,
+    ogImage: defaultOpenGraphImage,
+  });
 
   return {
     title: seoCopy.title,
@@ -285,7 +253,7 @@ export function createCalculatorMetadata(slug: CalculatorSlug): Metadata {
       type: "website",
       images: [
         {
-          url: absoluteUrl(defaultOpenGraphImage),
+          url: absoluteUrl(seoCopy.ogImage),
           width: 1200,
           height: 630,
           alt: seoCopy.title
@@ -296,7 +264,7 @@ export function createCalculatorMetadata(slug: CalculatorSlug): Metadata {
       card: "summary_large_image",
       title: seoCopy.title,
       description: seoCopy.description,
-      images: [absoluteUrl(defaultOpenGraphImage)]
+      images: [absoluteUrl(seoCopy.ogImage)]
     },
     robots: {
       index: true,

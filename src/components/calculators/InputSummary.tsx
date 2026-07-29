@@ -1,5 +1,6 @@
 import type { CalculatorConfig, FieldValue } from "@/types/calculator";
 import { formatCurrency, formatNumber, safeNumber } from "@/lib/calculator-utils";
+import { absolutePageUrl } from "@/lib/seo";
 
 function formatInputValue(fieldId: string, config: CalculatorConfig, values: Record<string, FieldValue>) {
   const field = config.fields.find((entry) => entry.id === fieldId);
@@ -15,10 +16,12 @@ function formatInputValue(fieldId: string, config: CalculatorConfig, values: Rec
 }
 
 export function InputSummary({ config, values, generatedAt }: { config: CalculatorConfig; values: Record<string, FieldValue>; generatedAt?: Date | null }) {
+  const printedAt = generatedAt || new Date();
+
   return (
     <section className="rounded-2xl border border-border bg-card p-6">
       <h3 className="text-xl font-semibold text-foreground">입력값 요약</h3>
-      <p className="mt-2 text-sm text-muted-foreground">PDF 출력 시 함께 포함되는 입력 내역입니다.</p>
+      <p className="mt-2 text-sm text-muted-foreground">PDF 출력 시 함께 포함되는 입력 기준입니다.</p>
       <div className="table-scroll mt-5 overflow-x-auto">
         <table className="w-full min-w-[520px] border-collapse text-sm">
           <caption className="sr-only">{config.shortTitle} 입력값 요약</caption>
@@ -32,11 +35,11 @@ export function InputSummary({ config, values, generatedAt }: { config: Calculat
           </tbody>
         </table>
       </div>
-      {generatedAt ? (
-        <p className="mt-5 text-xs text-muted-foreground">
-          결과 생성일: {generatedAt.toLocaleString("ko-KR")} · 사이트명: 웨딩 예산 계산기
-        </p>
-      ) : null}
+      <div className="mt-5 space-y-1 text-xs leading-5 text-muted-foreground">
+        <p>주의 문구: 입력값을 바탕으로 한 참고용 계산이며 실제 견적은 지역, 날짜, 업체, 계약 조건에 따라 달라질 수 있습니다.</p>
+        <p>생성일: {printedAt.toLocaleString("ko-KR")}</p>
+        <p>원본 페이지 주소: {absolutePageUrl(config.path)}</p>
+      </div>
     </section>
   );
 }

@@ -5,9 +5,11 @@ import { CalculatorClient } from "@/components/calculators/CalculatorClient";
 import { FAQSection } from "@/components/seo/FAQSection";
 import { RelatedCalculators } from "@/components/seo/RelatedCalculators";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { absolutePageUrl, absoluteUrl, buildBreadcrumbSchema, buildFaqSchema } from "@/lib/seo";
+import { absolutePageUrl, buildBreadcrumbSchema, buildFaqSchema } from "@/lib/seo";
 import { calculatorContent } from "@/data/calculatorContent";
 import { guides } from "@/data/guides";
+import { calculatorSeoSections, type CalculatorSeoTable } from "@/data/calculatorSeoContent";
+import { getCalculatorSeoTarget } from "@/data/seoTargets";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { SectionBlocks } from "@/components/content/SectionBlocks";
 import { AuthorBox } from "@/components/content/AuthorBox";
@@ -67,11 +69,29 @@ const exampleResults: Record<CalculatorConfig["slug"], { scenario: string; resul
   },
 };
 
+const featureBadges = ["브라우저 저장", "PDF 저장", "엑셀용 다운로드", "공유 링크"];
+
+const actionLabels: Partial<Record<CalculatorConfig["slug"], string>> = {
+  "wedding-cost": "결혼식 예산표 계산 시작",
+  "honsu-budget": "혼수 예산 계산 시작",
+  "studio-dress-makeup-cost": "스드메 견적 계산 시작",
+  "wedding-hall-cost": "웨딩홀 보증인원 계산 시작",
+  "newlywed-home-budget": "신혼집 이사 예산 계산 시작",
+};
+
 export function CalculatorShell({ config }: { config: CalculatorConfig }) {
   const content = calculatorContent[config.slug];
   const relatedGuides = guides.filter((guide) => content.relatedGuideSlugs.includes(guide.slug));
   const prompts = conversationPrompts[config.slug];
   const example = exampleResults[config.slug];
+  const seo = getCalculatorSeoTarget(config.slug, {
+    title: config.title,
+    description: config.description,
+    h1: config.title,
+    ogImage: "/og-default.png",
+  });
+  const seoSections = calculatorSeoSections[config.slug] || [];
+  const startLabel = actionLabels[config.slug] || `${config.shortTitle} 계산 시작`;
 
   return (
     <div className="calculator-page mx-auto w-full max-w-6xl overflow-hidden px-4 py-10">
@@ -80,12 +100,12 @@ export function CalculatorShell({ config }: { config: CalculatorConfig }) {
           {
             "@context": "https://schema.org",
             "@type": "WebApplication",
-            name: config.title,
+            name: seo.title,
             applicationCategory: "FinanceApplication",
             browserRequirements: "Requires JavaScript",
             operatingSystem: "Web",
             url: absolutePageUrl(config.path),
-            description: config.description,
+            description: seo.description,
             inLanguage: "ko-KR",
             offers: { "@type": "Offer", price: "0", priceCurrency: "KRW" },
             author: { "@type": "Organization", name: content.author.name },
@@ -93,68 +113,42 @@ export function CalculatorShell({ config }: { config: CalculatorConfig }) {
             isAccessibleForFree: true,
             featureList: config.fields.map((field) => field.label),
           },
-          {
-            "@context": "https://schema.org",
-            "@type": "WebPage",
-            name: config.title,
-            description: config.description,
-            url: absolutePageUrl(config.path),
-            inLanguage: "ko-KR",
-            dateModified: content.updatedAt,
-            about: config.keywords,
-            mainEntity: {
-              "@type": "WebApplication",
-              name: config.title,
-              url: absolutePageUrl(config.path),
-            },
-          },
-          {
-            "@context": "https://schema.org",
-            "@type": "Article",
-            headline: config.title,
-            description: config.description,
-            url: absolutePageUrl(config.path),
-            mainEntityOfPage: absolutePageUrl(config.path),
-            inLanguage: "ko-KR",
-            image: absoluteUrl("/og-default.png"),
-            datePublished: content.updatedAt,
-            dateModified: content.updatedAt,
-            author: { "@type": "Organization", name: content.author.name },
-            publisher: {
-              "@type": "Organization",
-              name: "웨딩 예산 계산기",
-              logo: {
-                "@type": "ImageObject",
-                url: absoluteUrl("/apple-touch-icon.png"),
-              },
-            },
-          },
           buildBreadcrumbSchema([
             { name: "홈", path: "/" },
             { name: "계산기", path: "/calculators/" },
-            { name: config.shortTitle, path: config.path },
+            { name: seo.h1, path: config.path },
           ]),
           buildFaqSchema(config.faqs),
         ]}
       />
 
+      <nav className="no-print mb-4 text-sm font-semibold text-muted-foreground" aria-label="Breadcrumb">
+        <ol className="flex flex-wrap items-center gap-2">
+          <li><Link href="/" className="hover:text-foreground">홈</Link></li>
+          <li aria-hidden="true">/</li>
+          <li><Link href="/calculators/" className="hover:text-foreground">계산기</Link></li>
+          <li aria-hidden="true">/</li>
+          <li className="text-foreground" aria-current="page">{seo.h1}</li>
+        </ol>
+      </nav>
+
       <section className="mb-8 grid gap-5 rounded-2xl border border-border bg-card p-5 shadow-sm md:p-9">
         <div className="max-w-5xl">
           <p className="text-sm font-semibold uppercase tracking-[0.25em] text-muted-foreground">결혼 예산</p>
-          <h1 className="mt-2.5 max-w-full text-2xl font-semibold leading-tight tracking-tight text-foreground [overflow-wrap:anywhere] sm:text-3xl md:text-5xl">{config.title}</h1>
-          <p className="mt-4 text-lg leading-8 text-muted-foreground">{config.hero}</p>
-          <div className="mt-5 rounded-2xl border border-border bg-background p-5">
-            <p className="text-sm font-semibold text-foreground">이 페이지 요약</p>
-            <p className="mt-2 text-sm leading-7 text-muted-foreground">{config.description}</p>
-          </div>
-          <div className="mt-5 flex flex-wrap items-center gap-3 text-xs font-bold text-muted-foreground">
-            <span>작성: {content.author.name}</span>
-            <span>최종 업데이트: {content.updatedAt}</span>
+          <h1 className="mt-2.5 max-w-full text-2xl font-semibold leading-tight tracking-tight text-foreground [overflow-wrap:anywhere] sm:text-3xl md:text-5xl">{seo.h1}</h1>
+          <p className="mt-4 max-w-4xl text-lg leading-8 text-muted-foreground">{config.hero}</p>
+          <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">{seo.description}</p>
+          <div className="mt-5 flex flex-wrap gap-2">
+            {featureBadges.map((badge) => (
+              <span key={badge} className="rounded-full border border-border bg-background px-3 py-1.5 text-xs font-bold text-foreground">
+                {badge}
+              </span>
+            ))}
           </div>
           <div className="no-print mt-6 flex flex-wrap gap-3">
             <a href="#calculator" className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90">
               <ArrowDown className="h-4 w-4" aria-hidden="true" />
-              바로 계산하기
+              {startLabel}
             </a>
             <Link href="/methodology/" className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-border bg-card px-5 py-2.5 text-sm font-semibold text-foreground transition hover:bg-secondary">
               계산 기준 보기
@@ -192,6 +186,19 @@ export function CalculatorShell({ config }: { config: CalculatorConfig }) {
       <CalculatorClient config={config} />
 
       <div className="no-print mt-10 space-y-10">
+        <Card className="p-6 md:p-8">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">예시</p>
+          <h2 className="mt-2 text-2xl font-semibold text-foreground">예시 예산표</h2>
+          <div className="mt-4 space-y-3 text-sm leading-7 text-muted-foreground">
+            <p>아래 내용은 입력과 이해를 돕기 위한 예시이며 실제 시장 평균이 아닙니다.</p>
+            <p>{example.scenario}</p>
+            <p className="rounded-2xl border border-border bg-muted p-4 font-semibold text-foreground">{example.result}</p>
+            <p>{example.note}</p>
+          </div>
+        </Card>
+
+        {seoSections.length ? <CalculatorSeoSections sections={seoSections} /> : null}
+
         <section className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
           <Card className="p-6">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">체크리스트</p>
@@ -209,22 +216,14 @@ export function CalculatorShell({ config }: { config: CalculatorConfig }) {
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">요약</p>
             <h2 className="mt-2 text-2xl font-semibold text-foreground">이 계산기 요약</h2>
             <p className="mt-4 text-sm leading-7 text-muted-foreground">{content.intro}</p>
-            <p className="mt-4 text-sm leading-7 text-muted-foreground">관련 주제: {config.keywords.join(", ")}</p>
+            <p className="mt-4 text-sm leading-7 text-muted-foreground">
+              이 페이지는 {seo.h1} 검색 의도에 맞춰 입력 항목, 결과 표, PDF·엑셀·공유 기능을 한 화면에서 제공합니다.
+            </p>
           </Card>
         </section>
 
         <Card className="p-6 md:p-8">
           <SectionBlocks sections={content.sections} />
-        </Card>
-
-        <Card className="p-6 md:p-8">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">예시</p>
-          <h2 className="mt-2 text-2xl font-semibold text-foreground">예시 결과</h2>
-          <div className="mt-4 space-y-3 text-sm leading-7 text-muted-foreground">
-            <p>{example.scenario}</p>
-            <p className="rounded-2xl border border-border bg-muted p-4 font-semibold text-foreground">{example.result}</p>
-            <p>{example.note}</p>
-          </div>
         </Card>
 
         <Card className="p-6 md:p-8">
@@ -242,6 +241,8 @@ export function CalculatorShell({ config }: { config: CalculatorConfig }) {
 
         <CalculatorSecondaryAd calculatorSlug={config.slug} />
 
+        <FAQSection title={`${config.shortTitle} FAQ`} items={config.faqs} emitJsonLd={false} />
+
         <AuthorBox author={content.author} updatedAt={content.updatedAt} />
 
         {relatedGuides.length ? (
@@ -256,7 +257,7 @@ export function CalculatorShell({ config }: { config: CalculatorConfig }) {
                   <Link key={guide.slug} href={guide.path} className="rounded-2xl border border-border p-5 transition hover:border-border hover:bg-secondary">
                     <h3 className="font-semibold text-foreground">{guide.title}</h3>
                     <p className="mt-2 text-sm leading-6 text-muted-foreground">{guide.excerpt}</p>
-                    <span className="mt-4 inline-flex text-sm font-semibold text-foreground">가이드 읽기</span>
+                    <span className="mt-4 inline-flex text-sm font-semibold text-foreground">{guide.title} 읽기</span>
                   </Link>
                 ))}
               </div>
@@ -264,9 +265,67 @@ export function CalculatorShell({ config }: { config: CalculatorConfig }) {
           </Card>
         ) : null}
 
-        <FAQSection title={`${config.shortTitle} FAQ`} items={config.faqs} emitJsonLd={false} />
         <RelatedCalculators currentSlug={config.slug} relatedSlugs={config.relatedSlugs} />
       </div>
+    </div>
+  );
+}
+
+function CalculatorSeoSections({ sections }: { sections: NonNullable<(typeof calculatorSeoSections)[CalculatorConfig["slug"]]> }) {
+  return (
+    <div className="space-y-6">
+      {sections.map((section) => (
+        <section key={section.heading} className="rounded-2xl border border-border bg-card p-6 shadow-sm md:p-8">
+          <h2 className="text-2xl font-semibold text-foreground">{section.heading}</h2>
+          <div className="mt-4 space-y-3 text-sm leading-7 text-muted-foreground">
+            {section.body.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </div>
+          {section.table ? <SeoTable table={section.table} caption={section.heading} /> : null}
+          {section.notes?.length ? (
+            <ul className="mt-4 flex flex-wrap gap-2 text-xs text-muted-foreground">
+              {section.notes.map((note) => (
+                <li key={note} className="rounded-full bg-secondary px-3 py-1 font-bold">{note}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ))}
+    </div>
+  );
+}
+
+function SeoTable({ table, caption }: { table: CalculatorSeoTable; caption: string }) {
+  return (
+    <div className="table-scroll mt-5 overflow-x-auto">
+      <table className="w-full min-w-[640px] border-collapse text-sm">
+        <caption className="sr-only">{caption}</caption>
+        <thead>
+          <tr className="border-b border-border text-left text-muted-foreground">
+            {table.columns.map((column) => (
+              <th key={column} scope="col" className="py-3 pr-3">{column}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {table.rows.map((row) => (
+            <tr key={row.join("|")} className="border-b border-border last:border-0">
+              {row.map((cell, index) =>
+                index === 0 ? (
+                  <th key={`${cell}-${index}`} scope="row" className="py-3 pr-3 text-left font-bold text-foreground">
+                    {cell}
+                  </th>
+                ) : (
+                  <td key={`${cell}-${index}`} className="py-3 pr-3 text-muted-foreground">
+                    {cell}
+                  </td>
+                ),
+              )}
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
