@@ -1,4 +1,5 @@
 export type AdFitPlacement =
+  | "calc.entryTop"
   | "calc.primaryAfterSummary"
   | "calc.secondaryAfterExample"
   | "calculatorHub.afterStageCards"
@@ -48,6 +49,26 @@ export const adFitRuntimeConfig = {
 };
 
 export const adFitUnits: Record<AdFitPlacement, AdFitUnitConfig> = {
+  "calc.entryTop": {
+    mobile: createSlot(
+      process.env.NEXT_PUBLIC_ADFIT_CALC_ENTRY_M_320X100 || process.env.NEXT_PUBLIC_ADFIT_CALC_PRIMARY_M_320X100,
+      "mobile",
+      320,
+      100,
+    ),
+    desktop: createSlot(
+      process.env.NEXT_PUBLIC_ADFIT_CALC_ENTRY_D_728X90 || process.env.NEXT_PUBLIC_ADFIT_CALC_PRIMARY_D_728X90,
+      "desktop",
+      728,
+      90,
+    ),
+    desktopCompact: createSlot(
+      process.env.NEXT_PUBLIC_ADFIT_CALC_ENTRY_D_300X250 || process.env.NEXT_PUBLIC_ADFIT_CALC_PRIMARY_D_300X250,
+      "desktop",
+      300,
+      250,
+    ),
+  },
   "calc.primaryAfterSummary": {
     mobile: createSlot(process.env.NEXT_PUBLIC_ADFIT_CALC_PRIMARY_M_320X100, "mobile", 320, 100),
     desktop: createSlot(process.env.NEXT_PUBLIC_ADFIT_CALC_PRIMARY_D_728X90, "desktop", 728, 90),

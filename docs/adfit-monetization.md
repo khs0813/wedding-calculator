@@ -2,7 +2,7 @@
 
 ## 운영 원칙
 
-- 기본 배포는 `calc.primaryAfterSummary`, `calc.secondaryAfterExample`, `calculatorHub.afterStageCards`, `home.afterSituationCards`, `guideHub.afterFeatured`, `guide.mid`를 사용한다.
+- 기본 배포는 `calc.entryTop`, `calc.primaryAfterSummary`, `calc.secondaryAfterExample`, `calculatorHub.afterStageCards`, `home.afterSituationCards`, `guideHub.afterFeatured`, `guide.mid`를 사용한다.
 - `calc.secondaryAfterExample`은 `NEXT_PUBLIC_ADFIT_CALC_SECONDARY_ENABLED=false`일 때만 끈다.
 - 광고 요청은 `NEXT_PUBLIC_ADFIT_ENABLED=true`, 허용 호스트, 실제 DAN ID가 모두 만족될 때만 발생한다.
 - 허용 호스트 기본값은 `weddingbudget.co.kr,www.weddingbudget.co.kr`이다.
@@ -15,6 +15,10 @@
 초기에는 계산기별로 지나치게 세분화하지 않고 위치와 기기별 단위만 만든다.
 
 ```txt
+wb_calc_entry_m_320x100_v1
+wb_calc_entry_d_728x90_v1
+wb_calc_entry_d_300x250_v1
+
 wb_calc_primary_m_320x100_v1
 wb_calc_primary_d_728x90_v1
 wb_calc_primary_d_300x250_v1
@@ -42,6 +46,10 @@ NEXT_PUBLIC_ADFIT_ENABLED=false
 NEXT_PUBLIC_ADFIT_ALLOWED_HOSTS=weddingbudget.co.kr,www.weddingbudget.co.kr
 NEXT_PUBLIC_ADFIT_CALC_SECONDARY_ENABLED=true
 
+NEXT_PUBLIC_ADFIT_CALC_ENTRY_M_320X100=DAN-REPLACE-ME
+NEXT_PUBLIC_ADFIT_CALC_ENTRY_D_728X90=DAN-REPLACE-ME
+NEXT_PUBLIC_ADFIT_CALC_ENTRY_D_300X250=DAN-REPLACE-ME
+
 NEXT_PUBLIC_ADFIT_CALC_PRIMARY_M_320X100=DAN-REPLACE-ME
 NEXT_PUBLIC_ADFIT_CALC_PRIMARY_D_728X90=DAN-REPLACE-ME
 NEXT_PUBLIC_ADFIT_CALC_PRIMARY_D_300X250=DAN-REPLACE-ME
@@ -66,7 +74,7 @@ NEXT_PUBLIC_ADFIT_GUIDE_MID_D_300X250=DAN-REPLACE-ME
 
 - `/`: 상황별 시작 카드 4개가 끝난 뒤, 예산 계산기 목록 전에 `home.afterSituationCards` 1개.
 - `/calculators/`: 상황별 선택 카드 4개가 끝난 뒤, 전체 계산기 목록 전에 `calculatorHub.afterStageCards` 1개.
-- `/calculators/[slug]/`: 유효한 결과 요약과 저장·공유 행동 뒤 결과 영역 안에 `calc.primaryAfterSummary` 1개.
+- `/calculators/[slug]/`: 페이지 상단 breadcrumb 아래에 `calc.entryTop` 1개를 즉시 노출한다. 유효한 결과 요약과 저장·공유 행동 뒤 결과 영역 안에 `calc.primaryAfterSummary` 1개.
 - `/calculators/congratulatory-money/`: primary 1개만 허용.
 - 긴 계산기: 결과 생성 이후 예시 예산표 뒤 `calc.secondaryAfterExample` 1개.
 - `/guides/`: 추천 가이드 3개가 끝난 뒤, 전체 가이드 검색과 목록 전에 `guideHub.afterFeatured` 1개.

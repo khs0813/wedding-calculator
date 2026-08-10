@@ -20,6 +20,12 @@ services:
         value: "weddingbudget.co.kr,www.weddingbudget.co.kr"
       - key: NEXT_PUBLIC_ADFIT_CALC_SECONDARY_ENABLED
         value: "true"
+      - key: NEXT_PUBLIC_ADFIT_CALC_ENTRY_M_320X100
+        value: "DAN-REPLACE-ME"
+      - key: NEXT_PUBLIC_ADFIT_CALC_ENTRY_D_728X90
+        value: "DAN-REPLACE-ME"
+      - key: NEXT_PUBLIC_ADFIT_CALC_ENTRY_D_300X250
+        value: "DAN-REPLACE-ME"
       - key: NEXT_PUBLIC_ADFIT_CALC_PRIMARY_M_320X100
         value: "DAN-REPLACE-ME"
       - key: NEXT_PUBLIC_ADFIT_CALC_PRIMARY_D_728X90
