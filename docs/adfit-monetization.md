@@ -2,13 +2,13 @@
 
 ## 운영 원칙
 
-- 1차 배포는 `calc.primaryAfterSummary`, `home.afterSituationCards`, `guideHub.afterFeatured`, `guide.mid`만 사용한다.
-- `calc.secondaryAfterExample`은 `NEXT_PUBLIC_ADFIT_CALC_SECONDARY_ENABLED=true`일 때만 동작하며 1차 배포 기본값은 false다.
+- 기본 배포는 `calc.primaryAfterSummary`, `calc.secondaryAfterExample`, `calculatorHub.afterStageCards`, `home.afterSituationCards`, `guideHub.afterFeatured`, `guide.mid`를 사용한다.
+- `calc.secondaryAfterExample`은 `NEXT_PUBLIC_ADFIT_CALC_SECONDARY_ENABLED=false`일 때만 끈다.
 - 광고 요청은 `NEXT_PUBLIC_ADFIT_ENABLED=true`, 허용 호스트, 실제 DAN ID가 모두 만족될 때만 발생한다.
 - 허용 호스트 기본값은 `weddingbudget.co.kr,www.weddingbudget.co.kr`이다.
 - localhost, 127.0.0.1, preview, onrender.com에서는 광고를 요청하지 않는다.
 - SDK는 `https://t1.kakaocdn.net/kas/static/ba.min.js`만 사용한다.
-- 한 라우트에서 같은 placement는 한 번만 요청하고, 한 라우트에서 4개 이상의 AdFit 광고가 생기지 않도록 최대 3개로 제한한다.
+- 한 라우트에서 같은 placement는 한 번만 요청하고, 한 페이지당 4개를 초과하지 않도록 최대 4개로 제한한다.
 
 ## AdFit 콘솔 광고단위
 
@@ -21,6 +21,9 @@ wb_calc_primary_d_300x250_v1
 
 wb_calc_secondary_m_300x250_v1
 wb_calc_secondary_d_300x250_v1
+
+wb_calculator_hub_m_320x100_v1
+wb_calculator_hub_d_728x90_v1
 
 wb_home_after_situations_m_320x100_v1
 wb_home_after_situations_d_728x90_v1
@@ -37,7 +40,7 @@ wb_guide_mid_d_300x250_v1
 ```txt
 NEXT_PUBLIC_ADFIT_ENABLED=false
 NEXT_PUBLIC_ADFIT_ALLOWED_HOSTS=weddingbudget.co.kr,www.weddingbudget.co.kr
-NEXT_PUBLIC_ADFIT_CALC_SECONDARY_ENABLED=false
+NEXT_PUBLIC_ADFIT_CALC_SECONDARY_ENABLED=true
 
 NEXT_PUBLIC_ADFIT_CALC_PRIMARY_M_320X100=DAN-REPLACE-ME
 NEXT_PUBLIC_ADFIT_CALC_PRIMARY_D_728X90=DAN-REPLACE-ME
@@ -45,6 +48,9 @@ NEXT_PUBLIC_ADFIT_CALC_PRIMARY_D_300X250=DAN-REPLACE-ME
 
 NEXT_PUBLIC_ADFIT_CALC_SECONDARY_M_300X250=DAN-REPLACE-ME
 NEXT_PUBLIC_ADFIT_CALC_SECONDARY_D_300X250=DAN-REPLACE-ME
+
+NEXT_PUBLIC_ADFIT_CALCULATOR_HUB_M_320X100=DAN-REPLACE-ME
+NEXT_PUBLIC_ADFIT_CALCULATOR_HUB_D_728X90=DAN-REPLACE-ME
 
 NEXT_PUBLIC_ADFIT_HOME_AFTER_SITUATIONS_M_320X100=DAN-REPLACE-ME
 NEXT_PUBLIC_ADFIT_HOME_AFTER_SITUATIONS_D_728X90=DAN-REPLACE-ME
@@ -59,10 +65,10 @@ NEXT_PUBLIC_ADFIT_GUIDE_MID_D_300X250=DAN-REPLACE-ME
 ## 페이지별 위치
 
 - `/`: 상황별 시작 카드 4개가 끝난 뒤, 예산 계산기 목록 전에 `home.afterSituationCards` 1개.
-- `/calculators/`: 광고 없음.
-- `/calculators/[slug]/`: 유효한 결과 요약 뒤 64px 이상 떨어진 위치에 `calc.primaryAfterSummary` 1개.
+- `/calculators/`: 상황별 선택 카드 4개가 끝난 뒤, 전체 계산기 목록 전에 `calculatorHub.afterStageCards` 1개.
+- `/calculators/[slug]/`: 유효한 결과 요약과 저장·공유 행동 뒤 결과 영역 안에 `calc.primaryAfterSummary` 1개.
 - `/calculators/congratulatory-money/`: primary 1개만 허용.
-- 긴 계산기: 실제 계산 예시 뒤 `calc.secondaryAfterExample` 후보 위치가 있으나 1차 배포에서는 비활성화.
+- 긴 계산기: 결과 생성 이후 예시 예산표 뒤 `calc.secondaryAfterExample` 1개.
 - `/guides/`: 추천 가이드 3개가 끝난 뒤, 전체 가이드 검색과 목록 전에 `guideHub.afterFeatured` 1개.
 - `/guides/[slug]/`: 본문 H2 섹션 3개가 끝난 뒤 다음 섹션 사이에 `guide.mid` 1개.
 - `/summary/`, `/privacy/`, `/terms/`, `/disclaimer/`, `/contact/`, `/methodology/`, `/about/`, 404: 광고 없음.

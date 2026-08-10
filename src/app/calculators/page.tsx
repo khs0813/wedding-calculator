@@ -6,6 +6,7 @@ import { CalculatorCard } from "@/components/calculators/CalculatorCard";
 import { Card, CardContent } from "@/components/ui/card";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { absolutePageUrl, absoluteUrl, buildBreadcrumbSchema } from "@/lib/seo";
+import { AdFitSlot } from "@/components/monetization/AdFitSlot";
 
 export const metadata: Metadata = {
   title: "결혼 비용 계산기 | 하객 수·축의금·스드메 포함 총예산 계산",
@@ -133,6 +134,7 @@ export default function CalculatorsPage() {
             );
           })}
         </div>
+        <AdFitSlot placement="calculatorHub.afterStageCards" className="mt-16 mb-4" />
       </section>
 
       <section className="mt-12">

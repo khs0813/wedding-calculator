@@ -490,15 +490,14 @@ export function CalculatorClient({ config }: { config: CalculatorConfig }) {
               </Link>
             </div>
           ) : null}
+          {canShowResultAds ? (
+            <AdFitSlot placement="calc.primaryAfterSummary" className="mt-8 mb-3" />
+          ) : null}
         </section>
       </div>
 
       {config.slug === "studio-dress-makeup-cost" ? (
         <SdmeQuoteComparison />
-      ) : null}
-
-      {canShowResultAds ? (
-        <AdFitSlot placement="calc.primaryAfterSummary" className="mt-16 mb-16" />
       ) : null}
 
       {hasMeaningfulInput ? (

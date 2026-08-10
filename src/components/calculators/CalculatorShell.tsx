@@ -197,6 +197,8 @@ export function CalculatorShell({ config }: { config: CalculatorConfig }) {
           </div>
         </Card>
 
+        <CalculatorSecondaryAd calculatorSlug={config.slug} />
+
         {seoSections.length ? <CalculatorSeoSections sections={seoSections} /> : null}
 
         <section className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
@@ -238,8 +240,6 @@ export function CalculatorShell({ config }: { config: CalculatorConfig }) {
             계산 방법론 확인
           </Link>
         </Card>
-
-        <CalculatorSecondaryAd calculatorSlug={config.slug} />
 
         <FAQSection title={`${config.shortTitle} FAQ`} items={config.faqs} emitJsonLd={false} />
 

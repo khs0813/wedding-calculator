@@ -14,8 +14,10 @@ import {
 
 declare global {
   interface Window {
-    __weddingBudgetAdFitLoaded?: boolean;
-    __weddingBudgetAdFitLoading?: boolean;
+    adfit?: {
+      destroy?: (unitId?: string) => void;
+    };
+    __weddingBudgetAdFitRenderFrame?: number;
     __weddingBudgetAdFitRouteCounts?: Record<string, number>;
     __weddingBudgetAdFitRequestedPlacements?: string[];
     __weddingBudgetAdFitWarned?: string[];
@@ -78,6 +80,8 @@ export function AdFitSlot({ placement, active = true, className = "" }: AdFitSlo
     routeCounts[route] = (routeCounts[route] || 0) + 1;
     setShouldReserve(true);
     setSlot(resolved);
+
+    return () => releaseRouteSlot(route, routeKey);
   }, [active, placement]);
 
   useEffect(() => {
@@ -90,8 +94,9 @@ export function AdFitSlot({ placement, active = true, className = "" }: AdFitSlo
       return;
     }
 
-    const frame = window.requestAnimationFrame(loadAdFitSdkOnce);
-    return () => window.cancelAnimationFrame(frame);
+    scheduleAdFitRender();
+
+    return () => destroyAdFitUnit(slot.unitId);
   }, [active, slot]);
 
   if (!active || !shouldReserve) {
@@ -137,30 +142,33 @@ function getSlotFormat(placement: AdFitPlacement, slot: AdFitResolvedSlot | null
   return "horizontal";
 }
 
-function loadAdFitSdkOnce() {
-  if (window.__weddingBudgetAdFitLoaded || window.__weddingBudgetAdFitLoading) {
+function scheduleAdFitRender() {
+  if (window.__weddingBudgetAdFitRenderFrame) {
     return;
   }
 
-  if (document.querySelector(`script[src="${ADFIT_SDK_SRC}"]`)) {
-    window.__weddingBudgetAdFitLoaded = true;
-    return;
-  }
+  window.__weddingBudgetAdFitRenderFrame = window.requestAnimationFrame(() => {
+    window.__weddingBudgetAdFitRenderFrame = undefined;
 
-  window.__weddingBudgetAdFitLoading = true;
-  const script = document.createElement("script");
-  script.async = true;
-  script.type = "text/javascript";
-  script.charset = "utf-8";
-  script.src = ADFIT_SDK_SRC;
-  script.onload = () => {
-    window.__weddingBudgetAdFitLoaded = true;
-    window.__weddingBudgetAdFitLoading = false;
-  };
-  script.onerror = () => {
-    window.__weddingBudgetAdFitLoading = false;
-  };
-  document.body.appendChild(script);
+    if (!document.querySelector("ins.kakao_ad_area")) {
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.async = true;
+    script.type = "text/javascript";
+    script.charset = "utf-8";
+    script.src = ADFIT_SDK_SRC;
+    script.dataset.adfitLoader = "wedding-budget";
+
+    const removeScript = () => {
+      window.setTimeout(() => script.remove(), 0);
+    };
+
+    script.onload = removeScript;
+    script.onerror = removeScript;
+    document.body.appendChild(script);
+  });
 }
 
 function getRouteCounts() {
@@ -171,6 +179,30 @@ function getRouteCounts() {
 function getRequestedPlacements() {
   window.__weddingBudgetAdFitRequestedPlacements ||= [];
   return window.__weddingBudgetAdFitRequestedPlacements;
+}
+
+function releaseRouteSlot(route: string, routeKey: string) {
+  const requested = getRequestedPlacements();
+  const index = requested.indexOf(routeKey);
+  if (index >= 0) {
+    requested.splice(index, 1);
+  }
+
+  const routeCounts = getRouteCounts();
+  if ((routeCounts[route] || 0) <= 1) {
+    delete routeCounts[route];
+    return;
+  }
+
+  routeCounts[route] -= 1;
+}
+
+function destroyAdFitUnit(unitId: string) {
+  try {
+    window.adfit?.destroy?.(unitId);
+  } catch {
+    warnOnce(`destroy:${unitId}`, `AdFit slot cleanup failed for ${unitId}`);
+  }
 }
 
 function warnOnce(key: string, message: string) {

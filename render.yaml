@@ -19,7 +19,7 @@ services:
       - key: NEXT_PUBLIC_ADFIT_ALLOWED_HOSTS
         value: "weddingbudget.co.kr,www.weddingbudget.co.kr"
       - key: NEXT_PUBLIC_ADFIT_CALC_SECONDARY_ENABLED
-        value: "false"
+        value: "true"
       - key: NEXT_PUBLIC_ADFIT_CALC_PRIMARY_M_320X100
         value: "DAN-REPLACE-ME"
       - key: NEXT_PUBLIC_ADFIT_CALC_PRIMARY_D_728X90
@@ -29,6 +29,10 @@ services:
       - key: NEXT_PUBLIC_ADFIT_CALC_SECONDARY_M_300X250
         value: "DAN-REPLACE-ME"
       - key: NEXT_PUBLIC_ADFIT_CALC_SECONDARY_D_300X250
+        value: "DAN-REPLACE-ME"
+      - key: NEXT_PUBLIC_ADFIT_CALCULATOR_HUB_M_320X100
+        value: "DAN-REPLACE-ME"
+      - key: NEXT_PUBLIC_ADFIT_CALCULATOR_HUB_D_728X90
         value: "DAN-REPLACE-ME"
       - key: NEXT_PUBLIC_ADFIT_HOME_AFTER_SITUATIONS_M_320X100
         value: "DAN-REPLACE-ME"

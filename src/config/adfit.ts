@@ -1,6 +1,7 @@
 export type AdFitPlacement =
   | "calc.primaryAfterSummary"
   | "calc.secondaryAfterExample"
+  | "calculatorHub.afterStageCards"
   | "home.afterSituationCards"
   | "guideHub.afterFeatured"
   | "guide.mid";
@@ -24,7 +25,7 @@ type AdFitUnitConfig = {
 };
 
 export const ADFIT_SDK_SRC = "https://t1.kakaocdn.net/kas/static/ba.min.js";
-export const ADFIT_MAX_SLOTS_PER_ROUTE = 3;
+export const ADFIT_MAX_SLOTS_PER_ROUTE = 4;
 export const DEFAULT_ADFIT_ALLOWED_HOSTS = ["weddingbudget.co.kr", "www.weddingbudget.co.kr"];
 export const ADFIT_CALC_SECONDARY_SLUGS = [
   "wedding-cost",
@@ -37,7 +38,7 @@ export const ADFIT_CALC_SECONDARY_SLUGS = [
 ] as const;
 
 const adFitEnabled = process.env.NEXT_PUBLIC_ADFIT_ENABLED === "true";
-const adFitCalcSecondaryEnabled = process.env.NEXT_PUBLIC_ADFIT_CALC_SECONDARY_ENABLED === "true";
+const adFitCalcSecondaryEnabled = process.env.NEXT_PUBLIC_ADFIT_CALC_SECONDARY_ENABLED !== "false";
 const allowedHosts = parseAllowedHosts(process.env.NEXT_PUBLIC_ADFIT_ALLOWED_HOSTS);
 
 export const adFitRuntimeConfig = {
@@ -55,6 +56,20 @@ export const adFitUnits: Record<AdFitPlacement, AdFitUnitConfig> = {
   "calc.secondaryAfterExample": {
     mobile: createSlot(process.env.NEXT_PUBLIC_ADFIT_CALC_SECONDARY_M_300X250, "mobile", 300, 250),
     desktop: createSlot(process.env.NEXT_PUBLIC_ADFIT_CALC_SECONDARY_D_300X250, "desktop", 300, 250),
+  },
+  "calculatorHub.afterStageCards": {
+    mobile: createSlot(
+      process.env.NEXT_PUBLIC_ADFIT_CALCULATOR_HUB_M_320X100 || process.env.NEXT_PUBLIC_ADFIT_HOME_AFTER_SITUATIONS_M_320X100,
+      "mobile",
+      320,
+      100,
+    ),
+    desktop: createSlot(
+      process.env.NEXT_PUBLIC_ADFIT_CALCULATOR_HUB_D_728X90 || process.env.NEXT_PUBLIC_ADFIT_HOME_AFTER_SITUATIONS_D_728X90,
+      "desktop",
+      728,
+      90,
+    ),
   },
   "home.afterSituationCards": {
     mobile: createSlot(process.env.NEXT_PUBLIC_ADFIT_HOME_AFTER_SITUATIONS_M_320X100, "mobile", 320, 100),
