@@ -118,7 +118,7 @@ export default function HomePage() {
       />
 
       <section className="bg-[radial-gradient(circle_at_top_left,_#eff6ff,_transparent_35%),linear-gradient(135deg,#f8fafc,#ffffff)]">
-        <div className="mx-auto grid max-w-6xl gap-8 px-4 py-16 md:py-24 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+        <div className="mx-auto max-w-6xl px-4 pb-6 pt-12 md:pb-8 md:pt-20">
           <div className="max-w-3xl">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">결혼 예산 계산</p>
             <h1 className="mt-5 text-4xl font-bold leading-tight tracking-tight sm:text-5xl md:text-6xl">
@@ -142,58 +142,63 @@ export default function HomePage() {
                 내 예산표 보기
               </Link>
             </div>
-            <div className="mt-5 flex items-start gap-3 text-sm leading-6 text-muted-foreground">
-              <HeartHandshake className="mt-0.5 h-5 w-5 shrink-0" aria-hidden="true" />
-              <p>둘이 같은 기준으로 입력하고, 공유 URL로 같은 예산표를 보며 조정할 수 있습니다.</p>
-            </div>
-            <nav className="mt-6 grid max-w-2xl gap-2 sm:grid-cols-2" aria-label="주요 계산기 바로가기">
-              {heroCalculatorLinks.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="inline-flex min-h-11 items-center justify-between gap-3 rounded-xl border border-border bg-background px-4 py-2.5 text-sm font-semibold text-foreground transition hover:bg-secondary"
-                >
-                  <span>{item.label}</span>
-                  <ArrowRight className="h-4 w-4 shrink-0" aria-hidden="true" />
-                </Link>
-              ))}
-            </nav>
-          </div>
-          <div className="rounded-2xl border bg-card p-5 shadow-sm md:p-6" aria-label="예산 정리 흐름">
-            <div className="flex items-center justify-between gap-4 border-b pb-4">
-              <div>
-                <p className="text-sm font-semibold text-muted-foreground">예비부부용 예산표</p>
-                <h2 className="mt-1 text-2xl font-bold tracking-tight">무엇부터 정리할까요?</h2>
-              </div>
-              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground">
-                <CheckCircle2 className="h-5 w-5" aria-hidden="true" />
-              </span>
-            </div>
-            <div className="mt-5 space-y-3">
-              {planningSteps.map(([number, title, description]) => (
-                <div key={title} className="grid grid-cols-[2.25rem_1fr] gap-3 rounded-xl border bg-background p-4">
-                  <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-secondary text-sm font-bold text-foreground">{number}</span>
-                  <div>
-                    <h3 className="font-semibold text-foreground">{title}</h3>
-                    <p className="mt-1 text-sm leading-6 text-muted-foreground">{description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div className="mt-5 grid gap-3 sm:grid-cols-3">
-              {trustSignals.map((signal) => {
-                const Icon = signal.icon;
-                return (
-                  <div key={signal.label} className="rounded-xl bg-secondary p-3">
-                    <Icon className="h-5 w-5 text-foreground" aria-hidden="true" />
-                    <p className="mt-2 text-sm font-semibold text-foreground">{signal.label}</p>
-                    <p className="mt-1 text-xs leading-5 text-muted-foreground">{signal.description}</p>
-                  </div>
-                );
-              })}
-            </div>
           </div>
         </div>
+      </section>
+
+      <AdFitSlot placement="home.afterSituationCards" className="mb-6 md:mb-8" />
+
+      <section className="mx-auto max-w-6xl px-4 pb-10">
+        <div className="rounded-2xl border bg-card p-5 shadow-sm md:p-6" aria-label="예산 정리 흐름">
+          <div className="flex items-center justify-between gap-4 border-b pb-4">
+            <div>
+              <p className="text-sm font-semibold text-muted-foreground">예비부부용 예산표</p>
+              <h2 className="mt-1 text-2xl font-bold tracking-tight">무엇부터 정리할까요?</h2>
+            </div>
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground">
+              <CheckCircle2 className="h-5 w-5" aria-hidden="true" />
+            </span>
+          </div>
+          <div className="mt-5 space-y-3">
+            {planningSteps.map(([number, title, description]) => (
+              <div key={title} className="grid grid-cols-[2.25rem_1fr] gap-3 rounded-xl border bg-background p-4">
+                <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-secondary text-sm font-bold text-foreground">{number}</span>
+                <div>
+                  <h3 className="font-semibold text-foreground">{title}</h3>
+                  <p className="mt-1 text-sm leading-6 text-muted-foreground">{description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-5 grid gap-3 sm:grid-cols-3">
+            {trustSignals.map((signal) => {
+              const Icon = signal.icon;
+              return (
+                <div key={signal.label} className="rounded-xl bg-secondary p-3">
+                  <Icon className="h-5 w-5 text-foreground" aria-hidden="true" />
+                  <p className="mt-2 text-sm font-semibold text-foreground">{signal.label}</p>
+                  <p className="mt-1 text-xs leading-5 text-muted-foreground">{signal.description}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        <div className="mt-6 flex items-start gap-3 text-sm leading-6 text-muted-foreground">
+          <HeartHandshake className="mt-0.5 h-5 w-5 shrink-0" aria-hidden="true" />
+          <p>둘이 같은 기준으로 입력하고, 공유 URL로 같은 예산표를 보며 조정할 수 있습니다.</p>
+        </div>
+        <nav className="mt-6 grid gap-2 sm:grid-cols-2 lg:grid-cols-5" aria-label="주요 계산기 바로가기">
+          {heroCalculatorLinks.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="inline-flex min-h-11 items-center justify-between gap-3 rounded-xl border border-border bg-background px-4 py-2.5 text-sm font-semibold text-foreground transition hover:bg-secondary"
+            >
+              <span>{item.label}</span>
+              <ArrowRight className="h-4 w-4 shrink-0" aria-hidden="true" />
+            </Link>
+          ))}
+        </nav>
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-10">
@@ -219,7 +224,6 @@ export default function HomePage() {
             );
           })}
         </div>
-        <AdFitSlot placement="home.afterSituationCards" className="mt-16 mb-16" />
       </section>
 
       <section id="calculators" className="mx-auto max-w-6xl scroll-mt-24 px-4 py-10">
