@@ -93,7 +93,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 {
                   "@type": "ContactPoint",
                   contactType: "customer support",
-                  email: "moneyfinancecalculator@gmail.com",
+                  email: "webinquiry365@gmail.com",
                   availableLanguage: ["ko-KR"],
                 },
               ],

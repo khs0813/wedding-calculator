@@ -72,9 +72,9 @@ NEXT_PUBLIC_ADFIT_GUIDE_MID_D_300X250=DAN-REPLACE-ME
 
 ## 페이지별 위치
 
-- `/`: 상황별 시작 카드 4개가 끝난 뒤, 예산 계산기 목록 전에 `home.afterSituationCards` 1개.
+- `/`: 홈 Hero CTA 직후, “무엇부터 정리할까요?” 예산 정리 흐름 전에 `home.afterSituationCards` 1개.
 - `/calculators/`: 상황별 선택 카드 4개가 끝난 뒤, 전체 계산기 목록 전에 `calculatorHub.afterStageCards` 1개.
-- `/calculators/[slug]/`: 페이지 상단 breadcrumb 아래에 `calc.entryTop` 1개를 즉시 노출한다. 유효한 결과 요약과 저장·공유 행동 뒤 결과 영역 안에 `calc.primaryAfterSummary` 1개.
+- `/calculators/[slug]/`: 페이지 상단 breadcrumb 아래, 히어로 설명보다 위에 `calc.entryTop` 1개를 즉시 노출한다. “계산 시작” 앵커는 실제 계산기 입력 영역으로 이동한다. 유효한 결과 요약과 저장·공유 행동 뒤 결과 영역 안에 `calc.primaryAfterSummary` 1개.
 - `/calculators/congratulatory-money/`: primary 1개만 허용.
 - 긴 계산기: 결과 생성 이후 예시 예산표 뒤 `calc.secondaryAfterExample` 1개.
 - `/guides/`: 추천 가이드 3개가 끝난 뒤, 전체 가이드 검색과 목록 전에 `guideHub.afterFeatured` 1개.

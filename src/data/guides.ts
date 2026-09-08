@@ -6,7 +6,7 @@ const author: AuthorProfile = {
   bio: "결혼 준비 예산과 신혼집 현금 흐름을 비교 가능한 형태로 정리해 계산기와 해설 콘텐츠를 함께 제공합니다.",
   scope: "웨딩홀, 스드메, 혼수, 신혼집, 신혼여행, 축의금 예산 항목 구성",
   updateCycle: "주요 계산기 구조 변경 시 수시 점검, 정기 콘텐츠 점검은 분기 1회",
-  contact: "moneyfinancecalculator@gmail.com",
+  contact: "webinquiry365@gmail.com",
 };
 
 const reviewer: AuthorProfile = {
@@ -16,7 +16,7 @@ const reviewer: AuthorProfile = {
   scope: "계산식 검토, 입력 항목 누락 검토, 정책·대출 관련 공식 자료 확인",
   reviewCriteria: ["계산식과 표 예시의 산정 기준", "입력 항목 누락 여부", "정책·대출 설명의 공식 자료 연결성"],
   updateCycle: "계산식 변경 또는 공식 자료 변경 확인 시 갱신",
-  contact: "moneyfinancecalculator@gmail.com",
+  contact: "webinquiry365@gmail.com",
 };
 
 const commonSources: GuideSource[] = [];

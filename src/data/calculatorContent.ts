@@ -7,7 +7,7 @@ const editorialAuthor: AuthorProfile = {
   scope: "계산기 입력 항목 설계, 결과 설명 문구, 예산 가이드 연결 구조",
   reviewCriteria: ["계산식과 입력 항목의 일치 여부", "결과 문구의 오해 가능성", "공유·PDF·엑셀 기능의 사용자 흐름"],
   updateCycle: "기능 변경 시 즉시 점검, 콘텐츠는 분기 1회 이상 재검토",
-  contact: "moneyfinancecalculator@gmail.com",
+  contact: "webinquiry365@gmail.com",
 };
 
 export const calculatorContent: Record<CalculatorSlug, CalculatorEditorialContent> = {

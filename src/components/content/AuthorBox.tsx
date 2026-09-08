@@ -21,7 +21,7 @@ export function AuthorBox({ author, reviewer, updatedAt }: { author: AuthorProfi
         ) : null}
         {author.updateCycle ? <p className="mt-3 text-sm leading-7 text-muted-foreground"><span className="font-semibold text-foreground">업데이트 주기</span> {author.updateCycle}</p> : null}
         <p className="mt-3 text-xs font-bold text-muted-foreground">최종 업데이트: {updatedAt}</p>
-        <p className="mt-1 text-xs font-bold text-muted-foreground">문의 채널: {author.contact || "moneyfinancecalculator@gmail.com"}</p>
+        <p className="mt-1 text-xs font-bold text-muted-foreground">문의 채널: {author.contact || "webinquiry365@gmail.com"}</p>
       </div>
     );
   }
@@ -51,7 +51,7 @@ export function AuthorBox({ author, reviewer, updatedAt }: { author: AuthorProfi
             </ul>
           ) : null}
           <p className="mt-3 text-xs font-bold text-muted-foreground">최종 업데이트: {updatedAt}</p>
-          <p className="mt-1 text-xs font-bold text-muted-foreground">문의 채널: {reviewer?.contact || author.contact || "moneyfinancecalculator@gmail.com"}</p>
+          <p className="mt-1 text-xs font-bold text-muted-foreground">문의 채널: {reviewer?.contact || author.contact || "webinquiry365@gmail.com"}</p>
         </div>
       </div>
     </div>

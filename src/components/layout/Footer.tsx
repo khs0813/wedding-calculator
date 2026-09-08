@@ -28,7 +28,7 @@ export function Footer() {
           <div className="mt-3 flex flex-col gap-2 text-sm text-muted-foreground">
             <Link href="/guides/">가이드</Link>
             <Link href={guides[0]?.path ?? "/guides/"}>추천 가이드</Link>
-            <Link href="/contact/">문의</Link>
+            <Link href="/contact/">제휴문의</Link>
             <Link href="/privacy/">개인정보처리방침</Link>
             <Link href="/terms/">이용약관</Link>
             <Link href="/disclaimer/">면책고지</Link>

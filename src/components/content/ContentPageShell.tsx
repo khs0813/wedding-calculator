@@ -44,7 +44,7 @@ export function ContentPageShell({ page }: { page: SiteContentPage }) {
           <div className="mt-5 flex flex-wrap gap-3 text-sm font-semibold text-foreground">
             <Link href="/guides/">예산 가이드 모음</Link>
             <Link href="/methodology/">계산 기준과 운영 방법</Link>
-            <Link href="/contact/">문의사항</Link>
+            <Link href="/contact/">제휴문의</Link>
           </div>
         </div>
       </section>

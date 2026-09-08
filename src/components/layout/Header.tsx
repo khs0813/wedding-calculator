@@ -5,7 +5,7 @@ const nav = [
   { href: "/summary/", label: "내 예산표" },
   { href: "/guides/", label: "가이드" },
   { href: "/methodology/", label: "계산 기준" },
-  { href: "/contact/", label: "문의" },
+  { href: "/contact/", label: "제휴문의" },
 ];
 
 export function Header() {
