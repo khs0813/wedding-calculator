@@ -59,26 +59,30 @@ const trustSignals = [
 ];
 const stageChoices = [
   {
-    title: "결혼식 예산표가 필요해요",
-    description: "웨딩홀, 스드메, 혼수, 여행까지 한 번에 큰 흐름을 봅니다.",
+    title: "결혼식 전체 예산표",
+    badge: "1분 완성",
+    description: "웨딩홀, 스드메, 혼수, 신혼여행까지 전체 큰 그림을 한눈에 파악합니다.",
     href: "/calculators/wedding-cost/",
     icon: Sparkles,
   },
   {
-    title: "웨딩홀 견적을 비교해요",
-    description: "보증 인원, 식대, 대관료 기준으로 상담 전 금액을 확인합니다.",
+    title: "웨딩홀 보증인원·식대",
+    badge: "필수 비교",
+    description: "보증 인원, 식대, 대관료 기준으로 상담 전 예상 지출을 산출합니다.",
     href: "/calculators/wedding-hall-cost/",
     icon: Landmark,
   },
   {
-    title: "신혼집 초기비용을 봐요",
-    description: "보증금, 대출, 월 고정비, 입주 비용을 분리해 봅니다.",
+    title: "신혼집 초기 자금",
+    badge: "목돈 준비",
+    description: "보증금, 전세대출 월 이자, 복비, 이사비, 입주 부대비용을 계산합니다.",
     href: "/calculators/newlywed-home-budget/",
     icon: Home,
   },
   {
-    title: "신혼여행 예산을 정해야 해요",
-    description: "항공, 숙박, 현지 지출과 1일 평균 비용을 확인합니다.",
+    title: "신혼여행 여행 경비",
+    badge: "일정별",
+    description: "항공, 숙박, 현지 체류비와 1일 평균 경비를 체계적으로 확인합니다.",
     href: "/calculators/honeymoon-budget/",
     icon: Plane,
   },
@@ -213,11 +217,16 @@ export default function HomePage() {
               <Link key={choice.href} href={choice.href}>
                 <Card className="h-full transition hover:-translate-y-1 hover:shadow-md">
                   <CardContent className="p-5">
-                    <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-secondary text-foreground">
-                      <Icon className="h-5 w-5" aria-hidden="true" />
-                    </span>
-                    <h3 className="mt-4 text-lg font-semibold">{choice.title}</h3>
-                    <p className="mt-3 text-sm leading-6 text-muted-foreground">{choice.description}</p>
+                    <div className="flex items-center justify-between">
+                      <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-secondary text-foreground">
+                        <Icon className="h-5 w-5" aria-hidden="true" />
+                      </span>
+                      <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-semibold text-primary">
+                        {choice.badge}
+                      </span>
+                    </div>
+                    <h3 className="mt-4 text-lg font-semibold text-foreground">{choice.title}</h3>
+                    <p className="mt-2 text-sm leading-6 text-muted-foreground">{choice.description}</p>
                   </CardContent>
                 </Card>
               </Link>

@@ -9,6 +9,7 @@ import {
   CheckCircle2,
   FileDown,
   RefreshCw,
+  Sparkles,
   Trash2,
 } from "lucide-react";
 import { calculators } from "@/data/calculators";
@@ -16,6 +17,7 @@ import { calculateResult } from "@/lib/calculations";
 import { downloadSummaryExcel } from "@/lib/excel";
 import {
   formatCurrency,
+  formatKoreanAmount,
   getDefaultValues,
   safeNumber,
   sanitizeValues,
@@ -162,7 +164,7 @@ function ResultsTable({ rows }: { rows: DashboardRow[] }) {
       <table className="w-full min-w-[840px] border-collapse text-sm">
         <caption className="sr-only">브라우저에 저장된 계산기별 예산 결과 요약</caption>
         <thead>
-            <tr className="border-b border-border text-left text-muted-foreground">
+          <tr className="border-b border-border text-left text-muted-foreground">
             <th scope="col" className="py-3 pr-3">계산기</th>
             <th scope="col" className="py-3 pr-3">상태</th>
             <th scope="col" className="py-3 pr-3 text-right">합계</th>
@@ -173,16 +175,23 @@ function ResultsTable({ rows }: { rows: DashboardRow[] }) {
         </thead>
         <tbody>
           {rows.map((row) => (
-            <tr key={`table-${row.config.slug}`} className="border-b border-border last:border-0">
+            <tr key={`table-${row.config.slug}`} className="border-b border-border last:border-0 hover:bg-muted/30">
               <th scope="row" className="py-3 pr-3 text-left font-semibold text-foreground">{row.config.shortTitle}</th>
               <td className="py-3 pr-3"><StatusBadge row={row} /></td>
-              <td className="py-3 pr-3 text-right font-semibold text-foreground">{formatCurrency(row.result.total)}</td>
+              <td className="py-3 pr-3 text-right">
+                <span className="font-semibold text-foreground">{formatCurrency(row.result.total)}</span>
+                {row.result.total > 0 && (
+                  <span className="block text-xs font-medium text-primary">
+                    {formatKoreanAmount(row.result.total)}
+                  </span>
+                )}
+              </td>
               <td className="py-3 pr-3 text-muted-foreground">{row.result.summary[0]?.label}: {row.result.summary[0]?.value}</td>
               <td className="py-3 pr-3 text-muted-foreground">{row.result.summary[1]?.label}: {row.result.summary[1]?.value}</td>
               <td className="py-3 text-right no-print">
                 <Link
                   href={row.config.path}
-                  className="inline-flex items-center justify-end gap-1 font-semibold text-foreground hover:text-muted-foreground"
+                  className="inline-flex min-h-11 items-center justify-end gap-1 font-semibold text-foreground hover:text-primary transition-colors"
                 >
                   이동
                   <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
@@ -211,7 +220,14 @@ function MobileResultsList({ rows }: { rows: DashboardRow[] }) {
           <dl className="mt-4 space-y-3 text-sm">
             <div className="flex items-start justify-between gap-3">
               <dt className="text-muted-foreground">합계</dt>
-              <dd className="text-right font-semibold text-foreground">{formatCurrency(row.result.total)}</dd>
+              <dd className="text-right">
+                <span className="font-semibold text-foreground">{formatCurrency(row.result.total)}</span>
+                {row.result.total > 0 && (
+                  <span className="block text-xs font-medium text-primary">
+                    {formatKoreanAmount(row.result.total)}
+                  </span>
+                )}
+              </dd>
             </div>
             {row.result.summary.slice(0, 2).map((summary) => (
               <div key={summary.label} className="flex items-start justify-between gap-3">
@@ -222,7 +238,7 @@ function MobileResultsList({ rows }: { rows: DashboardRow[] }) {
           </dl>
           <Link
             href={row.config.path}
-            className="mt-4 inline-flex min-h-10 w-full items-center justify-center gap-2 rounded-xl border border-border bg-background px-4 py-2 text-sm font-semibold text-foreground"
+            className="mt-4 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl border border-border bg-background px-4 py-2.5 text-sm font-semibold text-foreground shadow-sm hover:bg-muted/40 transition-colors"
           >
             계산기로 이동
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -262,6 +278,13 @@ export function SummaryResultsTableCard() {
     };
   }, [refreshRows]);
 
+  const mainWeddingRow = rows.find((row) => row.config.slug === "wedding-cost");
+  const homeRow = rows.find((row) => row.config.slug === "newlywed-home-budget");
+  const filledCount = rows.filter((row) => row.hasMeaningfulInput).length;
+  const detailRows = rows.filter((row) => detailBudgetSlugs.has(row.config.slug));
+  const detailWeddingTotal = detailRows.reduce((sum, row) => sum + row.result.total, 0);
+  const completionPercent = rows.length > 0 ? Math.round((filledCount / rows.length) * 100) : 0;
+
   async function handleDownload() {
     setDownloading(true);
 
@@ -296,56 +319,128 @@ export function SummaryResultsTableCard() {
   }
 
   return (
-    <Card className="overflow-hidden bg-card shadow-none">
-      <CardHeader>
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-          <div>
-            <div className="flex items-center gap-2">
-              <BarChart3 className="h-5 w-5 text-muted-foreground" aria-hidden="true" />
-              <h2 className="text-xl font-semibold text-foreground">전체 결과 표</h2>
+    <div className="space-y-6">
+      {hydrated && (
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="rounded-2xl border border-border bg-card p-4 shadow-sm">
+            <span className="text-xs font-semibold text-muted-foreground">작성 진행률</span>
+            <p className="mt-1 text-2xl font-bold text-foreground">
+              {filledCount} <span className="text-sm font-normal text-muted-foreground">/ {rows.length}개 완료</span>
+            </p>
+            <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-secondary">
+              <div
+                className="h-full rounded-full bg-primary transition-all duration-500"
+                style={{ width: `${completionPercent}%` }}
+              />
             </div>
-            <p className="mt-2 text-sm text-muted-foreground">각 계산기의 핵심 결과를 한 표에서 비교합니다.</p>
           </div>
-          <div className="flex flex-wrap gap-2">
-            <Button
-              type="button"
-              variant="secondary"
-              onClick={handleDownload}
-              disabled={!hydrated || downloading || !hasDownloadableRows}
-              className="min-h-10 gap-2 px-4 py-2 text-xs"
-            >
-              <FileDown className="h-4 w-4" aria-hidden="true" />
-              엑셀 다운로드
-            </Button>
-            <Button
-              type="button"
-              variant="danger"
-              onClick={handleClearAll}
-              disabled={!hydrated}
-              className="min-h-10 gap-2 px-4 py-2 text-xs"
-            >
-              <Trash2 className="h-4 w-4" aria-hidden="true" />
-              초기화
-            </Button>
+
+          <div className="rounded-2xl border border-border bg-card p-4 shadow-sm">
+            <span className="text-xs font-semibold text-muted-foreground">대표 결혼 예산</span>
+            <p className="mt-1 text-xl font-bold text-foreground">
+              {formatCurrency(mainWeddingRow?.result.total || 0)}
+            </p>
+            {(mainWeddingRow?.result.total || 0) > 0 && (
+              <p className="mt-0.5 text-xs font-semibold text-primary">
+                {formatKoreanAmount(mainWeddingRow?.result.total || 0)}
+              </p>
+            )}
+          </div>
+
+          <div className="rounded-2xl border border-border bg-card p-4 shadow-sm">
+            <span className="text-xs font-semibold text-muted-foreground">세부 5개 항목 합계</span>
+            <p className="mt-1 text-xl font-bold text-foreground">
+              {formatCurrency(detailWeddingTotal)}
+            </p>
+            {detailWeddingTotal > 0 && (
+              <p className="mt-0.5 text-xs font-semibold text-primary">
+                {formatKoreanAmount(detailWeddingTotal)}
+              </p>
+            )}
+          </div>
+
+          <div className="rounded-2xl border border-border bg-card p-4 shadow-sm">
+            <span className="text-xs font-semibold text-muted-foreground">신혼집 예산</span>
+            <p className="mt-1 text-xl font-bold text-foreground">
+              {formatCurrency(homeRow?.result.total || 0)}
+            </p>
+            {(homeRow?.result.total || 0) > 0 && (
+              <p className="mt-0.5 text-xs font-semibold text-primary">
+                {formatKoreanAmount(homeRow?.result.total || 0)}
+              </p>
+            )}
           </div>
         </div>
-      </CardHeader>
-      <CardContent>
-        {hydrated ? (
-          <>
-            {!hasDownloadableRows ? (
-              <p className="mb-4 rounded-2xl border border-border bg-muted px-4 py-3 text-sm leading-6 text-muted-foreground">
-                저장된 계산 결과가 아직 없습니다. 개별 계산기를 입력하면 현재 브라우저에만 저장되고 이 표에 표시됩니다.
-              </p>
-            ) : null}
-            <MobileResultsList rows={rows} />
-            <ResultsTable rows={rows} />
-          </>
-        ) : (
-          <p className="text-sm leading-7 text-muted-foreground">브라우저에 저장된 계산 결과를 불러오는 중입니다.</p>
-        )}
-      </CardContent>
-    </Card>
+      )}
+
+      <Card className="overflow-hidden bg-card shadow-none">
+        <CardHeader>
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+            <div>
+              <div className="flex items-center gap-2">
+                <BarChart3 className="h-5 w-5 text-muted-foreground" aria-hidden="true" />
+                <h2 className="text-xl font-semibold text-foreground">전체 결과 표</h2>
+              </div>
+              <p className="mt-2 text-sm text-muted-foreground">각 계산기의 핵심 결과를 한 표에서 비교합니다.</p>
+            </div>
+            <div className="flex flex-wrap items-center gap-2">
+              <Button
+                type="button"
+                variant="secondary"
+                onClick={handleDownload}
+                disabled={!hydrated || downloading || !hasDownloadableRows}
+                className="min-h-11 gap-2 px-4 py-2.5 text-xs font-semibold sm:text-sm"
+              >
+                <FileDown className="h-4 w-4" aria-hidden="true" />
+                엑셀 다운로드
+              </Button>
+              <Button
+                type="button"
+                variant="danger"
+                onClick={handleClearAll}
+                disabled={!hydrated}
+                className="min-h-11 gap-2 px-4 py-2.5 text-xs font-semibold sm:text-sm"
+              >
+                <Trash2 className="h-4 w-4" aria-hidden="true" />
+                초기화
+              </Button>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent>
+          {hydrated ? (
+            <>
+              {!hasDownloadableRows ? (
+                <div className="mb-6 rounded-2xl border border-dashed border-border bg-muted/40 p-6 text-center">
+                  <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
+                    <Sparkles className="h-5 w-5" aria-hidden="true" />
+                  </div>
+                  <p className="mt-3 text-sm font-semibold text-foreground">
+                    저장된 계산 결과가 아직 없습니다. 개별 계산기를 입력하면 현재 브라우저에만 저장되고 이 표에 표시됩니다.
+                  </p>
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    대표 계산기에서 1초 템플릿을 선택하거나 직접 금액을 입력해보세요.
+                  </p>
+                  <div className="mt-4 flex flex-wrap justify-center gap-3">
+                    <Link
+                      href="/calculators/wedding-cost/"
+                      className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm hover:bg-primary/90 transition-colors"
+                    >
+                      결혼 비용 계산기 바로가기 (1분 완성)
+                      <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                    </Link>
+                  </div>
+                </div>
+              ) : null}
+              <MobileResultsList rows={rows} />
+              <ResultsTable rows={rows} />
+            </>
+          ) : (
+            <p className="text-sm leading-7 text-muted-foreground">브라우저에 저장된 계산 결과를 불러오는 중입니다.</p>
+          )}
+        </CardContent>
+      </Card>
+    </div>
   );
 }
 
@@ -411,34 +506,49 @@ export function AllResultsDashboard() {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <Card className="p-5">
             <p className="text-sm font-bold text-muted-foreground">결혼 비용 계산기 총액</p>
-            <p className="mt-2 text-2xl font-semibold text-foreground">
+            <p className="mt-2 text-2xl font-bold text-foreground">
               {formatCurrency(mainWeddingRow?.result.total || 0)}
             </p>
+            {(mainWeddingRow?.result.total || 0) > 0 && (
+              <p className="mt-0.5 text-xs font-semibold text-primary">
+                {formatKoreanAmount(mainWeddingRow?.result.total || 0)}
+              </p>
+            )}
             <p className="mt-2 text-xs leading-5 text-muted-foreground">
               전체 결혼 비용 계산기에서 저장된 대표 총액입니다.
             </p>
           </Card>
           <Card className="p-5">
             <p className="text-sm font-bold text-muted-foreground">세부 결혼 항목 합계</p>
-            <p className="mt-2 text-2xl font-semibold text-foreground">
+            <p className="mt-2 text-2xl font-bold text-foreground">
               {formatCurrency(detailWeddingTotal)}
             </p>
+            {detailWeddingTotal > 0 && (
+              <p className="mt-0.5 text-xs font-semibold text-primary">
+                {formatKoreanAmount(detailWeddingTotal)}
+              </p>
+            )}
             <p className="mt-2 text-xs leading-5 text-muted-foreground">
               웨딩홀·스드메·혼수·예물·신혼여행 계산기 합계입니다.
             </p>
           </Card>
           <Card className="p-5">
             <p className="text-sm font-bold text-muted-foreground">신혼집 준비 총 비용</p>
-            <p className="mt-2 text-2xl font-semibold text-foreground">
+            <p className="mt-2 text-2xl font-bold text-foreground">
               {formatCurrency(homeRow?.result.total || 0)}
             </p>
+            {(homeRow?.result.total || 0) > 0 && (
+              <p className="mt-0.5 text-xs font-semibold text-primary">
+                {formatKoreanAmount(homeRow?.result.total || 0)}
+              </p>
+            )}
             <p className="mt-2 text-xs leading-5 text-muted-foreground">
               보증금/매매가와 초기 입주 비용을 포함합니다.
             </p>
           </Card>
           <Card className="p-5">
             <p className="text-sm font-bold text-muted-foreground">입력된 계산기</p>
-            <p className="mt-2 text-2xl font-semibold text-foreground">
+            <p className="mt-2 text-2xl font-bold text-foreground">
               {filledCount} / {rows.length}개
             </p>
             <p className="mt-2 text-xs leading-5 text-muted-foreground">
@@ -460,19 +570,24 @@ export function AllResultsDashboard() {
             </div>
             <div className="rounded-2xl bg-card px-5 py-4 text-right shadow-sm">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-600">참고 합계</p>
-              <p className="mt-1 text-2xl font-semibold text-amber-950">{formatCurrency(referenceGrandTotal)}</p>
+              <p className="mt-1 text-2xl font-bold text-amber-950">{formatCurrency(referenceGrandTotal)}</p>
+              {referenceGrandTotal > 0 && (
+                <p className="mt-0.5 text-xs font-semibold text-amber-700">
+                  {formatKoreanAmount(referenceGrandTotal)}
+                </p>
+              )}
             </div>
           </CardContent>
         </Card>
       </section>
 
       <div className="no-print flex flex-wrap items-center gap-3">
-        <Button type="button" variant="secondary" onClick={refreshRows} className="gap-2">
+        <Button type="button" variant="secondary" onClick={refreshRows} className="min-h-11 gap-2">
           <RefreshCw className="h-4 w-4" aria-hidden="true" />
           저장값 다시 불러오기
         </Button>
         <PrintButton />
-        <Button type="button" variant="danger" onClick={handleClearAll} className="gap-2">
+        <Button type="button" variant="danger" onClick={handleClearAll} className="min-h-11 gap-2">
           <Trash2 className="h-4 w-4" aria-hidden="true" />
           모든 저장값 초기화
         </Button>

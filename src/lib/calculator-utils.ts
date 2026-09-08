@@ -31,6 +31,24 @@ export function formatCurrency(value: number): string {
   return `${safeNumber(value).toLocaleString("ko-KR")}원`;
 }
 
+export function formatKoreanAmount(value: number): string {
+  const safe = safeNumber(value);
+  if (safe <= 0) return "0원";
+  if (safe < 10000) return `${safe.toLocaleString("ko-KR")}원`;
+
+  const eok = Math.floor(safe / 100_000_000);
+  const remAfterEok = safe % 100_000_000;
+  const man = Math.floor(remAfterEok / 10000);
+  const rest = remAfterEok % 10000;
+
+  const parts: string[] = [];
+  if (eok > 0) parts.push(`${eok.toLocaleString("ko-KR")}억`);
+  if (man > 0) parts.push(`${man.toLocaleString("ko-KR")}만`);
+  if (rest > 0) parts.push(`${rest.toLocaleString("ko-KR")}`);
+
+  return `${parts.join(" ")} 원`;
+}
+
 export function formatNumber(value: number, suffix = ""): string {
   return `${safeNumber(value).toLocaleString("ko-KR")}${suffix}`;
 }

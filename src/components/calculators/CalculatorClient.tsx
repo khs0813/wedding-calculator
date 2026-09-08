@@ -9,6 +9,7 @@ import type { CalculatorConfig, FieldValue } from "@/types/calculator";
 import { calculateResult } from "@/lib/calculations";
 import {
   formatCurrency,
+  formatKoreanAmount,
   getDefaultValues,
   sanitizeValues,
   safeNumber,
@@ -32,7 +33,7 @@ import { ExcelActions } from "@/components/calculators/ExcelActions";
 import { NextCalculatorSection } from "@/components/calculators/NextCalculatorSection";
 import { SdmeQuoteComparison } from "@/components/calculators/SdmeQuoteComparison";
 import { AdFitSlot } from "@/components/monetization/AdFitSlot";
-import { ChevronDown, HeartHandshake, LayoutDashboard, ShieldCheck } from "lucide-react";
+import { ChevronDown, HeartHandshake, LayoutDashboard, ShieldCheck, Sparkles } from "lucide-react";
 
 type FormValues = Record<string, FieldValue>;
 
@@ -383,36 +384,55 @@ export function CalculatorClient({ config }: { config: CalculatorConfig }) {
               <p className="text-sm leading-6 text-muted-foreground">
                 정확히 모르는 항목은 비워도 계산할 수 있습니다. 먼저 빠른 계산으로 큰 흐름을 확인하세요.
               </p>
-              <div className="mt-4 flex flex-wrap items-center gap-3">
-                <div className="inline-flex rounded-xl border border-border bg-card p-1" aria-label="금액 입력 단위">
-                  {[
-                    { value: "won", label: "원 단위" },
-                    { value: "manwon", label: "만원 단위" },
-                  ].map((item) => (
-                    <button
-                      key={item.value}
-                      type="button"
-                      onClick={() => setMoneyUnit(item.value as "won" | "manwon")}
-                      className={
-                        moneyUnit === item.value
-                          ? "min-h-11 rounded-xl bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground"
-                          : "min-h-11 rounded-xl px-4 py-2 text-xs font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-                      }
-                      aria-pressed={moneyUnit === item.value}
-                    >
-                      {item.label}
-                    </button>
-                  ))}
+              <div className="mt-5 space-y-3 rounded-2xl border border-border/90 bg-secondary/30 p-4">
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <div className="flex items-center gap-1.5 text-xs font-bold text-foreground">
+                    <Sparkles className="h-4 w-4 text-primary" aria-hidden="true" />
+                    <span>추천 예산 템플릿 (1초 완성)</span>
+                  </div>
+                  <div className="inline-flex rounded-xl border border-border bg-card p-1" aria-label="금액 입력 단위">
+                    {[
+                      { value: "won", label: "원 단위" },
+                      { value: "manwon", label: "만원 단위" },
+                    ].map((item) => (
+                      <button
+                        key={item.value}
+                        type="button"
+                        onClick={() => setMoneyUnit(item.value as "won" | "manwon")}
+                        className={
+                          moneyUnit === item.value
+                            ? "min-h-11 rounded-lg bg-primary px-3.5 py-1.5 text-xs font-semibold text-primary-foreground"
+                            : "min-h-11 rounded-lg px-3.5 py-1.5 text-xs font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                        }
+                        aria-pressed={moneyUnit === item.value}
+                      >
+                        {item.label}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-                <div className="flex flex-wrap gap-2" aria-label="예시값 프리셋">
-                  {examplePresets.map((preset) => (
+
+                <div className="grid grid-cols-3 gap-2" aria-label="예시값 프리셋">
+                  {examplePresets.map((preset, idx) => (
                     <button
                       key={preset.label}
                       type="button"
+                      aria-label={preset.label}
                       onClick={() => fillExampleValues(preset.values)}
-                      className="min-h-11 rounded-xl border border-border bg-card px-4 py-2 text-xs font-semibold text-foreground transition hover:bg-secondary"
+                      className={
+                        idx === 1
+                          ? "group relative flex min-h-12 flex-col items-center justify-center rounded-xl border-2 border-primary bg-primary/10 px-2 py-2 text-center shadow-xs transition hover:bg-primary/15 active:scale-95"
+                          : "group flex min-h-12 flex-col items-center justify-center rounded-xl border border-border bg-card px-2 py-2 text-center transition hover:bg-secondary active:scale-95"
+                      }
                     >
-                      {preset.label}
+                      {idx === 1 ? (
+                        <span aria-hidden="true" className="mb-0.5 inline-block rounded-full bg-primary px-1.5 py-0.5 text-[10px] font-bold leading-none text-primary-foreground">
+                          추천
+                        </span>
+                      ) : null}
+                      <span className="text-xs font-bold text-foreground group-hover:text-primary">
+                        {preset.label}
+                      </span>
                     </button>
                   ))}
                 </div>
@@ -429,24 +449,31 @@ export function CalculatorClient({ config }: { config: CalculatorConfig }) {
                   </div>
                 </fieldset>
 
-                <details className="group rounded-2xl border border-border bg-muted p-4">
-                  <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 text-sm font-semibold text-foreground">
-                    <span>상세 항목 열기</span>
-                    <ChevronDown className="h-4 w-4 transition group-open:rotate-180" aria-hidden="true" />
-                  </summary>
-                  <div className="mt-5 space-y-6">
-                    {detailGroups.map(([groupName, fields]) => (
-                      <fieldset key={groupName} className="space-y-3">
-                        <legend className="rounded-full bg-card px-3 py-1 text-xs font-semibold text-foreground">
-                          {groupName}
-                        </legend>
-                        <div className="grid gap-3 sm:grid-cols-2">
-                          {fields.map((fieldDef) => renderField(fieldDef))}
-                        </div>
-                      </fieldset>
-                    ))}
-                  </div>
-                </details>
+                {detailGroups.length > 0 ? (
+                  <details className="group rounded-2xl border border-border bg-muted/40 transition-all">
+                    <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-sm font-semibold text-foreground hover:text-primary">
+                      <div className="flex items-center gap-2">
+                        <span>상세 항목 열기</span>
+                        <span className="rounded-full bg-secondary px-2 py-0.5 text-xs font-normal text-muted-foreground">
+                          {detailGroups.reduce((acc, [, fields]) => acc + fields.length, 0)}개 항목
+                        </span>
+                      </div>
+                      <ChevronDown className="h-4 w-4 text-muted-foreground transition group-open:rotate-180" aria-hidden="true" />
+                    </summary>
+                    <div className="border-t border-border/60 p-4 space-y-6">
+                      {detailGroups.map(([groupName, fields]) => (
+                        <fieldset key={groupName} className="space-y-3">
+                          <legend className="rounded-full bg-card px-3 py-1 text-xs font-semibold text-foreground shadow-xs">
+                            {groupName}
+                          </legend>
+                          <div className="grid gap-3 sm:grid-cols-2">
+                            {fields.map((fieldDef) => renderField(fieldDef))}
+                          </div>
+                        </fieldset>
+                      ))}
+                    </div>
+                  </details>
+                ) : null}
 
                 <div className="flex items-start gap-3 rounded-2xl border border-border bg-card p-4 text-sm leading-6 text-muted-foreground">
                   <HeartHandshake className="mt-0.5 h-5 w-5 shrink-0 text-muted-foreground" aria-hidden="true" />
@@ -460,7 +487,12 @@ export function CalculatorClient({ config }: { config: CalculatorConfig }) {
 
         <section className="space-y-5 lg:sticky lg:top-24 lg:self-start" aria-label="계산 결과 영역" aria-live="polite">
           <div className="print-area">
-            <ResultSummary result={result} calculatorSlug={config.slug} hasInput={hasMeaningfulInput} />
+            <ResultSummary
+              result={result}
+              calculatorSlug={config.slug}
+              hasInput={hasMeaningfulInput}
+              onFillPreset={() => fillExampleValues(examplePresets[1]?.values || exampleValues)}
+            />
           </div>
           {shareRestoreMessage ? (
             <p className="no-print rounded-2xl border border-border bg-card px-4 py-3 text-sm leading-6 text-muted-foreground" role="status">
@@ -529,13 +561,19 @@ export function CalculatorClient({ config }: { config: CalculatorConfig }) {
       ) : null}
 
       {hasMeaningfulInput ? (
-        <div className="no-print fixed inset-x-3 bottom-[calc(env(safe-area-inset-bottom)+0.75rem)] z-40 rounded-2xl border border-border bg-background/95 p-3 shadow-sm backdrop-blur lg:hidden">
+        <div className="no-print fixed inset-x-3 bottom-[calc(env(safe-area-inset-bottom)+0.75rem)] z-40 rounded-2xl border border-border bg-background/95 p-3.5 shadow-xl backdrop-blur lg:hidden">
           <div className="flex items-center justify-between gap-3">
-            <p className="min-w-0 truncate text-sm font-semibold text-foreground">
-              예상 총액 <span className="text-foreground">{formatCurrency(result.total)}</span>
-              {mobileSecondarySummary ? <span className="text-muted-foreground"> · 결과 보기</span> : null}
-            </p>
-            <a href="#budget-insights" className="inline-flex min-h-11 shrink-0 items-center rounded-xl bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground">
+            <div className="min-w-0 flex-1">
+              <span className="block text-xs font-semibold text-muted-foreground">실시간 예상 총액</span>
+              <p className="truncate text-base font-extrabold text-foreground">
+                {formatKoreanAmount(result.total)}
+                <span className="ml-1.5 text-xs font-normal text-muted-foreground">({formatCurrency(result.total)})</span>
+              </p>
+            </div>
+            <a
+              href="#budget-insights"
+              className="inline-flex min-h-11 shrink-0 items-center justify-center rounded-xl bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground shadow-sm transition hover:bg-primary/90 active:scale-95"
+            >
               보기
             </a>
           </div>

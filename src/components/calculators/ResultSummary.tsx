@@ -1,6 +1,10 @@
+"use client";
+
+import { useMemo } from "react";
 import type { CalculatorResult, CalculatorSlug, SummaryItem } from "@/types/calculator";
-import { formatCurrency } from "@/lib/calculator-utils";
+import { formatCurrency, formatKoreanAmount } from "@/lib/calculator-utils";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Sparkles, PieChart, Lightbulb, ArrowRight } from "lucide-react";
 
 type SummaryMetric = {
   label: string;
@@ -69,26 +73,75 @@ const emptyStateByCalculator: Record<CalculatorSlug, string> = {
   "congratulatory-money": "관계, 친밀도, 참석 상황을 선택하면 참고용 축의금 범위가 표시됩니다.",
 };
 
+const barColors = [
+  "bg-primary",
+  "bg-indigo-600",
+  "bg-emerald-600",
+  "bg-amber-500",
+  "bg-rose-500",
+  "bg-slate-400",
+];
+
 export function ResultSummary({
   result,
   calculatorSlug,
   hasInput,
+  onFillPreset,
 }: {
   result: CalculatorResult;
   calculatorSlug: CalculatorSlug;
   hasInput: boolean;
+  onFillPreset?: () => void;
 }) {
+  const categoryBreakdown = useMemo(() => {
+    if (!result.items || result.items.length === 0 || result.total <= 0) return [];
+    const map = new Map<string, number>();
+    result.items.forEach((item) => {
+      if (item.amount > 0) {
+        map.set(item.category, (map.get(item.category) || 0) + item.amount);
+      }
+    });
+
+    const list = Array.from(map.entries())
+      .map(([category, amount]) => ({
+        category,
+        amount,
+        percent: Math.max(1, Math.round((amount / result.total) * 100)),
+      }))
+      .sort((a, b) => b.amount - a.amount)
+      .slice(0, 5);
+
+    return list;
+  }, [result.items, result.total]);
+
   if (!hasInput) {
     return (
-      <Card className="overflow-hidden border-border bg-card">
-        <CardHeader>
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">결과</p>
-          <h2 className="text-2xl font-semibold text-foreground">계산 결과 대기 중</h2>
+      <Card className="overflow-hidden border-border bg-card shadow-sm">
+        <CardHeader className="pb-3">
+          <div className="flex items-center gap-2 text-primary">
+            <Sparkles className="h-5 w-5" aria-hidden="true" />
+            <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">실시간 견적 계산</span>
+          </div>
+          <h2 className="mt-1 text-2xl font-bold text-foreground">어디서부터 시작할지 고민되시나요?</h2>
         </CardHeader>
-        <CardContent>
-          <p className="rounded-2xl bg-secondary p-5 text-sm leading-7 text-muted-foreground">
+        <CardContent className="space-y-4">
+          <p className="rounded-xl border border-border/80 bg-secondary/40 p-4 text-sm leading-6 text-muted-foreground">
             {emptyStateByCalculator[calculatorSlug]}
           </p>
+
+          {onFillPreset ? (
+            <button
+              type="button"
+              onClick={onFillPreset}
+              className="group flex min-h-12 w-full items-center justify-between rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground shadow-sm transition hover:bg-primary/90 active:scale-[0.99]"
+            >
+              <span className="flex items-center gap-2">
+                <Sparkles className="h-4 w-4" aria-hidden="true" />
+                가장 많이 찾는 평균 예산으로 시작하기
+              </span>
+              <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" aria-hidden="true" />
+            </button>
+          ) : null}
         </CardContent>
       </Card>
     );
@@ -97,29 +150,91 @@ export function ResultSummary({
   const metrics = buildResultSummaryMetrics(calculatorSlug, result);
 
   return (
-    <Card className="overflow-hidden border-border bg-card">
-      <CardHeader>
-        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">결과 요약</p>
-        <h2 className="text-2xl font-semibold text-foreground">예상 총액</h2>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="rounded-2xl border border-border bg-muted p-5">
-          <p className="text-sm font-semibold text-muted-foreground">{result.primaryLabel}</p>
-          <p className="mt-2 text-3xl font-semibold tracking-tight text-foreground [overflow-wrap:anywhere] sm:text-4xl md:text-5xl">{formatCurrency(result.total)}</p>
+    <Card className="overflow-hidden border-border bg-card shadow-sm">
+      <CardHeader className="pb-3">
+        <div className="flex items-center justify-between">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">결과 요약</p>
+          <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2.5 py-0.5 text-xs font-semibold text-emerald-700">
+            실시간 산출 완료
+          </span>
         </div>
-        <section className="grid gap-3 sm:grid-cols-2" aria-label="핵심 결과 요약">
+        <h2 className="mt-1 text-2xl font-bold text-foreground">예상 총액</h2>
+      </CardHeader>
+
+      <CardContent className="space-y-5">
+        {/* Main Hero Amount */}
+        <div className="rounded-2xl border border-primary/10 bg-primary/5 p-5 md:p-6">
+          <p className="text-sm font-semibold text-muted-foreground">{result.primaryLabel}</p>
+          <p className="mt-2 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">
+            {formatKoreanAmount(result.total)}
+          </p>
+          <p className="mt-1 text-sm font-medium text-muted-foreground">
+            {formatCurrency(result.total)}
+          </p>
+        </div>
+
+        {/* Visual Category Breakdown Bar */}
+        {categoryBreakdown.length > 0 ? (
+          <div className="space-y-3 rounded-2xl border border-border bg-card p-4">
+            <div className="flex items-center justify-between text-xs font-semibold text-muted-foreground">
+              <span className="flex items-center gap-1.5">
+                <PieChart className="h-3.5 w-3.5" aria-hidden="true" />
+                지출 비중 한눈에 보기
+              </span>
+              <span>100%</span>
+            </div>
+
+            {/* Segmented bar */}
+            <div className="flex h-3 w-full overflow-hidden rounded-full bg-secondary/80">
+              {categoryBreakdown.map((cat, idx) => (
+                <div
+                  key={cat.category}
+                  className={`${barColors[idx % barColors.length]} transition-all`}
+                  style={{ width: `${cat.percent}%` }}
+                  title={`${cat.category}: ${cat.percent}%`}
+                />
+              ))}
+            </div>
+
+            {/* Legend */}
+            <div className="grid grid-cols-2 gap-2 pt-1 text-xs sm:grid-cols-3">
+              {categoryBreakdown.map((cat, idx) => (
+                <div key={cat.category} className="flex items-center gap-1.5">
+                  <span className={`h-2.5 w-2.5 shrink-0 rounded-full ${barColors[idx % barColors.length]}`} />
+                  <span className="truncate text-muted-foreground">{cat.category}</span>
+                  <span className="font-semibold text-foreground">{cat.percent}%</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : null}
+
+        {/* Metrics Grid */}
+        <section className="grid gap-2.5 sm:grid-cols-2" aria-label="핵심 결과 요약">
           {metrics.map((metric) => (
-            <div key={metric.label} className="rounded-2xl border border-border bg-card p-4">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">{metric.label}</p>
-              <p className="mt-2 text-lg font-semibold leading-7 text-foreground">{metric.value}</p>
-              {metric.description ? <p className="mt-2 text-xs leading-5 text-muted-foreground">{metric.description}</p> : null}
+            <div key={metric.label} className="rounded-xl border border-border bg-card p-3.5">
+              <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{metric.label}</p>
+              <p className="mt-1.5 text-base font-bold text-foreground">{metric.value}</p>
+              {metric.description ? (
+                <p className="mt-1 text-xs leading-4 text-muted-foreground">{metric.description}</p>
+              ) : null}
             </div>
           ))}
         </section>
-        <p className="rounded-2xl bg-card p-4 text-sm leading-6 text-muted-foreground">
-          {result.advice[0] || "큰 비용 항목부터 둘이 조정할 수 있는 범위를 정해보세요."}
-        </p>
-        {result.disclaimer ? <p className="rounded-2xl bg-card p-4 text-sm leading-6 text-muted-foreground">{result.disclaimer}</p> : null}
+
+        {/* Actionable Advice */}
+        {result.advice[0] ? (
+          <div className="flex items-start gap-2.5 rounded-xl border border-amber-200/60 bg-amber-50/50 p-4 text-xs leading-5 text-amber-900">
+            <Lightbulb className="mt-0.5 h-4 w-4 shrink-0 text-amber-600" aria-hidden="true" />
+            <p>{result.advice[0]}</p>
+          </div>
+        ) : null}
+
+        {result.disclaimer ? (
+          <p className="text-xs leading-5 text-muted-foreground/80">
+            {result.disclaimer}
+          </p>
+        ) : null}
       </CardContent>
     </Card>
   );
