@@ -1,0 +1,2407 @@
+{
+  "baseUrl": "https://weddingbudget.co.kr",
+  "canonicalOrigin": "https://weddingbudget.co.kr",
+  "checkedAt": "2026-07-19T12:26:42.028Z",
+  "sitemapUrlCount": 38,
+  "issueCount": 9,
+  "checks": [
+    {
+      "check": "robots.txt returns 200",
+      "target": "/robots.txt",
+      "status": "200",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "robots.txt content-type text/plain",
+      "target": "/robots.txt",
+      "status": "",
+      "result": "PASS",
+      "detail": "text/plain; charset=utf-8"
+    },
+    {
+      "check": "robots.txt allows site",
+      "target": "/robots.txt",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "robots.txt does not block all",
+      "target": "/robots.txt",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "robots.txt sitemap canonical",
+      "target": "/robots.txt",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "robots.txt does not block summary",
+      "target": "/robots.txt",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "sitemap.xml returns 200",
+      "target": "/sitemap.xml",
+      "status": "200",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "sitemap.xml content-type XML",
+      "target": "/sitemap.xml",
+      "status": "",
+      "result": "PASS",
+      "detail": "application/xml"
+    },
+    {
+      "check": "sitemap.xml has urlset",
+      "target": "/sitemap.xml",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "sitemap URL list is unique",
+      "target": "/sitemap.xml",
+      "status": "",
+      "result": "PASS",
+      "detail": "count=38, unique=38"
+    },
+    {
+      "check": "sitemap URLs use canonical origin",
+      "target": "/sitemap.xml",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "sitemap URLs use trailing slash pages",
+      "target": "/sitemap.xml",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "sitemap URL returns 200",
+      "target": "https://weddingbudget.co.kr/",
+      "status": "200",
+      "result": "PASS",
+      "detail": "chain=0"
+    },
+    {
+      "check": "sitemap URL has no redirect",
+      "target": "https://weddingbudget.co.kr/",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "canonical count is one",
+      "target": "https://weddingbudget.co.kr/",
+      "status": "",
+      "result": "PASS",
+      "detail": "count=1"
+    },
+    {
+      "check": "canonical is self",
+      "target": "https://weddingbudget.co.kr/",
+      "status": "",
+      "result": "PASS",
+      "detail": "canonical=https://weddingbudget.co.kr/"
+    },
+    {
+      "check": "meta robots allows index",
+      "target": "https://weddingbudget.co.kr/",
+      "status": "",
+      "result": "PASS",
+      "detail": "robots=index, follow"
+    },
+    {
+      "check": "googlebot noindex absent",
+      "target": "https://weddingbudget.co.kr/",
+      "status": "",
+      "result": "PASS",
+      "detail": "googlebot=missing"
+    },
+    {
+      "check": "X-Robots-Tag noindex absent",
+      "target": "https://weddingbudget.co.kr/",
+      "status": "",
+      "result": "PASS",
+      "detail": "x-robots-tag=missing"
+    },
+    {
+      "check": "Googlebot SEO response matches default",
+      "target": "https://weddingbudget.co.kr/",
+      "status": "",
+      "result": "PASS",
+      "detail": "status/canonical/robots/x-robots compared"
+    },
+    {
+      "check": "sitemap URL returns 200",
+      "target": "https://weddingbudget.co.kr/calculators/",
+      "status": "200",
+      "result": "PASS",
+      "detail": "chain=0"
+    },
+    {
+      "check": "sitemap URL has no redirect",
+      "target": "https://weddingbudget.co.kr/calculators/",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "canonical count is one",
+      "target": "https://weddingbudget.co.kr/calculators/",
+      "status": "",
+      "result": "PASS",
+      "detail": "count=1"
+    },
+    {
+      "check": "canonical is self",
+      "target": "https://weddingbudget.co.kr/calculators/",
+      "status": "",
+      "result": "PASS",
+      "detail": "canonical=https://weddingbudget.co.kr/calculators/"
+    },
+    {
+      "check": "meta robots allows index",
+      "target": "https://weddingbudget.co.kr/calculators/",
+      "status": "",
+      "result": "PASS",
+      "detail": "robots=index, follow"
+    },
+    {
+      "check": "googlebot noindex absent",
+      "target": "https://weddingbudget.co.kr/calculators/",
+      "status": "",
+      "result": "PASS",
+      "detail": "googlebot=missing"
+    },
+    {
+      "check": "X-Robots-Tag noindex absent",
+      "target": "https://weddingbudget.co.kr/calculators/",
+      "status": "",
+      "result": "PASS",
+      "detail": "x-robots-tag=missing"
+    },
+    {
+      "check": "Googlebot SEO response matches default",
+      "target": "https://weddingbudget.co.kr/calculators/",
+      "status": "",
+      "result": "PASS",
+      "detail": "status/canonical/robots/x-robots compared"
+    },
+    {
+      "check": "sitemap URL returns 200",
+      "target": "https://weddingbudget.co.kr/guides/",
+      "status": "200",
+      "result": "PASS",
+      "detail": "chain=0"
+    },
+    {
+      "check": "sitemap URL has no redirect",
+      "target": "https://weddingbudget.co.kr/guides/",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "canonical count is one",
+      "target": "https://weddingbudget.co.kr/guides/",
+      "status": "",
+      "result": "PASS",
+      "detail": "count=1"
+    },
+    {
+      "check": "canonical is self",
+      "target": "https://weddingbudget.co.kr/guides/",
+      "status": "",
+      "result": "PASS",
+      "detail": "canonical=https://weddingbudget.co.kr/guides/"
+    },
+    {
+      "check": "meta robots allows index",
+      "target": "https://weddingbudget.co.kr/guides/",
+      "status": "",
+      "result": "PASS",
+      "detail": "robots=index, follow"
+    },
+    {
+      "check": "googlebot noindex absent",
+      "target": "https://weddingbudget.co.kr/guides/",
+      "status": "",
+      "result": "PASS",
+      "detail": "googlebot=missing"
+    },
+    {
+      "check": "X-Robots-Tag noindex absent",
+      "target": "https://weddingbudget.co.kr/guides/",
+      "status": "",
+      "result": "PASS",
+      "detail": "x-robots-tag=missing"
+    },
+    {
+      "check": "Googlebot SEO response matches default",
+      "target": "https://weddingbudget.co.kr/guides/",
+      "status": "",
+      "result": "PASS",
+      "detail": "status/canonical/robots/x-robots compared"
+    },
+    {
+      "check": "sitemap URL returns 200",
+      "target": "https://weddingbudget.co.kr/calculators/wedding-cost/",
+      "status": "200",
+      "result": "PASS",
+      "detail": "chain=0"
+    },
+    {
+      "check": "sitemap URL has no redirect",
+      "target": "https://weddingbudget.co.kr/calculators/wedding-cost/",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "canonical count is one",
+      "target": "https://weddingbudget.co.kr/calculators/wedding-cost/",
+      "status": "",
+      "result": "PASS",
+      "detail": "count=1"
+    },
+    {
+      "check": "canonical is self",
+      "target": "https://weddingbudget.co.kr/calculators/wedding-cost/",
+      "status": "",
+      "result": "PASS",
+      "detail": "canonical=https://weddingbudget.co.kr/calculators/wedding-cost/"
+    },
+    {
+      "check": "meta robots allows index",
+      "target": "https://weddingbudget.co.kr/calculators/wedding-cost/",
+      "status": "",
+      "result": "PASS",
+      "detail": "robots=index, follow"
+    },
+    {
+      "check": "googlebot noindex absent",
+      "target": "https://weddingbudget.co.kr/calculators/wedding-cost/",
+      "status": "",
+      "result": "PASS",
+      "detail": "googlebot=missing"
+    },
+    {
+      "check": "X-Robots-Tag noindex absent",
+      "target": "https://weddingbudget.co.kr/calculators/wedding-cost/",
+      "status": "",
+      "result": "PASS",
+      "detail": "x-robots-tag=missing"
+    },
+    {
+      "check": "Googlebot SEO response matches default",
+      "target": "https://weddingbudget.co.kr/calculators/wedding-cost/",
+      "status": "",
+      "result": "PASS",
+      "detail": "status/canonical/robots/x-robots compared"
+    },
+    {
+      "check": "sitemap URL returns 200",
+      "target": "https://weddingbudget.co.kr/calculators/newlywed-home-budget/",
+      "status": "200",
+      "result": "PASS",
+      "detail": "chain=0"
+    },
+    {
+      "check": "sitemap URL has no redirect",
+      "target": "https://weddingbudget.co.kr/calculators/newlywed-home-budget/",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "canonical count is one",
+      "target": "https://weddingbudget.co.kr/calculators/newlywed-home-budget/",
+      "status": "",
+      "result": "PASS",
+      "detail": "count=1"
+    },
+    {
+      "check": "canonical is self",
+      "target": "https://weddingbudget.co.kr/calculators/newlywed-home-budget/",
+      "status": "",
+      "result": "PASS",
+      "detail": "canonical=https://weddingbudget.co.kr/calculators/newlywed-home-budget/"
+    },
+    {
+      "check": "meta robots allows index",
+      "target": "https://weddingbudget.co.kr/calculators/newlywed-home-budget/",
+      "status": "",
+      "result": "PASS",
+      "detail": "robots=index, follow"
+    },
+    {
+      "check": "googlebot noindex absent",
+      "target": "https://weddingbudget.co.kr/calculators/newlywed-home-budget/",
+      "status": "",
+      "result": "PASS",
+      "detail": "googlebot=missing"
+    },
+    {
+      "check": "X-Robots-Tag noindex absent",
+      "target": "https://weddingbudget.co.kr/calculators/newlywed-home-budget/",
+      "status": "",
+      "result": "PASS",
+      "detail": "x-robots-tag=missing"
+    },
+    {
+      "check": "Googlebot SEO response matches default",
+      "target": "https://weddingbudget.co.kr/calculators/newlywed-home-budget/",
+      "status": "",
+      "result": "PASS",
+      "detail": "status/canonical/robots/x-robots compared"
+    },
+    {
+      "check": "sitemap URL returns 200",
+      "target": "https://weddingbudget.co.kr/calculators/wedding-hall-cost/",
+      "status": "200",
+      "result": "PASS",
+      "detail": "chain=0"
+    },
+    {
+      "check": "sitemap URL has no redirect",
+      "target": "https://weddingbudget.co.kr/calculators/wedding-hall-cost/",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "canonical count is one",
+      "target": "https://weddingbudget.co.kr/calculators/wedding-hall-cost/",
+      "status": "",
+      "result": "PASS",
+      "detail": "count=1"
+    },
+    {
+      "check": "canonical is self",
+      "target": "https://weddingbudget.co.kr/calculators/wedding-hall-cost/",
+      "status": "",
+      "result": "PASS",
+      "detail": "canonical=https://weddingbudget.co.kr/calculators/wedding-hall-cost/"
+    },
+    {
+      "check": "meta robots allows index",
+      "target": "https://weddingbudget.co.kr/calculators/wedding-hall-cost/",
+      "status": "",
+      "result": "PASS",
+      "detail": "robots=index, follow"
+    },
+    {
+      "check": "googlebot noindex absent",
+      "target": "https://weddingbudget.co.kr/calculators/wedding-hall-cost/",
+      "status": "",
+      "result": "PASS",
+      "detail": "googlebot=missing"
+    },
+    {
+      "check": "X-Robots-Tag noindex absent",
+      "target": "https://weddingbudget.co.kr/calculators/wedding-hall-cost/",
+      "status": "",
+      "result": "PASS",
+      "detail": "x-robots-tag=missing"
+    },
+    {
+      "check": "Googlebot SEO response matches default",
+      "target": "https://weddingbudget.co.kr/calculators/wedding-hall-cost/",
+      "status": "",
+      "result": "PASS",
+      "detail": "status/canonical/robots/x-robots compared"
+    },
+    {
+      "check": "sitemap URL returns 200",
+      "target": "https://weddingbudget.co.kr/calculators/studio-dress-makeup-cost/",
+      "status": "200",
+      "result": "PASS",
+      "detail": "chain=0"
+    },
+    {
+      "check": "sitemap URL has no redirect",
+      "target": "https://weddingbudget.co.kr/calculators/studio-dress-makeup-cost/",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "canonical count is one",
+      "target": "https://weddingbudget.co.kr/calculators/studio-dress-makeup-cost/",
+      "status": "",
+      "result": "PASS",
+      "detail": "count=1"
+    },
+    {
+      "check": "canonical is self",
+      "target": "https://weddingbudget.co.kr/calculators/studio-dress-makeup-cost/",
+      "status": "",
+      "result": "PASS",
+      "detail": "canonical=https://weddingbudget.co.kr/calculators/studio-dress-makeup-cost/"
+    },
+    {
+      "check": "meta robots allows index",
+      "target": "https://weddingbudget.co.kr/calculators/studio-dress-makeup-cost/",
+      "status": "",
+      "result": "PASS",
+      "detail": "robots=index, follow"
+    },
+    {
+      "check": "googlebot noindex absent",
+      "target": "https://weddingbudget.co.kr/calculators/studio-dress-makeup-cost/",
+      "status": "",
+      "result": "PASS",
+      "detail": "googlebot=missing"
+    },
+    {
+      "check": "X-Robots-Tag noindex absent",
+      "target": "https://weddingbudget.co.kr/calculators/studio-dress-makeup-cost/",
+      "status": "",
+      "result": "PASS",
+      "detail": "x-robots-tag=missing"
+    },
+    {
+      "check": "Googlebot SEO response matches default",
+      "target": "https://weddingbudget.co.kr/calculators/studio-dress-makeup-cost/",
+      "status": "",
+      "result": "PASS",
+      "detail": "status/canonical/robots/x-robots compared"
+    },
+    {
+      "check": "sitemap URL returns 200",
+      "target": "https://weddingbudget.co.kr/calculators/honsu-budget/",
+      "status": "200",
+      "result": "PASS",
+      "detail": "chain=0"
+    },
+    {
+      "check": "sitemap URL has no redirect",
+      "target": "https://weddingbudget.co.kr/calculators/honsu-budget/",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "canonical count is one",
+      "target": "https://weddingbudget.co.kr/calculators/honsu-budget/",
+      "status": "",
+      "result": "PASS",
+      "detail": "count=1"
+    },
+    {
+      "check": "canonical is self",
+      "target": "https://weddingbudget.co.kr/calculators/honsu-budget/",
+      "status": "",
+      "result": "PASS",
+      "detail": "canonical=https://weddingbudget.co.kr/calculators/honsu-budget/"
+    },
+    {
+      "check": "meta robots allows index",
+      "target": "https://weddingbudget.co.kr/calculators/honsu-budget/",
+      "status": "",
+      "result": "PASS",
+      "detail": "robots=index, follow"
+    },
+    {
+      "check": "googlebot noindex absent",
+      "target": "https://weddingbudget.co.kr/calculators/honsu-budget/",
+      "status": "",
+      "result": "PASS",
+      "detail": "googlebot=missing"
+    },
+    {
+      "check": "X-Robots-Tag noindex absent",
+      "target": "https://weddingbudget.co.kr/calculators/honsu-budget/",
+      "status": "",
+      "result": "PASS",
+      "detail": "x-robots-tag=missing"
+    },
+    {
+      "check": "Googlebot SEO response matches default",
+      "target": "https://weddingbudget.co.kr/calculators/honsu-budget/",
+      "status": "",
+      "result": "PASS",
+      "detail": "status/canonical/robots/x-robots compared"
+    },
+    {
+      "check": "sitemap URL returns 200",
+      "target": "https://weddingbudget.co.kr/calculators/wedding-gift-budget/",
+      "status": "200",
+      "result": "PASS",
+      "detail": "chain=0"
+    },
+    {
+      "check": "sitemap URL has no redirect",
+      "target": "https://weddingbudget.co.kr/calculators/wedding-gift-budget/",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "canonical count is one",
+      "target": "https://weddingbudget.co.kr/calculators/wedding-gift-budget/",
+      "status": "",
+      "result": "PASS",
+      "detail": "count=1"
+    },
+    {
+      "check": "canonical is self",
+      "target": "https://weddingbudget.co.kr/calculators/wedding-gift-budget/",
+      "status": "",
+      "result": "PASS",
+      "detail": "canonical=https://weddingbudget.co.kr/calculators/wedding-gift-budget/"
+    },
+    {
+      "check": "meta robots allows index",
+      "target": "https://weddingbudget.co.kr/calculators/wedding-gift-budget/",
+      "status": "",
+      "result": "PASS",
+      "detail": "robots=index, follow"
+    },
+    {
+      "check": "googlebot noindex absent",
+      "target": "https://weddingbudget.co.kr/calculators/wedding-gift-budget/",
+      "status": "",
+      "result": "PASS",
+      "detail": "googlebot=missing"
+    },
+    {
+      "check": "X-Robots-Tag noindex absent",
+      "target": "https://weddingbudget.co.kr/calculators/wedding-gift-budget/",
+      "status": "",
+      "result": "PASS",
+      "detail": "x-robots-tag=missing"
+    },
+    {
+      "check": "Googlebot SEO response matches default",
+      "target": "https://weddingbudget.co.kr/calculators/wedding-gift-budget/",
+      "status": "",
+      "result": "PASS",
+      "detail": "status/canonical/robots/x-robots compared"
+    },
+    {
+      "check": "sitemap URL returns 200",
+      "target": "https://weddingbudget.co.kr/calculators/honeymoon-budget/",
+      "status": "200",
+      "result": "PASS",
+      "detail": "chain=0"
+    },
+    {
+      "check": "sitemap URL has no redirect",
+      "target": "https://weddingbudget.co.kr/calculators/honeymoon-budget/",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "canonical count is one",
+      "target": "https://weddingbudget.co.kr/calculators/honeymoon-budget/",
+      "status": "",
+      "result": "PASS",
+      "detail": "count=1"
+    },
+    {
+      "check": "canonical is self",
+      "target": "https://weddingbudget.co.kr/calculators/honeymoon-budget/",
+      "status": "",
+      "result": "PASS",
+      "detail": "canonical=https://weddingbudget.co.kr/calculators/honeymoon-budget/"
+    },
+    {
+      "check": "meta robots allows index",
+      "target": "https://weddingbudget.co.kr/calculators/honeymoon-budget/",
+      "status": "",
+      "result": "PASS",
+      "detail": "robots=index, follow"
+    },
+    {
+      "check": "googlebot noindex absent",
+      "target": "https://weddingbudget.co.kr/calculators/honeymoon-budget/",
+      "status": "",
+      "result": "PASS",
+      "detail": "googlebot=missing"
+    },
+    {
+      "check": "X-Robots-Tag noindex absent",
+      "target": "https://weddingbudget.co.kr/calculators/honeymoon-budget/",
+      "status": "",
+      "result": "PASS",
+      "detail": "x-robots-tag=missing"
+    },
+    {
+      "check": "Googlebot SEO response matches default",
+      "target": "https://weddingbudget.co.kr/calculators/honeymoon-budget/",
+      "status": "",
+      "result": "PASS",
+      "detail": "status/canonical/robots/x-robots compared"
+    },
+    {
+      "check": "sitemap URL returns 200",
+      "target": "https://weddingbudget.co.kr/calculators/congratulatory-money/",
+      "status": "200",
+      "result": "PASS",
+      "detail": "chain=0"
+    },
+    {
+      "check": "sitemap URL has no redirect",
+      "target": "https://weddingbudget.co.kr/calculators/congratulatory-money/",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "canonical count is one",
+      "target": "https://weddingbudget.co.kr/calculators/congratulatory-money/",
+      "status": "",
+      "result": "PASS",
+      "detail": "count=1"
+    },
+    {
+      "check": "canonical is self",
+      "target": "https://weddingbudget.co.kr/calculators/congratulatory-money/",
+      "status": "",
+      "result": "PASS",
+      "detail": "canonical=https://weddingbudget.co.kr/calculators/congratulatory-money/"
+    },
+    {
+      "check": "meta robots allows index",
+      "target": "https://weddingbudget.co.kr/calculators/congratulatory-money/",
+      "status": "",
+      "result": "PASS",
+      "detail": "robots=index, follow"
+    },
+    {
+      "check": "googlebot noindex absent",
+      "target": "https://weddingbudget.co.kr/calculators/congratulatory-money/",
+      "status": "",
+      "result": "PASS",
+      "detail": "googlebot=missing"
+    },
+    {
+      "check": "X-Robots-Tag noindex absent",
+      "target": "https://weddingbudget.co.kr/calculators/congratulatory-money/",
+      "status": "",
+      "result": "PASS",
+      "detail": "x-robots-tag=missing"
+    },
+    {
+      "check": "Googlebot SEO response matches default",
+      "target": "https://weddingbudget.co.kr/calculators/congratulatory-money/",
+      "status": "",
+      "result": "PASS",
+      "detail": "status/canonical/robots/x-robots compared"
+    },
+    {
+      "check": "sitemap URL returns 200",
+      "target": "https://weddingbudget.co.kr/guides/wedding-cost-guide/",
+      "status": "200",
+      "result": "PASS",
+      "detail": "chain=0"
+    },
+    {
+      "check": "sitemap URL has no redirect",
+      "target": "https://weddingbudget.co.kr/guides/wedding-cost-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "canonical count is one",
+      "target": "https://weddingbudget.co.kr/guides/wedding-cost-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "count=1"
+    },
+    {
+      "check": "canonical is self",
+      "target": "https://weddingbudget.co.kr/guides/wedding-cost-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "canonical=https://weddingbudget.co.kr/guides/wedding-cost-guide/"
+    },
+    {
+      "check": "meta robots allows index",
+      "target": "https://weddingbudget.co.kr/guides/wedding-cost-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "robots=index, follow"
+    },
+    {
+      "check": "googlebot noindex absent",
+      "target": "https://weddingbudget.co.kr/guides/wedding-cost-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "googlebot=missing"
+    },
+    {
+      "check": "X-Robots-Tag noindex absent",
+      "target": "https://weddingbudget.co.kr/guides/wedding-cost-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "x-robots-tag=missing"
+    },
+    {
+      "check": "Googlebot SEO response matches default",
+      "target": "https://weddingbudget.co.kr/guides/wedding-cost-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "status/canonical/robots/x-robots compared"
+    },
+    {
+      "check": "sitemap URL returns 200",
+      "target": "https://weddingbudget.co.kr/guides/newlywed-budget-guide/",
+      "status": "200",
+      "result": "PASS",
+      "detail": "chain=0"
+    },
+    {
+      "check": "sitemap URL has no redirect",
+      "target": "https://weddingbudget.co.kr/guides/newlywed-budget-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "canonical count is one",
+      "target": "https://weddingbudget.co.kr/guides/newlywed-budget-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "count=1"
+    },
+    {
+      "check": "canonical is self",
+      "target": "https://weddingbudget.co.kr/guides/newlywed-budget-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "canonical=https://weddingbudget.co.kr/guides/newlywed-budget-guide/"
+    },
+    {
+      "check": "meta robots allows index",
+      "target": "https://weddingbudget.co.kr/guides/newlywed-budget-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "robots=index, follow"
+    },
+    {
+      "check": "googlebot noindex absent",
+      "target": "https://weddingbudget.co.kr/guides/newlywed-budget-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "googlebot=missing"
+    },
+    {
+      "check": "X-Robots-Tag noindex absent",
+      "target": "https://weddingbudget.co.kr/guides/newlywed-budget-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "x-robots-tag=missing"
+    },
+    {
+      "check": "Googlebot SEO response matches default",
+      "target": "https://weddingbudget.co.kr/guides/newlywed-budget-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "status/canonical/robots/x-robots compared"
+    },
+    {
+      "check": "sitemap URL returns 200",
+      "target": "https://weddingbudget.co.kr/guides/wedding-saving-tips/",
+      "status": "200",
+      "result": "PASS",
+      "detail": "chain=0"
+    },
+    {
+      "check": "sitemap URL has no redirect",
+      "target": "https://weddingbudget.co.kr/guides/wedding-saving-tips/",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "canonical count is one",
+      "target": "https://weddingbudget.co.kr/guides/wedding-saving-tips/",
+      "status": "",
+      "result": "PASS",
+      "detail": "count=1"
+    },
+    {
+      "check": "canonical is self",
+      "target": "https://weddingbudget.co.kr/guides/wedding-saving-tips/",
+      "status": "",
+      "result": "PASS",
+      "detail": "canonical=https://weddingbudget.co.kr/guides/wedding-saving-tips/"
+    },
+    {
+      "check": "meta robots allows index",
+      "target": "https://weddingbudget.co.kr/guides/wedding-saving-tips/",
+      "status": "",
+      "result": "PASS",
+      "detail": "robots=index, follow"
+    },
+    {
+      "check": "googlebot noindex absent",
+      "target": "https://weddingbudget.co.kr/guides/wedding-saving-tips/",
+      "status": "",
+      "result": "PASS",
+      "detail": "googlebot=missing"
+    },
+    {
+      "check": "X-Robots-Tag noindex absent",
+      "target": "https://weddingbudget.co.kr/guides/wedding-saving-tips/",
+      "status": "",
+      "result": "PASS",
+      "detail": "x-robots-tag=missing"
+    },
+    {
+      "check": "Googlebot SEO response matches default",
+      "target": "https://weddingbudget.co.kr/guides/wedding-saving-tips/",
+      "status": "",
+      "result": "PASS",
+      "detail": "status/canonical/robots/x-robots compared"
+    },
+    {
+      "check": "sitemap URL returns 200",
+      "target": "https://weddingbudget.co.kr/guides/wedding-hall-checklist/",
+      "status": "200",
+      "result": "PASS",
+      "detail": "chain=0"
+    },
+    {
+      "check": "sitemap URL has no redirect",
+      "target": "https://weddingbudget.co.kr/guides/wedding-hall-checklist/",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "canonical count is one",
+      "target": "https://weddingbudget.co.kr/guides/wedding-hall-checklist/",
+      "status": "",
+      "result": "PASS",
+      "detail": "count=1"
+    },
+    {
+      "check": "canonical is self",
+      "target": "https://weddingbudget.co.kr/guides/wedding-hall-checklist/",
+      "status": "",
+      "result": "PASS",
+      "detail": "canonical=https://weddingbudget.co.kr/guides/wedding-hall-checklist/"
+    },
+    {
+      "check": "meta robots allows index",
+      "target": "https://weddingbudget.co.kr/guides/wedding-hall-checklist/",
+      "status": "",
+      "result": "PASS",
+      "detail": "robots=index, follow"
+    },
+    {
+      "check": "googlebot noindex absent",
+      "target": "https://weddingbudget.co.kr/guides/wedding-hall-checklist/",
+      "status": "",
+      "result": "PASS",
+      "detail": "googlebot=missing"
+    },
+    {
+      "check": "X-Robots-Tag noindex absent",
+      "target": "https://weddingbudget.co.kr/guides/wedding-hall-checklist/",
+      "status": "",
+      "result": "PASS",
+      "detail": "x-robots-tag=missing"
+    },
+    {
+      "check": "Googlebot SEO response matches default",
+      "target": "https://weddingbudget.co.kr/guides/wedding-hall-checklist/",
+      "status": "",
+      "result": "PASS",
+      "detail": "status/canonical/robots/x-robots compared"
+    },
+    {
+      "check": "sitemap URL returns 200",
+      "target": "https://weddingbudget.co.kr/guides/sdme-options-guide/",
+      "status": "200",
+      "result": "PASS",
+      "detail": "chain=0"
+    },
+    {
+      "check": "sitemap URL has no redirect",
+      "target": "https://weddingbudget.co.kr/guides/sdme-options-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "canonical count is one",
+      "target": "https://weddingbudget.co.kr/guides/sdme-options-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "count=1"
+    },
+    {
+      "check": "canonical is self",
+      "target": "https://weddingbudget.co.kr/guides/sdme-options-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "canonical=https://weddingbudget.co.kr/guides/sdme-options-guide/"
+    },
+    {
+      "check": "meta robots allows index",
+      "target": "https://weddingbudget.co.kr/guides/sdme-options-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "robots=index, follow"
+    },
+    {
+      "check": "googlebot noindex absent",
+      "target": "https://weddingbudget.co.kr/guides/sdme-options-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "googlebot=missing"
+    },
+    {
+      "check": "X-Robots-Tag noindex absent",
+      "target": "https://weddingbudget.co.kr/guides/sdme-options-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "x-robots-tag=missing"
+    },
+    {
+      "check": "Googlebot SEO response matches default",
+      "target": "https://weddingbudget.co.kr/guides/sdme-options-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "status/canonical/robots/x-robots compared"
+    },
+    {
+      "check": "sitemap URL returns 200",
+      "target": "https://weddingbudget.co.kr/guides/wedding-gift-negotiation-guide/",
+      "status": "200",
+      "result": "PASS",
+      "detail": "chain=0"
+    },
+    {
+      "check": "sitemap URL has no redirect",
+      "target": "https://weddingbudget.co.kr/guides/wedding-gift-negotiation-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "canonical count is one",
+      "target": "https://weddingbudget.co.kr/guides/wedding-gift-negotiation-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "count=1"
+    },
+    {
+      "check": "canonical is self",
+      "target": "https://weddingbudget.co.kr/guides/wedding-gift-negotiation-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "canonical=https://weddingbudget.co.kr/guides/wedding-gift-negotiation-guide/"
+    },
+    {
+      "check": "meta robots allows index",
+      "target": "https://weddingbudget.co.kr/guides/wedding-gift-negotiation-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "robots=index, follow"
+    },
+    {
+      "check": "googlebot noindex absent",
+      "target": "https://weddingbudget.co.kr/guides/wedding-gift-negotiation-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "googlebot=missing"
+    },
+    {
+      "check": "X-Robots-Tag noindex absent",
+      "target": "https://weddingbudget.co.kr/guides/wedding-gift-negotiation-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "x-robots-tag=missing"
+    },
+    {
+      "check": "Googlebot SEO response matches default",
+      "target": "https://weddingbudget.co.kr/guides/wedding-gift-negotiation-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "status/canonical/robots/x-robots compared"
+    },
+    {
+      "check": "sitemap URL returns 200",
+      "target": "https://weddingbudget.co.kr/guides/honsu-priority-guide/",
+      "status": "200",
+      "result": "PASS",
+      "detail": "chain=0"
+    },
+    {
+      "check": "sitemap URL has no redirect",
+      "target": "https://weddingbudget.co.kr/guides/honsu-priority-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "canonical count is one",
+      "target": "https://weddingbudget.co.kr/guides/honsu-priority-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "count=1"
+    },
+    {
+      "check": "canonical is self",
+      "target": "https://weddingbudget.co.kr/guides/honsu-priority-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "canonical=https://weddingbudget.co.kr/guides/honsu-priority-guide/"
+    },
+    {
+      "check": "meta robots allows index",
+      "target": "https://weddingbudget.co.kr/guides/honsu-priority-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "robots=index, follow"
+    },
+    {
+      "check": "googlebot noindex absent",
+      "target": "https://weddingbudget.co.kr/guides/honsu-priority-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "googlebot=missing"
+    },
+    {
+      "check": "X-Robots-Tag noindex absent",
+      "target": "https://weddingbudget.co.kr/guides/honsu-priority-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "x-robots-tag=missing"
+    },
+    {
+      "check": "Googlebot SEO response matches default",
+      "target": "https://weddingbudget.co.kr/guides/honsu-priority-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "status/canonical/robots/x-robots compared"
+    },
+    {
+      "check": "sitemap URL returns 200",
+      "target": "https://weddingbudget.co.kr/guides/honeymoon-destination-budget-guide/",
+      "status": "200",
+      "result": "PASS",
+      "detail": "chain=0"
+    },
+    {
+      "check": "sitemap URL has no redirect",
+      "target": "https://weddingbudget.co.kr/guides/honeymoon-destination-budget-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "canonical count is one",
+      "target": "https://weddingbudget.co.kr/guides/honeymoon-destination-budget-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "count=1"
+    },
+    {
+      "check": "canonical is self",
+      "target": "https://weddingbudget.co.kr/guides/honeymoon-destination-budget-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "canonical=https://weddingbudget.co.kr/guides/honeymoon-destination-budget-guide/"
+    },
+    {
+      "check": "meta robots allows index",
+      "target": "https://weddingbudget.co.kr/guides/honeymoon-destination-budget-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "robots=index, follow"
+    },
+    {
+      "check": "googlebot noindex absent",
+      "target": "https://weddingbudget.co.kr/guides/honeymoon-destination-budget-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "googlebot=missing"
+    },
+    {
+      "check": "X-Robots-Tag noindex absent",
+      "target": "https://weddingbudget.co.kr/guides/honeymoon-destination-budget-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "x-robots-tag=missing"
+    },
+    {
+      "check": "Googlebot SEO response matches default",
+      "target": "https://weddingbudget.co.kr/guides/honeymoon-destination-budget-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "status/canonical/robots/x-robots compared"
+    },
+    {
+      "check": "sitemap URL returns 200",
+      "target": "https://weddingbudget.co.kr/guides/congratulatory-money-etiquette-guide/",
+      "status": "200",
+      "result": "PASS",
+      "detail": "chain=0"
+    },
+    {
+      "check": "sitemap URL has no redirect",
+      "target": "https://weddingbudget.co.kr/guides/congratulatory-money-etiquette-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "canonical count is one",
+      "target": "https://weddingbudget.co.kr/guides/congratulatory-money-etiquette-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "count=1"
+    },
+    {
+      "check": "canonical is self",
+      "target": "https://weddingbudget.co.kr/guides/congratulatory-money-etiquette-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "canonical=https://weddingbudget.co.kr/guides/congratulatory-money-etiquette-guide/"
+    },
+    {
+      "check": "meta robots allows index",
+      "target": "https://weddingbudget.co.kr/guides/congratulatory-money-etiquette-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "robots=index, follow"
+    },
+    {
+      "check": "googlebot noindex absent",
+      "target": "https://weddingbudget.co.kr/guides/congratulatory-money-etiquette-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "googlebot=missing"
+    },
+    {
+      "check": "X-Robots-Tag noindex absent",
+      "target": "https://weddingbudget.co.kr/guides/congratulatory-money-etiquette-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "x-robots-tag=missing"
+    },
+    {
+      "check": "Googlebot SEO response matches default",
+      "target": "https://weddingbudget.co.kr/guides/congratulatory-money-etiquette-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "status/canonical/robots/x-robots compared"
+    },
+    {
+      "check": "sitemap URL returns 200",
+      "target": "https://weddingbudget.co.kr/guides/wedding-budget-timeline-guide/",
+      "status": "200",
+      "result": "PASS",
+      "detail": "chain=0"
+    },
+    {
+      "check": "sitemap URL has no redirect",
+      "target": "https://weddingbudget.co.kr/guides/wedding-budget-timeline-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "canonical count is one",
+      "target": "https://weddingbudget.co.kr/guides/wedding-budget-timeline-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "count=1"
+    },
+    {
+      "check": "canonical is self",
+      "target": "https://weddingbudget.co.kr/guides/wedding-budget-timeline-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "canonical=https://weddingbudget.co.kr/guides/wedding-budget-timeline-guide/"
+    },
+    {
+      "check": "meta robots allows index",
+      "target": "https://weddingbudget.co.kr/guides/wedding-budget-timeline-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "robots=index, follow"
+    },
+    {
+      "check": "googlebot noindex absent",
+      "target": "https://weddingbudget.co.kr/guides/wedding-budget-timeline-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "googlebot=missing"
+    },
+    {
+      "check": "X-Robots-Tag noindex absent",
+      "target": "https://weddingbudget.co.kr/guides/wedding-budget-timeline-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "x-robots-tag=missing"
+    },
+    {
+      "check": "Googlebot SEO response matches default",
+      "target": "https://weddingbudget.co.kr/guides/wedding-budget-timeline-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "status/canonical/robots/x-robots compared"
+    },
+    {
+      "check": "sitemap URL returns 200",
+      "target": "https://weddingbudget.co.kr/guides/small-wedding-budget-guide/",
+      "status": "200",
+      "result": "PASS",
+      "detail": "chain=0"
+    },
+    {
+      "check": "sitemap URL has no redirect",
+      "target": "https://weddingbudget.co.kr/guides/small-wedding-budget-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "canonical count is one",
+      "target": "https://weddingbudget.co.kr/guides/small-wedding-budget-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "count=1"
+    },
+    {
+      "check": "canonical is self",
+      "target": "https://weddingbudget.co.kr/guides/small-wedding-budget-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "canonical=https://weddingbudget.co.kr/guides/small-wedding-budget-guide/"
+    },
+    {
+      "check": "meta robots allows index",
+      "target": "https://weddingbudget.co.kr/guides/small-wedding-budget-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "robots=index, follow"
+    },
+    {
+      "check": "googlebot noindex absent",
+      "target": "https://weddingbudget.co.kr/guides/small-wedding-budget-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "googlebot=missing"
+    },
+    {
+      "check": "X-Robots-Tag noindex absent",
+      "target": "https://weddingbudget.co.kr/guides/small-wedding-budget-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "x-robots-tag=missing"
+    },
+    {
+      "check": "Googlebot SEO response matches default",
+      "target": "https://weddingbudget.co.kr/guides/small-wedding-budget-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "status/canonical/robots/x-robots compared"
+    },
+    {
+      "check": "sitemap URL returns 200",
+      "target": "https://weddingbudget.co.kr/guides/newlywed-loan-planning-guide/",
+      "status": "200",
+      "result": "PASS",
+      "detail": "chain=0"
+    },
+    {
+      "check": "sitemap URL has no redirect",
+      "target": "https://weddingbudget.co.kr/guides/newlywed-loan-planning-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "canonical count is one",
+      "target": "https://weddingbudget.co.kr/guides/newlywed-loan-planning-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "count=1"
+    },
+    {
+      "check": "canonical is self",
+      "target": "https://weddingbudget.co.kr/guides/newlywed-loan-planning-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "canonical=https://weddingbudget.co.kr/guides/newlywed-loan-planning-guide/"
+    },
+    {
+      "check": "meta robots allows index",
+      "target": "https://weddingbudget.co.kr/guides/newlywed-loan-planning-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "robots=index, follow"
+    },
+    {
+      "check": "googlebot noindex absent",
+      "target": "https://weddingbudget.co.kr/guides/newlywed-loan-planning-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "googlebot=missing"
+    },
+    {
+      "check": "X-Robots-Tag noindex absent",
+      "target": "https://weddingbudget.co.kr/guides/newlywed-loan-planning-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "x-robots-tag=missing"
+    },
+    {
+      "check": "Googlebot SEO response matches default",
+      "target": "https://weddingbudget.co.kr/guides/newlywed-loan-planning-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "status/canonical/robots/x-robots compared"
+    },
+    {
+      "check": "sitemap URL returns 200",
+      "target": "https://weddingbudget.co.kr/guides/wedding-contract-check-guide/",
+      "status": "200",
+      "result": "PASS",
+      "detail": "chain=0"
+    },
+    {
+      "check": "sitemap URL has no redirect",
+      "target": "https://weddingbudget.co.kr/guides/wedding-contract-check-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "canonical count is one",
+      "target": "https://weddingbudget.co.kr/guides/wedding-contract-check-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "count=1"
+    },
+    {
+      "check": "canonical is self",
+      "target": "https://weddingbudget.co.kr/guides/wedding-contract-check-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "canonical=https://weddingbudget.co.kr/guides/wedding-contract-check-guide/"
+    },
+    {
+      "check": "meta robots allows index",
+      "target": "https://weddingbudget.co.kr/guides/wedding-contract-check-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "robots=index, follow"
+    },
+    {
+      "check": "googlebot noindex absent",
+      "target": "https://weddingbudget.co.kr/guides/wedding-contract-check-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "googlebot=missing"
+    },
+    {
+      "check": "X-Robots-Tag noindex absent",
+      "target": "https://weddingbudget.co.kr/guides/wedding-contract-check-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "x-robots-tag=missing"
+    },
+    {
+      "check": "Googlebot SEO response matches default",
+      "target": "https://weddingbudget.co.kr/guides/wedding-contract-check-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "status/canonical/robots/x-robots compared"
+    },
+    {
+      "check": "sitemap URL returns 200",
+      "target": "https://weddingbudget.co.kr/guides/wedding-guest-budget-table-guide/",
+      "status": "200",
+      "result": "PASS",
+      "detail": "chain=0"
+    },
+    {
+      "check": "sitemap URL has no redirect",
+      "target": "https://weddingbudget.co.kr/guides/wedding-guest-budget-table-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "canonical count is one",
+      "target": "https://weddingbudget.co.kr/guides/wedding-guest-budget-table-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "count=1"
+    },
+    {
+      "check": "canonical is self",
+      "target": "https://weddingbudget.co.kr/guides/wedding-guest-budget-table-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "canonical=https://weddingbudget.co.kr/guides/wedding-guest-budget-table-guide/"
+    },
+    {
+      "check": "meta robots allows index",
+      "target": "https://weddingbudget.co.kr/guides/wedding-guest-budget-table-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "robots=index, follow"
+    },
+    {
+      "check": "googlebot noindex absent",
+      "target": "https://weddingbudget.co.kr/guides/wedding-guest-budget-table-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "googlebot=missing"
+    },
+    {
+      "check": "X-Robots-Tag noindex absent",
+      "target": "https://weddingbudget.co.kr/guides/wedding-guest-budget-table-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "x-robots-tag=missing"
+    },
+    {
+      "check": "Googlebot SEO response matches default",
+      "target": "https://weddingbudget.co.kr/guides/wedding-guest-budget-table-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "status/canonical/robots/x-robots compared"
+    },
+    {
+      "check": "sitemap URL returns 200",
+      "target": "https://weddingbudget.co.kr/guides/wedding-hall-meal-cost-table-guide/",
+      "status": "200",
+      "result": "PASS",
+      "detail": "chain=0"
+    },
+    {
+      "check": "sitemap URL has no redirect",
+      "target": "https://weddingbudget.co.kr/guides/wedding-hall-meal-cost-table-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "canonical count is one",
+      "target": "https://weddingbudget.co.kr/guides/wedding-hall-meal-cost-table-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "count=1"
+    },
+    {
+      "check": "canonical is self",
+      "target": "https://weddingbudget.co.kr/guides/wedding-hall-meal-cost-table-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "canonical=https://weddingbudget.co.kr/guides/wedding-hall-meal-cost-table-guide/"
+    },
+    {
+      "check": "meta robots allows index",
+      "target": "https://weddingbudget.co.kr/guides/wedding-hall-meal-cost-table-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "robots=index, follow"
+    },
+    {
+      "check": "googlebot noindex absent",
+      "target": "https://weddingbudget.co.kr/guides/wedding-hall-meal-cost-table-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "googlebot=missing"
+    },
+    {
+      "check": "X-Robots-Tag noindex absent",
+      "target": "https://weddingbudget.co.kr/guides/wedding-hall-meal-cost-table-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "x-robots-tag=missing"
+    },
+    {
+      "check": "Googlebot SEO response matches default",
+      "target": "https://weddingbudget.co.kr/guides/wedding-hall-meal-cost-table-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "status/canonical/robots/x-robots compared"
+    },
+    {
+      "check": "sitemap URL returns 200",
+      "target": "https://weddingbudget.co.kr/guides/sdme-extra-cost-table-guide/",
+      "status": "200",
+      "result": "PASS",
+      "detail": "chain=0"
+    },
+    {
+      "check": "sitemap URL has no redirect",
+      "target": "https://weddingbudget.co.kr/guides/sdme-extra-cost-table-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "canonical count is one",
+      "target": "https://weddingbudget.co.kr/guides/sdme-extra-cost-table-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "count=1"
+    },
+    {
+      "check": "canonical is self",
+      "target": "https://weddingbudget.co.kr/guides/sdme-extra-cost-table-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "canonical=https://weddingbudget.co.kr/guides/sdme-extra-cost-table-guide/"
+    },
+    {
+      "check": "meta robots allows index",
+      "target": "https://weddingbudget.co.kr/guides/sdme-extra-cost-table-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "robots=index, follow"
+    },
+    {
+      "check": "googlebot noindex absent",
+      "target": "https://weddingbudget.co.kr/guides/sdme-extra-cost-table-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "googlebot=missing"
+    },
+    {
+      "check": "X-Robots-Tag noindex absent",
+      "target": "https://weddingbudget.co.kr/guides/sdme-extra-cost-table-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "x-robots-tag=missing"
+    },
+    {
+      "check": "Googlebot SEO response matches default",
+      "target": "https://weddingbudget.co.kr/guides/sdme-extra-cost-table-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "status/canonical/robots/x-robots compared"
+    },
+    {
+      "check": "sitemap URL returns 200",
+      "target": "https://weddingbudget.co.kr/guides/newlywed-home-initial-cost-guide/",
+      "status": "200",
+      "result": "PASS",
+      "detail": "chain=0"
+    },
+    {
+      "check": "sitemap URL has no redirect",
+      "target": "https://weddingbudget.co.kr/guides/newlywed-home-initial-cost-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "canonical count is one",
+      "target": "https://weddingbudget.co.kr/guides/newlywed-home-initial-cost-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "count=1"
+    },
+    {
+      "check": "canonical is self",
+      "target": "https://weddingbudget.co.kr/guides/newlywed-home-initial-cost-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "canonical=https://weddingbudget.co.kr/guides/newlywed-home-initial-cost-guide/"
+    },
+    {
+      "check": "meta robots allows index",
+      "target": "https://weddingbudget.co.kr/guides/newlywed-home-initial-cost-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "robots=index, follow"
+    },
+    {
+      "check": "googlebot noindex absent",
+      "target": "https://weddingbudget.co.kr/guides/newlywed-home-initial-cost-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "googlebot=missing"
+    },
+    {
+      "check": "X-Robots-Tag noindex absent",
+      "target": "https://weddingbudget.co.kr/guides/newlywed-home-initial-cost-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "x-robots-tag=missing"
+    },
+    {
+      "check": "Googlebot SEO response matches default",
+      "target": "https://weddingbudget.co.kr/guides/newlywed-home-initial-cost-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "status/canonical/robots/x-robots compared"
+    },
+    {
+      "check": "sitemap URL returns 200",
+      "target": "https://weddingbudget.co.kr/guides/appliance-budget-table-guide/",
+      "status": "200",
+      "result": "PASS",
+      "detail": "chain=0"
+    },
+    {
+      "check": "sitemap URL has no redirect",
+      "target": "https://weddingbudget.co.kr/guides/appliance-budget-table-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "canonical count is one",
+      "target": "https://weddingbudget.co.kr/guides/appliance-budget-table-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "count=1"
+    },
+    {
+      "check": "canonical is self",
+      "target": "https://weddingbudget.co.kr/guides/appliance-budget-table-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "canonical=https://weddingbudget.co.kr/guides/appliance-budget-table-guide/"
+    },
+    {
+      "check": "meta robots allows index",
+      "target": "https://weddingbudget.co.kr/guides/appliance-budget-table-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "robots=index, follow"
+    },
+    {
+      "check": "googlebot noindex absent",
+      "target": "https://weddingbudget.co.kr/guides/appliance-budget-table-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "googlebot=missing"
+    },
+    {
+      "check": "X-Robots-Tag noindex absent",
+      "target": "https://weddingbudget.co.kr/guides/appliance-budget-table-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "x-robots-tag=missing"
+    },
+    {
+      "check": "Googlebot SEO response matches default",
+      "target": "https://weddingbudget.co.kr/guides/appliance-budget-table-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "status/canonical/robots/x-robots compared"
+    },
+    {
+      "check": "sitemap URL returns 200",
+      "target": "https://weddingbudget.co.kr/guides/honeymoon-budget-ratio-guide/",
+      "status": "200",
+      "result": "PASS",
+      "detail": "chain=0"
+    },
+    {
+      "check": "sitemap URL has no redirect",
+      "target": "https://weddingbudget.co.kr/guides/honeymoon-budget-ratio-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "canonical count is one",
+      "target": "https://weddingbudget.co.kr/guides/honeymoon-budget-ratio-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "count=1"
+    },
+    {
+      "check": "canonical is self",
+      "target": "https://weddingbudget.co.kr/guides/honeymoon-budget-ratio-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "canonical=https://weddingbudget.co.kr/guides/honeymoon-budget-ratio-guide/"
+    },
+    {
+      "check": "meta robots allows index",
+      "target": "https://weddingbudget.co.kr/guides/honeymoon-budget-ratio-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "robots=index, follow"
+    },
+    {
+      "check": "googlebot noindex absent",
+      "target": "https://weddingbudget.co.kr/guides/honeymoon-budget-ratio-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "googlebot=missing"
+    },
+    {
+      "check": "X-Robots-Tag noindex absent",
+      "target": "https://weddingbudget.co.kr/guides/honeymoon-budget-ratio-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "x-robots-tag=missing"
+    },
+    {
+      "check": "Googlebot SEO response matches default",
+      "target": "https://weddingbudget.co.kr/guides/honeymoon-budget-ratio-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "status/canonical/robots/x-robots compared"
+    },
+    {
+      "check": "sitemap URL returns 200",
+      "target": "https://weddingbudget.co.kr/guides/congratulatory-money-table-guide/",
+      "status": "200",
+      "result": "PASS",
+      "detail": "chain=0"
+    },
+    {
+      "check": "sitemap URL has no redirect",
+      "target": "https://weddingbudget.co.kr/guides/congratulatory-money-table-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "canonical count is one",
+      "target": "https://weddingbudget.co.kr/guides/congratulatory-money-table-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "count=1"
+    },
+    {
+      "check": "canonical is self",
+      "target": "https://weddingbudget.co.kr/guides/congratulatory-money-table-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "canonical=https://weddingbudget.co.kr/guides/congratulatory-money-table-guide/"
+    },
+    {
+      "check": "meta robots allows index",
+      "target": "https://weddingbudget.co.kr/guides/congratulatory-money-table-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "robots=index, follow"
+    },
+    {
+      "check": "googlebot noindex absent",
+      "target": "https://weddingbudget.co.kr/guides/congratulatory-money-table-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "googlebot=missing"
+    },
+    {
+      "check": "X-Robots-Tag noindex absent",
+      "target": "https://weddingbudget.co.kr/guides/congratulatory-money-table-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "x-robots-tag=missing"
+    },
+    {
+      "check": "Googlebot SEO response matches default",
+      "target": "https://weddingbudget.co.kr/guides/congratulatory-money-table-guide/",
+      "status": "",
+      "result": "PASS",
+      "detail": "status/canonical/robots/x-robots compared"
+    },
+    {
+      "check": "sitemap URL returns 200",
+      "target": "https://weddingbudget.co.kr/about/",
+      "status": "200",
+      "result": "PASS",
+      "detail": "chain=0"
+    },
+    {
+      "check": "sitemap URL has no redirect",
+      "target": "https://weddingbudget.co.kr/about/",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "canonical count is one",
+      "target": "https://weddingbudget.co.kr/about/",
+      "status": "",
+      "result": "PASS",
+      "detail": "count=1"
+    },
+    {
+      "check": "canonical is self",
+      "target": "https://weddingbudget.co.kr/about/",
+      "status": "",
+      "result": "PASS",
+      "detail": "canonical=https://weddingbudget.co.kr/about/"
+    },
+    {
+      "check": "meta robots allows index",
+      "target": "https://weddingbudget.co.kr/about/",
+      "status": "",
+      "result": "PASS",
+      "detail": "robots=index, follow"
+    },
+    {
+      "check": "googlebot noindex absent",
+      "target": "https://weddingbudget.co.kr/about/",
+      "status": "",
+      "result": "PASS",
+      "detail": "googlebot=missing"
+    },
+    {
+      "check": "X-Robots-Tag noindex absent",
+      "target": "https://weddingbudget.co.kr/about/",
+      "status": "",
+      "result": "PASS",
+      "detail": "x-robots-tag=missing"
+    },
+    {
+      "check": "Googlebot SEO response matches default",
+      "target": "https://weddingbudget.co.kr/about/",
+      "status": "",
+      "result": "PASS",
+      "detail": "status/canonical/robots/x-robots compared"
+    },
+    {
+      "check": "sitemap URL returns 200",
+      "target": "https://weddingbudget.co.kr/editorial-policy/",
+      "status": "200",
+      "result": "PASS",
+      "detail": "chain=0"
+    },
+    {
+      "check": "sitemap URL has no redirect",
+      "target": "https://weddingbudget.co.kr/editorial-policy/",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "canonical count is one",
+      "target": "https://weddingbudget.co.kr/editorial-policy/",
+      "status": "",
+      "result": "PASS",
+      "detail": "count=1"
+    },
+    {
+      "check": "canonical is self",
+      "target": "https://weddingbudget.co.kr/editorial-policy/",
+      "status": "",
+      "result": "PASS",
+      "detail": "canonical=https://weddingbudget.co.kr/editorial-policy/"
+    },
+    {
+      "check": "meta robots allows index",
+      "target": "https://weddingbudget.co.kr/editorial-policy/",
+      "status": "",
+      "result": "PASS",
+      "detail": "robots=index, follow"
+    },
+    {
+      "check": "googlebot noindex absent",
+      "target": "https://weddingbudget.co.kr/editorial-policy/",
+      "status": "",
+      "result": "PASS",
+      "detail": "googlebot=missing"
+    },
+    {
+      "check": "X-Robots-Tag noindex absent",
+      "target": "https://weddingbudget.co.kr/editorial-policy/",
+      "status": "",
+      "result": "PASS",
+      "detail": "x-robots-tag=missing"
+    },
+    {
+      "check": "Googlebot SEO response matches default",
+      "target": "https://weddingbudget.co.kr/editorial-policy/",
+      "status": "",
+      "result": "PASS",
+      "detail": "status/canonical/robots/x-robots compared"
+    },
+    {
+      "check": "sitemap URL returns 200",
+      "target": "https://weddingbudget.co.kr/methodology/",
+      "status": "200",
+      "result": "PASS",
+      "detail": "chain=0"
+    },
+    {
+      "check": "sitemap URL has no redirect",
+      "target": "https://weddingbudget.co.kr/methodology/",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "canonical count is one",
+      "target": "https://weddingbudget.co.kr/methodology/",
+      "status": "",
+      "result": "PASS",
+      "detail": "count=1"
+    },
+    {
+      "check": "canonical is self",
+      "target": "https://weddingbudget.co.kr/methodology/",
+      "status": "",
+      "result": "PASS",
+      "detail": "canonical=https://weddingbudget.co.kr/methodology/"
+    },
+    {
+      "check": "meta robots allows index",
+      "target": "https://weddingbudget.co.kr/methodology/",
+      "status": "",
+      "result": "PASS",
+      "detail": "robots=index, follow"
+    },
+    {
+      "check": "googlebot noindex absent",
+      "target": "https://weddingbudget.co.kr/methodology/",
+      "status": "",
+      "result": "PASS",
+      "detail": "googlebot=missing"
+    },
+    {
+      "check": "X-Robots-Tag noindex absent",
+      "target": "https://weddingbudget.co.kr/methodology/",
+      "status": "",
+      "result": "PASS",
+      "detail": "x-robots-tag=missing"
+    },
+    {
+      "check": "Googlebot SEO response matches default",
+      "target": "https://weddingbudget.co.kr/methodology/",
+      "status": "",
+      "result": "PASS",
+      "detail": "status/canonical/robots/x-robots compared"
+    },
+    {
+      "check": "sitemap URL returns 200",
+      "target": "https://weddingbudget.co.kr/privacy/",
+      "status": "200",
+      "result": "PASS",
+      "detail": "chain=0"
+    },
+    {
+      "check": "sitemap URL has no redirect",
+      "target": "https://weddingbudget.co.kr/privacy/",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "canonical count is one",
+      "target": "https://weddingbudget.co.kr/privacy/",
+      "status": "",
+      "result": "PASS",
+      "detail": "count=1"
+    },
+    {
+      "check": "canonical is self",
+      "target": "https://weddingbudget.co.kr/privacy/",
+      "status": "",
+      "result": "PASS",
+      "detail": "canonical=https://weddingbudget.co.kr/privacy/"
+    },
+    {
+      "check": "meta robots allows index",
+      "target": "https://weddingbudget.co.kr/privacy/",
+      "status": "",
+      "result": "PASS",
+      "detail": "robots=index, follow"
+    },
+    {
+      "check": "googlebot noindex absent",
+      "target": "https://weddingbudget.co.kr/privacy/",
+      "status": "",
+      "result": "PASS",
+      "detail": "googlebot=missing"
+    },
+    {
+      "check": "X-Robots-Tag noindex absent",
+      "target": "https://weddingbudget.co.kr/privacy/",
+      "status": "",
+      "result": "PASS",
+      "detail": "x-robots-tag=missing"
+    },
+    {
+      "check": "Googlebot SEO response matches default",
+      "target": "https://weddingbudget.co.kr/privacy/",
+      "status": "",
+      "result": "PASS",
+      "detail": "status/canonical/robots/x-robots compared"
+    },
+    {
+      "check": "sitemap URL returns 200",
+      "target": "https://weddingbudget.co.kr/terms/",
+      "status": "200",
+      "result": "PASS",
+      "detail": "chain=0"
+    },
+    {
+      "check": "sitemap URL has no redirect",
+      "target": "https://weddingbudget.co.kr/terms/",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "canonical count is one",
+      "target": "https://weddingbudget.co.kr/terms/",
+      "status": "",
+      "result": "PASS",
+      "detail": "count=1"
+    },
+    {
+      "check": "canonical is self",
+      "target": "https://weddingbudget.co.kr/terms/",
+      "status": "",
+      "result": "PASS",
+      "detail": "canonical=https://weddingbudget.co.kr/terms/"
+    },
+    {
+      "check": "meta robots allows index",
+      "target": "https://weddingbudget.co.kr/terms/",
+      "status": "",
+      "result": "PASS",
+      "detail": "robots=index, follow"
+    },
+    {
+      "check": "googlebot noindex absent",
+      "target": "https://weddingbudget.co.kr/terms/",
+      "status": "",
+      "result": "PASS",
+      "detail": "googlebot=missing"
+    },
+    {
+      "check": "X-Robots-Tag noindex absent",
+      "target": "https://weddingbudget.co.kr/terms/",
+      "status": "",
+      "result": "PASS",
+      "detail": "x-robots-tag=missing"
+    },
+    {
+      "check": "Googlebot SEO response matches default",
+      "target": "https://weddingbudget.co.kr/terms/",
+      "status": "",
+      "result": "PASS",
+      "detail": "status/canonical/robots/x-robots compared"
+    },
+    {
+      "check": "sitemap URL returns 200",
+      "target": "https://weddingbudget.co.kr/disclaimer/",
+      "status": "200",
+      "result": "PASS",
+      "detail": "chain=0"
+    },
+    {
+      "check": "sitemap URL has no redirect",
+      "target": "https://weddingbudget.co.kr/disclaimer/",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "canonical count is one",
+      "target": "https://weddingbudget.co.kr/disclaimer/",
+      "status": "",
+      "result": "PASS",
+      "detail": "count=1"
+    },
+    {
+      "check": "canonical is self",
+      "target": "https://weddingbudget.co.kr/disclaimer/",
+      "status": "",
+      "result": "PASS",
+      "detail": "canonical=https://weddingbudget.co.kr/disclaimer/"
+    },
+    {
+      "check": "meta robots allows index",
+      "target": "https://weddingbudget.co.kr/disclaimer/",
+      "status": "",
+      "result": "PASS",
+      "detail": "robots=index, follow"
+    },
+    {
+      "check": "googlebot noindex absent",
+      "target": "https://weddingbudget.co.kr/disclaimer/",
+      "status": "",
+      "result": "PASS",
+      "detail": "googlebot=missing"
+    },
+    {
+      "check": "X-Robots-Tag noindex absent",
+      "target": "https://weddingbudget.co.kr/disclaimer/",
+      "status": "",
+      "result": "PASS",
+      "detail": "x-robots-tag=missing"
+    },
+    {
+      "check": "Googlebot SEO response matches default",
+      "target": "https://weddingbudget.co.kr/disclaimer/",
+      "status": "",
+      "result": "PASS",
+      "detail": "status/canonical/robots/x-robots compared"
+    },
+    {
+      "check": "sitemap URL returns 200",
+      "target": "https://weddingbudget.co.kr/contact/",
+      "status": "200",
+      "result": "PASS",
+      "detail": "chain=0"
+    },
+    {
+      "check": "sitemap URL has no redirect",
+      "target": "https://weddingbudget.co.kr/contact/",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "canonical count is one",
+      "target": "https://weddingbudget.co.kr/contact/",
+      "status": "",
+      "result": "PASS",
+      "detail": "count=1"
+    },
+    {
+      "check": "canonical is self",
+      "target": "https://weddingbudget.co.kr/contact/",
+      "status": "",
+      "result": "PASS",
+      "detail": "canonical=https://weddingbudget.co.kr/contact/"
+    },
+    {
+      "check": "meta robots allows index",
+      "target": "https://weddingbudget.co.kr/contact/",
+      "status": "",
+      "result": "PASS",
+      "detail": "robots=index, follow"
+    },
+    {
+      "check": "googlebot noindex absent",
+      "target": "https://weddingbudget.co.kr/contact/",
+      "status": "",
+      "result": "PASS",
+      "detail": "googlebot=missing"
+    },
+    {
+      "check": "X-Robots-Tag noindex absent",
+      "target": "https://weddingbudget.co.kr/contact/",
+      "status": "",
+      "result": "PASS",
+      "detail": "x-robots-tag=missing"
+    },
+    {
+      "check": "Googlebot SEO response matches default",
+      "target": "https://weddingbudget.co.kr/contact/",
+      "status": "",
+      "result": "PASS",
+      "detail": "status/canonical/robots/x-robots compared"
+    },
+    {
+      "check": "summary returns 200",
+      "target": "https://weddingbudget.co.kr/summary/",
+      "status": "200",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "summary excluded from sitemap",
+      "target": "https://weddingbudget.co.kr/summary/",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "summary canonical is self",
+      "target": "https://weddingbudget.co.kr/summary/",
+      "status": "",
+      "result": "PASS",
+      "detail": "canonical=https://weddingbudget.co.kr/summary/"
+    },
+    {
+      "check": "summary meta robots noindex follow",
+      "target": "https://weddingbudget.co.kr/summary/",
+      "status": "",
+      "result": "PASS",
+      "detail": "robots=noindex, follow"
+    },
+    {
+      "check": "summary X-Robots-Tag not conflicting",
+      "target": "https://weddingbudget.co.kr/summary/",
+      "status": "",
+      "result": "PASS",
+      "detail": "x-robots-tag=not set"
+    },
+    {
+      "check": "calculator shared state query",
+      "target": "/calculators/wedding-cost/?state=seo-audit",
+      "status": "200",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "calculator shared state query canonical strips query",
+      "target": "/calculators/wedding-cost/?state=seo-audit",
+      "status": "",
+      "result": "PASS",
+      "detail": "canonical=https://weddingbudget.co.kr/calculators/wedding-cost/"
+    },
+    {
+      "check": "calculator shared state query noindex",
+      "target": "/calculators/wedding-cost/?state=seo-audit",
+      "status": "",
+      "result": "FAIL",
+      "detail": "robots=index, follow, x-robots-tag=missing"
+    },
+    {
+      "check": "calculator shared state query absent from sitemap",
+      "target": "/calculators/wedding-cost/?state=seo-audit",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "calculator tracking query",
+      "target": "/calculators/wedding-cost/?utm_source=seo-audit&gclid=test&fbclid=test",
+      "status": "200",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "calculator tracking query canonical strips query",
+      "target": "/calculators/wedding-cost/?utm_source=seo-audit&gclid=test&fbclid=test",
+      "status": "",
+      "result": "PASS",
+      "detail": "canonical=https://weddingbudget.co.kr/calculators/wedding-cost/"
+    },
+    {
+      "check": "calculator tracking query noindex",
+      "target": "/calculators/wedding-cost/?utm_source=seo-audit&gclid=test&fbclid=test",
+      "status": "",
+      "result": "FAIL",
+      "detail": "robots=index, follow, x-robots-tag=missing"
+    },
+    {
+      "check": "calculator tracking query absent from sitemap",
+      "target": "/calculators/wedding-cost/?utm_source=seo-audit&gclid=test&fbclid=test",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "guide search query",
+      "target": "/guides/?q=budget",
+      "status": "200",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "guide search query canonical strips query",
+      "target": "/guides/?q=budget",
+      "status": "",
+      "result": "PASS",
+      "detail": "canonical=https://weddingbudget.co.kr/guides/"
+    },
+    {
+      "check": "guide search query noindex",
+      "target": "/guides/?q=budget",
+      "status": "",
+      "result": "FAIL",
+      "detail": "robots=index, follow, x-robots-tag=missing"
+    },
+    {
+      "check": "guide search query absent from sitemap",
+      "target": "/guides/?q=budget",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "sitemap has no query URLs",
+      "target": "sitemap.xml",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "sitemap has no fragment URLs",
+      "target": "sitemap.xml",
+      "status": "",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "trailing slash /about",
+      "target": "/about",
+      "status": "200",
+      "result": "FAIL",
+      "detail": "chain=0, final=https://weddingbudget.co.kr/about"
+    },
+    {
+      "check": "trailing slash calculator",
+      "target": "/calculators/wedding-cost",
+      "status": "200",
+      "result": "FAIL",
+      "detail": "chain=0, final=https://weddingbudget.co.kr/calculators/wedding-cost"
+    },
+    {
+      "check": "trailing slash guide",
+      "target": "/guides/newlywed-budget-guide",
+      "status": "200",
+      "result": "FAIL",
+      "detail": "chain=0, final=https://weddingbudget.co.kr/guides/newlywed-budget-guide"
+    },
+    {
+      "check": "http to https",
+      "target": "http://weddingbudget.co.kr/about",
+      "status": "200",
+      "result": "FAIL",
+      "detail": "chain=1, final=https://weddingbudget.co.kr/about"
+    },
+    {
+      "check": "www to non-www",
+      "target": "https://www.weddingbudget.co.kr/about",
+      "status": "200",
+      "result": "FAIL",
+      "detail": "chain=1, final=https://weddingbudget.co.kr/about"
+    },
+    {
+      "check": "http www to canonical",
+      "target": "http://www.weddingbudget.co.kr/about",
+      "status": "200",
+      "result": "FAIL",
+      "detail": "chain=2, final=https://weddingbudget.co.kr/about"
+    }
+  ],
+  "issues": [
+    "calculator shared state query noindex: /calculators/wedding-cost/?state=seo-audit - robots=index, follow, x-robots-tag=missing",
+    "calculator tracking query noindex: /calculators/wedding-cost/?utm_source=seo-audit&gclid=test&fbclid=test - robots=index, follow, x-robots-tag=missing",
+    "guide search query noindex: /guides/?q=budget - robots=index, follow, x-robots-tag=missing",
+    "trailing slash /about: /about - chain=0, final=https://weddingbudget.co.kr/about",
+    "trailing slash calculator: /calculators/wedding-cost - chain=0, final=https://weddingbudget.co.kr/calculators/wedding-cost",
+    "trailing slash guide: /guides/newlywed-budget-guide - chain=0, final=https://weddingbudget.co.kr/guides/newlywed-budget-guide",
+    "http to https: http://weddingbudget.co.kr/about - chain=1, final=https://weddingbudget.co.kr/about",
+    "www to non-www: https://www.weddingbudget.co.kr/about - chain=1, final=https://weddingbudget.co.kr/about",
+    "http www to canonical: http://www.weddingbudget.co.kr/about - chain=2, final=https://weddingbudget.co.kr/about"
+  ]
+}

@@ -9,7 +9,7 @@ import { FAQSection } from "@/components/seo/FAQSection";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Card, CardContent } from "@/components/ui/card";
 import { absolutePageUrl, absoluteUrl, buildBreadcrumbSchema } from "@/lib/seo";
-import { AdFitSlot } from "@/components/monetization/AdFitSlot";
+import { CoupangBanner } from "@/components/monetization/CoupangBanner";
 import { SEO_TARGETS } from "@/data/seoTargets";
 
 const homeSeo = SEO_TARGETS["/"];
@@ -150,7 +150,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <AdFitSlot placement="home.afterSituationCards" className="mb-6 md:mb-8" />
+      <CoupangBanner className="mb-6 md:mb-8" />
 
       <section className="mx-auto max-w-6xl px-4 pb-10">
         <div className="rounded-2xl border bg-card p-5 shadow-sm md:p-6" aria-label="예산 정리 흐름">

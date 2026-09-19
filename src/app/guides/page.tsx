@@ -6,7 +6,7 @@ import { absolutePageUrl, absoluteUrl, buildBreadcrumbSchema } from "@/lib/seo";
 import { Card } from "@/components/ui/card";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { GuideFilterList } from "@/components/content/GuideFilterList";
-import { AdFitSlot } from "@/components/monetization/AdFitSlot";
+import { CoupangBanner } from "@/components/monetization/CoupangBanner";
 
 export const metadata: Metadata = {
   title: "웨딩 예산 가이드 모음",
@@ -98,7 +98,7 @@ export default function GuidesIndexPage() {
             </Card>
           ))}
         </div>
-        <AdFitSlot placement="guideHub.afterFeatured" className="mt-16 mb-16" />
+        <CoupangBanner className="mt-16 mb-16" />
       </section>
 
       <section className="mt-14">

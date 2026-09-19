@@ -11,7 +11,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { SectionBlocks } from "@/components/content/SectionBlocks";
 import { AuthorBox } from "@/components/content/AuthorBox";
 import { FAQSection } from "@/components/seo/FAQSection";
-import { AdFitSlot } from "@/components/monetization/AdFitSlot";
+import { CoupangBanner } from "@/components/monetization/CoupangBanner";
 
 const guideEnhancements: Partial<Record<GuideSlug, {
   scenarioTitle: string;
@@ -453,7 +453,7 @@ export default async function GuidePage({ params }: PageProps) {
         <SectionBlocks
           sections={guide.sections}
           afterSectionIndex={showMidAd ? 2 : undefined}
-          afterSection={showMidAd ? <AdFitSlot placement="guide.mid" className="mt-16 mb-16" /> : undefined}
+          afterSection={showMidAd ? <CoupangBanner className="mt-16 mb-16" /> : undefined}
         />
       </div>
 

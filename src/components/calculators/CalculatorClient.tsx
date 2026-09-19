@@ -32,7 +32,7 @@ import { InputSummary } from "@/components/calculators/InputSummary";
 import { ExcelActions } from "@/components/calculators/ExcelActions";
 import { NextCalculatorSection } from "@/components/calculators/NextCalculatorSection";
 import { SdmeQuoteComparison } from "@/components/calculators/SdmeQuoteComparison";
-import { AdFitSlot } from "@/components/monetization/AdFitSlot";
+import { CoupangBanner } from "@/components/monetization/CoupangBanner";
 import { ChevronDown, HeartHandshake, LayoutDashboard, ShieldCheck, Sparkles } from "lucide-react";
 
 type FormValues = Record<string, FieldValue>;
@@ -523,7 +523,7 @@ export function CalculatorClient({ config }: { config: CalculatorConfig }) {
             </div>
           ) : null}
           {canShowResultAds ? (
-            <AdFitSlot placement="calc.primaryAfterSummary" className="mt-8 mb-3" />
+            <CoupangBanner className="mt-8 mb-3" />
           ) : null}
         </section>
       </div>

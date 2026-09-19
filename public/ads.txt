@@ -1,2 +1,2 @@
-# Kakao AdFit does not require an ads.txt entry for this integration.
+# Coupang Partners does not require an ads.txt entry for this integration.
 # Keep this file intentionally empty unless another ad partner requires it.

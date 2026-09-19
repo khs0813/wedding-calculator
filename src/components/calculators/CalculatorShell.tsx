@@ -13,8 +13,7 @@ import { getCalculatorSeoTarget } from "@/data/seoTargets";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { SectionBlocks } from "@/components/content/SectionBlocks";
 import { AuthorBox } from "@/components/content/AuthorBox";
-import { CalculatorSecondaryAd } from "@/components/monetization/CalculatorSecondaryAd";
-import { AdFitSlot } from "@/components/monetization/AdFitSlot";
+import { CoupangBanner } from "@/components/monetization/CoupangBanner";
 
 const conversationPrompts: Record<CalculatorConfig["slug"], string[]> = {
   "wedding-cost": ["총액 상한", "축의금 반영 범위", "양가 협의 항목"],
@@ -133,7 +132,7 @@ export function CalculatorShell({ config }: { config: CalculatorConfig }) {
         </ol>
       </nav>
 
-      <AdFitSlot placement="calc.entryTop" className="mb-6" />
+      <CoupangBanner className="mb-6" />
 
       <section className="mb-8 grid gap-5 rounded-2xl border border-border bg-card p-5 shadow-sm md:p-9">
         <div className="max-w-5xl">
@@ -200,7 +199,7 @@ export function CalculatorShell({ config }: { config: CalculatorConfig }) {
           </div>
         </Card>
 
-        <CalculatorSecondaryAd calculatorSlug={config.slug} />
+        <CoupangBanner className="mt-8 mb-8" />
 
         {seoSections.length ? <CalculatorSeoSections sections={seoSections} /> : null}
 

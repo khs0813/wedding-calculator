@@ -3,7 +3,7 @@ import { join } from "node:path";
 
 const baseUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://weddingbudget.co.kr").replace(/\/$/, "");
 const naverSiteVerification = "7f9774b684775497fa37bf8593bbe8c004c44548";
-const adFitSdkSrc = "https://t1.kakaocdn.net/kas/static/ba.min.js";
+const coupangSdkSrc = "https://ads-partners.coupang.com/g.js";
 const routes = [
   { route: "/", inSitemap: true, index: true },
   { route: "/calculators", inSitemap: true, index: true },
@@ -354,11 +354,10 @@ if (!existsSync(adsTxtPath)) {
 }
 
 const sourceText = readProjectText(["src", "scripts", "public", "README.md", "SECURITY_SEO_AUDIT.md", ".env.example", "render.yaml"]);
-for (const legacySnippet of ["adsby" + "google", "google" + "syndication", "Google " + "AdSense", "t1." + "daumcdn.net"]) {
+for (const legacySnippet of ["adsby" + "google", "google" + "syndication", "Google " + "AdSense", "t1." + "daumcdn.net", "t1." + "kakaocdn.net/kas"]) {
   if (sourceText.includes(legacySnippet)) errors.push(`legacy ad snippet still present: ${legacySnippet}`);
 }
-if (!sourceText.includes(adFitSdkSrc)) errors.push("AdFit SDK source missing");
-if (/DAN-(?!REPLACE-ME)[A-Za-z0-9_-]+/.test(sourceText)) errors.push("real-looking AdFit DAN ID appears to be committed");
+if (!sourceText.includes(coupangSdkSrc)) errors.push("Coupang Partners SDK source missing");
 
 if (!existsSync(sitemapPath)) {
   errors.push("sitemap.xml build output missing");
@@ -466,9 +465,6 @@ if (!existsSync(renderYamlPath)) {
     "startCommand: npm run start",
     "NEXT_PUBLIC_SITE_URL",
     "https://weddingbudget.co.kr",
-    "NEXT_PUBLIC_ADFIT_ENABLED",
-    "NEXT_PUBLIC_ADFIT_ALLOWED_HOSTS",
-    "NEXT_PUBLIC_ADFIT_CALC_PRIMARY_M_320X100",
     "renderSubdomainPolicy: disabled",
   ]) {
     if (!renderYaml.includes(requiredSnippet)) {
