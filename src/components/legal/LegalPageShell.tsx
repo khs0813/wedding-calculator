@@ -32,6 +32,8 @@ export function LegalPageShell({ page }: { page: LegalPage }) {
         <p className="mt-4 text-xs font-bold text-muted-foreground">시행일 및 최종 업데이트: {page.updatedAt}</p>
       </header>
 
+      <CoupangBanner className="mt-8" />
+
       <section className="mt-8 grid gap-6 lg:grid-cols-[1fr_0.9fr]">
         <div className="rounded-2xl border border-border bg-card p-6 shadow-sm md:p-8">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">요약</p>
@@ -61,8 +63,6 @@ export function LegalPageShell({ page }: { page: LegalPage }) {
           </section>
         ))}
       </div>
-
-      <CoupangBanner className="mt-10 mb-8" />
 
       <section className="mt-10">
         <FAQSection title={`${page.title} FAQ`} items={page.faqs} />

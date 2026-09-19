@@ -199,8 +199,6 @@ export function CalculatorShell({ config }: { config: CalculatorConfig }) {
           </div>
         </Card>
 
-        <CoupangBanner className="mt-8 mb-8" />
-
         {seoSections.length ? <CalculatorSeoSections sections={seoSections} /> : null}
 
         <section className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">

@@ -376,7 +376,6 @@ export default async function GuidePage({ params }: PageProps) {
   const faqs = createGuideFaqs(guide);
   const enhancement = guideEnhancements[guide.slug as GuideSlug];
   const tables = guideTables[guide.slug as GuideSlug] || [];
-  const showMidAd = guide.sections.length >= 4;
   const relatedCalculators = (guideCalculatorLinks[guide.slug as GuideSlug] || ["wedding-cost", "newlywed-home-budget", "honsu-budget"])
     .map((calculatorSlug) => calculators.find((calculator) => calculator.slug === calculatorSlug))
     .filter((calculator): calculator is (typeof calculators)[number] => Boolean(calculator));
@@ -432,6 +431,8 @@ export default async function GuidePage({ params }: PageProps) {
         </div>
       </div>
 
+      <CoupangBanner className="mt-8" />
+
       <section className="mt-10 grid gap-6 lg:grid-cols-[1fr_0.9fr]">
         <div className="rounded-2xl border border-border bg-card p-6 shadow-sm md:p-8">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">요약</p>
@@ -450,11 +451,7 @@ export default async function GuidePage({ params }: PageProps) {
       </section>
 
       <div className="mt-10 rounded-2xl border border-border bg-card p-6 shadow-sm md:p-10">
-        <SectionBlocks
-          sections={guide.sections}
-          afterSectionIndex={showMidAd ? 2 : undefined}
-          afterSection={showMidAd ? <CoupangBanner className="mt-16 mb-16" /> : undefined}
-        />
+        <SectionBlocks sections={guide.sections} />
       </div>
 
       {tables.length ? <GuideDataTables tables={tables} /> : null}

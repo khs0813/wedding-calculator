@@ -17,6 +17,7 @@ export default function NotFound() {
       <p className="text-sm font-semibold uppercase tracking-[0.25em] text-muted-foreground">404</p>
       <h1 className="mt-4 text-4xl font-semibold text-foreground">페이지를 찾을 수 없습니다</h1>
       <p className="mt-4 text-muted-foreground">주소가 잘못되었거나 더 이상 제공되지 않는 페이지입니다.</p>
+      <CoupangBanner className="mt-8 mb-6" />
       <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
         <Link href="/" className="inline-flex rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground hover:bg-primary/90">
           홈으로 이동
@@ -28,7 +29,6 @@ export default function NotFound() {
           결혼식 예산표 만들기
         </Link>
       </div>
-      <CoupangBanner className="mt-12" />
     </div>
   );
 }

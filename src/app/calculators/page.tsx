@@ -111,7 +111,9 @@ export default function CalculatorsPage() {
         </div>
       </section>
 
-      <section className="mt-10">
+      <CoupangBanner className="mt-8 mb-4" />
+
+      <section className="mt-8">
         <div className="mb-6">
           <p className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">상황별 선택</p>
           <h2 className="mt-2 text-3xl font-bold tracking-tight">지금 필요한 계산기부터 고르세요</h2>
@@ -134,7 +136,6 @@ export default function CalculatorsPage() {
             );
           })}
         </div>
-        <CoupangBanner className="mt-16 mb-4" />
       </section>
 
       <section className="mt-12">

@@ -69,7 +69,9 @@ export default function GuidesIndexPage() {
         <p className="mt-5 max-w-5xl text-base leading-8 text-muted-foreground">계산기 결과만으로는 부족한 판단 기준을 문서로 정리한 허브입니다. 각 가이드는 발행일, 수정일, 작성자와 참고 자료를 포함하고, 실제 사용 예시를 함께 제공합니다.</p>
       </section>
 
-      <section className="mt-10">
+      <CoupangBanner className="mt-8 mb-4" />
+
+      <section className="mt-8">
         <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">추천</p>
@@ -98,7 +100,6 @@ export default function GuidesIndexPage() {
             </Card>
           ))}
         </div>
-        <CoupangBanner className="mt-16 mb-16" />
       </section>
 
       <section className="mt-14">

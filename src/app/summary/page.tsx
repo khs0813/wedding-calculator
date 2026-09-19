@@ -68,8 +68,9 @@ export default function SummaryPage() {
         </p>
       </section>
 
+      <CoupangBanner className="mb-8" />
+
       <SummaryResultsTableCard />
-      <CoupangBanner className="mt-10 mb-8" />
     </div>
   );
 }
