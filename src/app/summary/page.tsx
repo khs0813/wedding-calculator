@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { SummaryResultsTableCard } from "@/components/calculators/AllResultsDashboard";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { absolutePageUrl, absoluteUrl, buildBreadcrumbSchema } from "@/lib/seo";
+import { CoupangBanner } from "@/components/monetization/CoupangBanner";
 
 export const metadata: Metadata = {
   title: "결혼 예산표 요약 | 저장된 결혼 비용 한눈에 보기",
@@ -68,6 +69,7 @@ export default function SummaryPage() {
       </section>
 
       <SummaryResultsTableCard />
+      <CoupangBanner className="mt-10 mb-8" />
     </div>
   );
 }

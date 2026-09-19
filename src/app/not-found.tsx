@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { CoupangBanner } from "@/components/monetization/CoupangBanner";
 
 export const metadata: Metadata = {
   title: "페이지를 찾을 수 없습니다",
@@ -27,6 +28,7 @@ export default function NotFound() {
           결혼식 예산표 만들기
         </Link>
       </div>
+      <CoupangBanner className="mt-12" />
     </div>
   );
 }

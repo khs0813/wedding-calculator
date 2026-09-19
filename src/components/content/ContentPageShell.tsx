@@ -3,6 +3,7 @@ import { absolutePageUrl, buildBreadcrumbSchema } from "@/lib/seo";
 import type { SiteContentPage } from "@/types/calculator";
 import { SectionBlocks } from "@/components/content/SectionBlocks";
 import { FAQSection } from "@/components/seo/FAQSection";
+import { CoupangBanner } from "@/components/monetization/CoupangBanner";
 import Link from "next/link";
 
 export function ContentPageShell({ page }: { page: SiteContentPage }) {
@@ -52,6 +53,8 @@ export function ContentPageShell({ page }: { page: SiteContentPage }) {
       <div className="mt-8 rounded-2xl border border-border bg-card p-6 shadow-sm md:p-10">
         <SectionBlocks sections={page.sections} />
       </div>
+
+      <CoupangBanner className="mt-10 mb-8" />
 
       <section className="mt-10">
         <FAQSection title={`${page.title} FAQ`} items={page.faqs} />

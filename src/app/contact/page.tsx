@@ -5,6 +5,7 @@ import { absolutePageUrl, absoluteUrl, buildBreadcrumbSchema } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { FAQSection } from "@/components/seo/FAQSection";
 import { ContactEmailBox } from "@/components/contact/ContactEmailBox";
+import { CoupangBanner } from "@/components/monetization/CoupangBanner";
 
 const page = getLegalPage("contact");
 
@@ -110,6 +111,8 @@ export default function ContactPage() {
           </ul>
         </section>
       </div>
+
+      <CoupangBanner className="mt-10 mb-8" />
 
       <section className="mt-10">
         <FAQSection title={`${page.title} FAQ`} items={page.faqs} />

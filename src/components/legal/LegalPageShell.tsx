@@ -2,6 +2,7 @@ import type { LegalPage } from "@/data/legalPages";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { absolutePageUrl, buildBreadcrumbSchema } from "@/lib/seo";
 import { FAQSection } from "@/components/seo/FAQSection";
+import { CoupangBanner } from "@/components/monetization/CoupangBanner";
 import Link from "next/link";
 
 export function LegalPageShell({ page }: { page: LegalPage }) {
@@ -60,6 +61,8 @@ export function LegalPageShell({ page }: { page: LegalPage }) {
           </section>
         ))}
       </div>
+
+      <CoupangBanner className="mt-10 mb-8" />
 
       <section className="mt-10">
         <FAQSection title={`${page.title} FAQ`} items={page.faqs} />
