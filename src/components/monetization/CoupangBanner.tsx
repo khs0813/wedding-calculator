@@ -90,10 +90,10 @@ export function CoupangBanner({ className = "" }: CoupangBannerProps) {
         if (window.PartnersCoupang?.G) {
           try {
             new window.PartnersCoupang.G({
-              id: 999028,
+              id: 1031229,
               template: "carousel",
               trackingCode: "AF4791224",
-              width: "680",
+              width: "100%",
               height: "140",
               tsource: "",
               container,

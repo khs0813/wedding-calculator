@@ -103,11 +103,13 @@ a {
   display: flex !important;
   justify-content: center;
   align-items: center;
+  width: 100% !important;
   max-width: 100%;
   overflow: hidden;
 }
 
 .coupang-banner-container iframe {
+  width: 100% !important;
   max-width: 100%;
 }
 
